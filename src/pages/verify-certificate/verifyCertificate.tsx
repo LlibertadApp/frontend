@@ -14,7 +14,6 @@ const VerifyCertificate = () => {
     setCorrectData((correctData) => !correctData);
   };
 
-  console.log(correctData);
   return (
     <section className="items-center flex flex-col justify-center text-center">
       <FormHeader
