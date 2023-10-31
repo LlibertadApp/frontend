@@ -1,6 +1,7 @@
 import { LoadingPage } from '#/pages/loading-page';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import ProtectedRoute from '../components/protectedRoute/protectedRoute';
 
 const Login = lazy(() => import('#/pages/login/login'));
 const Profile = lazy(() => import('#/pages/profile/profile'));
@@ -23,25 +24,25 @@ const AppRoutes: React.FC = () => (
   <Routes>
     {/* Auth */}
     <Route path="/login" element={<Login />} />
-    {/* TODO: Agregar Middleware (si no existe user, no entra a las siguientes rutas) */}
+    <Route element={<ProtectedRoute />}>
+      {/* Cuenta */}
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/profile" element={<Profile />} />
 
-    {/* Cuenta */}
-    <Route path="/dashboard" element={<Dashboard />} />
-    <Route path="/profile" element={<Profile />} />
+      {/* Steps Formulario */}
+      <Route path="/upload-certificate" element={<UploadCertificate />} />
+      <Route path="/verify-certificate" element={<VerifyCertificate />} />
+      <Route path="/load-information" element={<LoadInformation />} />
+      <Route path="/send-success" element={<SendSuccess />} />
 
-    {/* Steps Formulario */}
-    <Route path="/upload-certificate" element={<UploadCertificate />} />
-    <Route path="/verify-certificate" element={<VerifyCertificate />} />
-    <Route path="/load-information" element={<LoadInformation />} />
-    <Route path="/send-success" element={<SendSuccess />} />
+      {/* Filters & Results */}
+      <Route path="/filter-results" element={<FilterPage />} />
+      <Route path="/total-results" element={<TotalResults />} />
 
-    {/* Filters & Results */}
-    <Route path="/filter-results" element={<FilterPage />} />
-    <Route path="/total-results" element={<TotalResults />} />
-
-    {/* Utils */}
-    <Route path="/loading-page" element={<LoadingPage />} />
-    <Route path="/" element={<Login />} />
+      {/* Utils */}
+      <Route path="/loading-page" element={<LoadingPage />} />
+      <Route path="/" element={<Login />} />
+    </Route>
 
     {/* 404 Not found */}
     <Route path="*" element={<NotFound />} />
