@@ -8,22 +8,25 @@ import Input from '#/components/input';
 import useAxios from '#/hooks/utils/useAxios';
 import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
+import { useEffect } from 'react';
+import { LoadingPage } from '../loading-page';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const axios = useAxios();
+  const { state, get } = useAxios();
+
+  useEffect(() => {
+    if (state.data) {
+      login(state.data);
+      navigate('/dashboard');
+    }
+  });
 
   const onSubmit = async (values: ILoginProps) => {
     //TODO: Cambiar cuando la logica del LOGIN (desde el back, me devuelva el JWT y la info del Usuario)
     //TODO: Descomentar cuando este todo listo -> const { data, error, loading } = await axios.post('/auth', values);
-    const { data, error, loading } = await axios.get('/user');
-
-    if (error) return; //TODO: Snackbar de error.
-    if (loading) return; //TODO: Spinner de carga.
-
-    login(data);
-    navigate('/dashboard');
+    await get('/user');
   };
 
   const validationSchema = yup.object({
@@ -57,6 +60,10 @@ const LoginPage: React.FC = () => {
       e.target.value = formatted;
     }
     handleChange(e);
+  }
+
+  if (state.loading) {
+    return <LoadingPage />;
   }
 
   return (
