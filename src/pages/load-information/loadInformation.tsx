@@ -300,7 +300,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
                 </div>
               </label>
             </div>
-            <div className="px-3">
+            <div className="px-3 cursor-pointer" onClick={handleCheckbox}>
               <h3 className="text-start text-base">
                 Verifico que controlé y que todos los datos son correctos.
               </h3>
