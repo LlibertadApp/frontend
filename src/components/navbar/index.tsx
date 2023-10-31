@@ -1,40 +1,63 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '#/context/AuthContext';
+import Button from '#/components/button';
+import { INavbarProps } from './types';
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<INavbarProps> = ({
+  routerLink = '/dashboard',
+  showArrow = true,
+  showHamburger = true,
+}) => {
+  const { logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <div className="bg-violet-brand p-4 px-8 w-full flex flex-col h-18">
       <div className="w-full flex flex-row items-center justify-between">
-        <div className="flex-shrink-0">
-          <img
-            src="/src/assets/logos/fenix-white.svg"
-            alt="Logo"
-            className="object-cover rounded w-16 h-16"
-          />
+        <div className="flex">
+          {showArrow && (
+            <Link to={routerLink}>
+              <img
+                src="src/assets/images/back-arrow.svg"
+                alt="Volver"
+                className="object-cover rounded w-5 h-auto"
+              />
+            </Link>
+          )}
+        </div>
+        <div className="flex">
+          <div className="flex-shrink-0 ml-auto">
+            <img
+              src="src/assets/logos/fenix-new.svg"
+              alt="Logo"
+              className="object-cover rounded w-12 h-12"
+            />
+          </div>
         </div>
         <div className="flex flex-col justify-center">
-          <div
-            className="flex justify-center cursor-pointer transform transition-transform hover:scale-110"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {!menuOpen ? (
-              <img
-                src="/src/assets/icon/menu.svg"
-                alt="User profile"
-                className="object-cover rounded w-8 h-8"
-              />
-            ) : (
-              <img
-                src="/src/assets/icon/close.svg"
-                alt="User profile"
-                className="object-cover rounded w-6 h-6 mr-1"
-              />
-            )}
-          </div>
+          {showHamburger && (
+            <div
+              className="flex justify-center cursor-pointer transform transition-transform hover:scale-110"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {!menuOpen ? (
+                <img
+                  src="/src/assets/icon/menu.svg"
+                  alt="User profile"
+                  className="object-cover rounded w-6 h-6"
+                />
+              ) : (
+                <img
+                  src="/src/assets/icon/close.svg"
+                  alt="User profile"
+                  className="object-cover rounded w-6 h-6"
+                />
+              )}
+            </div>
+          )}
+
           {menuOpen && (
-            <div className="absolute bg-white right-6 top-20 rounded-xl px-1 shadow-2xl">
+            <div className="absolute bg-white right-6 top-20 rounded-xl px-1 shadow-2xl z-20">
               <div className="absolute top-[-15px] right-12 w-0 h-0">
                 <svg width="50" height="20">
                   <polygon points="25,0 0,50 50,50" fill="white" />
@@ -85,7 +108,12 @@ const Navbar: React.FC = () => {
                     alt="User profile"
                     className="object-cover rounded text-violet-brand"
                   />
-                  <Link to="/login">Cerrar sesión</Link>
+                  <Button
+                    onClick={() => logout()}
+                    label="Cerrar sesión"
+                    type="button"
+                    className=""
+                  />
                 </div>
               </div>
             </div>
