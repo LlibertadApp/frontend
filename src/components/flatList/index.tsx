@@ -51,7 +51,8 @@ const FlatList = ({
       <input
         type="number"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleVoteChange(Number(e.target.value))}
-        value={vote}
+        value={vote === 0 ? '' : vote}
+        placeholder='0'
         readOnly={!edit}
         className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold rounded-xl h-12 w-32 flex text-2xl ${selectedInputStyle}`}
       />
