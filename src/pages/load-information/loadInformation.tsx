@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import Button from '#/components/button';
-import Navbar from '#/components/navbar';
 import FlatList from '#/components/flatList';
 import ProgressIndicator from '#/components/progressIndicator';
 
@@ -13,6 +12,7 @@ import { ILoadInformationProps } from './types';
 import { useState } from 'react';
 
 import './styles.css';
+import FormHeader from '#/components/formHeader';
 
 const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
   // Migrate to global state later?
@@ -222,7 +222,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
                   Diferencia <img src="src/assets/icon/warn-icon.svg"></img>
                 </div>
               ) : (
-                <div className=''>Diferencia</div>
+                <div className="">Diferencia</div>
               )}
             </div>
             <div className="text-xl font-semibold px-3 py-5 mr-10">
@@ -303,30 +303,30 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             </div>
           </div>
         </div>
-          <div className="flex items-center justify-center my-10">
-            {/* TODO: EL estado de ProgressBar.error deberia ponerse cuando no cumpla esta condicion */}
-            {0 <= electors - envelopes &&
-            electors - envelopes <= 4 &&
-            envelopes - totalVotes === 0 &&
-            totalVotes != 0 &&
-            correctData ? (
-              <Link to="/send-success" className="w-full mx-6">
-                <Button
-                  className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full"
-                  type="submit"
-                  label="Enviar Datos"
-                />
-              </Link>
-            ) : (
-              <div className="w-full mx-6">
-                <Button
-                  className="bg-gray-300 p-4 text-black rounded-xl font-semibold text-xl tracking-wider w-full cursor-default"
-                  type="submit"
-                  label="Enviar Datos"
-                />
-              </div>
-            )}
-          </div>
+        <div className="flex items-center justify-center my-10">
+          {/* TODO: EL estado de ProgressBar.error deberia ponerse cuando no cumpla esta condicion */}
+          {0 <= electors - envelopes &&
+          electors - envelopes <= 4 &&
+          envelopes - totalVotes === 0 &&
+          totalVotes != 0 &&
+          correctData ? (
+            <Link to="/send-success" className="w-full mx-6">
+              <Button
+                className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full"
+                type="submit"
+                label="Enviar Datos"
+              />
+            </Link>
+          ) : (
+            <div className="w-full mx-6">
+              <Button
+                className="bg-gray-300 p-4 text-black rounded-xl font-semibold text-xl tracking-wider w-full cursor-default"
+                type="submit"
+                label="Enviar Datos"
+              />
+            </div>
+          )}
+        </div>
         <div className="flex items-center justify-center my-10">
           <Link to="/" className="w-full mx-6">
             <Button
