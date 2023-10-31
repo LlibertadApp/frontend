@@ -24,7 +24,6 @@ const VerifyCertificate = () => {
               ProgressStepStatus.Successful,
               ProgressStepStatus.Active,
               ProgressStepStatus.Pending,
-              ProgressStepStatus.Pending,
             ]}
           />
 

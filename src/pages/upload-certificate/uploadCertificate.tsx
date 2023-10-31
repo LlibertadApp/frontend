@@ -35,7 +35,6 @@ const UploadCertificate = () => {
               ProgressStepStatus.Active,
               ProgressStepStatus.Pending,
               ProgressStepStatus.Pending,
-              ProgressStepStatus.Pending,
             ]}
           />
           <div className="text-start my-6">

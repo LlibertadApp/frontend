@@ -145,7 +145,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
               ProgressStepStatus.Successful,
               ProgressStepStatus.Successful,
               ProgressStepStatus.Active,
-              ProgressStepStatus.Pending,
             ]}
           />
         </div>
@@ -160,7 +159,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             <input
               type="number"
               value={circuit === 0 ? '' : circuit}
-              placeholder='0'
+              placeholder="0"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleCircuitChange(Number(e.target.value))
               }
@@ -172,7 +171,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             <input
               type="number"
               value={table === 0 ? '' : table}
-              placeholder='0'
+              placeholder="0"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleTableChange(Number(e.target.value))
               }
@@ -188,7 +187,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             <input
               type="number"
               value={electors === 0 ? '' : electors}
-              placeholder='0'
+              placeholder="0"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleElectorsChange(Number(e.target.value))
               }
@@ -204,7 +203,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             <input
               type="number"
               value={envelopes === 0 ? '' : envelopes}
-              placeholder='0'
+              placeholder="0"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleEnvelopesChange(Number(e.target.value))
               }
