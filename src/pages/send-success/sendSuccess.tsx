@@ -10,7 +10,7 @@ import './styles.css';
 
 const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
   return (
-    <section className="bg-gray-100 items-center flex flex-col ">
+    <section className="items-center flex flex-col ">
       <FormHeader routerLink="/load-information" title="Datos enviados con éxito" />
       <div className="p-4">
         <div className="container mx-auto">
