@@ -18,7 +18,6 @@ const FilterPage = () => {
           <Selector provincias={DummyData} placeholder="Sección" />
           <Selector provincias={DummyData} placeholder="Municipio" />
           <Selector provincias={DummyData} placeholder="Circuito " />
-          <Selector provincias={DummyData} placeholder="Establecimiento" />
           <Selector provincias={DummyData} placeholder="Mesa" />
         </div>
 
