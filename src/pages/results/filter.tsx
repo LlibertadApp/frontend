@@ -21,7 +21,7 @@ const FilterPage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar routerLink='/total-results' />
       <main className="items-center flex flex-col relative px-10">
         <section className="md:w-1/2 w-full rounded-xl z-10 mt-10">
           <h1 className="text-xl font-bold mb-6">Resultados totales</h1>

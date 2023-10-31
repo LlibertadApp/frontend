@@ -1,13 +1,11 @@
-import React from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 
-export default function ProtectedRoute(): JSX.Element {
-  const { user } = useAuth();
+export default function ProtectedRoute(): React.ReactElement {
+  const { user, refreshToken } = useAuth();
 
-  if (!user) {
-    return <Navigate to="/login" replace />
-  }
+  if (!user) refreshToken();
 
-  return <Outlet />
+  return <Outlet />;
 }

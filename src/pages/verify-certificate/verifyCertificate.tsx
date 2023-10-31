@@ -3,23 +3,20 @@ import { observer } from 'mobx-react';
 import { useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
-import FormHeader from '#/components/formHeader';
+import Navbar from '#/components/navbar';
 
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 
 const VerifyCertificate = () => {
-
-
   const [correctData, setCorrectData] = useState<boolean>(false);
   const handleCheckbox = () => {
     setCorrectData((correctData) => !correctData);
   };
 
-
   return (
     <section className="items-center flex flex-col justify-center text-center">
-      <FormHeader routerLink="/upload-certificate" title="Cargá el certificado del fiscal" />
+      <Navbar routerLink="/upload-certificate" />
       <div className="w-full text-center">
         <div className="container mx-auto flex-column my-210">
           <ProgressIndicator
@@ -80,7 +77,7 @@ const VerifyCertificate = () => {
           {/* TODO: Agregar lógica de documento al reintentar */}
           <div className="flex flex-col items-center justify-center w-full p-4">
             {/* TODO: Mover a Dashboard */}
-            <Link to="/load-information" className='flex w-full'>
+            <Link to="/load-information" className="flex w-full">
               <Button
                 className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
                 type="button"
