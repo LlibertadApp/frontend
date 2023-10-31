@@ -1,27 +1,36 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className="bg-violet-brand p-4 w-full flex flex-col h-18">
-      <div className="w-full flex flex-row items-center justify-between">
-        <div className="flex-shrink-0">
+    <div className='bg-violet-brand p-4 w-full flex justify-between items-center text-white'>
+      <div>
+        <Link to="/">
           <img
-            src="/src/assets/logos/fenix-white.svg"
+            src='src/assets/images/back-arrow.svg'
+            alt='Volver'
+            className='object-cover rounded w-4 sm:w-8 h-auto'
+          />
+        </Link>
+      </div>
+      <div>
+      <div className="flex-shrink-0">
+          <img
+            src="src/assets/logos/fenix-new.svg"
             alt="Logo"
-            className="object-cover rounded w-16 h-16"
+            className="object-cover rounded w-12 h-12"
           />
         </div>
-        <div className="flex-shrink-0">
-          <Link to="/profile">
-            <img
-              src="/src/assets/icon/user.svg"
-              alt="User profile"
-              className="object-cover rounded w-8 h-8"
-            />
-          </Link>
-        </div>
+      </div>
+      <div>
+        <img
+          src='src/assets/images/menu.svg'
+          alt='Menú'
+          className='cursor-pointer w-6 h-6'
+        />
       </div>
     </div>
+
   );
 };
 
