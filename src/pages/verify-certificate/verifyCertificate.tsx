@@ -66,9 +66,9 @@ const VerifyCertificate = () => {
                 </label>
               </div>
               <div className="px-3">
-                <h3 className="text-start text-base">
-                  Verifico que la imagen está firmada por el presidente de mesa
-                  y fue completado por mí previamente..
+                <h3 className="text-start text-base cursor-pointer" onClick={handleCheckbox}>
+                  Verifico que la imagen está firmada por
+                  el presidente de mesa y fue completado por mí previamente.
                 </h3>
               </div>
             </div>

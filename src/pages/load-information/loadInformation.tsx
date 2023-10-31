@@ -159,22 +159,24 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             </div>
             <input
               type="number"
-              value={circuit}
+              value={circuit === 0 ? '' : circuit}
+              placeholder='0'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleCircuitChange(Number(e.target.value))
               }
-              className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-xl ${circuitInputStyle}`}
+              className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${circuitInputStyle}`}
             />
           </div>
           <div>
             <div className="text-violet-brand font-bold text-xl my-2">Mesa</div>
             <input
               type="number"
-              value={table}
+              value={table === 0 ? '' : table}
+              placeholder='0'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleTableChange(Number(e.target.value))
               }
-              className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-xl ${tableInputStyle}`}
+              className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${tableInputStyle}`}
             />
           </div>
         </div>
@@ -185,11 +187,12 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             </div>
             <input
               type="number"
-              value={electors}
+              value={electors === 0 ? '' : electors}
+              placeholder='0'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleElectorsChange(Number(e.target.value))
               }
-              className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-xl ${electorsInputStyle}`}
+              className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${electorsInputStyle}`}
             />
           </div>
         </div>
@@ -200,11 +203,12 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             </div>
             <input
               type="number"
-              value={envelopes}
+              value={envelopes === 0 ? '' : envelopes}
+              placeholder='0'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleEnvelopesChange(Number(e.target.value))
               }
-              className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-xl ${envelopesInputStyle}`}
+              className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${envelopesInputStyle}`}
             />
           </div>
         </div>
@@ -214,7 +218,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
         >
           <div className="flex p-2 justify-between items-center w-full  max-w-md ">
             <div
-              className={`text-xl text-neutral-700 font-bold px-3 py-5 tracking-wide ${electorsEnvelopesDiffStyle}`}
+              className={`text-2xl text-neutral-700 font-bold px-3 py-5 tracking-wide ${electorsEnvelopesDiffStyle}`}
             >
               {electorsEnvelopesDiffStyle ? (
                 <div className="flex flex-row gap-2">
@@ -224,7 +228,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
                 <div className="">Diferencia</div>
               )}
             </div>
-            <div className="text-xl font-semibold px-3 py-5 mr-10">
+            <div className="text-2xl font-semibold px-3 py-5 mr-10">
               {electors - envelopes}
             </div>
           </div>
@@ -265,7 +269,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
               )}
             </div>
             <div
-              className={`text-xl font-semibold px-3 py-5 mr-10 ${totalVotesDiffStyle}`}
+              className={`text-2xl font-semibold px-3 py-5 mr-10 ${totalVotesDiffStyle}`}
             >
               {totalVotes}
             </div>
@@ -295,7 +299,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
                 </div>
               </label>
             </div>
-            <div className="px-3">
+            <div className="px-3 cursor-pointer" onClick={handleCheckbox}>
               <h3 className="text-start text-base">
                 Verifico que controlé y que todos los datos son correctos.
               </h3>
