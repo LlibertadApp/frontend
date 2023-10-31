@@ -36,13 +36,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     sessionStorage.setItem('accessToken', userData.jwt);
     setIsAuthenticated(true);
     setUser(userData);
-    navigate('/dashboard');
   };
 
   const logout = () => {
     sessionStorage.removeItem('accessToken');
     setIsAuthenticated(false);
     setUser(null);
+    navigate('/login');
   };
 
   const refreshToken = async () => {

@@ -5,12 +5,12 @@ import * as yup from 'yup';
 
 import Button from '#/components/button';
 import Input from '#/components/input';
-import { SnackBar } from '#/components/snackbar';
 import useAxios from '#/hooks/utils/useAxios';
 import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
 
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
   const { login } = useAuth();
   const axios = useAxios();
 
@@ -23,6 +23,7 @@ const LoginPage: React.FC = () => {
     if (loading) return; //TODO: Spinner de carga.
 
     login(data);
+    navigate('/dashboard');
   };
 
   const validationSchema = yup.object({
