@@ -8,7 +8,7 @@ const DashboardPage = () => {
   const { user } = useAuth();
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <Navbar routerLink="/dashboard" showArrow={false} />
       <section className="flex justify-center">
         <div className="md:w-1/2 w-5/6 shadow-3xl rounded-xl py-16 flex flex-col items-center space-y-8">
           <div className="container mx-auto flex flex-col items-center text-gray bg-white rounded-xl p-2 text-gray-dark shadow-md mb-12">

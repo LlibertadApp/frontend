@@ -9,7 +9,7 @@ const ProfilePage = () => {
   const { user } = useAuth();
   return (
     <>
-      <Navbar />
+      <Navbar routerLink="/dashboard" />
       <main className="min__height-main flex justify-between flex-col px-4 profile__design bg-white">
         {user && <DataProfile user={user} />}
         <ButtonSignout />

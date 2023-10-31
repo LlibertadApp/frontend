@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import Button from '#/components/button';
 import FlatList from '#/components/flatList';
 import ProgressIndicator from '#/components/progressIndicator';
-
+import Navbar from '#/components/navbar';
 import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { ILoadInformationProps } from './types';
@@ -12,7 +12,6 @@ import { ILoadInformationProps } from './types';
 import { useState } from 'react';
 
 import './styles.css';
-import FormHeader from '#/components/formHeader';
 
 const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
   // Migrate to global state later?
@@ -138,7 +137,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
 
   return (
     <section className="bg-white items-center flex flex-col">
-      <FormHeader routerLink="/verify-certificate" title="" />
+      <Navbar routerLink="/verify-certificate" />
       <div className="container mx-auto p-2">
         <div className="flex items-center justify-center my-210">
           <ProgressIndicator
@@ -328,13 +327,11 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
           )}
         </div>
         <div className="flex items-center justify-center my-10">
-          <Link to="/" className="w-full mx-6">
-            <Button
-              className="text-red bg-transparent p-3 w-full rounded-xl text-xl"
-              type="submit"
-              label="Denunciar Irregularidad"
-            />
-          </Link>
+          <Button
+            className="text-red bg-transparent p-3 w-full rounded-xl text-xl"
+            type="button"
+            label="Denunciar Irregularidad"
+          />
         </div>
       </div>
     </section>
