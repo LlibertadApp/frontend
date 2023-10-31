@@ -116,7 +116,7 @@ const TotalResultsPage = () => {
       <div className="flex flex-col px-8 lg:px-60 mt-10">
         <div className="border border-t-1 opacity-70"></div>
         <div className="my-2">
-          <span className="text-[17px] text-[#64748B]">Total de votes</span>
+          <span className="text-[17px] text-[#64748B]">Total de votos</span>
           <p className="text-[25px] font-bold uppercase text-[#61439D]">
             27,000,000
           </p>

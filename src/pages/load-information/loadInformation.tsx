@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import Button from '#/components/button';
-import FormHeader from '#/components/formHeader';
+import Navbar from '#/components/navbar';
 import FlatList from '#/components/flatList';
 import ProgressIndicator from '#/components/progressIndicator';
 
@@ -153,7 +153,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
         <div className="py-8 text-neutral-700 text-xl font-bold">
           Cargar datos del certificado
         </div>
-        <div className="flex flex-row w-full justify-center gap-16">
+        <div className="flex flex-row w-full justify-center gap-24">
           <div>
             <div className="text-violet-brand font-bold text-xl my-2">
               Circuito
@@ -303,29 +303,30 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center my-10">
-          {0 <= electors - envelopes &&
-          electors - envelopes <= 4 &&
-          envelopes - totalVotes === 0 &&
-          totalVotes != 0 &&
-          correctData ? (
-            <Link to="/send-success" className="w-full mx-6">
-              <Button
-                className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full"
-                type="submit"
-                label="Enviar Datos"
-              />
-            </Link>
-          ) : (
-            <div className="w-full mx-6">
-              <Button
-                className="bg-gray-300 p-4 text-black rounded-xl font-semibold text-xl tracking-wider w-full cursor-default"
-                type="submit"
-                label="Enviar Datos"
-              />
-            </div>
-          )}
-        </div>
+          <div className="flex items-center justify-center my-10">
+            {/* TODO: EL estado de ProgressBar.error deberia ponerse cuando no cumpla esta condicion */}
+            {0 <= electors - envelopes &&
+            electors - envelopes <= 4 &&
+            envelopes - totalVotes === 0 &&
+            totalVotes != 0 &&
+            correctData ? (
+              <Link to="/send-success" className="w-full mx-6">
+                <Button
+                  className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full"
+                  type="submit"
+                  label="Enviar Datos"
+                />
+              </Link>
+            ) : (
+              <div className="w-full mx-6">
+                <Button
+                  className="bg-gray-300 p-4 text-black rounded-xl font-semibold text-xl tracking-wider w-full cursor-default"
+                  type="submit"
+                  label="Enviar Datos"
+                />
+              </div>
+            )}
+          </div>
         <div className="flex items-center justify-center my-10">
           <Link to="/" className="w-full mx-6">
             <Button

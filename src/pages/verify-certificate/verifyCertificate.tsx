@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-
+import { useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
 import FormHeader from '#/components/formHeader';
@@ -9,6 +9,14 @@ import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 
 const VerifyCertificate = () => {
+
+
+  const [correctData, setCorrectData] = useState<boolean>(false);
+  const handleCheckbox = () => {
+    setCorrectData((correctData) => !correctData);
+  };
+
+
   return (
     <section className="items-center flex flex-col justify-center text-center">
       <FormHeader routerLink="/upload-certificate" title="Cargá el certificado del fiscal" />
@@ -41,7 +49,7 @@ const VerifyCertificate = () => {
             />
           </div>
 
-          <div className="flex items-center text-sm my-10">
+          <div className="flex items-center justify-center text-sm my-10">
             <div className="flex items-center px-12">
               <div className="inline-flex items-center">
                 <label
@@ -51,7 +59,9 @@ const VerifyCertificate = () => {
                   <input
                     id="login"
                     type="checkbox"
-                    className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-violet-500 checked:bg-violet-500 checked:before:bg-violet-500 hover:before:opacity-10"
+                    checked={correctData}
+                    onChange={handleCheckbox}
+                    className="before:content[''] peer relative h-7 w-7 cursor-pointer appearance-none rounded-md border-2 border-violet-brand transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-violet-brand checked:bg-violet-brand checked:before:bg-violet-500 hover:before:opacity-10"
                   />
                   <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
                     <img src="src/assets/icon/check-icon.svg" alt="check" />
@@ -59,9 +69,9 @@ const VerifyCertificate = () => {
                 </label>
               </div>
               <div className="px-3">
-                <h3 className="text-start text-md">
-                  Verifico que la imagen está firmada por el presidente de mesa
-                  y fue completado por mí previamente.
+                <h3 className="text-start text-base">
+                  Verifico que la imagen está firmada por
+                  el presidente de mesa y fue completado por mí previamente..
                 </h3>
               </div>
             </div>

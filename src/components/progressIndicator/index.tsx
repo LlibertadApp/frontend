@@ -8,13 +8,14 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
       {steps.map((step, index) => (
         <React.Fragment key={index}>
           <div
-            className={`circle flex justify-center items-center rounded-full ${
-              step === ProgressStepStatus.Active
+            className={`circle flex justify-center items-center rounded-full ${step === ProgressStepStatus.Active
                 ? 'bg-violet-brand text-white'
                 : step === ProgressStepStatus.Successful
-                ? 'bg-green-check text-white'
-                : 'bg-gray-light text-black'
-            }`}
+                  ? 'bg-green-check text-white'
+                  : step === ProgressStepStatus.Error
+                    ? 'bg-red-error text-white'
+                    : 'bg-gray-light text-black'
+              }`}
           >
             {step === ProgressStepStatus.Successful ? (
               <img
@@ -22,22 +23,27 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
                 src="src/assets/icon/check-icon.svg"
                 alt=""
               />
+            ) : step === ProgressStepStatus.Error ? (
+              <img
+                className="w-4 h-4"
+                src="src/assets/icon/error-icon.svg"
+                alt=""
+              />
+              // Se agregó el progress de error
             ) : (
               <span className="font-normal text-xl">
                 {(index + 1).toString()}
               </span>
             )}
           </div>
-
           {index != steps.length - 1 && (
             <div
-              className={`stick ${
-                step === ProgressStepStatus.Active
+              className={`stick ${step === ProgressStepStatus.Active
                   ? 'bg-violet-brand text-white'
                   : step === ProgressStepStatus.Successful
-                  ? 'bg-green-check text-white'
-                  : 'bg-gray-light text-black'
-              }`}
+                    ? 'bg-green-check text-white'
+                    : 'bg-gray-light text-black'
+                }`}
             ></div>
           )}
         </React.Fragment>
