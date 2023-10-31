@@ -10,18 +10,21 @@ import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
 import { useEffect } from 'react';
 import { LoadingPage } from '../loading-page';
+import { useLoader } from '#/context/LoaderContext';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const { state, get } = useAxios();
+  const { setLoading } = useLoader();
 
   useEffect(() => {
+    setLoading(state.loading);
     if (state.data) {
       login(state.data);
       navigate('/dashboard');
     }
-  });
+  }, [state]);
 
   const onSubmit = async (values: ILoginProps) => {
     //TODO: Cambiar cuando la logica del LOGIN (desde el back, me devuelva el JWT y la info del Usuario)
@@ -60,10 +63,6 @@ const LoginPage: React.FC = () => {
       e.target.value = formatted;
     }
     handleChange(e);
-  }
-
-  if (state.loading) {
-    return <LoadingPage />;
   }
 
   return (
