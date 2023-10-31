@@ -57,8 +57,8 @@ const Navbar: React.FC<INavbarProps> = ({
           )}
 
           {menuOpen && (
-            <div className="absolute bg-white right-6 top-20 rounded-xl px-1 shadow-2xl z-20">
-              <div className="absolute top-[-15px] right-12 w-0 h-0">
+            <div className="absolute bg-white md:right-6 right-0 top-20 rounded-xl px-1 shadow-2xl">
+              <div className="absolute top-[-15px] right-16 md:right-10 w-0 h-0">
                 <svg width="50" height="20">
                   <polygon points="25,0 0,50 50,50" fill="white" />
                 </svg>
@@ -66,7 +66,7 @@ const Navbar: React.FC<INavbarProps> = ({
               <div className="w-full text-left py-4 px-8 pt-6 border-b-2 border-gray-100 font-bold text-xl text-violet-brand">
                 <span>Javier</span>
               </div>
-              <div className="flex flex-col px-8 py-8 gap-y-6 items-start text-lg text-[#363F45] ">
+              <div className="flex flex-col px-8 py-8 gap-y-6 items-start text-left text-lg text-[#363F45]">
                 {/* El gris pactado no se parece al de figma */}
                 <Link
                   to="/profile"
