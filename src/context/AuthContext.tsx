@@ -14,6 +14,7 @@ interface AuthContextType {
   user: IUser | null;
   login: (user: IUser) => void;
   logout: () => void;
+  refreshToken: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -49,6 +50,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const accessToken = sessionStorage.getItem('accessToken');
     if (!accessToken) return logout();
 
+    // TODO: Validar q el token sea valido no este vencido, este firmado, etc.
+
     const { data, error } = await axios.get('/refreshToken');
     if (error) return logout();
 
@@ -56,7 +59,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, user, login, logout, refreshToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

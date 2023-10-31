@@ -24,6 +24,12 @@ const AppRoutes: React.FC = () => (
   <Routes>
     {/* Auth */}
     <Route path="/login" element={<Login />} />
+    {/* Utils */}
+    <Route path="/loading-page" element={<LoadingPage />} />
+    {/* 404 Not found */}
+    <Route path="*" element={<NotFound />} />
+
+    {/* Protected routes */}
     <Route element={<ProtectedRoute />}>
       {/* Cuenta */}
       <Route path="/dashboard" element={<Dashboard />} />
@@ -38,14 +44,7 @@ const AppRoutes: React.FC = () => (
       {/* Filters & Results */}
       <Route path="/filter-results" element={<FilterPage />} />
       <Route path="/total-results" element={<TotalResults />} />
-
-      {/* Utils */}
-      <Route path="/loading-page" element={<LoadingPage />} />
-      <Route path="/" element={<Login />} />
     </Route>
-
-    {/* 404 Not found */}
-    <Route path="*" element={<NotFound />} />
   </Routes>
 );
 
