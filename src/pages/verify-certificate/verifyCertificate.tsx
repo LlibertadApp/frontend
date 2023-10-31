@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
-import FormHeader from '#/components/formHeader';
+import Navbar from '#/components/navbar';
 
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
@@ -16,17 +16,13 @@ const VerifyCertificate = () => {
 
   return (
     <section className="items-center flex flex-col justify-center text-center">
-      <FormHeader
-        routerLink="/upload-certificate"
-        title="Cargá el certificado del fiscal"
-      />
+      <Navbar routerLink="/upload-certificate" />
       <div className="w-full text-center">
         <div className="container mx-auto flex-column my-210">
           <ProgressIndicator
             steps={[
               ProgressStepStatus.Successful,
               ProgressStepStatus.Active,
-              ProgressStepStatus.Pending,
               ProgressStepStatus.Pending,
             ]}
           />
@@ -69,9 +65,9 @@ const VerifyCertificate = () => {
                 </label>
               </div>
               <div className="px-3">
-                <h3 className="text-start text-base">
-                  Verifico que la imagen está firmada por el presidente de mesa
-                  y fue completado por mí previamente..
+                <h3 className="text-start text-base cursor-pointer" onClick={handleCheckbox}>
+                  Verifico que la imagen está firmada por
+                  el presidente de mesa y fue completado por mí previamente.
                 </h3>
               </div>
             </div>
@@ -80,7 +76,9 @@ const VerifyCertificate = () => {
           {/* TODO: Agregar lógica de documento al reintentar */}
           <div className="flex flex-col items-center justify-center w-full p-4">
             {/* TODO: Mover a Dashboard */}
+
             {!correctData ? (
+
               <Button
                 className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-light rounded-xl"
                 type="button"

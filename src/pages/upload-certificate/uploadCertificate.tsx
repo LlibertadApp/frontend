@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import ProgressIndicator from '#/components/progressIndicator';
-import FormHeader from '#/components/formHeader';
+import Navbar from '#/components/navbar';
 import UploadImage from '#/components/uploadImage';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
@@ -27,13 +27,12 @@ const UploadCertificate = () => {
 
   return (
     <section className="items-center flex flex-col ">
-      <FormHeader routerLink="/dashboard" title="Tomar foto" />
+      <Navbar routerLink="/dashboard" />
       <div className="p-4 w-full">
         <div className="container mx-auto flex-column my-210">
           <ProgressIndicator
             steps={[
               ProgressStepStatus.Active,
-              ProgressStepStatus.Pending,
               ProgressStepStatus.Pending,
               ProgressStepStatus.Pending,
             ]}

@@ -2,31 +2,17 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import Button from '#/components/button';
-import FormHeader from '#/components/formHeader';
-import ProgressIndicator from '#/components/progressIndicator';
-import { ProgressStepStatus } from '#/components/progressIndicator/types';
+import Navbar from '#/components/navbar';
 import { ISendSuccessProps } from './types';
+
 import './styles.css';
 
 const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
   return (
     <section className="items-center flex flex-col ">
-      <FormHeader
-        routerLink="/load-information"
-        title="Datos enviados con éxito"
-      />
+      <Navbar routerLink="/load-information" />
       <div className="p-4">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center my-210">
-            <ProgressIndicator
-              steps={[
-                ProgressStepStatus.Successful,
-                ProgressStepStatus.Successful,
-                ProgressStepStatus.Successful,
-                ProgressStepStatus.Active,
-              ]}
-            />
-          </div>
           <div className="flex items-center justify-center my-20 ">
             <img
               src="src/assets/icon/success.svg"
