@@ -9,17 +9,18 @@ import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 
 const VerifyCertificate = () => {
-
-
   const [correctData, setCorrectData] = useState<boolean>(false);
   const handleCheckbox = () => {
     setCorrectData((correctData) => !correctData);
   };
 
-
+  console.log(correctData);
   return (
     <section className="items-center flex flex-col justify-center text-center">
-      <FormHeader routerLink="/upload-certificate" title="Cargá el certificado del fiscal" />
+      <FormHeader
+        routerLink="/upload-certificate"
+        title="Cargá el certificado del fiscal"
+      />
       <div className="w-full text-center">
         <div className="container mx-auto flex-column my-210">
           <ProgressIndicator
@@ -70,8 +71,8 @@ const VerifyCertificate = () => {
               </div>
               <div className="px-3">
                 <h3 className="text-start text-base">
-                  Verifico que la imagen está firmada por
-                  el presidente de mesa y fue completado por mí previamente..
+                  Verifico que la imagen está firmada por el presidente de mesa
+                  y fue completado por mí previamente..
                 </h3>
               </div>
             </div>
@@ -80,13 +81,21 @@ const VerifyCertificate = () => {
           {/* TODO: Agregar lógica de documento al reintentar */}
           <div className="flex flex-col items-center justify-center w-full p-4">
             {/* TODO: Mover a Dashboard */}
-            <Link to="/load-information" className='flex w-full'>
+            {!correctData ? (
               <Button
-                className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
+                className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-light rounded-xl"
                 type="button"
-                label="Enviar imagen"
+                label="Acepte los terminos por favor"
               />
-            </Link>
+            ) : (
+              <Link to="/load-information" className="flex w-full">
+                <Button
+                  className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
+                  type="button"
+                  label="Enviar imagen"
+                />
+              </Link>
+            )}
             <Button
               className="w-full p-3 text-xl font-semibold tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl"
               type="submit"
