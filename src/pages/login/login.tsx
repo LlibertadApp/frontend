@@ -13,7 +13,6 @@ import { ILoginProps } from './types';
 const LoginPage: React.FC = () => {
   const { login } = useAuth();
   const axios = useAxios();
-  const navigate = useNavigate();
 
   const onSubmit = async (values: ILoginProps) => {
     //TODO: Cambiar cuando la logica del LOGIN (desde el back, me devuelva el JWT y la info del Usuario)
@@ -24,7 +23,6 @@ const LoginPage: React.FC = () => {
     if (loading) return; //TODO: Spinner de carga.
 
     login(data);
-    navigate('/dashboard');
   };
 
   const validationSchema = yup.object({
