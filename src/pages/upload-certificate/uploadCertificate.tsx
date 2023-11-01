@@ -26,8 +26,9 @@ const UploadCertificate = () => {
 
 
   return (
-    <section className="items-center flex flex-col mx-auto">
-      <Navbar routerLink="/dashboard" />
+
+    <section className="items-center flex flex-col ">
+      <Navbar routerLink="/home" />
       <div className="p-4 w-full">
         <div className="container flex-column items-center">
           <div className="progressIndicator">

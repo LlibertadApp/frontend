@@ -15,7 +15,7 @@ const NotFoundPage = () => {
           />
           <p className="text-2xl">Lo sentimos, página no encontrada</p>
         </div>
-        <Link to="/dashboard">
+        <Link to="/home">
           <Button
             type="button"
             className="bg-violet-brand p-3 text-white w-full rounded-xl text-xl tracking-wider shadow-md hover:border-violet-light"

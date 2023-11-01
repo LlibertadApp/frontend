@@ -88,27 +88,38 @@ const VerifyCertificate = () => {
                 </label>
               </div>
               <div className="px-3">
-                <h3 className="text-start text-base cursor-pointer" onClick={handleCheckbox}>
-                  Verifico que la imagen está <b>firmada</b> por
-                  el presidente de mesa y fue <b>completada</b> por mí previamente.
+                <h3
+                  className="text-start text-base cursor-pointer"
+                  onClick={handleCheckbox}
+                >
+                  Verifico que la imagen está firmada por el presidente de mesa
+                  y fue completado por mí previamente.
                 </h3>
               </div>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center w-full p-4">
-            
-            {/* Alerta por si no verifico que ha firmado */}
-            {errorAlert && (<div className="alert alert-danger">{errorAlert}</div>)}
-            
-            <Link to="/load-information" className="flex w-full">
+
+
+            {/* TODO: Mover a Home */}
+
+            {!correctData ? (
+
               <Button
-                className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
+                className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-light rounded-xl"
                 type="button"
-                label="Enviar imagen"
-                disabled={imageUploaded || !correctData}
-                onClick={handleImageUpload}
+                
+                label="Acepte los terminos por favor"
               />
-            </Link>
+            ) : (
+              <Link to="/load-information" className="flex w-full">
+                <Button
+                  className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
+                  type="button"
+                  label="Enviar imagen"
+                />
+              </Link>
+            )}
             <Button
               className="w-full p-3 text-xl font-semibold tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl"
               type="submit"

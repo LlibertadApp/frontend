@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
     if (loading) return; //TODO: Spinner de carga.
 
     login(data);
-    navigate('/dashboard');
+    navigate('/home');
   };
 
   const validationSchema = yup.object({
