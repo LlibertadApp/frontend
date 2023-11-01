@@ -28,7 +28,7 @@ const TotalResultsPage = () => {
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
               <img
-                src="src/assets/logos/fenix.png"
+                src="public/assets/logos/fenix.png"
                 className="w-16 h-14"
                 alt=""
               />
@@ -64,7 +64,7 @@ const TotalResultsPage = () => {
           <div className="flex flex-col gap-2">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
               <img
-                src="src/assets/logos/uxp.svg"
+                src="public/assets/logos/uxp.svg"
                 className="w-16 h-14"
                 alt=""
               />
@@ -97,22 +97,22 @@ const TotalResultsPage = () => {
       <div className="flex flex-col px-8 lg:px-60 mt-10">
         <div className="border border-t-1 opacity-70"></div>
         <div className="my-2">
-          <span className="text-[17px] text-[#64748B]">Total de votos</span>
-          <p className="text-[25px] font-bold uppercase text-[#61439D]">
+          <span className="text-[17px] text-gray-dark">Total de votos</span>
+          <p className="text-[25px] font-bold uppercase text-violet-brand">
             27,000,000
           </p>
         </div>
         <div className="border border-t-1 opacity-70"></div>
         <div className="flex flex-row justify-between mt-2 px-3">
           <div className="flex flex-col">
-            <span className="text-[17px] text-[#64748B]">Mesas escrutadas</span>
-            <p className="text-[25px] font-bold uppercase text-[#61439D]">
+            <span className="text-[17px] text-gray-dark">Mesas escrutadas</span>
+            <p className="text-[25px] font-bold uppercase text-violet-brand">
               90.00%
             </p>
           </div>
           <div className="flex flex-col">
-            <span className="text-[17px] text-[#64748B]">Participación</span>
-            <p className="text-[25px] font-bold uppercase text-[#61439D]">
+            <span className="text-[17px] text-gray-dark">Participación</span>
+            <p className="text-[25px] font-bold uppercase text-violet-brand">
               76.36%
             </p>
           </div>
