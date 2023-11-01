@@ -29,7 +29,7 @@
                 "src/types/*"
             ],
             "#assets/*": [
-                "src/assets/*"
+                "public/assets/*"
             ],
             "#constants/*": [
                 "src/constants/*"
@@ -78,6 +78,9 @@
             ],
             "#mocks/*": [
                 "src/mocks/*"
+            ],
+            "#middlewares/*": [
+                "src/middlewares/*"
             ]
         }
     },
