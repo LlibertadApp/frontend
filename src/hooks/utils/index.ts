@@ -7,3 +7,4 @@ export * from "./use-is-first-render";
 export * from "./use-copy-to-clipboard";
 export * from "./use-element-size";
 export * from "./use-query";
+export * from './use-outside-click'
