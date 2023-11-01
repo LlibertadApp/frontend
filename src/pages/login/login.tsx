@@ -63,17 +63,16 @@ const LoginPage: React.FC = () => {
     <section className="relative flex flex-col items-center h-screen overflow-hidden bg-gray-100">
       <div className="z-10 w-5/6 p-4 md:w-1/2 shadow-3xl rounded-xl">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center my-20">
+          <div className="flex items-center justify-center my-10">
             <img
-              src="src/assets/logos/fenix.png"
+              src="src/assets/logos/lla-logo.svg"
               alt="fenix"
               className="object-cover h-auto mr-4 rounded w-28"
             />
-            <img
-              src="src/assets/logos/lla.svg"
-              alt="lla"
-              className="object-cover h-auto rounded w-50"
-            />
+          </div>
+          <div className="p-4 text-center my-2 mx-4 text-3xl px-12 font-bold">
+            <span className= "mx-auto">Entre todos, evitemos el fraude.</span>
+            {/* TODO: Pensar los espaciados y quizá el width de la img */}
           </div>
         </div>
         <form className="w-full" onSubmit={handleSubmit}>
