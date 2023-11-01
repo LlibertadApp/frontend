@@ -20,7 +20,7 @@ const Navbar: React.FC<INavbarProps> = ({
               <img
                 src="src/assets/images/back-arrow.svg"
                 alt="Volver"
-                className="object-cover rounded w-5 h-auto"
+                className="object-cover rounded w-4 h-auto"
               />
             </Link>
           )}
