@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
     <div className="flex justify-center items-center rounded-full bg-green-check text-white w-5 h-5 flex-shrink-0">
-      <img className="w-3 h-3" src="src/assets/icon/check-icon.svg" alt="" />
+      <img className="w-3 h-3" src="assets/icon/check-icon.svg" alt="" />
     </div>
     <p className='px-full mx-2'>{text}</p>
   </div>
@@ -56,7 +56,7 @@ export function UploadImage({
           <div className="flex items-center justify-center w-full overflow-hidden">
             <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full rounded-lg cursor-pointer my-6">
               <div className="flex flex-col items-center justify-center">
-                <img src={preview || 'src/assets/icon/upload-box.svg'} alt="" />
+                <img src={preview || 'assets/icon/upload-box.svg'} alt="" />
               </div>
               <ImageInput id="dropzone-file" handleOnChange={(ev) => onUploadInternal(ev.target.files?.[0])} />
               

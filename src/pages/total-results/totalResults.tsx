@@ -29,7 +29,7 @@ const TotalResultsPage = () => {
           <div className="flex flex-col">
             <div className="flex flex-row justify-between mb-1">
               <img
-                src="src/assets/logos/fenix.png"
+                src="assets/logos/fenix.png"
                 className="m-1 w-16 h-14"
                 alt=""
               />
