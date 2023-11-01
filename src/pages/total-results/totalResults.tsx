@@ -28,7 +28,7 @@ const TotalResultsPage = () => {
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
               <img
-                src="public/assets/logos/fenix.png"
+                src="assets/logos/fenix.png"
                 className="w-16 h-14"
                 alt=""
               />
@@ -64,7 +64,7 @@ const TotalResultsPage = () => {
           <div className="flex flex-col gap-2">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
               <img
-                src="public/assets/logos/uxp.svg"
+                src="assets/logos/uxp.svg"
                 className="w-16 h-14"
                 alt=""
               />
