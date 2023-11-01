@@ -89,7 +89,6 @@ export function UploadImage({
         >
           <ImageInput
             id="open-camera"
-            capture="user"
             handleOnChange={(ev) => onUploadInternal(ev.target.files?.[0])}
           />
           <p className="mx-auto">Tomar foto</p>
