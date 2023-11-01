@@ -12,8 +12,8 @@ const ImageInput = ({
       id={id}
       type="file"
       className="hidden"
-      accept="image/*"
-      capture={capture}
+      // accept="image/*"
+      // capture={capture}
       onChange={handleOnChange}
     />
   );
