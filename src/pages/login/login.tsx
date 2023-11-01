@@ -108,7 +108,7 @@ const LoginPage: React.FC = () => {
             />
 
             <Link
-              to="total-results"
+              to="/total-results"
               className="mt-8 text-lg text-center text-gray-600 underline"
             >
               Ir a resultados
