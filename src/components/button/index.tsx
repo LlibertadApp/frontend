@@ -6,8 +6,9 @@ const Button: React.FC<IButtonProps> = ({
   className,
   label,
   onClick,
+  disabled,
 }) => (
-  <button className={className} type={type} onClick={onClick}>
+  <button className={className} type={type} onClick={onClick} disabled={disabled}>
     {label}
   </button>
 );

@@ -17,3 +17,9 @@
 .bg-green-check {
   background-color: #58C299;
 }
+
+
+/* se agrego para manejar el width en general */
+.progressIndicatorW {
+  width: 70%;
+}

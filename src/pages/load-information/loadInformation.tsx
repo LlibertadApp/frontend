@@ -317,6 +317,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
                 className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full"
                 type="submit"
                 label="Enviar Datos"
+                
               />
             </Link>
           ) : (
