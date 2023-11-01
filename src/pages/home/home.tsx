@@ -73,8 +73,8 @@ const HomePage = () => {
               className="border-2 border-black/5 text-gray-500 bg-transparent p-2 w-full rounded-xl shadow-md hover:border-black/20 flex flex-col items-center justify-between gap-4"
               type="submit"
             >
-              <div className="flex text-center justify-between w-full">
-                <div className="flex flex-col justify-between gap-4 p-4 bg-uxp/5 rounded-lg">
+              <div className="flex text-center justify-between w-full gap-6">
+                <div className="flex flex-col justify-between gap-4 p-4 bg-uxp/5 rounded-lg w-full">
                   <img
                     src="src/assets/logos/uxp.svg"
                     alt="union por la patria logo"
@@ -86,7 +86,7 @@ const HomePage = () => {
                     <div className="text-2xl font-bold text-uxp">38.95%</div>
                   </div>
                 </div>
-                <div className="flex flex-col justify-between gap-4 p-4 bg-violet-brand/5 rounded-lg">
+                <div className="flex flex-col justify-between gap-4 p-4 bg-violet-brand/5 rounded-lg w-full">
                   <img
                     src="src/assets/logos/lla-logo.svg"
                     alt="la libertad avanza logo"
