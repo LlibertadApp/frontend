@@ -26,7 +26,7 @@ const Navbar: React.FC<INavbarProps> = ({
               </Link>
             )}
           </div>
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center z-20">
             {showHamburger && (
               <div
                 className="flex justify-center cursor-pointer transform transition-transform hover:scale-110"
