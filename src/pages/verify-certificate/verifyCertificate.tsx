@@ -4,48 +4,71 @@ import { useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
-
+import { useCertificado } from '#/context/CertificationContext';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 
 const VerifyCertificate = () => {
   const [correctData, setCorrectData] = useState<boolean>(false);
+  const [imageUploaded, setImageUploaded] = useState<boolean>(false);
+  const [errorAlert, setErrorAlert] = useState<string | null>(null);
+  const {certificateImage} = useCertificado();
+
   const handleCheckbox = () => {
     setCorrectData((correctData) => !correctData);
   };
 
+  const handleImageUpload = () => {
+    //Verificacion de checkbox si no ha firmado
+    if (correctData){
+      setErrorAlert('Verica que has firmado')
+      return console.log('acá');
+    }
+
+    //estados de alerta y de imagen cargada
+    setImageUploaded(imageUploaded);
+    setErrorAlert(null);
+  };
+
+
   return (
     <section className="items-center flex flex-col justify-center text-center">
       <Navbar routerLink="/upload-certificate" />
+
+
       <div className="w-full text-center">
         <div className="container mx-auto flex-column my-210">
+
+          <div className='flex justify-center mt-4 px-4'>
+
           <ProgressIndicator
             steps={[
               ProgressStepStatus.Successful,
               ProgressStepStatus.Active,
               ProgressStepStatus.Pending,
             ]}
-          />
+            />
+            </div>
 
-          <div className="p-4 text-center my-2 mx-12 text-xl font-bold">
-            <span>Cargá el certificado del fiscal.</span>
+          <div className="p-4 text-center my-2 mx-4 text-xl font-bold">
+            <span>Carga el certificado del fiscal</span>
             {/* TODO: Pensar los espaciados y quizá el width de la img */}
           </div>
-          <div className="p-4 text-center mx-12 text-base">
+          <div className="p-4 text-center mx-8 text-base">
             <span>
-              Chequeá que la imagen se vea nítida y completa antes de subirla.
+              Chequeá que la imagen se vea <b>nítida</b> y completa antes de subirla.
             </span>
           </div>
 
-          <div className="flex items-center justify-center my-2">
+          <div className="flex items-center justify-center px-12 py-4">
             <img
-              src="src/assets/images/certfFiscal-test.png"
+              src={certificateImage || ''}
               alt="data sent successful"
               className="object-cover rounded w-100 h-auto"
             />
           </div>
 
-          <div className="flex items-center justify-center text-sm my-10">
+          <div className="flex items-center justify-center text-sm my-6">
             <div className="flex items-center px-12">
               <div className="inline-flex items-center">
                 <label
@@ -75,15 +98,17 @@ const VerifyCertificate = () => {
               </div>
             </div>
           </div>
-          {/* TODO: Agregar lógica de documento a los botones*/}
-          {/* TODO: Agregar lógica de documento al reintentar */}
           <div className="flex flex-col items-center justify-center w-full p-4">
+
+
             {/* TODO: Mover a Home */}
 
             {!correctData ? (
+
               <Button
                 className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-light rounded-xl"
                 type="button"
+                
                 label="Acepte los terminos por favor"
               />
             ) : (
@@ -99,6 +124,7 @@ const VerifyCertificate = () => {
               className="w-full p-3 text-xl font-semibold tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl"
               type="submit"
               label="Reintentar"
+              disabled={imageUploaded}
             />
           </div>
         </div>
