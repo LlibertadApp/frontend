@@ -83,32 +83,43 @@ const VerifyCertificate = () => {
                     className="before:content[''] peer relative h-7 w-7 cursor-pointer appearance-none rounded-md border-2 border-violet-brand transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-violet-brand checked:bg-violet-brand checked:before:bg-violet-500 hover:before:opacity-10"
                   />
                   <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                    <img src="src/assets/icon/check-icon.svg" alt="check" />
+                    <img src="assets/icon/check-icon.svg" alt="check" />
                   </div>
                 </label>
               </div>
               <div className="px-3">
-                <h3 className="text-start text-base cursor-pointer" onClick={handleCheckbox}>
-                  Verifico que la imagen está <b>firmada</b> por
-                  el presidente de mesa y fue <b>completada</b> por mí previamente.
+                <h3
+                  className="text-start text-base cursor-pointer"
+                  onClick={handleCheckbox}
+                >
+                  Verifico que la imagen está firmada por el presidente de mesa
+                  y fue completado por mí previamente.
                 </h3>
               </div>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center w-full p-4">
-            
-            {/* Alerta por si no verifico que ha firmado */}
-            {errorAlert && (<div className="alert alert-danger">{errorAlert}</div>)}
-            
-            <Link to="/load-information" className="flex w-full">
+
+
+            {/* TODO: Mover a Home */}
+
+            {!correctData ? (
+
               <Button
-                className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
+                className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-light rounded-xl"
                 type="button"
-                label="Enviar imagen"
-                disabled={imageUploaded || !correctData}
-                onClick={handleImageUpload}
+                
+                label="Acepte los terminos por favor"
               />
-            </Link>
+            ) : (
+              <Link to="/load-information" className="flex w-full">
+                <Button
+                  className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
+                  type="button"
+                  label="Enviar imagen"
+                />
+              </Link>
+            )}
             <Button
               className="w-full p-3 text-xl font-semibold tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl"
               type="submit"

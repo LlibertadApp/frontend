@@ -12,7 +12,7 @@ import { useCertificado } from '#/context/CertificationContext';
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
     <div className="flex justify-center items-center rounded-full bg-green-check text-white w-5 h-5 flex-shrink-0">
-      <img className="w-3 h-3" src="src/assets/icon/check-icon.svg" alt="" />
+      <img className="w-3 h-3" src="assets/icon/check-icon.svg" alt="" />
     </div>
     <p>{text}</p>
   </div>
@@ -26,8 +26,9 @@ const UploadCertificate = () => {
 
 
   return (
-    <section className="items-center flex flex-col mx-auto">
-      <Navbar routerLink="/dashboard" />
+
+    <section className="items-center flex flex-col ">
+      <Navbar routerLink="/home" />
       <div className="p-4 w-full">
         <div className="container flex-column items-center">
           <div className="progressIndicator">
