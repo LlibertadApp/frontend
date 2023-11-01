@@ -4,8 +4,7 @@ import { observer } from 'mobx-react';
 import Button from '#/components/button';
 import FlatList from '#/components/flatList';
 import ProgressIndicator from '#/components/progressIndicator';
-import FormHeader from '#/components/formHeader';
-
+import Navbar from '#/components/navbar';
 import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { ILoadInformationProps, FormValues } from './types';
@@ -70,7 +69,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
 
   const flatList = [
     {
-      logo: 'src/assets/logos/lla-logo.svg',
+      logo: 'assets/logos/lla-logo.svg',
       type: FlatListTypeEnum.milei,
       subTitle: 'Milei',
       title: 'Javier Gerardo',
@@ -78,7 +77,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       edit: true,
     },
     {
-      logo: 'src/assets/logos/uxp.svg',
+      logo: 'assets/logos/uxp.svg',
       type: FlatListTypeEnum.massa,
       subTitle: 'Massa',
       title: 'Sergio Tomas',
@@ -86,7 +85,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-invalid.svg',
+      logo: 'assets/icon/mail-invalid.svg',
       type: FlatListTypeEnum.null,
       subTitle: '',
       title: 'Votos nulos',
@@ -94,7 +93,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-appealed.svg',
+      logo: 'assets/icon/mail-appealed.svg',
       type: FlatListTypeEnum.appealed,
       subTitle: '',
       title: 'Votos recurridos',
@@ -102,7 +101,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-contested.svg',
+      logo: 'assets/icon/mail-contested.svg',
       type: FlatListTypeEnum.contested,
       subTitle: '',
       title: 'Votos identidad impugnada',
@@ -110,7 +109,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-person.svg',
+      logo: 'assets/icon/mail-person.svg',
       type: FlatListTypeEnum.electoralCommand,
       subTitle: '',
       title: 'Votos de comando electoral',
@@ -118,7 +117,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-closed.svg',
+      logo: 'assets/icon/mail-closed.svg',
       type: FlatListTypeEnum.blank,
       subTitle: '',
       title: 'Votos en blanco',
@@ -129,7 +128,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
 
   return (
     <section className="bg-white items-center flex flex-col">
-      <FormHeader routerLink="/verify-certificate" title="" />
+      <Navbar routerLink="/verify-certificate" />
       <div className="container mx-auto p-2">
         <Formik
           initialValues={initialValues}
@@ -486,13 +485,11 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
           }}
         </Formik>
         <div className="flex items-center justify-center my-10">
-          <Link to="/" className="w-full mx-6">
-            <Button
-              className="text-red bg-transparent p-3 w-full rounded-xl text-xl"
-              type="submit"
-              label="Denunciar Irregularidad"
-            />
-          </Link>
+          <Button
+            className="text-red bg-transparent p-3 w-full rounded-xl text-xl"
+            type="button"
+            label="Denunciar Irregularidad"
+          />
         </div>
       </div>
     </section>

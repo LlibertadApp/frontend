@@ -6,3 +6,8 @@
 .w-image-25 {
   margin-right: 25%;
 }
+
+.progressIndicator{
+  display: flex;
+  justify-content: center;
+}

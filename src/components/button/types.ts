@@ -3,4 +3,5 @@ export interface IButtonProps {
   className: string;
   label: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 }

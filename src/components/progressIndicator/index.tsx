@@ -4,7 +4,7 @@ import './styles.css';
 
 const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
   return (
-    <div className="w-full flex justify-between items-center md:px-20 mt-4 px-4">
+    <div className="w-full flex justify-between items-center mt-4">
       {steps.map((step, index) => (
         <React.Fragment key={index}>
           <div
@@ -20,13 +20,13 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
             {step === ProgressStepStatus.Successful ? (
               <img
                 className="w-4 h-4"
-                src="src/assets/icon/check-icon.svg"
+                src="assets/icon/check-icon.svg"
                 alt=""
               />
             ) : step === ProgressStepStatus.Error ? (
               <img
                 className="w-4 h-4"
-                src="src/assets/icon/error-icon.svg"
+                src="assets/icon/error-icon.svg"
                 alt=""
               />
             ) : (
@@ -38,7 +38,7 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
           {index != steps.length - 1 && (
             <div
               className={`stick ${step === ProgressStepStatus.Active
-                  ? 'bg-violet-brand text-white'
+                  ? 'bg-gray-light text-white'
                   : step === ProgressStepStatus.Successful
                     ? 'bg-green-check text-white'
                     : 'bg-gray-light text-black'
