@@ -76,13 +76,23 @@ const VerifyCertificate = () => {
           {/* TODO: Agregar lógica de documento al reintentar */}
           <div className="flex flex-col items-center justify-center w-full p-4">
             {/* TODO: Mover a Dashboard */}
-            <Link to="/load-information" className="flex w-full">
+
+            {!correctData ? (
+
               <Button
-                className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
+                className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-light rounded-xl"
                 type="button"
-                label="Enviar imagen"
+                label="Acepte los terminos por favor"
               />
-            </Link>
+            ) : (
+              <Link to="/load-information" className="flex w-full">
+                <Button
+                  className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
+                  type="button"
+                  label="Enviar imagen"
+                />
+              </Link>
+            )}
             <Button
               className="w-full p-3 text-xl font-semibold tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl"
               type="submit"
