@@ -373,7 +373,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                           <div className="flex flex-row gap-2">
                             Total{' '}
                             <img
-                              src="src/assets/icon/warn-icon.svg"
+                              src="/assets/icon/warn-icon.svg"
                               alt="warn-icon"
                             />
                           </div>
@@ -423,7 +423,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
 
                         <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
                           <img
-                            src="src/assets/icon/check-icon.svg"
+                            src="/assets/icon/check-icon.svg"
                             alt="check"
                           />
                         </div>
