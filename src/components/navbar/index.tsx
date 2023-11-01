@@ -5,7 +5,7 @@ import Button from '#/components/button';
 import { INavbarProps } from './types';
 
 const Navbar: React.FC<INavbarProps> = ({
-  routerLink = '/dashboard',
+  routerLink = '/home',
   showArrow = true,
   showHamburger = true,
 }) => {
@@ -70,39 +70,39 @@ const Navbar: React.FC<INavbarProps> = ({
                 {/* El gris pactado no se parece al de figma */}
                 <Link
                   to="/profile"
-                  className="scale-95 transform transition-transform hover:scale-105"
+                  className="transform transition-transform hover:scale-105"
                 >
                   Mi cuenta
                 </Link>
                 <Link
                   to="/upload-certificate"
-                  className="scale-95 transform transition-transform hover:scale-105"
+                  className="transform transition-transform hover:scale-105"
                 >
                   Cargar resultados de mesa
                 </Link>
                 <Link
-                  to="/dashboard"
-                  className="scale-95 transform transition-transform hover:scale-105"
+                  to="/home"
+                  className="transform transition-transform hover:scale-105"
                   onClick={() => alert('No existe la ruta aún')}
                 >
                   Impugnar mesa
                 </Link>
                 <Link
-                  to="/dashboard"
-                  className="scale-95 transform transition-transform hover:scale-105"
+                  to="/home"
+                  className="transform transition-transform hover:scale-105"
                   onClick={() => alert('No existe la ruta aún')}
                 >
                   Denunciar Irregularidades
                 </Link>
                 <Link
                   to="/total-results"
-                  className="scale-95 transform transition-transform hover:scale-105"
+                  className="transform transition-transform hover:scale-105"
                 >
                   Ver resultados
                 </Link>
               </div>
               <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
-                <div className="flex gap-2 scale-95 transform transition-transform hover:scale-105">
+                <div className="flex gap-2 transform transition-transform hover:scale-105">
                   <img
                     src="/src/assets/icon/log-out.svg"
                     alt="User profile"
