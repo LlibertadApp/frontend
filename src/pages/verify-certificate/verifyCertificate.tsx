@@ -65,9 +65,12 @@ const VerifyCertificate = () => {
                 </label>
               </div>
               <div className="px-3">
-                <h3 className="text-start text-base cursor-pointer" onClick={handleCheckbox}>
-                  Verifico que la imagen está firmada por
-                  el presidente de mesa y fue completado por mí previamente.
+                <h3
+                  className="text-start text-base cursor-pointer"
+                  onClick={handleCheckbox}
+                >
+                  Verifico que la imagen está firmada por el presidente de mesa
+                  y fue completado por mí previamente.
                 </h3>
               </div>
             </div>
@@ -75,10 +78,9 @@ const VerifyCertificate = () => {
           {/* TODO: Agregar lógica de documento a los botones*/}
           {/* TODO: Agregar lógica de documento al reintentar */}
           <div className="flex flex-col items-center justify-center w-full p-4">
-            {/* TODO: Mover a Dashboard */}
+            {/* TODO: Mover a Home */}
 
             {!correctData ? (
-
               <Button
                 className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-light rounded-xl"
                 type="button"

@@ -8,7 +8,7 @@ const TotalResultsPage = () => {
   const votes = ['16,482,688', '10,517,312'];
   return (
     <div className="bg-white h-screen flex flex-col">
-      <Navbar routerLink='/dashboard'/>
+      <Navbar routerLink="/home" />
       <div className="flex flex-col p-4">
         <p className="font-bold text-2xl text-gray-700 mt-5">
           Resultados totales

@@ -9,7 +9,7 @@ const SendSuccess = lazy(() => import('#/pages/send-success/sendSuccess'));
 const LoadInformation = lazy(
   () => import('#/pages/load-information/loadInformation'),
 );
-const Dashboard = lazy(() => import('#/pages/dashboard/dashboard'));
+const Home = lazy(() => import('#/pages/home/home'));
 const UploadCertificate = lazy(
   () => import('#/pages/upload-certificate/uploadCertificate'),
 );
@@ -32,7 +32,7 @@ const AppRoutes: React.FC = () => (
     {/* Protected routes */}
     <Route element={<ProtectedRoute />}>
       {/* Cuenta */}
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
 
       {/* Steps Formulario */}
