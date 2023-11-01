@@ -78,7 +78,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
 
   const flatList = [
     {
-      logo: 'src/assets/logos/lla-logo.svg',
+      logo: 'assets/logos/lla-logo.svg',
       type: FlatListTypeEnum.milei,
       subTitle: 'Milei',
       title: 'Javier Gerardo',
@@ -86,7 +86,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
       edit: true,
     },
     {
-      logo: 'src/assets/logos/uxp.svg',
+      logo: 'assets/logos/uxp.svg',
       type: FlatListTypeEnum.massa,
       subTitle: 'Massa',
       title: 'Sergio Tomas',
@@ -94,7 +94,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-invalid.svg',
+      logo: 'assets/icon/mail-invalid.svg',
       type: FlatListTypeEnum.null,
       subTitle: '',
       title: 'Votos nulos',
@@ -102,7 +102,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-appealed.svg',
+      logo: 'assets/icon/mail-appealed.svg',
       type: FlatListTypeEnum.appealed,
       subTitle: '',
       title: 'Votos recurridos',
@@ -110,7 +110,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-contested.svg',
+      logo: 'assets/icon/mail-contested.svg',
       type: FlatListTypeEnum.contested,
       subTitle: '',
       title: 'Votos identidad impugnada',
@@ -118,7 +118,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-person.svg',
+      logo: 'assets/icon/mail-person.svg',
       type: FlatListTypeEnum.electoralCommand,
       subTitle: '',
       title: 'Votos de comando electoral',
@@ -126,7 +126,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
       edit: true,
     },
     {
-      logo: 'src/assets/icon/mail-closed.svg',
+      logo: 'assets/icon/mail-closed.svg',
       type: FlatListTypeEnum.blank,
       subTitle: '',
       title: 'Votos en blanco',
@@ -221,7 +221,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             >
               {electorsEnvelopesDiffStyle ? (
                 <div className="flex flex-row gap-2">
-                  Diferencia <img src="src/assets/icon/warn-icon.svg"></img>
+                  Diferencia <img src="assets/icon/warn-icon.svg"></img>
                 </div>
               ) : (
                 <div className="">Diferencia</div>
@@ -261,7 +261,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
             >
               {totalVotesDiffStyle ? (
                 <div className="flex flex-row gap-2">
-                  Total <img src="src/assets/icon/warn-icon.svg"></img>
+                  Total <img src="assets/icon/warn-icon.svg"></img>
                 </div>
               ) : (
                 'Total'
@@ -294,7 +294,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = ({ message }) => {
                   className="before:content[''] peer relative h-7 w-7 cursor-pointer appearance-none rounded-md border-2 border-violet-brand transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-violet-brand checked:bg-violet-brand checked:before:bg-violet-500 hover:before:opacity-10"
                 />
                 <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                  <img src="src/assets/icon/check-icon.svg" alt="check" />
+                  <img src="assets/icon/check-icon.svg" alt="check" />
                 </div>
               </label>
             </div>

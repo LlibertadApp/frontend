@@ -10,7 +10,7 @@ const NotFoundPage = () => {
           <h3 className="font-semibold text-8xl">404</h3>
           <img
             className="md:w-32"
-            src="/src/assets/images/sad-face.svg"
+            src="/assets/images/sad-face.svg"
             alt="not-found-page"
           />
           <p className="text-2xl">Lo sentimos, página no encontrada</p>

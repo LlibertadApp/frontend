@@ -23,7 +23,7 @@ const HomePage = () => {
               <div className="flex items-center gap-4">
                 <div className="bg-violet-brand/5 w-16 h-16 rounded-full flex items-center justify-center">
                   <img
-                    src="src/assets/icon/mail-open.svg"
+                    src="assets/icon/mail-open.svg"
                     alt="Correo abierto"
                     className="w-6 h-6"
                     style={{ fill: 'red' }}
@@ -34,7 +34,7 @@ const HomePage = () => {
                 </span>
               </div>
               <img
-                src="src/assets/icon/arrow-continue-purple.svg"
+                src="assets/icon/arrow-continue-purple.svg"
                 alt="Ir"
                 className="w-4 h-4"
               />
@@ -47,7 +47,7 @@ const HomePage = () => {
               <div className="flex items-center gap-4">
                 <div className="bg-red/5 w-16 h-16 rounded-full flex items-center justify-center">
                   <img
-                    src="src/assets/icon/warn-icon.svg"
+                    src="assets/icon/warn-icon.svg"
                     alt="Alerta"
                     className="w-6 h-6"
                   />
@@ -57,7 +57,7 @@ const HomePage = () => {
                 </span>
               </div>
               <img
-                src="src/assets/icon/arrow-continue-red.svg"
+                src="assets/icon/arrow-continue-red.svg"
                 alt="Ir"
                 className="w-4 h-4"
               />
@@ -76,7 +76,7 @@ const HomePage = () => {
               <div className="flex text-center justify-between w-full gap-6">
                 <div className="flex flex-col justify-between gap-4 p-4 bg-uxp/5 rounded-lg w-full">
                   <img
-                    src="src/assets/logos/uxp.svg"
+                    src="assets/logos/uxp.svg"
                     alt="union por la patria logo"
                     className="h-16"
                   />
@@ -88,7 +88,7 @@ const HomePage = () => {
                 </div>
                 <div className="flex flex-col justify-between gap-4 p-4 bg-violet-brand/5 rounded-lg w-full">
                   <img
-                    src="src/assets/logos/lla-logo.svg"
+                    src="assets/logos/lla-logo.svg"
                     alt="la libertad avanza logo"
                     className="h-16"
                   />
