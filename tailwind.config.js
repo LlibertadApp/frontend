@@ -15,6 +15,7 @@ export default {
         'gray-light': '#CBD5E1',
         'text-off': '#363F45',
         red: '#AD3459',
+        green: '#58C299',
         black: '#000000',
         white: '#FFFFFF',
       },
