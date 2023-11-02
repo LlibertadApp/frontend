@@ -12,8 +12,8 @@ const Navbar: React.FC<INavbarProps> = ({
   showHamburger = true,
 }) => {
   const { logout } = useAuth();
-  const {menuOpen, setMenuOpen, closeMenu} = useHamburgerMenu();
-  const hamburgerMenuRef = useOutsideClick(closeMenu)
+  const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
+  const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
     <div className="bg-violet-brand p-4 px-8 w-full flex flex-col h-18 relative">
       <div className="w-full grid grid-rows-1 grid-col-3 place-items-center">
@@ -29,11 +29,16 @@ const Navbar: React.FC<INavbarProps> = ({
               </Link>
             )}
           </div>
-          <div className="flex flex-col justify-center z-20" ref={hamburgerMenuRef}>
+          <div
+            className="flex flex-col justify-center z-20"
+            ref={hamburgerMenuRef}
+          >
             {showHamburger && (
               <div
                 className="flex justify-center cursor-pointer transform transition-transform hover:scale-110"
-                onClick={() => {setMenuOpen(!menuOpen)}}
+                onClick={() => {
+                  setMenuOpen(!menuOpen);
+                }}
               >
                 {!menuOpen ? (
                   <img
@@ -80,14 +85,20 @@ const Navbar: React.FC<INavbarProps> = ({
                   <Link
                     to="/home"
                     className="transform transition-transform hover:scale-105"
-                    onClick={() => {alert('No existe la ruta aún'); closeMenu()}}
+                    onClick={() => {
+                      alert('No existe la ruta aún');
+                      closeMenu();
+                    }}
                   >
                     Impugnar mesa
                   </Link>
                   <Link
                     to="/home"
                     className="transform transition-transform hover:scale-105"
-                    onClick={() => {alert('No existe la ruta aún'); closeMenu()}}
+                    onClick={() => {
+                      alert('No existe la ruta aún');
+                      closeMenu();
+                    }}
                   >
                     Denunciar Irregularidades
                   </Link>
@@ -107,7 +118,10 @@ const Navbar: React.FC<INavbarProps> = ({
                       className="object-cover rounded text-violet-brand"
                     />
                     <Button
-                      onClick={() => {logout(); closeMenu()}}
+                      onClick={() => {
+                        logout();
+                        closeMenu();
+                      }}
                       label="Cerrar sesión"
                       type="button"
                       className=""
@@ -119,7 +133,7 @@ const Navbar: React.FC<INavbarProps> = ({
           </div>
         </div>
         <div className="flex col-start-2 col-end-3 row-start-1 row-end-2">
-          <Link to='/home' className="flex-shrink-0 ml-auto">
+          <Link to="/home" className="flex-shrink-0 ml-auto">
             <img
               src="assets/logos/fenix-new.svg"
               alt="Logo"

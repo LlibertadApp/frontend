@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
-import { useCertificado } from '#/context/CertificationContext';
+import { useCertificate } from '#/context/CertificationContext';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 
@@ -12,7 +12,7 @@ const VerifyCertificate = () => {
   const [correctData, setCorrectData] = useState<boolean>(false);
   const [imageUploaded, setImageUploaded] = useState<boolean>(false);
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
-  const {certificateImage} = useCertificado();
+  const {certificateImage} = useCertificate();
 
   const handleCheckbox = () => {
     setCorrectData((correctData) => !correctData);
