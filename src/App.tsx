@@ -5,11 +5,10 @@ import { AuthProvider } from './context/AuthContext';
 import './App.css';
 
 import { LoaderProvider } from './context/LoaderContext';
-import LoadingOverlay from './components/loadingOverlay';
-
-import Overlay from './components/overlay';
 import { HamburgerProvider } from './context/HamburgerContext';
 import { CertificateProvider } from './context/CertificationContext';
+
+import LoadingOverlay from './components/loadingOverlay';
 import Overlay from './components/overlay';
 import './App.css';
 
@@ -18,7 +17,7 @@ function App() {
     <LoaderProvider>
       <AuthProvider>
         {/* TODO: Agregar un spinner de carga o algun mensaje mientras se carga la app. */}
-        <CertificadoProvider>
+        <CertificateProvider>
           <Suspense fallback={<LoadingPage />}>
             <HamburgerProvider>
               <Overlay>
@@ -27,7 +26,7 @@ function App() {
               </Overlay>
             </HamburgerProvider>
           </Suspense>
-        </CertificadoProvider>
+        </CertificateProvider>
       </AuthProvider>
     </LoaderProvider>
   );
