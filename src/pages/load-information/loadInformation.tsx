@@ -187,8 +187,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
               setTotalVotes((prevTotal: number) => prevTotal + newValue);
             };
 
-            console.log(values);
-
             return (
               <Form>
                 <div className="flex items-center justify-center">
@@ -422,10 +420,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         />
 
                         <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                          <img
-                            src="/assets/icon/check-icon.svg"
-                            alt="check"
-                          />
+                          <img src="/assets/icon/check-icon.svg" alt="check" />
                         </div>
                       </label>
                     </div>

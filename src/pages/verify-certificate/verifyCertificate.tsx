@@ -22,7 +22,6 @@ const VerifyCertificate = () => {
     //Verificacion de checkbox si no ha firmado
     if (correctData){
       setErrorAlert('Verica que has firmado')
-      return console.log('acá');
     }
 
     //estados de alerta y de imagen cargada
