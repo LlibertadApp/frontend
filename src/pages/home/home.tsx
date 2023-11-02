@@ -19,7 +19,7 @@ const HomePage = () => {
               </span>
               <Link
                 to="/upload-certificate"
-                className="border-2 border-black/5 text-violet-brand bg-transparent p-3 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between bg-white"
+                className="border-2 border-black/5 text-violet-brand bg-transparent p-3 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between"
                 type="submit"
               >
                 <div className="flex items-center gap-4">
@@ -42,7 +42,7 @@ const HomePage = () => {
               </Link>
               <Link
                 to="/home"
-                className="border-2 border-black/5 text-violet-brand bg-transparent p-3 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between bg-white"
+                className="border-2 border-black/5 text-violet-brand bg-transparent p-3 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between"
                 type="submit"
                 onClick={() => {
                   alert('No existe la ruta aún');
@@ -68,7 +68,7 @@ const HomePage = () => {
               </Link>
               <Link
                 to="/home"
-                className="border-2 border-black/5 text-red bg-transparent p-3 w-full rounded-xl shadow-md hover:border-red flex items-center justify-between bg-white"
+                className="border-2 border-black/5 text-red bg-transparent p-3 w-full rounded-xl shadow-md hover:border-red flex items-center justify-between"
                 type="submit"
                 onClick={() => {
                   alert('No existe la ruta aún');
