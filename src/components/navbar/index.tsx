@@ -26,7 +26,7 @@ const Navbar: React.FC<INavbarProps> = ({
               </Link>
             )}
           </div>
-          <div className="flex flex-col justify-center z-20">
+          <div className="flex flex-col justify-center">
             {showHamburger && (
               <div
                 className="flex justify-center cursor-pointer transform transition-transform hover:scale-110"
@@ -34,13 +34,13 @@ const Navbar: React.FC<INavbarProps> = ({
               >
                 {!menuOpen ? (
                   <img
-                    src="/assets/icon/menu.svg"
+                    src="assets/icon/menu.svg"
                     alt="User profile"
                     className="object-cover rounded w-6 h-6"
                   />
                 ) : (
                   <img
-                    src="/assets/icon/close.svg"
+                    src="assets/icon/close.svg"
                     alt="User profile"
                     className="object-cover rounded w-6 h-6"
                   />
@@ -96,7 +96,7 @@ const Navbar: React.FC<INavbarProps> = ({
                 <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
                   <div className="flex gap-2 transform transition-transform hover:scale-105">
                     <img
-                      src="/assets/icon/log-out.svg"
+                      src="assets/icon/log-out.svg"
                       alt="User profile"
                       className="object-cover rounded text-violet-brand"
                     />
