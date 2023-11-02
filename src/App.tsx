@@ -6,6 +6,7 @@ import './App.css';
 import Overlay from './components/overlay';
 import { HamburgerProvider } from './context/HamburgerContext';
 import { CertificadoProvider } from './context/CertificationContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         </HamburgerProvider>
       </Suspense>
       </CertificadoProvider>
+      <Toaster />
     </AuthProvider>
   );
 }

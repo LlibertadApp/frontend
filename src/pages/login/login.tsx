@@ -5,7 +5,9 @@ import * as yup from 'yup';
 
 import Button from '#/components/button';
 import Input from '#/components/input';
+import { toastiBar } from '#/components';
 import useAxios from '#/hooks/utils/useAxios';
+import useResultsEnabled from '#/hooks/utils/use-results-enabled';
 import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
 
@@ -13,6 +15,7 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const axios = useAxios();
+  const resultsEnabled = useResultsEnabled();
 
   const onSubmit = async (values: ILoginProps) => {
     //TODO: Cambiar cuando la logica del LOGIN (desde el back, me devuelva el JWT y la info del Usuario)
@@ -108,8 +111,13 @@ const LoginPage: React.FC = () => {
             />
 
             <Link
-              to="/total-results"
+              to={resultsEnabled ? '/total-results' : '#'}
               className="mt-8 text-lg text-center text-gray-600 underline"
+              onClick={() =>
+                !resultsEnabled && toastiBar({
+                  text: 'Los resultados estarán disponibles el 19/11/2023 a las 19:00 hs',
+                })
+              }
             >
               Ir a resultados
             </Link>

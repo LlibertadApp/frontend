@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 
 interface HamburgerContextType {
   menuOpen: boolean;
-  setMenuOpen: (menuOpen: boolean) => void;
+  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
   closeMenu: () => void
 }
 

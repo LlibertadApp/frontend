@@ -1,7 +1,7 @@
 import { toast, Toaster, ToastPosition } from 'react-hot-toast';
 import { ToastiBarProps } from './types';
 
-const toastiBar = ({
+export const toastiBar = ({
   text,
   action,
   close,
@@ -71,9 +71,4 @@ const toastiBar = ({
     ),
     config,
   );
-};
-
-export const SnackBar = (props: ToastiBarProps) => {
-  toastiBar(props);
-  return <Toaster />;
 };

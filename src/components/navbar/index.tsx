@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 import Button from '#/components/button';
@@ -14,6 +14,7 @@ const Navbar: React.FC<INavbarProps> = ({
   const { logout } = useAuth();
   const {menuOpen, setMenuOpen, closeMenu} = useHamburgerMenu();
   const hamburgerMenuRef = useOutsideClick(closeMenu)
+
   return (
     <div className="bg-violet-brand p-4 px-8 w-full flex flex-col h-18 relative">
       <div className="w-full grid grid-rows-1 grid-col-3 place-items-center">
@@ -33,7 +34,7 @@ const Navbar: React.FC<INavbarProps> = ({
             {showHamburger && (
               <div
                 className="flex justify-center cursor-pointer transform transition-transform hover:scale-110"
-                onClick={() => {setMenuOpen(!menuOpen)}}
+                onClick={() => {setMenuOpen((isOpen) => !isOpen)}}
               >
                 {!menuOpen ? (
                   <img
