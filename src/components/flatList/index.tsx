@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { FlatListProps } from './types';
 
-import { Field } from 'formik';
-
 const FlatList = ({
   logo,
   type,
