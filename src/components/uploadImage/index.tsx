@@ -3,6 +3,7 @@ import ImageInput from '#/components/imageInput';
 import { getBase64 } from '#/utils';
 import Button from '#/components/button';
 import { Link, useNavigate } from 'react-router-dom';
+import { paths } from '#/routes/paths';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
@@ -42,7 +43,7 @@ export function UploadImage({
   };
 
   if (uploaded) {
-    navigate('/verify-certificate');
+    navigate(paths.verifyCertificate);
     return null; // Puedes retornar null o cualquier otro contenido que desees en este caso
   }
 

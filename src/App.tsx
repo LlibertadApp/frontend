@@ -9,7 +9,9 @@ import LoadingOverlay from './components/loadingOverlay';
 
 import Overlay from './components/overlay';
 import { HamburgerProvider } from './context/HamburgerContext';
-import { CertificadoProvider } from './context/CertificationContext';
+import { CertificateProvider } from './context/CertificationContext';
+import Overlay from './components/overlay';
+import './App.css';
 
 function App() {
   return (

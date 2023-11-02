@@ -11,6 +11,7 @@ import { ILoadInformationProps, FormValues } from './types';
 
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import { paths } from '#/routes/paths';
 
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const [progressStatus, setProgressStatus] = useState([
@@ -128,7 +129,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
 
   return (
     <section className="bg-white items-center flex flex-col">
-      <Navbar routerLink="/verify-certificate" />
+      <Navbar routerLink={paths.verifyCertificate} />
       <div className="container mx-auto p-2">
         <Formik
           initialValues={initialValues}
@@ -186,8 +187,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
             const updateTotalVotes = (newValue: number) => {
               setTotalVotes((prevTotal: number) => prevTotal + newValue);
             };
-
-            console.log(values);
 
             return (
               <Form>
@@ -422,10 +421,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         />
 
                         <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                          <img
-                            src="/assets/icon/check-icon.svg"
-                            alt="check"
-                          />
+                          <img src="/assets/icon/check-icon.svg" alt="check" />
                         </div>
                       </label>
                     </div>
@@ -455,7 +451,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   values.circuit !== 0 &&
                   values.table !== 0 &&
                   values.correctData ? (
-                    <Link to="/send-success" className="w-full mx-6">
+                    <Link to={paths.sendSuccess} className="w-full mx-6">
                       <Button
                         className="bg-violet-brand p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full"
                         type="submit"

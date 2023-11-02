@@ -2,19 +2,20 @@ import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
+import { paths } from '#/routes/paths';
 
 const TotalResultsPage = () => {
   const percentages = [61.05, 38.95];
   const votes = ['16,482,688', '10,517,312'];
   return (
     <div className="bg-white h-screen flex flex-col">
-      <Navbar routerLink="/home" />
+      <Navbar routerLink={paths.home} />
       <div className="flex flex-col p-4">
         <p className="font-bold text-2xl text-gray-700 mt-5">
           Resultados totales
         </p>
         <Link
-          to="/filter-results"
+          to={paths.filterResults}
           className="border-2 border-violet-brand text-violet-brand bg-transparent p-3 w-full rounded-xl text-xl tracking-wider shadow-md hover:border-violet-light my-4"
         >
           Seleccionar filtros
@@ -61,7 +62,7 @@ const TotalResultsPage = () => {
           //Card Massa, que asco
         }
         <div className="flex flex-col border rounded-2xl">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
               <img
                 src="assets/logos/uxp.svg"
