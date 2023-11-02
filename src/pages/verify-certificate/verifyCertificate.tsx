@@ -13,7 +13,7 @@ const VerifyCertificate = () => {
   const [correctData, setCorrectData] = useState<boolean>(false);
   const [imageUploaded, setImageUploaded] = useState<boolean>(false);
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
-  const {certificateImage} = useCertificate();
+  const { certificateImage } = useCertificate();
 
   const handleCheckbox = () => {
     setCorrectData((correctData) => !correctData);
@@ -21,8 +21,8 @@ const VerifyCertificate = () => {
 
   const handleImageUpload = () => {
     //Verificacion de checkbox si no ha firmado
-    if (correctData){
-      setErrorAlert('Verica que has firmado')
+    if (correctData) {
+      setErrorAlert('Verica que has firmado');
     }
 
     //estados de alerta y de imagen cargada
@@ -30,25 +30,21 @@ const VerifyCertificate = () => {
     setErrorAlert(null);
   };
 
-
   return (
     <section className="items-center flex flex-col justify-center text-center">
       <Navbar routerLink={paths.uploadCertificate} />
 
-
       <div className="w-full text-center">
         <div className="container mx-auto flex-column my-210">
-
-          <div className='flex justify-center mt-4 px-4'>
-
-          <ProgressIndicator
-            steps={[
-              ProgressStepStatus.Successful,
-              ProgressStepStatus.Active,
-              ProgressStepStatus.Pending,
-            ]}
+          <div className="flex justify-center mt-4 px-4">
+            <ProgressIndicator
+              steps={[
+                ProgressStepStatus.Successful,
+                ProgressStepStatus.Active,
+                ProgressStepStatus.Pending,
+              ]}
             />
-            </div>
+          </div>
 
           <div className="p-4 text-center my-2 mx-4 text-xl font-bold">
             <span>Carga el certificado del fiscal</span>
@@ -56,7 +52,8 @@ const VerifyCertificate = () => {
           </div>
           <div className="p-4 text-center mx-8 text-base">
             <span>
-              Chequeá que la imagen se vea <b>nítida</b> y completa antes de subirla.
+              Chequeá que la imagen se vea <b>nítida</b> y completa antes de
+              subirla.
             </span>
           </div>
 
@@ -99,16 +96,12 @@ const VerifyCertificate = () => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center w-full p-4">
-
-
             {/* TODO: Mover a Home */}
 
             {!correctData ? (
-
               <Button
                 className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-light rounded-xl"
                 type="button"
-                
                 label="Acepte los terminos por favor"
               />
             ) : (

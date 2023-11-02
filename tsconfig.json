@@ -89,8 +89,6 @@
     ],
     "include": [
         "src",
-        "pathGen.js",
-        "pathThree.js"
     ],
     "references": [
         {
