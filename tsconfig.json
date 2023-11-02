@@ -7,7 +7,7 @@
             "DOM.Iterable",
             "ESNext"
         ],
-        "allowJs": true,
+        "allowJs": false,
         "skipLibCheck": true,
         "esModuleInterop": false,
         "allowSyntheticDefaultImports": true,
@@ -88,7 +88,7 @@
         "vitest/globals"
     ],
     "include": [
-        "src",
+        "src"
     ],
     "references": [
         {
