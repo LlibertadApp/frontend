@@ -1,7 +1,7 @@
 import { LoadingPage } from '#/pages/loading-page';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import ProtectedRoute from '../components/protectedRoute/protectedRoute';
+import { ProtectedRoute } from '#/middlewares/protectedRoute';
 
 const Login = lazy(() => import('#/pages/login/login'));
 const Profile = lazy(() => import('#/pages/profile/profile'));
