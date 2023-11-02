@@ -9,23 +9,23 @@ import { ListFilters } from '#/components/listFilters';
 
 
 const TotalResultsPage = () => {
-  const { filters } = useFilter();
+  const { filters, clearFilters } = useFilter();
 
   const percentages = [61.05, 38.95];
   const votes = ['16,482,688', '10,517,312'];
   return (
     <div className="bg-white h-screen flex flex-col">
       <Navbar routerLink="/home" />
-{/* Filter provider */}
-      
+      {/* Filter provider */}
+
       <div className="flex flex-col p-4">
         <p className="font-bold text-2xl text-gray-700 mt-5">
           Resultados totales
         </p>
         {/* Sección de botones */}
         <section className="grid grid-cols-2 gap-4">
-          <ButtonFilter amount={filters.length}/>
-          <ButtonClearFilter />
+        <ButtonClearFilter amountOfFilters={filters.length} clearFilters={clearFilters} />
+        <ButtonFilter amount={filters.length} />
         </section>
         {/* Lista de filtros */}
         <ListFilters filters={filters} />
@@ -154,7 +154,7 @@ const TotalResultsPage = () => {
           label="Alerta Irregularidades"
         />
       </div>
-      
+
     </div>
   );
 };

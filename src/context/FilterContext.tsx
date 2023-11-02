@@ -14,7 +14,7 @@ export interface Filter {
 interface FilterContextType {
   filters: Filter[];
   setFilter: (filter: Filter) => void;
-  unsetFilters: () => void;
+  clearFilters: () => void;
 }
 
 
@@ -40,12 +40,12 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     }
   };
 
-  const unsetFilters = () => {
+  const clearFilters = () => {
     setFilters([]);
   }
 
   return (
-    <FilterContext.Provider value={{ filters, setFilter, unsetFilters }}>
+    <FilterContext.Provider value={{ filters, setFilter, clearFilters }}>
       {children}
     </FilterContext.Provider>
   );
