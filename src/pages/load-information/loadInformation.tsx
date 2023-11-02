@@ -143,7 +143,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     updateCorrectCertificateData(formValues);
     updateProgressStatus();
   }, [totalVotes, formValues]);
-  
+
   useEffect(() => {
     updateProgressStatus();
   }, [totalVotes, formValues]);
@@ -304,9 +304,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <div className="flex flex-col items-center justify-center my-6 w-full p-2">
                   {flatList.map((item, index) => (
                     <Field key={index} name={`flatList.${index}`}>
-                      {(
-                        { field }: any,
-                      ) => (
+                      {({ field }: any) => (
                         <FlatList
                           {...field}
                           logo={item.logo}
