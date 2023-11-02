@@ -8,6 +8,7 @@ import Input from '#/components/input';
 import useAxios from '#/hooks/utils/useAxios';
 import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
+import { paths } from '#/routes/paths';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const LoginPage: React.FC = () => {
     if (loading) return; //TODO: Spinner de carga.
 
     login(data);
-    navigate('/home');
+    navigate(paths.home);
   };
 
   const validationSchema = yup.object({
@@ -108,7 +109,7 @@ const LoginPage: React.FC = () => {
             />
 
             <Link
-              to="/total-results"
+              to={paths.totalResults}
               className="mt-8 text-lg text-center text-gray-600 underline"
             >
               Ir a resultados

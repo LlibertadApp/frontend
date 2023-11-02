@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import Button from '#/components/button';
@@ -11,59 +11,9 @@ import { ILoadInformationProps, FormValues } from './types';
 
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import { paths } from '#/routes/paths';
 
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
-  const [progressStatus, setProgressStatus] = useState([
-    ProgressStepStatus.Successful,
-    ProgressStepStatus.Successful,
-    ProgressStepStatus.Active,
-  ]);
-
-  const initialValues: FormValues = {
-    circuit: '',
-    table: '',
-    electors: '',
-    envelopes: '',
-    votesDifference: false,
-    correctCertificateData: false,
-    totalVotes: 0,
-    correctData: false,
-  };
-
-  const validationSchema = Yup.object().shape({
-    circuit: Yup.number().min(0).required(''),
-    table: Yup.number().min(0).required(''),
-    electors: Yup.number().min(0).required(''),
-    envelopes: Yup.number().min(0).required(''),
-    totalVotes: Yup.number().min(0).required(''),
-    votesDifference: Yup.boolean().test(
-      'votesDifference',
-      (values, context) => {
-        const { electors, envelopes } = context.parent;
-        const electorsEnvelopesDiff = electors - envelopes;
-        return !(electorsEnvelopesDiff > 4 || electorsEnvelopesDiff < 0);
-      },
-    ),
-    correctCertificateData: Yup.boolean().test(
-      'correctCertificateData',
-      (values, context) => {
-        const { votesDifference, circuit, table, electors, envelopes } =
-          context.parent;
-        return (
-          !votesDifference &&
-          circuit !== 0 &&
-          table !== 0 &&
-          electors !== 0 &&
-          envelopes !== 0
-        );
-      },
-    ),
-  });
-
-  const onSubmit = async (values: FormValues) => {
-    console.log(values);
-  };
-
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red';
 
@@ -126,6 +76,94 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     },
   ];
 
+  const [progressStatus, setProgressStatus] = useState([
+    ProgressStepStatus.Successful,
+    ProgressStepStatus.Successful,
+    ProgressStepStatus.Active,
+  ]);
+
+  const initialValues: FormValues = {
+    circuit: '',
+    table: '',
+    electors: '',
+    envelopes: '',
+    totalVotes: 0,
+    correctData: false,
+  };
+
+  const validationSchema = Yup.object().shape({
+    circuit: Yup.number().min(0).required(''),
+    table: Yup.number().min(0).required(''),
+    electors: Yup.number().min(0).required(''),
+    envelopes: Yup.number().min(0).required(''),
+    totalVotes: Yup.number().min(0).required(''),
+    correctData: Yup.boolean().required(''),
+  });
+
+  const onSubmit = async (values: FormValues) => {
+    values.totalVotes = totalVotes;
+    console.log(values);
+  };
+
+  const [formValues, setFormValues] = useState(initialValues);
+  const [totalVotes, setTotalVotes] = useState<number>(0);
+  const [correctCertificate, setCorrectCertificate] = useState<boolean>(false);
+  const [votesDifference, setVotesDifference] = useState(false);
+
+  const preventNegativeValues = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
+  ) => {
+    const { name, value } = e.target;
+    const newValue = Math.max(0, parseInt(value, 10));
+    setFieldValue(name, newValue);
+  };
+
+  const updateCorrectCertificateData = (values: FormValues) => {
+    const { circuit, table, electors, envelopes } = values;
+    const votesDifference =
+      typeof electors === 'number' &&
+      typeof envelopes === 'number' &&
+      (electors - envelopes > 4 || electors - envelopes < 0);
+
+    circuit && table && electors && envelopes && !votesDifference
+      ? setCorrectCertificate(true)
+      : setCorrectCertificate(false);
+  };
+
+  const updateVotesDifference = (values: FormValues) => {
+    const { electors, envelopes } = values;
+    typeof electors === 'number' &&
+      typeof envelopes === 'number' &&
+      (electors - envelopes > 4 || electors - envelopes < 0
+        ? setVotesDifference(true)
+        : setVotesDifference(false));
+  };
+
+  useEffect(() => {
+    updateVotesDifference(formValues);
+    updateCorrectCertificateData(formValues);
+    updateProgressStatus();
+  }, [totalVotes, formValues]);
+
+  useEffect(() => {
+    updateProgressStatus();
+  }, [totalVotes, formValues]);
+
+  const updateProgressStatus = () => {
+    setProgressStatus([
+      ProgressStepStatus.Successful,
+      ProgressStepStatus.Successful,
+      !(totalVotes !== formValues.envelopes || votesDifference)
+        ? ProgressStepStatus.Active
+        : ProgressStepStatus.Error,
+    ]);
+  };
+
+  const updateTotalVotes = (newValue: number) => {
+    setTotalVotes((prevTotal: number) => prevTotal + newValue);
+  };
+
   return (
     <section className="bg-white items-center flex flex-col">
       <Navbar routerLink="/verify-certificate" />
@@ -136,57 +174,9 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
           onSubmit={onSubmit}
         >
           {({ errors, touched, values, setFieldValue }) => {
-            const [totalVotes, setTotalVotes] = useState<number>(0);
-            const [correctCertificate, setCorrectCertificate] =
-              useState<boolean>(false);
-
-            const preventNegativeValues = (
-              e: React.ChangeEvent<HTMLInputElement>,
-              setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
-            ) => {
-              const { name, value } = e.target;
-              const newValue = Math.max(0, parseInt(value, 10));
-              setFieldValue(name, newValue);
-            };
-
-            const updateCorrectCertificateData = (
-              values: FormValues,
-              setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
-            ) => {
-              const { circuit, table, electors, envelopes, votesDifference } =
-                values;
-              circuit && table && electors && envelopes && !votesDifference
-                ? setFieldValue('correctCertificateData', true)
-                : setFieldValue('correctCertificateData', false);
-            };
-
-            const updateVotesDifference = (
-              values: FormValues,
-              setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
-            ) => {
-              const { electors, envelopes } = values;
-              typeof electors === 'number' &&
-                typeof envelopes === 'number' &&
-                (electors - envelopes > 4 || electors - envelopes < 0
-                  ? setFieldValue('votesDifference', true)
-                  : setFieldValue('votesDifference', false));
-            };
-
-            const updateProgressStatus = (values: FormValues) => {
-              const { totalVotes, votesDifference } = values;
-              setProgressStatus([
-                ProgressStepStatus.Successful,
-                ProgressStepStatus.Successful,
-                !(totalVotes || votesDifference)
-                  ? ProgressStepStatus.Active
-                  : ProgressStepStatus.Error,
-              ]);
-            };
-
-            const updateTotalVotes = (newValue: number) => {
-              setTotalVotes((prevTotal: number) => prevTotal + newValue);
-            };
-
+            useEffect(() => {
+              setFormValues(values);
+            }, [values]);
             return (
               <Form>
                 <div className="flex items-center justify-center">
@@ -209,8 +199,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       placeholder="000D"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
-                        updateProgressStatus(values);
-                        updateCorrectCertificateData(values, setFieldValue);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
                         values.circuit ? selectedInputStyle : ''
@@ -232,8 +220,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       placeholder="00000/0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
-                        updateProgressStatus(values);
-                        updateCorrectCertificateData(values, setFieldValue);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
                         values.table ? selectedInputStyle : ''
@@ -257,17 +243,10 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       placeholder="0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
-                        updateProgressStatus(values);
-                        updateVotesDifference(values, setFieldValue);
-                        updateCorrectCertificateData(values, setFieldValue);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
               ${values.electors ? selectedInputStyle : ''}
-              ${
-                errors.votesDifference && touched.electors
-                  ? errorInputStyle
-                  : ''
-              }`}
+              ${votesDifference && touched.electors ? errorInputStyle : ''}`}
                     />
                   </div>
                 </div>
@@ -285,17 +264,10 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       placeholder="0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
-                        updateProgressStatus(values);
-                        updateVotesDifference(values, setFieldValue);
-                        updateCorrectCertificateData(values, setFieldValue);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
                     ${values.envelopes ? selectedInputStyle : ''}
-              ${
-                errors.votesDifference && touched.envelopes
-                  ? errorInputStyle
-                  : ''
-              }`}
+              ${votesDifference && touched.envelopes ? errorInputStyle : ''}`}
                     />
                   </div>
                 </div>
@@ -303,8 +275,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <div className={`flex items-center justify-center w-full p-2`}>
                   <div
                     className={`flex p-2 justify-between items-center w-full max-w-md text-neutral-700 ${
-                      errors.votesDifference ? '!text-red' : null
-                    } ${values.correctCertificateData ? '!text-green' : null}`}
+                      votesDifference ? '!text-red' : null
+                    } ${correctCertificate ? '!text-green' : null}`}
                   >
                     <div
                       className={`text-xl font-bold px-3 py-5 tracking-wide`}
@@ -312,12 +284,10 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       {values.electors !== 0 ? (
                         <div className="flex flex-row gap-2">
                           Diferencia{' '}
-                          {values.correctCertificateData &&
-                          !values.votesDifference ? (
+                          {correctCertificate && !votesDifference ? (
                             <span className="font-light">(habilitada)</span>
                           ) : null}{' '}
-                          {errors.votesDifference &&
-                          !values.correctCertificateData ? (
+                          {votesDifference && !correctCertificate ? (
                             <span className="font-light">(impugnada)</span>
                           ) : null}
                         </div>
@@ -336,9 +306,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <div className="flex flex-col items-center justify-center my-6 w-full p-2">
                   {flatList.map((item, index) => (
                     <Field key={index} name={`flatList.${index}`}>
-                      {(
-                        { field }: any, // kjjjjj
-                      ) => (
+                      {({ field }: any) => (
                         <FlatList
                           {...field}
                           logo={item.logo}
@@ -348,7 +316,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                           votes={item.votes}
                           edit={item.edit}
                           updateTotalVotes={updateTotalVotes}
-                          correctCertificate={values.correctCertificateData}
+                          correctCertificate={correctCertificate}
                         />
                       )}
                     </Field>
@@ -450,8 +418,9 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   values.circuit !== 0 &&
                   values.table !== 0 &&
                   values.correctData ? (
-                    <Link to="/send-success" className="w-full mx-6">
+                    <Link to={paths.sendSuccess} className="w-full mx-6">
                       <Button
+                        onClick={() => onSubmit(values)}
                         className="bg-violet-brand p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full"
                         type="submit"
                         label="Enviar Datos"
@@ -461,15 +430,13 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <div className="w-full mx-6">
                       <Button
                         className={
-                          values.votesDifference && values.correctData
+                          votesDifference && values.correctData
                             ? 'bg-red p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full'
                             : 'bg-gray-300 p-4 text-black rounded-xl font-medium text-xl tracking-wider w-full cursor-default'
                         }
                         type={values.correctData ? 'submit' : 'button'}
                         label={
-                          values.votesDifference
-                            ? 'Impugnar mesa'
-                            : 'Enviar datos'
+                          votesDifference ? 'Impugnar mesa' : 'Enviar datos'
                         }
                       />
                     </div>

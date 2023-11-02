@@ -8,6 +8,7 @@ import {
 import useAxios from '#/hooks/utils/useAxios';
 import { IUser } from '#/interfaces/IUser';
 import { useNavigate } from 'react-router-dom';
+import { paths } from '#/routes/paths';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -43,7 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     sessionStorage.removeItem('accessToken');
     setIsAuthenticated(false);
     setUser(null);
-    navigate('/login');
+    navigate(paths.login);
   };
 
   const refreshToken = async () => {
