@@ -427,7 +427,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       />
                     </Link>
                   ) : (
-                    <div className="w-full mx-6">
+                    <div className="w-full mx-2">
                       <Button
                         className={
                           votesDifference && values.correctData
