@@ -36,6 +36,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     refreshToken();
   }, []);
 
+  const login = useCallback((userData: IUser) => {
+    sessionStorage.setItem('accessToken', userData.jwt);
+    setIsAuthenticated(true);
+    setUser(userData);
+  }, []);
+
+  const logout = useCallback(() => {
+    sessionStorage.removeItem('accessToken');
+    setIsAuthenticated(false);
+    setUser(null);
+    navigate('/login');
+  }, []);
+
   useEffect(() => {
     setLoading(state.loading);
     if (state.error) {
@@ -45,19 +58,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       login(state.data);
     }
   }, [state]);
-
-  const login = (userData: IUser) => {
-    sessionStorage.setItem('accessToken', userData.jwt);
-    setIsAuthenticated(true);
-    setUser(userData);
-  };
-
-  const logout = () => {
-    sessionStorage.removeItem('accessToken');
-    setIsAuthenticated(false);
-    setUser(null);
-    navigate('/login');
-  };
 
   const refreshToken = useCallback(async () => {
     const accessToken = sessionStorage.getItem('accessToken');
