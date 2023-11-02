@@ -19,16 +19,15 @@ const HomePage = () => {
               </span>
               <Link
                 to="/upload-certificate"
-                className="border-2 border-black/5 text-violet-brand bg-transparent p-6 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between"
+                className="border-2 border-black/5 text-violet-brand bg-transparent p-3 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between"
                 type="submit"
               >
                 <div className="flex items-center gap-4">
                   <div className="bg-violet-brand/5 w-16 h-16 rounded-full flex items-center justify-center">
                     <img
-                      src="assets/icon/mail-open.svg"
+                      src="assets/icon/mail-open-outlined.svg"
                       alt="Correo abierto"
                       className="w-6 h-6"
-                      style={{ fill: 'red' }}
                     />
                   </div>
                   <span className="text-sm font-medium">
@@ -36,30 +35,59 @@ const HomePage = () => {
                   </span>
                 </div>
                 <img
-                  src="assets/icon/arrow-continue-purple.svg"
+                  src="assets/icon/arrow-continue.svg"
                   alt="Ir"
                   className="w-4 h-4"
                 />
               </Link>
               <Link
-                to="/total-results"
-                className="border-2 border-black/5 text-red bg-transparent p-6 w-full rounded-xl shadow-md hover:border-red flex items-center justify-between"
+                to="/home"
+                className="border-2 border-black/5 text-violet-brand bg-transparent p-3 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between"
                 type="submit"
+                onClick={() => {
+                  alert('No existe la ruta aún');
+                }}
+              >
+                <div className="flex items-center gap-4">
+                  <div className="bg-violet-brand/5 w-16 h-16 rounded-full flex items-center justify-center">
+                    <img
+                      src="assets/icon/list.svg"
+                      alt="Correo abierto"
+                      className="w-6 h-6"
+                    />
+                  </div>
+                  <span className="text-sm font-medium">
+                    Listado de mesas cargadas
+                  </span>
+                </div>
+                <img
+                  src="assets/icon/arrow-continue.svg"
+                  alt="Ir"
+                  className="w-4 h-4"
+                />
+              </Link>
+              <Link
+                to="/home"
+                className="border-2 border-black/5 text-red bg-transparent p-3 w-full rounded-xl shadow-md hover:border-red flex items-center justify-between"
+                type="submit"
+                onClick={() => {
+                  alert('No existe la ruta aún');
+                }}
               >
                 <div className="flex items-center gap-4">
                   <div className="bg-red/5 w-16 h-16 rounded-full flex items-center justify-center">
                     <img
-                      src="assets/icon/warn-icon.svg"
+                      src="assets/icon/hand-speaker.svg"
                       alt="Alerta"
                       className="w-6 h-6"
                     />
                   </div>
                   <span className="text-sm font-medium">
-                    Impugnar o denunciar mesa
+                    Denunciar Irregularidades
                   </span>
                 </div>
                 <img
-                  src="assets/icon/arrow-continue-red.svg"
+                  src="assets/icon/arrow-continue.svg"
                   alt="Ir"
                   className="w-4 h-4"
                 />
@@ -103,8 +131,12 @@ const HomePage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="underline text-violet-brand py-4">
-                  Ver Escrutinio
+                <div className="w-full p-4 text-sm font-normal text-white bg-violet-brand rounded-2xl flex justify-center items-center gap-3">
+                  Ver escrutinio{' '}
+                  <img
+                    src="assets/images/back-arrow.svg"
+                    className="rotate-180 h-4 w-4"
+                  />
                 </div>
               </Link>
             </div>
