@@ -1,24 +1,34 @@
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
+import { useFilter } from '#/context/FilterContext';
+import { ButtonFilter } from '#/components/buttonFilter';
+import { ButtonClearFilter } from '#/components/buttonClearFilter';
+import { ListFilters } from '#/components/listFilters';
+
+
 
 const TotalResultsPage = () => {
+  const { filters } = useFilter();
+
   const percentages = [61.05, 38.95];
   const votes = ['16,482,688', '10,517,312'];
   return (
     <div className="bg-white h-screen flex flex-col">
       <Navbar routerLink="/home" />
+{/* Filter provider */}
+      
       <div className="flex flex-col p-4">
         <p className="font-bold text-2xl text-gray-700 mt-5">
           Resultados totales
         </p>
-        <Link
-          to="/filter-results"
-          className="border-2 border-violet-brand text-violet-brand bg-transparent p-3 w-full rounded-xl text-xl tracking-wider shadow-md hover:border-violet-light my-4"
-        >
-          Seleccionar filtros
-        </Link>
+        {/* Sección de botones */}
+        <section className="grid grid-cols-2 gap-4">
+          <ButtonFilter amount={filters.length}/>
+          <ButtonClearFilter />
+        </section>
+        {/* Lista de filtros */}
+        <ListFilters filters={filters} />
       </div>
 
       <div className="lg:px-60 px-3">
@@ -139,11 +149,12 @@ const TotalResultsPage = () => {
       </div>
       <div className="mt-4 p-4">
         <Button
-          className="border-2 border-rose-700 text-rose-700 bg-transparent p-3 w-full rounded-xl text-xl tracking-wider shadow-md hover:border-violet-light my-4"
+          className="border-2 border-rose-700 text-rose-700 bg-transparent p-3 w-full rounded-xl text-xl tracking-wider shadow-md hover:border-rose-300 hover:text-rose-300 my-4"
           type="button"
           label="Alerta Irregularidades"
         />
       </div>
+      
     </div>
   );
 };

@@ -78,6 +78,9 @@
             ],
             "#mocks/*": [
                 "src/mocks/*"
+            ],
+            "#icons/*": [
+                "src/icons/*"
             ]
         }
     },
