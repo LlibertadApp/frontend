@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#F2F2F2',
-        uxp: '#23B2E8',
+        'background': '#F2F2F2',
+        'uxp': '#23B2E8',
         'violet-brand': '#61439D',
         'violet-dark': '#3C2865',
         'violet-light': '#8B6ACE',
@@ -20,6 +20,7 @@ export default {
         green: '#58C299',
         black: '#000000',
         white: '#FFFFFF',
+        overlay: "rgba(32, 27, 43, 0.3)"
       },
       fontFamily: {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],

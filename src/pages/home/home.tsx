@@ -1,10 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
+import Overlay from '#/components/overlay';
 
 const HomePage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Overlay>
       <Navbar routerLink="/home" showArrow={false} />
       <section className="flex justify-center">
         <div className="md:w-1/2 w-11/12 shadow-3xl rounded-xl py-8 flex flex-col items-center space-y-8">
@@ -108,6 +110,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      </Overlay>
     </div>
   );
 };
