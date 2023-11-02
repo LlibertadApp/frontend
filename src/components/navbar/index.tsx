@@ -12,6 +12,9 @@ const Navbar: React.FC<INavbarProps> = ({
   showArrow = true,
   showHamburger = true,
 }) => {
+  const linkTransformClassName =
+    'transform transition-transform hover:scale-105';
+
   const { logout } = useAuth();
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
   const hamburgerMenuRef = useOutsideClick(closeMenu);
@@ -58,8 +61,8 @@ const Navbar: React.FC<INavbarProps> = ({
             )}
 
             {menuOpen && (
-              <div className="absolute bg-white md:right-6 right-0 top-20 rounded-xl px-1 shadow-2xl">
-                <div className="absolute top-[-15px] right-16 md:right-10 w-0 h-0">
+              <div className="absolute bg-white right-5 top-20 rounded-xl px-1 shadow-2xl">
+                <div className="absolute top-[-15px] right-12 w-0 h-0">
                   <svg width="50" height="20">
                     <polygon points="25,0 0,50 50,50" fill="white" />
                   </svg>
@@ -71,31 +74,38 @@ const Navbar: React.FC<INavbarProps> = ({
                   {/* El gris pactado no se parece al de figma */}
                   <Link
                     to={paths.profile}
-                    className="transform transition-transform hover:scale-105"
+                    className={linkTransformClassName}
                     onClick={closeMenu}
                   >
                     Mi cuenta
                   </Link>
                   <Link
+                    to={paths.totalResults}
+                    className={linkTransformClassName}
+                    onClick={closeMenu}
+                  >
+                    Ver resultados
+                  </Link>
+                  <Link
                     to={paths.uploadCertificate}
-                    className="transform transition-transform hover:scale-105"
+                    className={linkTransformClassName}
                     onClick={closeMenu}
                   >
                     Cargar resultados de mesa
                   </Link>
                   <Link
                     to={paths.home}
-                    className="transform transition-transform hover:scale-105"
+                    className={`${linkTransformClassName} text-violet-light`}
                     onClick={() => {
                       alert('No existe la ruta aún');
                       closeMenu();
                     }}
                   >
-                    Impugnar mesa
+                    Mesas cargadas
                   </Link>
                   <Link
                     to={paths.home}
-                    className="transform transition-transform hover:scale-105"
+                    className={`${linkTransformClassName} text-red`}
                     onClick={() => {
                       alert('No existe la ruta aún');
                       closeMenu();
@@ -103,20 +113,13 @@ const Navbar: React.FC<INavbarProps> = ({
                   >
                     Denunciar Irregularidades
                   </Link>
-                  <Link
-                    to={paths.totalResults}
-                    className="transform transition-transform hover:scale-105"
-                    onClick={closeMenu}
-                  >
-                    Ver resultados
-                  </Link>
                 </div>
                 <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
-                  <div className="flex gap-2 transform transition-transform hover:scale-105">
+                  <div className={`${linkTransformClassName} flex gap-2`}>
                     <img
                       src="assets/icon/log-out.svg"
                       alt="User profile"
-                      className="object-cover rounded text-violet-brand"
+                      className="object-cover rounded"
                     />
                     <Button
                       onClick={() => {
@@ -125,7 +128,7 @@ const Navbar: React.FC<INavbarProps> = ({
                       }}
                       label="Cerrar sesión"
                       type="button"
-                      className=""
+                      className="text-violet-light"
                     />
                   </div>
                 </div>
