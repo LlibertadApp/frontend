@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 import Button from '#/components/button';
 import { INavbarProps } from './types';
+import { useHamburgerMenu } from '#/context/HamburgerContext';
+import useOutsideClick from '#/hooks/utils/use-outside-click';
 
 const Navbar: React.FC<INavbarProps> = ({
   routerLink = '/home',
@@ -10,9 +12,10 @@ const Navbar: React.FC<INavbarProps> = ({
   showHamburger = true,
 }) => {
   const { logout } = useAuth();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const {menuOpen, setMenuOpen, closeMenu} = useHamburgerMenu();
+  const hamburgerMenuRef = useOutsideClick(closeMenu)
   return (
-    <div className="bg-violet-brand p-4 px-8 w-full flex flex-col h-18">
+    <div className="bg-violet-brand p-4 px-8 w-full flex flex-col h-18 relative">
       <div className="w-full grid grid-rows-1 grid-col-3 place-items-center">
         <div className="flex w-full justify-between col-start-1 col-end-4 row-start-1 row-end-2">
           <div className="flex justify-center items-center">
@@ -26,21 +29,21 @@ const Navbar: React.FC<INavbarProps> = ({
               </Link>
             )}
           </div>
-          <div className="flex flex-col justify-center z-20">
+          <div className="flex flex-col justify-center z-20" ref={hamburgerMenuRef}>
             {showHamburger && (
               <div
                 className="flex justify-center cursor-pointer transform transition-transform hover:scale-110"
-                onClick={() => setMenuOpen(!menuOpen)}
+                onClick={() => {setMenuOpen(!menuOpen)}}
               >
                 {!menuOpen ? (
                   <img
-                    src="/assets/icon/menu.svg"
+                    src="assets/icon/menu.svg"
                     alt="User profile"
                     className="object-cover rounded w-6 h-6"
                   />
                 ) : (
                   <img
-                    src="/assets/icon/close.svg"
+                    src="assets/icon/close.svg"
                     alt="User profile"
                     className="object-cover rounded w-6 h-6"
                   />
@@ -63,32 +66,35 @@ const Navbar: React.FC<INavbarProps> = ({
                   <Link
                     to="/profile"
                     className="transform transition-transform hover:scale-105"
+                    onClick={closeMenu}
                   >
                     Mi cuenta
                   </Link>
                   <Link
                     to="/upload-certificate"
                     className="transform transition-transform hover:scale-105"
+                    onClick={closeMenu}
                   >
                     Cargar resultados de mesa
                   </Link>
                   <Link
                     to="/home"
                     className="transform transition-transform hover:scale-105"
-                    onClick={() => alert('No existe la ruta aún')}
+                    onClick={() => {alert('No existe la ruta aún'); closeMenu()}}
                   >
                     Impugnar mesa
                   </Link>
                   <Link
                     to="/home"
                     className="transform transition-transform hover:scale-105"
-                    onClick={() => alert('No existe la ruta aún')}
+                    onClick={() => {alert('No existe la ruta aún'); closeMenu()}}
                   >
                     Denunciar Irregularidades
                   </Link>
                   <Link
                     to="/total-results"
                     className="transform transition-transform hover:scale-105"
+                    onClick={closeMenu}
                   >
                     Ver resultados
                   </Link>
@@ -96,12 +102,12 @@ const Navbar: React.FC<INavbarProps> = ({
                 <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
                   <div className="flex gap-2 transform transition-transform hover:scale-105">
                     <img
-                      src="/assets/icon/log-out.svg"
+                      src="assets/icon/log-out.svg"
                       alt="User profile"
                       className="object-cover rounded text-violet-brand"
                     />
                     <Button
-                      onClick={() => logout()}
+                      onClick={() => {logout(); closeMenu()}}
                       label="Cerrar sesión"
                       type="button"
                       className=""
@@ -113,13 +119,13 @@ const Navbar: React.FC<INavbarProps> = ({
           </div>
         </div>
         <div className="flex col-start-2 col-end-3 row-start-1 row-end-2">
-          <div className="flex-shrink-0 ml-auto">
+          <Link to='/home' className="flex-shrink-0 ml-auto">
             <img
               src="assets/logos/fenix-new.svg"
               alt="Logo"
-              className="object-cover rounded w-12 h-12"
+              className="object-cover rounded w-12 h-12 cursor-pointer"
             />
-          </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -22,17 +22,17 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
           </div>
           <div className="flex items-center justify-center py-4">
             <h3 className="successfull">
-              {message ?? '¡Datos enviados con éxito!'}
+              {message ?? 'Datos enviados con éxito'}
             </h3>
           </div>
           <h3 className="flex text-start text-base justify-center">
-            Muchas gracias por fiscalizar, VLLC!
+            Muchas gracias por fiscalizar, ¡VLLC!
           </h3>
           <div className="flex items-center justify-center my-20">
             {/* TODO: Mover a Home */}
             <Link to="/home">
               <Button
-                className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full cursor-default"
+                className="bg-violet-brand p-4 text-white rounded-xl font-light text-xl tracking-wider w-full cursor-default"
                 type="submit"
                 label="Volver a inicio"
               />
