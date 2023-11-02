@@ -4,3 +4,4 @@ export * from './dataProfile';
 export * from './progressIndicator';
 export * from './navbar';
 export * from './snackbar';
+export * from './overlay'

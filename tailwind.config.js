@@ -19,6 +19,7 @@ export default {
         red: '#AD3459',
         black: '#000000',
         white: '#FFFFFF',
+        overlay: "rgba(32, 27, 43, 0.3)"
       },
       fontFamily: {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],
