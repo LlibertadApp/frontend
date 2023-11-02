@@ -78,6 +78,9 @@
             ],
             "#mocks/*": [
                 "src/mocks/*"
+            ],
+            "#middlewares/*": [
+                "src/middlewares/*"
             ]
         }
     },
