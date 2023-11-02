@@ -8,6 +8,7 @@ import {
 import useAxios from '#/hooks/utils/useAxios';
 import { IUser } from '#/interfaces/IUser';
 import { useNavigate } from 'react-router-dom';
+import { useLoader } from './LoaderContext';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -24,7 +25,8 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const axios = useAxios();
+  const {state, get} = useAxios();
+  const { setLoading } = useLoader();
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<IUser | null>(null);
@@ -32,6 +34,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     refreshToken();
   }, []);
+
+  useEffect(() => {
+    setLoading(state.loading)
+    if(state.error){
+      logout()
+    }
+    if(state.data) {
+      login(state.data)
+    }
+  }, [state])
 
   const login = (userData: IUser) => {
     sessionStorage.setItem('accessToken', userData.jwt);
@@ -52,10 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     // TODO: Validar q el token sea valido no este vencido, este firmado, etc.
 
-    const { data, error } = await axios.get('/refreshToken');
-    if (error) return logout();
-
-    login(data);
+    await get('/refreshToken');
   };
 
   return (
