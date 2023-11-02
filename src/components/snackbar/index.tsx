@@ -60,7 +60,7 @@ const toastiBar = ({
               <p role="button" onClick={() => toast.dismiss(t.id)}>
                 <img
                   className="w-4 h-4"
-                  src="/src/assets/icon/close.svg"
+                  src="/assets/icon/close.svg"
                   alt=""
                 />
               </p>

@@ -3,18 +3,31 @@ import AppRoutes from './routes/routes';
 import { LoadingPage } from './pages/loading-page';
 import { AuthProvider } from './context/AuthContext';
 import './App.css';
+
 import { LoaderProvider } from './context/LoaderContext';
 import LoadingOverlay from './components/loadingOverlay';
+
+import Overlay from './components/overlay';
+import { HamburgerProvider } from './context/HamburgerContext';
+import { CertificadoProvider } from './context/CertificationContext';
+
 
 function App() {
   return (
     <AuthProvider>
-      <LoaderProvider>
-        <Suspense fallback={<LoadingPage />}>
-          <LoadingOverlay />
-          <AppRoutes />
-        </Suspense>
-      </LoaderProvider>
+      {/* TODO: Agregar un spinner de carga o algun mensaje mientras se carga la app. */}
+      <CertificadoProvider>
+      <Suspense fallback={<LoadingPage />}>
+        <HamburgerProvider>
+          <LoaderProvider>
+            <Overlay>
+              <LoadingOverlay/>
+              <AppRoutes />
+            </Overlay>
+          </LoaderProvider>
+        </HamburgerProvider>
+      </Suspense>
+      </CertificadoProvider>
     </AuthProvider>
   );
 }
