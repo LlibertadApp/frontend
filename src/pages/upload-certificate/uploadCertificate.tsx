@@ -7,6 +7,7 @@ import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useCertificate } from '#/context/CertificationContext';
+import { paths } from '#/routes/paths';
 
 
 const CheckItem = ({ text }: { text: string }) => (
@@ -28,7 +29,7 @@ const UploadCertificate = () => {
   return (
 
     <section className="items-center flex flex-col ">
-      <Navbar routerLink="/home" />
+      <Navbar routerLink={paths.home} />
       <div className="p-4 w-full">
         <div className="container flex-column items-center">
           <div className="progressIndicator">

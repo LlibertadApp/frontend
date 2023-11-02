@@ -5,10 +5,11 @@ import {
   useState,
   useEffect,
 } from 'react';
-import useAxios from '#/hooks/utils/useAxios';
-import { IUser } from '#/interfaces/IUser';
 import { useNavigate } from 'react-router-dom';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
+import useAxios from '#/hooks/utils/useAxios';
+import { IUser } from '#/interfaces/IUser';
+import { paths } from '#/routes/paths';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -48,7 +49,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     sessionStorage.removeItem('accessToken');
     setIsAuthenticated(false);
     setUser(null);
-    navigate('/login');
+    navigate(paths.login);
   };
 
   const validToken = (token: string): boolean => {

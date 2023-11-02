@@ -5,9 +5,10 @@ import Button from '#/components/button';
 import { INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
+import { paths } from '#/routes/paths';
 
 const Navbar: React.FC<INavbarProps> = ({
-  routerLink = '/home',
+  routerLink = paths.home,
   showArrow = true,
   showHamburger = true,
 }) => {
@@ -69,21 +70,21 @@ const Navbar: React.FC<INavbarProps> = ({
                 <div className="flex flex-col px-8 py-8 gap-y-6 items-start text-left text-lg text-[#363F45]">
                   {/* El gris pactado no se parece al de figma */}
                   <Link
-                    to="/profile"
+                    to={paths.profile}
                     className="transform transition-transform hover:scale-105"
                     onClick={closeMenu}
                   >
                     Mi cuenta
                   </Link>
                   <Link
-                    to="/upload-certificate"
+                    to={paths.uploadCertificate}
                     className="transform transition-transform hover:scale-105"
                     onClick={closeMenu}
                   >
                     Cargar resultados de mesa
                   </Link>
                   <Link
-                    to="/home"
+                    to={paths.home}
                     className="transform transition-transform hover:scale-105"
                     onClick={() => {
                       alert('No existe la ruta aún');
@@ -93,7 +94,7 @@ const Navbar: React.FC<INavbarProps> = ({
                     Impugnar mesa
                   </Link>
                   <Link
-                    to="/home"
+                    to={paths.home}
                     className="transform transition-transform hover:scale-105"
                     onClick={() => {
                       alert('No existe la ruta aún');
@@ -103,7 +104,7 @@ const Navbar: React.FC<INavbarProps> = ({
                     Denunciar Irregularidades
                   </Link>
                   <Link
-                    to="/total-results"
+                    to={paths.totalResults}
                     className="transform transition-transform hover:scale-105"
                     onClick={closeMenu}
                   >
@@ -133,7 +134,7 @@ const Navbar: React.FC<INavbarProps> = ({
           </div>
         </div>
         <div className="flex col-start-2 col-end-3 row-start-1 row-end-2">
-          <Link to="/home" className="flex-shrink-0 ml-auto">
+          <Link to={paths.home} className="flex-shrink-0 ml-auto">
             <img
               src="assets/logos/fenix-new.svg"
               alt="Logo"

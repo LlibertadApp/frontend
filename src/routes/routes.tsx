@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from '#/middlewares/protectedRoute';
 import { LoadingPage } from '#/pages/loading-page';
+import { paths } from './paths';
 
 const Login = lazy(() => import('#/pages/login/login'));
 const Profile = lazy(() => import('#/pages/profile/profile'));
@@ -24,28 +25,28 @@ const NotFound = lazy(() => import('#/pages/not-found/notFound'));
 const AppRoutes: React.FC = () => (
   <Routes>
     {/* Auth */}
-    <Route path="/login" element={<Login />} />
+    <Route path={paths.login} element={<Login />} />
     {/* Utils */}
-    <Route path="/loading-page" element={<LoadingPage />} />
+    <Route path={paths.loadingPage} element={<LoadingPage />} />
     {/* 404 Not found */}
     <Route path="*" element={<NotFound />} />
 
     {/* Protected routes */}
     <Route element={<ProtectedRoute />}>
       {/* Cuenta */}
-      <Route path="/home" element={<Home />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path={paths.home} element={<Home />} />
+      <Route path={paths.profile} element={<Profile />} />
 
       {/* Steps Formulario */}
-      <Route path="/upload-certificate" element={<UploadCertificate />} />
-      <Route path="/verify-certificate" element={<VerifyCertificate />} />
-      <Route path="/load-information" element={<LoadInformation />} />
-      <Route path="/send-success" element={<SendSuccess />} />
-      <Route path="/upload-failed" element={<UploadFailed />} />
+      <Route path={paths.uploadCertificate} element={<UploadCertificate />} />
+      <Route path={paths.verifyCertificate} element={<VerifyCertificate />} />
+      <Route path={paths.loadInformation} element={<LoadInformation />} />
+      <Route path={paths.sendSuccess} element={<SendSuccess />} />
+      <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
       {/* Filters & Results */}
-      <Route path="/filter-results" element={<FilterPage />} />
-      <Route path="/total-results" element={<TotalResults />} />
+      <Route path={paths.filterResults} element={<FilterPage />} />
+      <Route path={paths.totalResults} element={<TotalResults />} />
     </Route>
   </Routes>
 );

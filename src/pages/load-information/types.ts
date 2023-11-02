@@ -7,8 +7,6 @@ export interface FormValues {
   table: number | string;
   electors: number | string;
   envelopes: number | string;
-  votesDifference: boolean;
-  correctCertificateData: boolean;
   totalVotes: number;
   correctData: boolean;
 }
