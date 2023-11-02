@@ -10,7 +10,6 @@ import './App.css';
 function App() {
   return (
     <AuthProvider>
-      {/* TODO: Agregar un spinner de carga o algun mensaje mientras se carga la app. */}
       <CertificateProvider>
         <Suspense fallback={<LoadingPage />}>
           <HamburgerProvider>
