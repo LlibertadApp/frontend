@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosError, Method } from 'axios';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'http://localhost:3030';
 
 type T = any;
 
