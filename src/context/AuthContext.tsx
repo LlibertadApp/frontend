@@ -5,9 +5,10 @@ import {
   useState,
   useEffect,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 import useAxios from '#/hooks/utils/useAxios';
 import { IUser } from '#/interfaces/IUser';
-import { useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
 
 interface AuthContextType {
@@ -16,6 +17,10 @@ interface AuthContextType {
   login: (user: IUser) => void;
   logout: () => void;
   refreshToken: () => void;
+}
+
+interface JwtCustomPayload extends JwtPayload {
+  name: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -47,11 +52,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     navigate(paths.login);
   };
 
+  const validToken = (token: string): boolean => {
+    try {
+      const decodedToken = jwtDecode<JwtCustomPayload>(token);      
+      if (decodedToken && decodedToken?.exp && Date.now() > decodedToken.exp * 1000) {
+        return false;
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const refreshToken = async () => {
     const accessToken = sessionStorage.getItem('accessToken');
     if (!accessToken) return logout();
 
-    // TODO: Validar q el token sea valido no este vencido, este firmado, etc.
+    if (!validToken(accessToken)) return logout();
 
     const { data, error } = await axios.get('/refreshToken');
     if (error) return logout();
