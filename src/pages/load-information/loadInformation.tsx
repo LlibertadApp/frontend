@@ -8,7 +8,7 @@ import Navbar from '#/components/navbar';
 import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { ILoadInformationProps, FormValues } from './types';
-
+import toast, { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
@@ -63,7 +63,28 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const onSubmit = async (values: FormValues) => {
     console.log(values);
   };
-
+  const handleToast = (type: string) => {
+    try {
+      if (type === 'submit') {
+        // Toast de éxito
+        toast.success('Se está cargando la información!', {
+          icon: '✔️',
+        });
+      } else {
+        // Toast de error
+        toast.error('Debe completar los datos requeridos', {
+          icon: '‼',
+        });
+      }
+    } catch (error) {
+      // Manejo de excepción (en caso de errores inesperados)
+      toast.error('Oh oh algo está mal... Por favor, actualice la página', {
+        icon: '♻',
+      });
+    } finally {
+      // Código opcional que se ejecutará siempre, con o sin excepción
+    }
+  };
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red';
 
@@ -456,10 +477,14 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         type="submit"
                         label="Enviar Datos"
                       />
+                      <Toaster position="top-right" reverseOrder={false} />
                     </Link>
                   ) : (
                     <div className="w-full mx-6">
                       <Button
+                        onClick={() =>
+                          handleToast(values.correctData ? 'submit' : 'button')
+                        }
                         className={
                           values.votesDifference && values.correctData
                             ? 'bg-red p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full'
@@ -472,6 +497,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                             : 'Enviar datos'
                         }
                       />
+                      <Toaster position="top-right" reverseOrder={false} />
                     </div>
                   )}
                 </div>
