@@ -12,6 +12,7 @@ export default {
         'violet-brand': '#61439D',
         'violet-dark': '#3C2865',
         'violet-light': '#8B6ACE',
+        'violet-light-2': '#E4DEF6',
         'gray-dark': '#64748B',
         'gray-inactive': '#CACACB',
         'gray-light': '#CBD5E1',
