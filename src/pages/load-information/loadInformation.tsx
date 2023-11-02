@@ -166,13 +166,16 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const handleToast = (type: string) => {
     try {
       if (type === 'submit') {
-        toast.success('Se está cargando la información!', {
-          icon: '✔️',
+        toast.success('Se está cargando la información...', {
+          icon: '✔',
         });
       } else {
-        toast.error('Debe completar los datos requeridos', {
-          icon: '‼',
-        });
+        toast.error(
+          'Debes completar TODOS los datos requeridos, Y aceptar el boton de verificación',
+          {
+            icon: '⛔',
+          },
+        );
       }
     } catch (error) {
       toast.error('Oh oh algo está mal... Por favor, actualice la página', {
@@ -448,7 +451,24 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <div className="w-full mx-6">
                       <Button
                         onClick={() =>
-                          handleToast(values.correctData ? 'submit' : 'button')
+                          handleToast(
+                            typeof values.electors === 'number' &&
+                              typeof values.envelopes === 'number' &&
+                              typeof totalVotes === 'number' &&
+                              typeof values.circuit === 'number' &&
+                              typeof values.table === 'number' &&
+                              values.electors - values.envelopes >= 0 &&
+                              values.electors - values.envelopes <= 4 &&
+                              values.envelopes - totalVotes === 0 &&
+                              totalVotes !== 0 &&
+                              values.circuit !== 0 &&
+                              values.table !== 0 &&
+                              values.correctData
+                              ? 'submit'
+                              : !votesDifference || values.correctData
+                              ? 'submit'
+                              : 'button',
+                          )
                         }
                         className={
                           votesDifference && values.correctData
