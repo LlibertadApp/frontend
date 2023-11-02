@@ -465,7 +465,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                               values.table !== 0 &&
                               values.correctData
                               ? 'submit'
-                              : !votesDifference || values.correctData
+                              : votesDifference && values.correctData
                               ? 'submit'
                               : 'button',
                           )
