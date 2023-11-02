@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
+import { paths } from '#/routes/paths';
 
 const NotFoundPage = () => {
   return (
     <main>
-      <Navbar routerLink="/home" showArrow={false} />
+      <Navbar routerLink={paths.home} showArrow={false} />
       <section className='mx-6 flex flex-col justify-center items-center mt-[90px]'>
         <div className='w-[126px] h-[126px] bg-violet-light-2 rounded-full flex justify-center items-center mb-6'>
           <img src='/assets/icon/dead-face.svg' alt='404' />
@@ -14,7 +15,7 @@ const NotFoundPage = () => {
         <p className='text-base text-center font-medium text-[#485760] max-w-[224px]'>
           Ups. La página que estás buscando no existe.
         </p>
-        <Link className='w-full max-w-xs bg-violet-brand rounded-xl p-4 mt-[98px] text-white' to='/home'>Volver al Inicio</Link>
+        <Link className='w-full max-w-xs bg-violet-brand rounded-xl p-4 mt-[98px] text-white' to={paths.home}>Volver al Inicio</Link>
       </section>
     </main>
     // <section className="min-h-screen flex flex-col items-center">
@@ -28,7 +29,7 @@ const NotFoundPage = () => {
     //       />
     //       <p className="text-2xl">Lo sentimos, página no encontrada</p>
     //     </div>
-    //     <Link to="/home">
+    //     <Link to={paths.home}>
     //       <Button
     //         type="button"
     //         className="bg-violet-brand p-3 text-white w-full rounded-xl text-xl tracking-wider shadow-md hover:border-violet-light"

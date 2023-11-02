@@ -2,12 +2,13 @@ import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
 import Overlay from '#/components/overlay';
+import { paths } from '#/routes/paths';
 
 const HomePage = () => {
   return (
     <div className="min-h-screen">
       <Overlay>
-        <Navbar routerLink="/home" showArrow={false} />
+        <Navbar routerLink={paths.home} showArrow={false} />
         <section className="flex justify-center">
           <div className="md:w-1/2 w-11/12 shadow-3xl rounded-xl py-8 flex flex-col items-center space-y-8">
             <span className="text-violet-brand text-4xl font-black">
@@ -18,7 +19,7 @@ const HomePage = () => {
                 Acciones de fiscales
               </span>
               <Link
-                to="/upload-certificate"
+                to={paths.uploadCertificate}
                 className="border-2 border-black/5 text-violet-brand bg-transparent p-3 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between"
                 type="submit"
               >
@@ -41,7 +42,7 @@ const HomePage = () => {
                 />
               </Link>
               <Link
-                to="/home"
+                to={paths.home}
                 className="border-2 border-black/5 text-violet-brand bg-transparent p-3 w-full rounded-xl shadow-md hover:border-violet-light flex items-center justify-between"
                 type="submit"
                 onClick={() => {
@@ -67,7 +68,7 @@ const HomePage = () => {
                 />
               </Link>
               <Link
-                to="/home"
+                to={paths.home}
                 className="border-2 border-black/5 text-red bg-transparent p-3 w-full rounded-xl shadow-md hover:border-red flex items-center justify-between"
                 type="submit"
                 onClick={() => {
@@ -99,7 +100,7 @@ const HomePage = () => {
                 Escrutinio y resultados
               </span>
               <Link
-                to="/total-results"
+                to={paths.totalResults}
                 className="border-2 border-black/5 text-gray-500 bg-transparent p-2 w-full rounded-xl shadow-md hover:border-black/20 flex flex-col items-center justify-between gap-4"
                 type="submit"
               >

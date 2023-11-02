@@ -2,11 +2,12 @@ import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
+import { paths } from '#/routes/paths';
 
 const UploadFailedPage = () => {
     return (
         <section className='items-center flex flex-col'>
-            <Navbar routerLink="/load-information" />
+            <Navbar routerLink={paths.loadInformation} />
             <div className="p-4 w-full">
                 <div className="container mx-auto">
                     <div className="flex items-center justify-center my-20 ">
@@ -25,7 +26,7 @@ const UploadFailedPage = () => {
                         Lo sentimos, no pudimos enviar los datos
                     </h3>
                     <div className="flex items-center justify-center my-20">
-                        <Link to="/load-information" className='w-full'>
+                        <Link to={paths.loadInformation} className='w-full'>
                             <Button
                                 className="bg-violet-brand p-4 text-white rounded-xl font-light text-xl tracking-wider w-full cursor-default"
                                 type="submit"

@@ -7,7 +7,7 @@
             "DOM.Iterable",
             "ESNext"
         ],
-        "allowJs": false,
+        "allowJs": true,
         "skipLibCheck": true,
         "esModuleInterop": false,
         "allowSyntheticDefaultImports": true,
@@ -88,7 +88,9 @@
         "vitest/globals"
     ],
     "include": [
-        "src"
+        "src",
+        "pathGen.js",
+        "pathThree.js"
     ],
     "references": [
         {
