@@ -3,9 +3,14 @@ import AppRoutes from './routes/routes';
 import { LoadingPage } from './pages/loading-page';
 import { AuthProvider } from './context/AuthContext';
 import './App.css';
+
+import { LoaderProvider } from './context/LoaderContext';
+import LoadingOverlay from './components/loadingOverlay';
+
 import Overlay from './components/overlay';
 import { HamburgerProvider } from './context/HamburgerContext';
 import { CertificadoProvider } from './context/CertificationContext';
+
 
 function App() {
   return (
@@ -14,9 +19,12 @@ function App() {
       <CertificadoProvider>
       <Suspense fallback={<LoadingPage />}>
         <HamburgerProvider>
-          <Overlay>
-            <AppRoutes />
-          </Overlay>
+          <LoaderProvider>
+            <Overlay>
+              <LoadingOverlay/>
+              <AppRoutes />
+            </Overlay>
+          </LoaderProvider>
         </HamburgerProvider>
       </Suspense>
       </CertificadoProvider>

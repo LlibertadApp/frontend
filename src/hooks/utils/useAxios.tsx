@@ -23,6 +23,7 @@ const useAxios = () => {
     };
     setState(responseState);
     try {
+      await new Promise((r) => setTimeout(r, 2000)); //adding a 2000 ms timeout to simulate fetch
       const response: AxiosResponse<T> = await axios({
         method,
         url: `${API_URL}${url}`,
