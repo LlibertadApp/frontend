@@ -23,8 +23,8 @@ const TotalResultsPage = () => {
           Resultados totales
         </p>
         {/* Sección de botones */}
-        <section className="grid grid-cols-2 gap-4">
-        <ButtonClearFilter amountOfFilters={filters.length} clearFilters={clearFilters} />
+        <section className="flex justify-center gap-4">
+        {filters.length > 0 && <ButtonClearFilter amountOfFilters={filters.length} clearFilters={clearFilters} />}
         <ButtonFilter amount={filters.length} />
         </section>
         {/* Lista de filtros */}
