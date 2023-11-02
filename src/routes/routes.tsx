@@ -6,6 +6,7 @@ import { LoadingPage } from '#/pages/loading-page';
 const Login = lazy(() => import('#/pages/login/login'));
 const Profile = lazy(() => import('#/pages/profile/profile'));
 const SendSuccess = lazy(() => import('#/pages/send-success/sendSuccess'));
+const UploadFailed = lazy(() => import('#/pages/upload-failed/uploadFailed'));
 const LoadInformation = lazy(
   () => import('#/pages/load-information/loadInformation'),
 );
@@ -40,6 +41,7 @@ const AppRoutes: React.FC = () => (
       <Route path="/verify-certificate" element={<VerifyCertificate />} />
       <Route path="/load-information" element={<LoadInformation />} />
       <Route path="/send-success" element={<SendSuccess />} />
+      <Route path="/upload-failed" element={<UploadFailed />} />
 
       {/* Filters & Results */}
       <Route path="/filter-results" element={<FilterPage />} />

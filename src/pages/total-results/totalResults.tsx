@@ -61,7 +61,7 @@ const TotalResultsPage = () => {
           //Card Massa, que asco
         }
         <div className="flex flex-col border rounded-2xl">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
               <img
                 src="assets/logos/uxp.svg"
