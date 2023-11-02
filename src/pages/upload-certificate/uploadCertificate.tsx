@@ -6,7 +6,7 @@ import UploadImage from '#/components/uploadImage';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
-import { useCertificado } from '#/context/CertificationContext';
+import { useCertificate } from '#/context/CertificationContext';
 
 
 const CheckItem = ({ text }: { text: string }) => (
@@ -22,7 +22,7 @@ const UploadCertificate = () => {
   const navigate = useNavigate();
 
   // TODO: Replace with context useState
-  const {setCertificateImage} = useCertificado();
+  const {setCertificateImage} = useCertificate();
 
 
   return (
