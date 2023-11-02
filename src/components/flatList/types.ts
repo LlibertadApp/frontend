@@ -18,4 +18,5 @@ export interface FlatListProps {
   type: FlatListTypeEnum;
   votes: number;
   updateTotalVotes: UpdateTotalVotesFunction;
+  correctCertificate?: boolean;
 }

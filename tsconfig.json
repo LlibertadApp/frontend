@@ -28,9 +28,6 @@
             "#types/*": [
                 "src/types/*"
             ],
-            "#assets/*": [
-                "src/assets/*"
-            ],
             "#constants/*": [
                 "src/constants/*"
             ],
@@ -81,6 +78,9 @@
             ],
             "#middlewares/*": [
                 "src/middlewares/*"
+            ],
+            "#assets/*": [
+                "src/assets/*"
             ]
         }
     },

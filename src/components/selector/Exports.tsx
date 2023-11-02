@@ -23,7 +23,7 @@ const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <img src="src/assets/icon/selector-icon.svg" alt="" />
+      <img src="assets/icon/selector-icon.svg" alt="" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ))
