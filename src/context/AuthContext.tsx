@@ -4,6 +4,7 @@ import {
   ReactNode,
   useState,
   useEffect,
+  useCallback,
 } from 'react';
 import useAxios from '#/hooks/utils/useAxios';
 import { IUser } from '#/interfaces/IUser';
@@ -25,7 +26,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const {state, get} = useAxios();
+  const { state, get } = useAxios();
   const { setLoading } = useLoader();
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,14 +37,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    setLoading(state.loading)
-    if(state.error){
-      logout()
+    setLoading(state.loading);
+    if (state.error) {
+      logout();
     }
-    if(state.data) {
-      login(state.data)
+    if (state.data) {
+      login(state.data);
     }
-  }, [state])
+  }, [state]);
 
   const login = (userData: IUser) => {
     sessionStorage.setItem('accessToken', userData.jwt);
@@ -58,14 +59,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     navigate('/login');
   };
 
-  const refreshToken = async () => {
+  const refreshToken = useCallback(async () => {
     const accessToken = sessionStorage.getItem('accessToken');
     if (!accessToken) return logout();
 
     // TODO: Validar q el token sea valido no este vencido, este firmado, etc.
 
     await get('/refreshToken');
-  };
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -75,7 +76,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
