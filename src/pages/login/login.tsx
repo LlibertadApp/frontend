@@ -63,7 +63,7 @@ const LoginPage: React.FC = () => {
     <section className="relative flex flex-col items-center h-screen overflow-hidden bg-gray-100">
       <div className="z-10 w-5/6 p-4 md:w-1/2 shadow-3xl rounded-xl">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center my-20">
+          <div className="flex items-center justify-center my-10">
             <img
               src="assets/logos/fenix.png"
               alt="fenix"
