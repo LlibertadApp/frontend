@@ -45,9 +45,10 @@ const AppRoutes: React.FC = () => (
       <Route path={paths.sendSuccess} element={<SendSuccess />} />
       <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
-      {/* Filters & Results */}
+      {/* Filters, Results & Irregularities */}
       <Route path={paths.filterResults} element={<FilterPage />} />
       <Route path={paths.totalResults} element={<TotalResults />} />
+      <Route path={paths.irregularities} element={<Irregularities />} />
     </Route>
   </Routes>
 );

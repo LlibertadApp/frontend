@@ -1,7 +1,8 @@
 import { CardLink } from '#/components/cardLink';
+import { colors } from '#/components/cardLink/types';
 import Navbar from '#/components/navbar';
+import { paths } from '#/routes/paths';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 
 const IrregularitiesPage = () => {
   return (
@@ -18,10 +19,10 @@ const IrregularitiesPage = () => {
               Acciones de fiscales
             </span>
             <CardLink
-              link={'irregularities'}
+              link={paths.irregularities}
               text={'Impugnar mesa'}
               icon={'challenge-table.svg'}
-              color={'red'}
+              color={colors.Red}
             />
           </article>
           
@@ -30,24 +31,24 @@ const IrregularitiesPage = () => {
                 Denunciar irregularidades
             </span>
             <CardLink
-              link={'irregularities'}
+              link={paths.irregularities}
               text={'Se roban las boletas'}
               icon={'ballot-theft.svg'}
-              color={'red'}
+              color={colors.Red}
             />
 
             <CardLink
-              link={'irregularities'}
+              link={paths.irregularities}
               text={'Boletas adulteradas'}
               icon={'tampered-ballots.svg'}
-              color={'red'}
+              color={colors.Red}
             />
 
             <CardLink
-              link={'irregularities'}
+              link={paths.irregularities}
               text={'Otras irregularidades'}
               icon={'megaphone.svg'}
-              color={'red'}
+              color={colors.Red}
             />
           </article>
         </section>
