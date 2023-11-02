@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { Selector } from '#/components/selector';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
+import { paths } from '#/routes/paths';
 
 const dummyData = [
   { key: 'ex1', label: 'Example' },
@@ -21,7 +22,7 @@ const FilterPage = () => {
 
   return (
     <>
-      <Navbar routerLink='/total-results' />
+      <Navbar routerLink={paths.totalResults} />
       <main className="items-center flex flex-col relative px-10">
         <section className="md:w-1/2 w-full rounded-xl z-10 mt-10">
           <h1 className="text-xl font-bold mb-6">Resultados totales</h1>

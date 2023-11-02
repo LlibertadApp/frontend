@@ -7,6 +7,7 @@ import Navbar from '#/components/navbar';
 import { useCertificate } from '#/context/CertificationContext';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
+import { paths } from '#/routes/paths';
 
 const VerifyCertificate = () => {
   const [correctData, setCorrectData] = useState<boolean>(false);
@@ -32,7 +33,7 @@ const VerifyCertificate = () => {
 
   return (
     <section className="items-center flex flex-col justify-center text-center">
-      <Navbar routerLink="/upload-certificate" />
+      <Navbar routerLink={paths.uploadCertificate} />
 
 
       <div className="w-full text-center">
@@ -111,7 +112,7 @@ const VerifyCertificate = () => {
                 label="Acepte los terminos por favor"
               />
             ) : (
-              <Link to="/load-information" className="flex w-full">
+              <Link to={paths.loadInformation} className="flex w-full">
                 <Button
                   className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
                   type="button"

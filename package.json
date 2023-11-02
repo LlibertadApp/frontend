@@ -10,7 +10,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "tsc && vite build && vite preview",
     "preview-stg": "tsc && vite build --mode staging && vite preview",
-    "server": "json-server --watch ./src/mocks/db.json --port 5000"
+    "server": "json-server --watch ./src/mocks/db.json --port 5000",
+    "postinstall": "node ./src/routes/pathGen.js"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
