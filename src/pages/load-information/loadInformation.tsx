@@ -116,8 +116,14 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
   ) => {
     const { name, value } = e.target;
-    const newValue = Math.max(0, parseInt(value, 10));
-    setFieldValue(name, newValue);
+    const parsedValue = parseInt(value);
+
+    if (!isNaN(parsedValue) && parsedValue >= 0) {
+      const newValue = Math.max(0, parseInt(value, 10));
+      setFieldValue(name, newValue);
+    } else {
+      setFieldValue(name, '');
+    }
   };
 
   const updateCorrectCertificateData = (values: FormValues) => {
