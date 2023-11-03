@@ -310,15 +310,16 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                   </div>
                 </div>
-                <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
-                <div className="flex flex-col justify-center w-full py-5">
-                  <div className="text-left pl-1 pb-1 text-gray-darker">
-                    Diferencia
-                  </div>
+                <hr className="h-[2px] my-1 bg-gray-400/50 border-0 lg:w-2/5 max-w-md mx-auto"></hr>
+                <div className={`flex items-center justify-center p-4`}>
                   <div
-                    className={`flex justify-between items-center w-full px-4 !text-green-light bg-green-light/10 rounded-2xl ${
-                      votesDifference ? '!text-red-error !bg-red-error/10' : null
-                    } ${correctCertificate ? '' : null}`}
+                    className={`flex justify-between items-center px-4 w-full lg:w-2/5 text-neutral-700 ${
+                      votesDifference ? '!text-red' : ''
+                    } ${
+                      correctCertificate
+                        ? '!text-green bg-[#55B6851A] bg-opacity-25 rounded-3xl'
+                        : null
+                    }`}
                   >
                     <div className="px-1 py-5 tracking-wide">
                       {values.electors !== 0 ? (
@@ -375,7 +376,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   ))}
                 </div>
 
-                <div className="flex items-center justify-center my-6 w-full p-4">
+                <div className="flex items-center justify-center mt-2 w-full p-4">
                   <div className="flex p-2 justify-between items-center w-full max-w-md">
                     <div
                       className={`text-3xl text-violet-brand font-bold px-3 py-5 tracking-wide ${
@@ -419,7 +420,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
 
-                <div className="text-base text-red max-w-md mx-auto text-left -mt-16 p-5">
+                <div className="text-base text-red max-w-md mx-auto -mt-8 p-5 text-center">
                   {typeof values.envelopes === 'number' &&
                     typeof totalVotes === 'number' &&
                     (values.envelopes - totalVotes !== 0
@@ -452,7 +453,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         setFieldValue('correctData', !values.correctData)
                       }
                     >
-                      <h3 className="text-start text-base">
+                      <h3 className="text-center text-md">
                         Verifico que controlé y que todos <br />
                         los datos son correctos.
                       </h3>
