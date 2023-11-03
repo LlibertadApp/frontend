@@ -411,7 +411,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
 
-                <div className="text-base text-red max-w-md mx-auto text-left -mt-16 p-5">
+                <div className="text-base text-red max-w-md mx-auto -mt-8 p-5 text-center">
                   {typeof values.envelopes === 'number' &&
                     typeof totalVotes === 'number' &&
                     (values.envelopes - totalVotes !== 0
@@ -444,7 +444,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         setFieldValue('correctData', !values.correctData)
                       }
                     >
-                      <h3 className="text-start text-base">
+                      <h3 className="text-center text-md">
                         Verifico que controlé y que todos <br />
                         los datos son correctos.
                       </h3>

@@ -52,9 +52,7 @@ const FlatList = ({
         <label className="text-neutral-700 text-base text-left">{title}</label>
       </div>
 
-      <div
-        className="flex items-center w-1/3 justify-end text-center"
-      >
+      <div className="flex items-center w-1/3 justify-end text-center">
         {/* Para el TextField */}
         <TextField
           id="inaccessibleInput"
@@ -62,11 +60,17 @@ const FlatList = ({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleVoteChange(Number(e.target.value))
           }
+          InputLabelProps={{
+            style: { opacity: '0.6' },
+          }}
+          InputProps={{
+            style: { borderRadius: '8px' },
+          }}
           value={vote === 0 ? '' : vote}
           placeholder="0"
           disabled={!correctCertificate ? edit : !edit}
-          className={` border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold h-12 w-20 ${selectedInputStyle}`}
-          style={{ display: 'flex', justifyContent: 'center'}}
+          className={` border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold h-12 w-20 border-rounded-2xl ${selectedInputStyle}`}
+          style={{ display: 'flex', justifyContent: 'center' }}
         />
       </div>
     </div>
