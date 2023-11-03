@@ -11,7 +11,7 @@ const ImageInput = ({
       id={id}
       type="file"
       className="hidden"
-      accept="image/*"
+      accept="image/*,application/pdf"
       onChange={handleOnChange}
     />
   );
