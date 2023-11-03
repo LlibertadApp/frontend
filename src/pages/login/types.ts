@@ -1,5 +1,5 @@
 export interface ILoginProps {
-  email: '';
-  password: '';
+  email: string;
+  password: string;
   isPasswordVisible: false;
 }
