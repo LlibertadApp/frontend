@@ -51,7 +51,7 @@ export function UploadImage({
       try {
         navigate(paths.verifyCertificate);
       } catch (error) {
-        toast.error('Hubo un error al navegar a la página de verificación', {
+        toast.error('Hubo un error al cargar la página porfavor refresqué la misma.', {
           icon: '⛔',
         });
       }
