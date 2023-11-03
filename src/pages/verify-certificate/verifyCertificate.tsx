@@ -63,7 +63,7 @@ const VerifyCertificate = () => {
 
           <div className="flex items-center justify-center px-12 py-4">
             <img
-              src={certificateImage || ''}
+              src={certificateImage  || ''}
               alt="data sent successful"
               className="object-cover rounded w-100 h-auto"
             />

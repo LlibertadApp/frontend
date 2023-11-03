@@ -5,7 +5,7 @@
 @layer base {
   /* Normal Fonts */
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'Poppins' !important;
     font-style: normal;
     font-weight: 400;
     font-display: auto;
