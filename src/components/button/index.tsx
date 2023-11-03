@@ -1,28 +1,5 @@
-// import React from 'react';
-// import { IButtonProps } from './types';
-
 import classNames from 'classnames';
 import { ButtonAppearance, IButtonProps } from './types';
-import { LoadingIndicator } from '../loadingIndicator';
-
-// const Button: React.FC<IButtonProps> = ({
-//   type,
-//   className,
-//   label,
-//   onClick,
-//   disabled = false,
-// }) => (
-//   <button
-//     className={className}
-//     type={type}
-//     onClick={onClick}
-//     disabled={disabled}
-//   >
-//     {label}
-//   </button>
-// );
-
-// export default Button;
 
 export default function Button({
   appearance = 'filled',
