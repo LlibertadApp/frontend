@@ -68,7 +68,7 @@ const FilterPage = () => {
                 type="submit"
                 label="Limpiar"
               />
-              <img src="assets/icon/trash.svg" alt="sliders" />
+              <img src="assets/icon/trash.svg" alt="trash" />
             </div>
 
             <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
