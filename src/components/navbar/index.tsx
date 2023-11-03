@@ -39,7 +39,7 @@ const Navbar: React.FC<INavbarProps> = ({
           >
             {showHamburger && (
               <div
-                className="flex justify-center cursor-pointer transform transition-transform hover:scale-110"
+                className="flex justify-center cursor-pointer transform transition-transform hover:scale-90"
                 onClick={() => {
                   setMenuOpen(!menuOpen);
                 }}
