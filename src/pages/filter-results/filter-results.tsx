@@ -23,7 +23,7 @@ const FilterPage = () => {
   return (
     <>
       <Navbar routerLink={paths.totalResults} />
-      <main className="items-center flex flex-col relative px-4">
+      <main className="items-center flex flex-col relative px-4 pb-4">
         <section className="md:w-1/2 w-full rounded-xl z-10">
           <p className="font-bold text-[32px] text-violet-brand mt-5 mb-[22px]">
             FILTROS
