@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ImageInput from '#/components/imageInput';
 import { getBase64 } from '#/utils';
 import Button from '#/components/button';
@@ -41,12 +41,15 @@ export function UploadImage({
     setPreview(undefined);
     setUploaded(false);
   };
-
-  if (uploaded) {
-    navigate(paths.verifyCertificate);
-    return null; // Puedes retornar null o cualquier otro contenido que desees en este caso
-  }
-
+  /* No estoy totalmente seguro de qué esto sea optimo, 
+  pero el useEffect se activa cuando uploaded cambia, 
+  lo que solo va a ocurrir una vez,
+  después de que el usuario ha subido una imagen */
+  useEffect(() => {
+    if (uploaded) {
+      navigate(paths.verifyCertificate);
+    }
+  }, [uploaded, navigate]);
   return (
     <div className="flex flex-col items-center text-lg">
       <div
