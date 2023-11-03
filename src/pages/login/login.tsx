@@ -8,7 +8,7 @@ import useAxios from '#/hooks/utils/useAxios';
 import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
 import { paths } from '#/routes/paths';
-import {TextField} from '@mui/material';
+import { TextField } from '@mui/material';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -78,16 +78,18 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
 
-        <div className=' flex flex-col p-4 pt-2 pb-10 '>
-          
+        <div className=" flex flex-col p-4 pt-2 pb-10 ">
           <span className="text-3xl">Entre todos,</span>
-          <span className="text-3xl font-bold text-indigo-900">evitemos el fraude.</span>
+          <span className="text-3xl font-bold text-indigo-900">
+            evitemos el fraude.
+          </span>
         </div>
         <form className="w-full" onSubmit={handleSubmit}>
-          <div className="flex items-center mb-6 text-lg md:mb-8 shadow-3xl">
+          <div
+            className="flex items-center mb-6 text-lg md:mb-8 shadow-3xl"
+          >
             <TextField
-              InputLabelProps={{ style: { fontFamily: 'Poppins'  }}}
-              InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+              InputProps={{ style: { borderRadius: '8px' } }}
               sx={{ width: '100%' }}
               label="DNI"
               type="text"
@@ -100,8 +102,9 @@ const LoginPage: React.FC = () => {
           </div>
           <div className="flex items-center mb-6 text-lg md:mb-8 shadow-3xl">
             <TextField
-              InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
-              InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+              InputProps={{
+                style: { borderRadius: '8px' },
+              }}
               sx={{ width: '100%' }}
               label="Contraseña"
               type="password"

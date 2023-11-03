@@ -152,7 +152,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     updateProgressStatus();
   }, [totalVotes, formValues]);
 
-
   const updateProgressStatus = () => {
     setProgressStatus([
       ProgressStepStatus.Successful,
@@ -197,7 +196,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
           onSubmit={onSubmit}
         >
           {({ errors, touched, values, setFieldValue, handleChange }) => {
-
             useEffect(() => {
               setFormValues(values);
             }, [values]);
@@ -207,19 +205,20 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   <ProgressIndicator steps={progressStatus} />
                 </div>
                 <div className="py-8 text-neutral-700 text-xl font-bold">
-                  Completá los datos del <br/>certificado
+                  Completá los datos del <br />
+                  certificado
                 </div>
-                
+
                 <div className="flex w-full justify-center gap-[20vw] sm:gap-24 px-4">
                   <div>
                     <TextField
-                      InputLabelProps={{ style: { fontFamily: 'Poppins', opacity:'0.6' }}}
-                      InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+                      InputLabelProps={{ style: { opacity: '0.6' } }}
+                      InputProps={{ style: { borderRadius: '8px' } }}
                       sx={{ width: '100%' }}
                       type="number"
                       label="Circuito"
-                      name='circuit'
-                      variant='outlined'
+                      name="circuit"
+                      variant="outlined"
                       placeholder="000D"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
@@ -232,15 +231,18 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       } `}
                     />
                   </div>
-                  <div >
+                  <div>
                     <label
                       className="inline-block my-2 text-violet-brand font-bold text-xl"
                       htmlFor="table"
-                    >
-                    </label>
+                    ></label>
                     <TextField
-                      InputLabelProps={{ style: { fontFamily: 'Poppins', opacity:'0.6' }}}
-                      InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+                      InputLabelProps={{
+                        style: { opacity: '0.6' },
+                      }}
+                      InputProps={{
+                        style: { borderRadius: '8px'},
+                      }}
                       sx={{ width: '100%' }}
                       type="number"
                       name="table"
@@ -259,11 +261,15 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
 
-                <div className='flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4'>
-                <div className="py-6">
+                <div className="flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4">
+                  <div className="py-6">
                     <TextField
-                      InputLabelProps={{ style: { fontFamily: 'Poppins', opacity:'0.6' }}}
-                      InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+                      InputLabelProps={{
+                        style: {  opacity: '0.6' },
+                      }}
+                      InputProps={{
+                        style: { borderRadius: '8px'},
+                      }}
                       sx={{ width: '100%' }}
                       type="number"
                       name="electors"
@@ -277,44 +283,51 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
               ${values.electors ? selectedInputStyle : ''}
               ${votesDifference && touched.electors ? errorInputStyle : ''}`}
                     />
-                </div>
+                  </div>
 
-                <div className="py-6">
-                  <div className="">
-                    <TextField
-                      InputLabelProps={{ style: { fontFamily: 'Poppins', opacity:'0.6' }}}
-                      InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
-                      sx={{ width: '100%' }}
-                      type="number"
-                      name="envelopes"
-                      label="Sobres"
-                      placeholder="0"
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        preventNegativeValues(e, setFieldValue);
-                        handleChange(e);
-                      }}
-                      className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl
+                  <div className="py-6">
+                    <div className="">
+                      <TextField
+                        InputLabelProps={{
+                          style: {  opacity: '0.6' },
+                        }}
+                        InputProps={{
+                          style: { borderRadius: '8px' },
+                        }}
+                        sx={{ width: '100%' }}
+                        type="number"
+                        name="envelopes"
+                        label="Sobres"
+                        placeholder="0"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          preventNegativeValues(e, setFieldValue);
+                          handleChange(e);
+                        }}
+                        className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl
                     ${values.envelopes ? selectedInputStyle : ''}
               ${votesDifference && touched.envelopes ? errorInputStyle : ''}`}
-                    />
+                      />
+                    </div>
                   </div>
-                </div>
-
                 </div>
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
                 <div className={`flex items-center justify-center w-full p-2`}>
                   <div
                     className={`flex justify-between items-center w-full px-4 text-neutral-700 ${
                       votesDifference ? '!text-red' : null
-                    } ${correctCertificate ? '!text-green bg-lime-400 bg-opacity-25 rounded-3xl' : null}`}
+                    } ${
+                      correctCertificate
+                        ? '!text-green bg-lime-400 bg-opacity-25 rounded-3xl'
+                        : null
+                    }`}
                   >
-                    <div
-                      className={`text-m font-bold px-1 py-5 tracking-wide`}
-                    >
+                    <div className={`text-m font-bold px-1 py-5 tracking-wide`}>
                       {values.electors !== 0 ? (
                         <div className="flex flex-row gap-2">
                           {correctCertificate && !votesDifference ? (
-                            <span className="font-light">No hay diferencia</span>
+                            <span className="font-light">
+                              No hay diferencia
+                            </span>
                           ) : null}{' '}
                           {votesDifference && !correctCertificate ? (
                             <span className="font-light">(impugnada)</span>
@@ -334,23 +347,22 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
                 <div className="flex flex-col items-center justify-center my-6 w-full p-4">
                   {flatList.map((item, index) => (
-                    <Field key={index}
-                          name={`flatList.${index}`}
-                          
-                          >
-                      {(({ field }: any) => (
-                        <FlatList
-                          {...field}
-                          logo={item.logo}
-                          type={item.type}
-                          subTitle={item.subTitle}
-                          title={item.title}
-                          votes={item.votes}
-                          edit={item.edit}
-                          updateTotalVotes={updateTotalVotes}
-                          correctCertificate={correctCertificate}
-                        />
-                      )) as any }
+                    <Field key={index} name={`flatList.${index}`}>
+                      {
+                        (({ field }: any) => (
+                          <FlatList
+                            {...field}
+                            logo={item.logo}
+                            type={item.type}
+                            subTitle={item.subTitle}
+                            title={item.title}
+                            votes={item.votes}
+                            edit={item.edit}
+                            updateTotalVotes={updateTotalVotes}
+                            correctCertificate={correctCertificate}
+                          />
+                        )) as any
+                      }
                     </Field>
                   ))}
                 </div>
@@ -433,7 +445,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       }
                     >
                       <h3 className="text-start text-base">
-                        Verifico que controlé y que todos <br/>los datos son correctos.
+                        Verifico que controlé y que todos <br />
+                        los datos son correctos.
                       </h3>
                     </div>
                   </div>
