@@ -17,10 +17,13 @@ const LoginPage: React.FC = () => {
 
   const onLogin = async (values: ILoginProps) => {
     //TODO: Cambiar cuando la logica del LOGIN (desde el back, me devuelva el JWT y la info del Usuario)
-    //TODO: Descomentar cuando este todo listo -> const { data, error, loading } = await axios.post('/auth', values);
-    const { data, error, loading } = await axios.get('/user');
+    const { dni, password } = values;
+    const { data, error, loading } = await axios.post('/auth/sign-in', {
+      dni,
+      password,
+    });
 
-    if (error) return; //TODO: Snackbar de error.
+    if (error && error?.response && error?.response?.data) return; //TODO: Snackbar de error.
     if (loading) return; //TODO: Spinner de carga.
 
     login(data);
