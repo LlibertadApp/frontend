@@ -23,10 +23,12 @@ const FilterPage = () => {
   return (
     <>
       <Navbar routerLink={paths.totalResults} />
-      <main className="items-center flex flex-col relative px-10">
-        <section className="md:w-1/2 w-full rounded-xl z-10 mt-10">
-          <h1 className="text-xl font-bold mb-6">Resultados totales</h1>
-          <div className="px-3 flex flex-col gap-4" id="filter-list">
+      <main className="items-center flex flex-col relative px-4">
+        <section className="md:w-1/2 w-full rounded-xl z-10">
+          <p className="font-bold text-[32px] text-violet-brand mt-5 mb-[22px]">
+            FILTROS
+          </p>
+          <div className="flex flex-col gap-7 py-3" id="filter-list">
             <Selector
               label="Distrito"
               onChange={setDistrito}
@@ -59,17 +61,25 @@ const FilterPage = () => {
             />
             <Selector label="Mesa" onChange={setMesa} options={dummyData} />
           </div>
+          <div className="flex flex-1 flex-row gap-5 mt-[50px]">
+            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] text-violet-primary border-2 border-violet-primary w-full rounded-xl font-medium">
+              <Button
+                className="text-xl tracking-wide"
+                type="submit"
+                label="Limpiar"
+              />
+              <img src="assets/icon/trash.svg" alt="sliders" />
+            </div>
 
-          <Button
-            className="mt-10 bg-violet-brand p-4 text-white w-full rounded-xl font-semibold text-xl tracking-wider"
-            type="submit"
-            label="Aplicar Filtros"
-          />
-          <Button
-            className="border-2 border-red text-red bg-transparent p-3 w-full rounded-xl text-xl tracking-wider shadow-md hover:border-violet-light mt-3"
-            type="submit"
-            label="Alertar Irregularidades"
-          />
+            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
+              <Button
+                className="text-xl tracking-wide"
+                type="submit"
+                label="Aplicar"
+              />
+              <img src="assets/icon/arrow-apply.svg" alt="sliders" />
+            </div>
+          </div>
         </section>
       </main>
     </>

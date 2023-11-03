@@ -11,14 +11,12 @@ const TotalResultsPage = () => {
     <div className="bg-white h-screen flex flex-col">
       <Navbar routerLink={paths.home} />
       <div className="flex flex-col p-4">
-        <p className="font-bold text-2xl text-gray-700 mt-5">
-          Resultados totales
-        </p>
+        <p className="font-bold text-[32px] text-violet-brand mt-[16px]">BALOTAJE</p>
         <Link
           to={paths.filterResults}
-          className="border-2 border-violet-brand text-violet-brand bg-transparent p-3 w-full rounded-xl text-xl tracking-wider shadow-md hover:border-violet-light my-4"
+          className="flex flex-row justify-center gap-[10px] bg-violet-brand text-white px-4 py-4 w-full rounded-xl text-[18px] tracking-wider hover:border-violet-light my-4"
         >
-          Seleccionar filtros
+          Filtros <img src="assets/icon/sliders-icon.svg" alt="sliders" />
         </Link>
       </div>
       <div className="lg:px-60 px-3 flex flex-col gap-6">
@@ -28,11 +26,7 @@ const TotalResultsPage = () => {
         <div className="flex flex-col border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
-              <img
-                src="assets/logos/fenix.png"
-                className="w-16 h-14"
-                alt=""
-              />
+              <img src="assets/logos/fenix.png" className="w-16 h-14" alt="" />
               <div className="flex flex-col items-end">
                 <span className={`text-[12px] text-gray-dark`}>
                   {votes[0]} votos
@@ -42,17 +36,21 @@ const TotalResultsPage = () => {
                 </p>
               </div>
             </div>
-            <div className='grid grid-rows-3 pb-4 pr-4 pl-4 pt-2 grid-cols-1 items-center'>
+            <div className="grid grid-rows-3 pb-4 pr-4 pl-4 pt-2 grid-cols-1 items-center">
               <div className="rounded-md h-2 bg-gray-light">
                 <div
                   className={`h-full bg-violet-brand rounded-l`}
                   style={{ width: `${percentages[0]}%` }}
                 ></div>
               </div>
-              <p className={`text-[13px] font-bold uppercase text-violet-brand flex items-start`}>
+              <p
+                className={`text-[13px] font-bold uppercase text-violet-brand flex items-start`}
+              >
                 LA LIBERTAD AVANZA
               </p>
-              <p className={`text-[12px] text-start uppercase text-gray-dark flex items-start`}>
+              <p
+                className={`text-[12px] text-start uppercase text-gray-dark flex items-start`}
+              >
                 JAVIER MILEI - VICTORIA VILLARRUEL
               </p>
             </div>
@@ -64,11 +62,7 @@ const TotalResultsPage = () => {
         <div className="flex flex-col border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
-              <img
-                src="assets/logos/uxp.svg"
-                className="w-16 h-14"
-                alt=""
-              />
+              <img src="assets/logos/uxp.svg" className="w-16 h-14" alt="" />
               <div className="flex flex-col items-end">
                 <span className={`text-[12px] text-gray-dark`}>
                   {votes[1]} votos
@@ -78,42 +72,45 @@ const TotalResultsPage = () => {
                 </p>
               </div>
             </div>
-            <div className='grid grid-rows-3 pb-4 pr-4 pl-4 pt-2 grid-cols-1 items-center'>
+            <div className="grid grid-rows-3 pb-4 pr-4 pl-4 pt-2 grid-cols-1 items-center">
               <div className="rounded-md h-2 bg-gray-light">
                 <div
                   className={`h-full bg-uxp rounded-l`}
                   style={{ width: `${percentages[1]}%` }}
                 ></div>
               </div>
-              <p className={`text-[13px] font-bold uppercase text-uxp flex items-start`}>
+              <p
+                className={`text-[13px] font-bold uppercase text-uxp flex items-start`}
+              >
                 UNIÓN POR LA PATRIA
               </p>
-              <p className={`text-[12px] text-start uppercase text-gray-dark flex items-start`}>
+              <p
+                className={`text-[12px] text-start uppercase text-gray-dark flex items-start`}
+              >
                 SERGIO TOMÁS MASSA - AGUSTÍN ROSSI
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col px-8 lg:px-60 mt-10">
-        <div className="border border-t-1 opacity-70"></div>
-        <div className="my-2">
-          <span className="text-[17px] text-gray-dark">Total de votos</span>
-          <p className="text-[25px] font-bold uppercase text-violet-brand">
+      <div className="border border-t-1 border-gray-dark mt-10"></div>
+      <div className="flex flex-col px-4 py-5 lg:px-60 gap-7">
+        <div className='flex flex-col'>
+          <p className="text-[25px] font-bold uppercase text-text-off">
             27,000,000
           </p>
+          <span className="text-[17px] -mt-1 text-gray-dark">Total de votos</span>
         </div>
-        <div className="border border-t-1 opacity-70"></div>
-        <div className="flex flex-row justify-between mt-2 px-3">
-          <div className="flex flex-col">
+        <div className="flex flex-row justify-between mt-2 px-3 gap-10">
+          <div className="flex flex-1 flex-col">
             <span className="text-[17px] text-gray-dark">Mesas escrutadas</span>
-            <p className="text-[25px] font-bold uppercase text-violet-brand">
+            <p className="text-[25px] font-bold uppercase text-text-off">
               90.00%
             </p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-1 flex-col">
             <span className="text-[17px] text-gray-dark">Participación</span>
-            <p className="text-[25px] font-bold uppercase text-violet-brand">
+            <p className="text-[25px] font-bold uppercase text-text-off">
               76.36%
             </p>
           </div>
