@@ -26,49 +26,38 @@ const FilterPage = () => {
       <main className="items-center flex flex-col relative px-10">
         <section className="md:w-1/2 w-full rounded-xl z-10 mt-10">
           <h1 className="text-xl font-bold mb-6">Resultados totales</h1>
-          <div className="px-3">
+          <div className="px-3 flex flex-col gap-4" id="filter-list">
             <Selector
-              options={dummyData}
-              placeholder="Distrito"
-              value={distrito}
+              label="Distrito"
               onChange={setDistrito}
+              options={dummyData}
             />
             <Selector
-              options={dummyData}
-              placeholder="Sección Electoral"
-              value={seccionElectoral}
+              label="Sección Electoral"
               onChange={setSeccionElectoral}
+              options={dummyData}
             />
             <Selector
-              options={dummyData}
-              placeholder="Sección"
-              value={seccion}
+              label="Sección"
               onChange={setSeccion}
+              options={dummyData}
             />
             <Selector
-              options={dummyData}
-              placeholder="Municipio"
-              value={municipio}
+              label="Municipio"
               onChange={setMunicipio}
+              options={dummyData}
             />
             <Selector
-              options={dummyData}
-              placeholder="Circuito "
-              value={circuito}
+              label="Circuito"
               onChange={setCircuito}
+              options={dummyData}
             />
             <Selector
-              options={dummyData}
-              placeholder="Establecimiento"
-              value={establecimiento}
+              label="Establecimiento"
               onChange={setEstablecimiento}
-            />
-            <Selector
               options={dummyData}
-              placeholder="Mesa"
-              value={mesa}
-              onChange={setMesa}
             />
+            <Selector label="Mesa" onChange={setMesa} options={dummyData} />
           </div>
 
           <Button
