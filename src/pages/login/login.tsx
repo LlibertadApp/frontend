@@ -86,7 +86,7 @@ const LoginPage: React.FC = () => {
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="flex items-center mb-6 text-lg md:mb-8 shadow-3xl">
             <TextField
-              InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+              InputLabelProps={{ style: { fontFamily: 'Poppins'  }}}
               InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
               sx={{ width: '100%' }}
               label="DNI"
