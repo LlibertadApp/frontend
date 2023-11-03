@@ -17,3 +17,10 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IAuthData {
+  data: {
+    accessToken: string;
+    user: IUser;
+  };
+}
