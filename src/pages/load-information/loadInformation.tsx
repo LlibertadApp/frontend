@@ -241,7 +241,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         style: { opacity: '0.6' },
                       }}
                       InputProps={{
-                        style: { borderRadius: '8px'},
+                        style: { borderRadius: '8px' },
                       }}
                       sx={{ width: '100%' }}
                       type="number"
@@ -265,10 +265,10 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   <div className="py-6">
                     <TextField
                       InputLabelProps={{
-                        style: {  opacity: '0.6' },
+                        style: { opacity: '0.6' },
                       }}
                       InputProps={{
-                        style: { borderRadius: '8px'},
+                        style: { borderRadius: '8px' },
                       }}
                       sx={{ width: '100%' }}
                       type="number"
@@ -289,7 +289,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <div className="">
                       <TextField
                         InputLabelProps={{
-                          style: {  opacity: '0.6' },
+                          style: { opacity: '0.6' },
                         }}
                         InputProps={{
                           style: { borderRadius: '8px' },
@@ -310,14 +310,14 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                   </div>
                 </div>
-                <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
-                <div className={`flex items-center justify-center w-full p-2`}>
+                <hr className="h-[2px] my-1 bg-gray-400/50 border-0 lg:w-2/5 max-w-md mx-auto"></hr>
+                <div className={`flex items-center justify-center p-4`}>
                   <div
-                    className={`flex justify-between items-center w-full px-4 text-neutral-700 ${
+                    className={`flex justify-between items-center px-4 w-3/4 lg:w-2/5 text-neutral-700 ${
                       votesDifference ? '!text-red' : null
                     } ${
                       correctCertificate
-                        ? '!text-green bg-lime-400 bg-opacity-25 rounded-3xl'
+                        ? '!text-green bg-[#55B6851A] bg-opacity-25 rounded-3xl'
                         : null
                     }`}
                   >
