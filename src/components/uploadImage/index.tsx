@@ -4,6 +4,7 @@ import { getBase64 } from '#/utils';
 import Button from '#/components/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
+ import toast, { Toaster } from 'react-hot-toast';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
@@ -47,7 +48,13 @@ export function UploadImage({
   después de que el usuario ha subido una imagen */
   useEffect(() => {
     if (uploaded) {
-      navigate(paths.verifyCertificate);
+      try {
+        navigate(paths.verifyCertificate);
+      } catch (error) {
+        toast.error('Hubo un error al navegar a la página de verificación', {
+          icon: '⛔',
+        });
+      }
     }
   }, [uploaded, navigate]);
   return (
@@ -96,6 +103,7 @@ export function UploadImage({
             handleOnChange={(ev) => onUploadInternal(ev.target.files?.[0])}
           />
           <p className="mx-auto">Tomar foto</p>
+          <Toaster position="top-right" reverseOrder={false} />
         </label>
       </div>
     </div>
