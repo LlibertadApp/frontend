@@ -313,8 +313,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 lg:w-2/5 max-w-md mx-auto"></hr>
                 <div className={`flex items-center justify-center p-4`}>
                   <div
-                    className={`flex justify-between items-center px-4 w-3/4 lg:w-2/5 text-neutral-700 ${
-                      votesDifference ? '!text-red' : null
+                    className={`flex justify-between items-center px-4 w-full lg:w-2/5 text-neutral-700 ${
+                      votesDifference ? '!text-red' : ''
                     } ${
                       correctCertificate
                         ? '!text-green bg-[#55B6851A] bg-opacity-25 rounded-3xl'
