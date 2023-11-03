@@ -241,7 +241,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         style: { opacity: '0.6' },
                       }}
                       InputProps={{
-                        style: { borderRadius: '8px'},
+                        style: { borderRadius: '8px' },
                       }}
                       sx={{ width: '100%' }}
                       type="number"
@@ -265,10 +265,10 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   <div className="py-6">
                     <TextField
                       InputLabelProps={{
-                        style: {  opacity: '0.6' },
+                        style: { opacity: '0.6' },
                       }}
                       InputProps={{
-                        style: { borderRadius: '8px'},
+                        style: { borderRadius: '8px' },
                       }}
                       sx={{ width: '100%' }}
                       type="number"
@@ -289,7 +289,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <div className="">
                       <TextField
                         InputLabelProps={{
-                          style: {  opacity: '0.6' },
+                          style: { opacity: '0.6' },
                         }}
                         InputProps={{
                           style: { borderRadius: '8px' },
@@ -311,36 +311,44 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
-                <div className={`flex items-center justify-center w-full p-2`}>
+                <div className="flex flex-col justify-center w-full py-5">
+                  <div className="text-left pl-1 pb-1 text-gray-darker">
+                    Diferencia
+                  </div>
                   <div
-                    className={`flex justify-between items-center w-full px-4 text-neutral-700 ${
-                      votesDifference ? '!text-red' : null
-                    } ${
-                      correctCertificate
-                        ? '!text-green bg-lime-400 bg-opacity-25 rounded-3xl'
-                        : null
-                    }`}
+                    className={`flex justify-between items-center w-full px-4 !text-green-light bg-green-light/10 rounded-2xl ${
+                      votesDifference ? '!text-red-error !bg-red-error/10' : null
+                    } ${correctCertificate ? '' : null}`}
                   >
-                    <div className={`text-m font-bold px-1 py-5 tracking-wide`}>
+                    <div className="px-1 py-5 tracking-wide">
                       {values.electors !== 0 ? (
                         <div className="flex flex-row gap-2">
-                          {correctCertificate && !votesDifference ? (
-                            <span className="font-light">
-                              No hay diferencia
-                            </span>
-                          ) : null}{' '}
+                          {!votesDifference ? (
+                            <span className="">No hay diferencia</span>
+                          ) : null}
                           {votesDifference && !correctCertificate ? (
-                            <span className="font-light">(impugnada)</span>
+                            <span className="">
+                              {' '}
+                              {isNaN(
+                                Number(values.electors) -
+                                  Number(values.envelopes),
+                              )
+                                ? 0
+                                : Number(values.electors) -
+                                  Number(values.envelopes)}
+                            </span>
                           ) : null}
                         </div>
                       ) : (
                         <div className="">Diferencia</div>
                       )}
                     </div>
-                    <div className="text-2xl font-semibold px-3 py-5 mr-10">
-                      {isNaN(Number(values.electors) - Number(values.envelopes))
-                        ? 0
-                        : Number(values.electors) - Number(values.envelopes)}
+                    <div className="font-2xl">
+                      {!votesDifference ? (
+                        <img src="/assets/icon/check.svg" alt="check" />
+                      ) : (
+                        <img src="/assets/icon/xcircle.svg" alt="error" />
+                      )}
                     </div>
                   </div>
                 </div>

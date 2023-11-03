@@ -4,7 +4,7 @@ import './styles.css';
 
 const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
   return (
-    <div className="w-full flex justify-between items-center mt-4">
+    <div className="w-full flex justify-between items-center mt-4 px-1">
       {steps.map((step, index) => (
         <React.Fragment key={index}>
           <div
