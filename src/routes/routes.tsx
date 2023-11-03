@@ -34,6 +34,8 @@ const AppRoutes: React.FC = () => (
     {/* Protected routes */}
     <Route element={<ProtectedRoute />}>
       {/* Cuenta */}
+      <Route path={paths.none} element={<Home />} />
+      <Route path={paths.root} element={<Home />} />
       <Route path={paths.home} element={<Home />} />
       <Route path={paths.profile} element={<Profile />} />
 

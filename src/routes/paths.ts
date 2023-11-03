@@ -1,4 +1,6 @@
 export const paths = {
+  none: '',
+  root: '/',
   login: '/login',
   loadingPage: '/loading-page',
   home: '/home',
