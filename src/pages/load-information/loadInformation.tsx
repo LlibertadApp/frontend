@@ -8,7 +8,7 @@ import Navbar from '#/components/navbar';
 import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { ILoadInformationProps, FormValues } from './types';
-
+import toast, { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { paths } from '#/routes/paths';
@@ -115,8 +115,14 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
   ) => {
     const { name, value } = e.target;
-    const newValue = Math.max(0, parseInt(value, 10));
-    setFieldValue(name, newValue);
+    const parsedValue = parseInt(value);
+
+    if (!isNaN(parsedValue) && parsedValue >= 0) {
+      const newValue = Math.max(0, parseInt(value, 10));
+      setFieldValue(name, newValue);
+    } else {
+      setFieldValue(name, '');
+    }
   };
 
   const updateCorrectCertificateData = (values: FormValues) => {
@@ -163,7 +169,27 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const updateTotalVotes = (newValue: number) => {
     setTotalVotes((prevTotal: number) => prevTotal + newValue);
   };
-
+  const handleToast = (type: string) => {
+    try {
+      if (type === 'submit') {
+        toast.success('Se está cargando la información...', {
+          icon: '✔',
+        });
+      } else {
+        toast.error(
+          'Debes completar TODOS los datos requeridos, Y aceptar el boton de verificación',
+          {
+            icon: '⛔',
+          },
+        );
+      }
+    } catch (error) {
+      toast.error('Oh oh algo está mal... Por favor, actualice la página', {
+        icon: '♻',
+      });
+    } finally {
+    }
+  };
   return (
     <section className="bg-white items-center flex flex-col">
       <Navbar routerLink="/verify-certificate" />
@@ -425,10 +451,30 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         type="submit"
                         label="Enviar Datos"
                       />
+                      <Toaster position="top-right" reverseOrder={false} />
                     </Link>
                   ) : (
-                    <div className="w-full mx-6">
+                    <div className="w-full mx-2">
                       <Button
+                        onClick={() =>
+                          handleToast(
+                            typeof values.electors === 'number' &&
+                              typeof values.envelopes === 'number' &&
+                              typeof totalVotes === 'number' &&
+                              typeof values.circuit === 'number' &&
+                              typeof values.table === 'number' &&
+                              values.electors - values.envelopes >= 0 &&
+                              values.electors - values.envelopes <= 4 &&
+                              values.envelopes - totalVotes === 0 &&
+                              totalVotes !== 0 &&
+                              values.circuit !== 0 &&
+                              values.table !== 0 &&
+                              values.correctData &&
+                              votesDifference
+                              ? 'submit'
+                              : 'button',
+                          )
+                        }
                         className={
                           votesDifference && values.correctData
                             ? 'bg-red p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full'
@@ -439,6 +485,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                           votesDifference ? 'Impugnar mesa' : 'Enviar datos'
                         }
                       />
+                      <Toaster position="top-right" reverseOrder={false} />
                     </div>
                   )}
                 </div>
