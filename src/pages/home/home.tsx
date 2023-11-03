@@ -9,13 +9,13 @@ const HomePage = () => {
     <div className="min-h-screen">
       <Overlay>
         <Navbar routerLink={paths.home} showArrow={false} />
-        <section className="flex justify-center">
-          <div className="md:w-1/2 w-11/12 shadow-3xl rounded-xl py-8 flex flex-col items-center space-y-8">
+        <section className="flex justify-center p-4">
+          <div className="md:w-1/2 w-11/12 shadow-3xl rounded-xl py-4 flex flex-col items-center">
             <span className="text-violet-brand text-4xl font-black">
               ELECCIONES 2023
             </span>
             <div className="flex flex-col items-center space-y-2 w-full">
-              <span className="text-left w-full font-normal">
+              <span className=" w-full font-bold py-4 ">
                 Acciones de fiscales
               </span>
               <Link
@@ -96,7 +96,7 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-col items-center space-y-2 w-full">
-              <span className="text-left w-full font-normal">
+              <span className=" w-full p-4 font-bold">
                 Escrutinio y resultados
               </span>
               <Link

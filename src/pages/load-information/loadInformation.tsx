@@ -20,7 +20,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
 
   const flatList = [
     {
-      logo: 'assets/logos/lla-logo.svg',
+      logo: 'assets/logos/lla-min.svg',
       type: FlatListTypeEnum.milei,
       subTitle: 'Milei',
       title: 'Javier Gerardo',
@@ -28,7 +28,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       edit: true,
     },
     {
-      logo: 'assets/logos/uxp.svg',
+      logo: 'assets/logos/uxp-min.svg',
       type: FlatListTypeEnum.massa,
       subTitle: 'Massa',
       title: 'Sergio Tomas',
@@ -103,7 +103,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
 
   const onSubmit = async (values: FormValues) => {
     values.totalVotes = totalVotes;
-    console.log(values);
   };
 
   const [formValues, setFormValues] = useState(initialValues);
@@ -153,9 +152,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     updateProgressStatus();
   }, [totalVotes, formValues]);
 
-  useEffect(() => {
-    updateProgressStatus();
-  }, [totalVotes, formValues]);
 
   const updateProgressStatus = () => {
     setProgressStatus([
@@ -178,7 +174,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
         });
       } else {
         toast.error(
-          'Debes completar TODOS los datos requeridos, Y aceptar el boton de verificación',
+          'Debes completar TODOS los datos requeridos, y aceptar el boton de verificación',
           {
             icon: '⛔',
           },
@@ -194,13 +190,14 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   return (
     <section className="bg-white items-center flex flex-col">
       <Navbar routerLink="/verify-certificate" />
-      <div className="container mx-auto p-2">
+      <div className="container mx-auto p-4">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ errors, touched, values, setFieldValue }) => {
+          {({ errors, touched, values, setFieldValue, handleChange }) => {
+
             useEffect(() => {
               setFormValues(values);
             }, [values]);
@@ -213,18 +210,20 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   Completá los datos del <br/>certificado
                 </div>
                 
-                <div className="flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4">
+                <div className="flex w-full justify-center gap-[20vw] sm:gap-24 px-4">
                   <div>
                     <TextField
-                      InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+                      InputLabelProps={{ style: { fontFamily: 'Poppins', opacity:'0.6' }}}
                       InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
                       sx={{ width: '100%' }}
                       type="number"
                       label="Circuito"
+                      name='circuit'
                       variant='outlined'
                       placeholder="000D"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
+                        handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
                         values.circuit ? selectedInputStyle : ''
@@ -240,15 +239,16 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     >
                     </label>
                     <TextField
-                      InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+                      InputLabelProps={{ style: { fontFamily: 'Poppins', opacity:'0.6' }}}
                       InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
                       sx={{ width: '100%' }}
                       type="number"
                       name="table"
-                      label="00000/0"
+                      label="Mesa"
                       placeholder="00000/0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
+                        handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
                         values.table ? selectedInputStyle : ''
@@ -262,15 +262,16 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <div className='flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4'>
                 <div className="py-6">
                     <TextField
-                      InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+                      InputLabelProps={{ style: { fontFamily: 'Poppins', opacity:'0.6' }}}
                       InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
                       sx={{ width: '100%' }}
                       type="number"
                       name="electors"
                       placeholder="0"
-                      label="0"
+                      label="Nro de electores"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
+                        handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
               ${values.electors ? selectedInputStyle : ''}
@@ -281,17 +282,18 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <div className="py-6">
                   <div className="">
                     <TextField
-                      InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+                      InputLabelProps={{ style: { fontFamily: 'Poppins', opacity:'0.6' }}}
                       InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
                       sx={{ width: '100%' }}
                       type="number"
                       name="envelopes"
-                      label="0"
+                      label="Sobres"
                       placeholder="0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
+                        handleChange(e);
                       }}
-                      className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
+                      className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl
                     ${values.envelopes ? selectedInputStyle : ''}
               ${votesDifference && touched.envelopes ? errorInputStyle : ''}`}
                     />
@@ -302,18 +304,17 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
                 <div className={`flex items-center justify-center w-full p-2`}>
                   <div
-                    className={`flex p-2 justify-between items-center w-full max-w-md text-neutral-700 ${
+                    className={`flex justify-between items-center w-full px-4 text-neutral-700 ${
                       votesDifference ? '!text-red' : null
-                    } ${correctCertificate ? '!text-green' : null}`}
+                    } ${correctCertificate ? '!text-green bg-lime-400 bg-opacity-25 rounded-3xl' : null}`}
                   >
                     <div
                       className={`text-m font-bold px-1 py-5 tracking-wide`}
                     >
                       {values.electors !== 0 ? (
                         <div className="flex flex-row gap-2">
-                          Diferencia{' '}
                           {correctCertificate && !votesDifference ? (
-                            <span className="font-light">(habilitada)</span>
+                            <span className="font-light">No hay diferencia</span>
                           ) : null}{' '}
                           {votesDifference && !correctCertificate ? (
                             <span className="font-light">(impugnada)</span>
@@ -331,11 +332,13 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
-                <div className="flex flex-col items-center justify-center my-6 w-full p-2">
+                <div className="flex flex-col items-center justify-center my-6 w-full p-4">
                   {flatList.map((item, index) => (
                     <Field key={index}
-                          name={`flatList.${index}`}>
-                      {({ field }: any) => (
+                          name={`flatList.${index}`}
+                          
+                          >
+                      {(({ field }: any) => (
                         <FlatList
                           {...field}
                           logo={item.logo}
@@ -347,12 +350,12 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                           updateTotalVotes={updateTotalVotes}
                           correctCertificate={correctCertificate}
                         />
-                      )}
+                      )) as any }
                     </Field>
                   ))}
                 </div>
 
-                <div className="flex items-center justify-center my-6 w-full p-2">
+                <div className="flex items-center justify-center my-6 w-full p-4">
                   <div className="flex p-2 justify-between items-center w-full max-w-md">
                     <div
                       className={`text-3xl text-violet-brand font-bold px-3 py-5 tracking-wide ${
@@ -404,7 +407,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       : null)}
                 </div>
 
-                <div className="flex items-center justify-center text-sm my-10">
+                <div className="flex items-center justify-center text-sm my-2">
                   <div className="flex items-center px-4">
                     <div className="inline-flex items-center">
                       <label
@@ -430,8 +433,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       }
                     >
                       <h3 className="text-start text-base">
-                        Verifico que controlé y que todos los datos son
-                        correctos.
+                        Verifico que controlé y que todos <br/>los datos son correctos.
                       </h3>
                     </div>
                   </div>
