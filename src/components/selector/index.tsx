@@ -20,7 +20,7 @@ const ArrowIcon = ({ className }: { className: string }) => {
 export function Selector({ onChange, label, options }: ISelectorProps) {
   return (
     <FormControl fullWidth className="select">
-      <InputLabel className="select-label">{label}</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <Select
         label={label}
         className="w-full text-black text-left"
