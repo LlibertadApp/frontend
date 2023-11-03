@@ -37,7 +37,7 @@ const HomePage = () => {
               />
               <CardLink
                 link={paths.irregularities}
-                text={'Denunciar Irregularidades'}
+                text={'Denunciar irregularidades'}
                 icon={'hand-speaker.svg'}
                 color={colors.Red}
               />
