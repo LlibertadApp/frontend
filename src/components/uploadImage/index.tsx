@@ -7,7 +7,7 @@ import { paths } from '#/routes/paths';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 text-[#444444]">
-    <img className="w-5 h-5" src="assets/icon/check.svg" alt="" />
+    <img className="w-5 h-5" src="assets/icon/checkcircle.svg" alt="" />
     <p className="px-full">{text}</p>
   </div>
 );

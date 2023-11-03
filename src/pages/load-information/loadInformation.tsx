@@ -345,7 +345,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                     <div className="font-2xl">
                       {!votesDifference ? (
-                        <img src="/assets/icon/check.svg" alt="check" />
+                        <img src="/assets/icon/checkcircle.svg" alt="check" />
                       ) : (
                         <img src="/assets/icon/xcircle.svg" alt="error" />
                       )}
