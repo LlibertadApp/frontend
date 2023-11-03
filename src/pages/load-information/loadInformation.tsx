@@ -13,6 +13,8 @@ import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { paths } from '#/routes/paths';
 
+import { TextField } from '@mui/material';
+
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red';
@@ -187,15 +189,11 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 </div>
                 <div className="flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4">
                   <div>
-                    <label
-                      className="inline-block my-2 text-violet-brand font-bold text-xl"
-                      htmlFor="circuit"
-                    >
-                      Circuito
-                    </label>
-                    <Field
+                    <TextField
                       type="number"
+                      variant='outlined'
                       name="circuit"
+                      title='Circuito'
                       placeholder="000D"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
@@ -212,9 +210,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       className="inline-block my-2 text-violet-brand font-bold text-xl"
                       htmlFor="table"
                     >
-                      Mesa
                     </label>
-                    <Field
+                    <TextField
                       type="number"
                       name="table"
                       placeholder="00000/0"
@@ -237,7 +234,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     >
                       Cantidad de electores
                     </label>
-                    <Field
+                    <TextField
                       type="number"
                       name="electors"
                       placeholder="0"
@@ -251,7 +248,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-center w-full p-2">
-                  <div className="flex p-2 justify-between items-center w-full  max-w-md ">
+                  <div className="flex p-2 justify-between items-center w-full max-w-md ">
                     <label
                       className="text-xl text-neutral-700 font-bold px-3 py-5 tracking-wide"
                       htmlFor="envelopes"
