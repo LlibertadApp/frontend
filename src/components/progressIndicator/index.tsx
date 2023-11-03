@@ -11,9 +11,9 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
             className={`circle flex justify-center items-center rounded-full ${step === ProgressStepStatus.Active
                 ? 'bg-violet-brand text-white'
                 : step === ProgressStepStatus.Successful
-                  ? 'bg-green-check text-white'
+                  ? 'bg-green text-white'
                   : step === ProgressStepStatus.Error
-                    ? 'bg-red-error text-white'
+                    ? 'bg-red text-white'
                     : 'bg-gray-light text-black'
               }`}
           >
@@ -29,7 +29,6 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
                 src="assets/icon/error-icon.svg"
                 alt=""
               />
-              // Se agregó el progress de error
             ) : (
               <span className="font-normal text-xl">
                 {(index + 1).toString()}

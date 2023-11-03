@@ -5,7 +5,7 @@ type CertificateImageType = string | null;
 
 
 // Crear un contexto para el certificado
-const CertificadoContext = createContext<{
+const CertificateContext = createContext<{
   certificateImage: CertificateImageType;
   setCertificateImage: (url: CertificateImageType) => void;
 } | undefined>(undefined);
@@ -13,22 +13,22 @@ const CertificadoContext = createContext<{
 
 
 // Proveedor de contexto
-export const CertificadoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const CertificateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // Estado que almacena la URL de la imagen del certificado (TEMPORAL)
   const [certificateImage, setCertificateImage] = useState<CertificateImageType>(null);
 
   return (
-    <CertificadoContext.Provider value={{ certificateImage, setCertificateImage }}>
+    <CertificateContext.Provider value={{ certificateImage, setCertificateImage }}>
       {children}
-    </CertificadoContext.Provider>
+    </CertificateContext.Provider>
   );
 };
 
 // Crear un hook personalizado para acceder al contexto
-export const useCertificado = () => {
-  const context = useContext(CertificadoContext);
+export const useCertificate = () => {
+  const context = useContext(CertificateContext);
   if (!context) {
-    throw new Error('useCertificado must be used within a CertificadoProvider');
+    throw new Error('useCertificate must be used within a CertificateProvider');
   }
   return context;
 };

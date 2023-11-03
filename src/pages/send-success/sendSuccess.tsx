@@ -6,12 +6,13 @@ import Navbar from '#/components/navbar';
 import { ISendSuccessProps } from './types';
 
 import './styles.css';
+import { paths } from '#/routes/paths';
 
 const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
   return (
     <section className="items-center flex flex-col ">
-      <Navbar routerLink="/load-information" />
-      <div className="p-4">
+      <Navbar routerLink={paths.loadInformation} />
+      <div className="p-4 w-full">
         <div className="container mx-auto">
           <div className="flex items-center justify-center my-20 ">
             <img
@@ -22,17 +23,17 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
           </div>
           <div className="flex items-center justify-center py-4">
             <h3 className="successfull">
-              {message ?? '¡Datos enviados con éxito!'}
+              {message ?? 'Datos enviados con éxito'}
             </h3>
           </div>
           <h3 className="flex text-start text-base justify-center">
-            Muchas gracias por fiscalizar, VLLC!
+            Muchas gracias por fiscalizar, ¡VLLC!
           </h3>
           <div className="flex items-center justify-center my-20">
             {/* TODO: Mover a Home */}
-            <Link to="/home">
+            <Link to={paths.home} className='w-full'>
               <Button
-                className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full cursor-default"
+                className="bg-violet-brand p-4 text-white rounded-xl font-light text-xl tracking-wider w-full cursor-default"
                 type="submit"
                 label="Volver a inicio"
               />

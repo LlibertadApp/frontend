@@ -1,7 +1,6 @@
 const ImageInput = ({
   id = 'dropzone-file',
   handleOnChange,
-  capture,
 }: {
   id: string;
   handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -13,7 +12,6 @@ const ImageInput = ({
       type="file"
       className="hidden"
       accept="image/*"
-      capture={capture}
       onChange={handleOnChange}
     />
   );
