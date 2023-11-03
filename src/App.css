@@ -56,3 +56,10 @@
 .read-the-docs {
   color: #888;
 }
+
+#inaccessibleInput {
+  text-align: center;
+  font-size: larger;
+  padding: 0.8em;
+  outline: none;
+}
