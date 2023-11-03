@@ -448,7 +448,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       <Toaster position="top-right" reverseOrder={false} />
                     </Link>
                   ) : (
-                    <div className="w-full mx-6">
+                    <div className="w-full mx-2">
                       <Button
                         onClick={() =>
                           handleToast(
@@ -463,9 +463,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                               totalVotes !== 0 &&
                               values.circuit !== 0 &&
                               values.table !== 0 &&
-                              values.correctData
-                              ? 'submit'
-                              : votesDifference && values.correctData
+                              values.correctData &&
+                              votesDifference
                               ? 'submit'
                               : 'button',
                           )
