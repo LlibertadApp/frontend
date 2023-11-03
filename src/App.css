@@ -1,3 +1,8 @@
+:root {
+  --violet-brand: #61439d;
+  --violet-brand-transparent: #61439d80;
+}
+
 #root {
   margin: 0 auto;
   text-align: center;
