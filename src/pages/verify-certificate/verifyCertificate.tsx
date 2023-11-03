@@ -30,6 +30,10 @@ const VerifyCertificate = () => {
     setErrorAlert(null);
   };
 
+  const handleReset = () => {
+    correctData ? handleCheckbox() : null;
+  };
+
   return (
     <section className="items-center flex flex-col justify-center text-center">
       <Navbar routerLink={paths.uploadCertificate} />
@@ -59,7 +63,7 @@ const VerifyCertificate = () => {
 
           <div className="flex items-center justify-center px-12 py-4">
             <img
-              src={certificateImage || ''}
+              src={certificateImage  || ''}
               alt="data sent successful"
               className="object-cover rounded w-100 h-auto"
             />
@@ -113,12 +117,15 @@ const VerifyCertificate = () => {
                 />
               </Link>
             )}
-            <Button
-              className="w-full p-3 text-xl font-semibold tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl"
-              type="submit"
-              label="Reintentar"
-              disabled={imageUploaded}
-            />
+            <Link to={paths.uploadCertificate} className="flex w-full">
+              <Button
+                className="w-full p-3 text-xl font-semibold tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl"
+                type="submit"
+                label="Reintentar"
+                disabled={imageUploaded}
+                onClick={handleReset}
+              />
+            </Link>
           </div>
         </div>
       </div>

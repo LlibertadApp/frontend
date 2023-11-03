@@ -8,18 +8,19 @@ import Navbar from '#/components/navbar';
 import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { ILoadInformationProps, FormValues } from './types';
-
+import toast, { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { paths } from '#/routes/paths';
 
+import { TextField } from '@mui/material';
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red';
 
   const flatList = [
     {
-      logo: 'assets/logos/lla-logo.svg',
+      logo: 'assets/logos/lla-min.svg',
       type: FlatListTypeEnum.milei,
       subTitle: 'Milei',
       title: 'Javier Gerardo',
@@ -27,7 +28,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       edit: true,
     },
     {
-      logo: 'assets/logos/uxp.svg',
+      logo: 'assets/logos/uxp-min.svg',
       type: FlatListTypeEnum.massa,
       subTitle: 'Massa',
       title: 'Sergio Tomas',
@@ -102,7 +103,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
 
   const onSubmit = async (values: FormValues) => {
     values.totalVotes = totalVotes;
-    console.log(values);
   };
 
   const [formValues, setFormValues] = useState(initialValues);
@@ -115,8 +115,14 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
   ) => {
     const { name, value } = e.target;
-    const newValue = Math.max(0, parseInt(value, 10));
-    setFieldValue(name, newValue);
+    const parsedValue = parseInt(value);
+
+    if (!isNaN(parsedValue) && parsedValue >= 0) {
+      const newValue = Math.max(0, parseInt(value, 10));
+      setFieldValue(name, newValue);
+    } else {
+      setFieldValue(name, '');
+    }
   };
 
   const updateCorrectCertificateData = (values: FormValues) => {
@@ -146,10 +152,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     updateProgressStatus();
   }, [totalVotes, formValues]);
 
-  useEffect(() => {
-    updateProgressStatus();
-  }, [totalVotes, formValues]);
-
   const updateProgressStatus = () => {
     setProgressStatus([
       ProgressStepStatus.Successful,
@@ -163,17 +165,37 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const updateTotalVotes = (newValue: number) => {
     setTotalVotes((prevTotal: number) => prevTotal + newValue);
   };
-
+  const handleToast = (type: string) => {
+    try {
+      if (type === 'submit') {
+        toast.success('Se está cargando la información...', {
+          icon: '✔',
+        });
+      } else {
+        toast.error(
+          'Debes completar TODOS los datos requeridos, y aceptar el boton de verificación',
+          {
+            icon: '⛔',
+          },
+        );
+      }
+    } catch (error) {
+      toast.error('Oh oh algo está mal... Por favor, actualice la página', {
+        icon: '♻',
+      });
+    } finally {
+    }
+  };
   return (
     <section className="bg-white items-center flex flex-col">
       <Navbar routerLink="/verify-certificate" />
-      <div className="container mx-auto p-2">
+      <div className="container mx-auto p-4">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ errors, touched, values, setFieldValue }) => {
+          {({ errors, touched, values, setFieldValue, handleChange }) => {
             useEffect(() => {
               setFormValues(values);
             }, [values]);
@@ -183,22 +205,24 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   <ProgressIndicator steps={progressStatus} />
                 </div>
                 <div className="py-8 text-neutral-700 text-xl font-bold">
-                  Cargar datos del certificado
+                  Completá los datos del <br />
+                  certificado
                 </div>
-                <div className="flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4">
+
+                <div className="flex w-full justify-center gap-[20vw] sm:gap-24 px-4">
                   <div>
-                    <label
-                      className="inline-block my-2 text-violet-brand font-bold text-xl"
-                      htmlFor="circuit"
-                    >
-                      Circuito
-                    </label>
-                    <Field
+                    <TextField
+                      InputLabelProps={{ style: { opacity: '0.6' } }}
+                      InputProps={{ style: { borderRadius: '8px' } }}
+                      sx={{ width: '100%' }}
                       type="number"
+                      label="Circuito"
                       name="circuit"
+                      variant="outlined"
                       placeholder="000D"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
+                        handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
                         values.circuit ? selectedInputStyle : ''
@@ -211,15 +235,22 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <label
                       className="inline-block my-2 text-violet-brand font-bold text-xl"
                       htmlFor="table"
-                    >
-                      Mesa
-                    </label>
-                    <Field
+                    ></label>
+                    <TextField
+                      InputLabelProps={{
+                        style: { opacity: '0.6' },
+                      }}
+                      InputProps={{
+                        style: { borderRadius: '8px'},
+                      }}
+                      sx={{ width: '100%' }}
                       type="number"
                       name="table"
+                      label="Mesa"
                       placeholder="00000/0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
+                        handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
                         values.table ? selectedInputStyle : ''
@@ -229,63 +260,74 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     />
                   </div>
                 </div>
-                <div className="flex items-center justify-center w-full p-2">
-                  <div className="flex p-2 justify-between items-center w-full  max-w-md ">
-                    <label
-                      className="text-xl text-neutral-700 font-bold px-3 py-5 tracking-wide"
-                      htmlFor="electors"
-                    >
-                      Cantidad de electores
-                    </label>
-                    <Field
+
+                <div className="flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4">
+                  <div className="py-6">
+                    <TextField
+                      InputLabelProps={{
+                        style: {  opacity: '0.6' },
+                      }}
+                      InputProps={{
+                        style: { borderRadius: '8px'},
+                      }}
+                      sx={{ width: '100%' }}
                       type="number"
                       name="electors"
                       placeholder="0"
+                      label="Nro de electores"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
+                        handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
               ${values.electors ? selectedInputStyle : ''}
               ${votesDifference && touched.electors ? errorInputStyle : ''}`}
                     />
                   </div>
-                </div>
-                <div className="flex items-center justify-center w-full p-2">
-                  <div className="flex p-2 justify-between items-center w-full  max-w-md ">
-                    <label
-                      className="text-xl text-neutral-700 font-bold px-3 py-5 tracking-wide"
-                      htmlFor="envelopes"
-                    >
-                      Cantidad de sobres
-                    </label>
-                    <Field
-                      type="number"
-                      name="envelopes"
-                      placeholder="0"
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        preventNegativeValues(e, setFieldValue);
-                      }}
-                      className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
+
+                  <div className="py-6">
+                    <div className="">
+                      <TextField
+                        InputLabelProps={{
+                          style: {  opacity: '0.6' },
+                        }}
+                        InputProps={{
+                          style: { borderRadius: '8px' },
+                        }}
+                        sx={{ width: '100%' }}
+                        type="number"
+                        name="envelopes"
+                        label="Sobres"
+                        placeholder="0"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          preventNegativeValues(e, setFieldValue);
+                          handleChange(e);
+                        }}
+                        className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl
                     ${values.envelopes ? selectedInputStyle : ''}
               ${votesDifference && touched.envelopes ? errorInputStyle : ''}`}
-                    />
+                      />
+                    </div>
                   </div>
                 </div>
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
                 <div className={`flex items-center justify-center w-full p-2`}>
                   <div
-                    className={`flex p-2 justify-between items-center w-full max-w-md text-neutral-700 ${
+                    className={`flex justify-between items-center w-full px-4 text-neutral-700 ${
                       votesDifference ? '!text-red' : null
-                    } ${correctCertificate ? '!text-green' : null}`}
+                    } ${
+                      correctCertificate
+                        ? '!text-green bg-lime-400 bg-opacity-25 rounded-3xl'
+                        : null
+                    }`}
                   >
-                    <div
-                      className={`text-xl font-bold px-3 py-5 tracking-wide`}
-                    >
+                    <div className={`text-m font-bold px-1 py-5 tracking-wide`}>
                       {values.electors !== 0 ? (
                         <div className="flex flex-row gap-2">
-                          Diferencia{' '}
                           {correctCertificate && !votesDifference ? (
-                            <span className="font-light">(habilitada)</span>
+                            <span className="font-light">
+                              No hay diferencia
+                            </span>
                           ) : null}{' '}
                           {votesDifference && !correctCertificate ? (
                             <span className="font-light">(impugnada)</span>
@@ -303,26 +345,29 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
-                <div className="flex flex-col items-center justify-center my-6 w-full p-2">
+                <div className="flex flex-col items-center justify-center my-6 w-full p-4">
                   {flatList.map((item, index) => (
                     <Field key={index} name={`flatList.${index}`}>
-                      {({ field }: any) => (
-                        <FlatList
-                          {...field}
-                          logo={item.logo}
-                          type={item.type}
-                          subTitle={item.subTitle}
-                          title={item.title}
-                          votes={item.votes}
-                          edit={item.edit}
-                          updateTotalVotes={updateTotalVotes}
-                          correctCertificate={correctCertificate}
-                        />
-                      )}
+                      {
+                        (({ field }: any) => (
+                          <FlatList
+                            {...field}
+                            logo={item.logo}
+                            type={item.type}
+                            subTitle={item.subTitle}
+                            title={item.title}
+                            votes={item.votes}
+                            edit={item.edit}
+                            updateTotalVotes={updateTotalVotes}
+                            correctCertificate={correctCertificate}
+                          />
+                        )) as any
+                      }
                     </Field>
                   ))}
                 </div>
-                <div className="flex items-center justify-center my-6 w-full p-2">
+
+                <div className="flex items-center justify-center my-6 w-full p-4">
                   <div className="flex p-2 justify-between items-center w-full max-w-md">
                     <div
                       className={`text-3xl text-violet-brand font-bold px-3 py-5 tracking-wide ${
@@ -365,6 +410,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="text-base text-red max-w-md mx-auto text-left -mt-16 p-5">
                   {typeof values.envelopes === 'number' &&
                     typeof totalVotes === 'number' &&
@@ -373,7 +419,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       : null)}
                 </div>
 
-                <div className="flex items-center justify-center text-sm my-10">
+                <div className="flex items-center justify-center text-sm my-2">
                   <div className="flex items-center px-4">
                     <div className="inline-flex items-center">
                       <label
@@ -399,8 +445,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       }
                     >
                       <h3 className="text-start text-base">
-                        Verifico que controlé y que todos los datos son
-                        correctos.
+                        Verifico que controlé y que todos <br />
+                        los datos son correctos.
                       </h3>
                     </div>
                   </div>
@@ -425,10 +471,30 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         type="submit"
                         label="Enviar Datos"
                       />
+                      <Toaster position="top-right" reverseOrder={false} />
                     </Link>
                   ) : (
-                    <div className="w-full mx-6">
+                    <div className="w-full mx-2">
                       <Button
+                        onClick={() =>
+                          handleToast(
+                            typeof values.electors === 'number' &&
+                              typeof values.envelopes === 'number' &&
+                              typeof totalVotes === 'number' &&
+                              typeof values.circuit === 'number' &&
+                              typeof values.table === 'number' &&
+                              values.electors - values.envelopes >= 0 &&
+                              values.electors - values.envelopes <= 4 &&
+                              values.envelopes - totalVotes === 0 &&
+                              totalVotes !== 0 &&
+                              values.circuit !== 0 &&
+                              values.table !== 0 &&
+                              values.correctData &&
+                              votesDifference
+                              ? 'submit'
+                              : 'button',
+                          )
+                        }
                         className={
                           votesDifference && values.correctData
                             ? 'bg-red p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full'
@@ -439,6 +505,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                           votesDifference ? 'Impugnar mesa' : 'Enviar datos'
                         }
                       />
+                      <Toaster position="top-right" reverseOrder={false} />
                     </div>
                   )}
                 </div>
@@ -446,13 +513,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
             );
           }}
         </Formik>
-        <div className="flex items-center justify-center my-10">
-          <Button
-            className="text-red bg-transparent p-3 w-full rounded-xl text-xl"
-            type="button"
-            label="Denunciar Irregularidad"
-          />
-        </div>
       </div>
     </section>
   );
