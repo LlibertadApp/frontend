@@ -65,7 +65,7 @@ const FlatList = ({
           value={vote === 0 ? '' : vote}
           placeholder="0"
           disabled={!correctCertificate ? edit : !edit}
-          className={` border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold h-14 w-14  ${selectedInputStyle}`}
+          className={` border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold h-12 w-20 ${selectedInputStyle}`}
           style={{ display: 'flex', justifyContent: 'center'}}
         />
       </div>
