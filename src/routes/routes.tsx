@@ -19,7 +19,7 @@ const VerifyCertificate = lazy(
   () => import('#/pages/verify-certificate/verifyCertificate'),
 );
 const TotalResults = lazy(() => import('#/pages/total-results/totalResults'));
-const FilterPage = lazy(() => import('#/pages/results/filter'));
+const FilterPage = lazy(() => import('#/pages/filter-results/filter-results'));
 const NotFound = lazy(() => import('#/pages/not-found/notFound'));
 
 const AppRoutes: React.FC = () => (
