@@ -38,7 +38,7 @@ const VerifyCertificate = () => {
     <section className="items-center flex flex-col justify-center text-center">
       <Navbar routerLink={paths.uploadCertificate} />
 
-      <div className="w-full text-center">
+      <div className="w-full text-center max-w-3xl">
         <div className="container mx-auto flex-column my-210">
           <div className="flex justify-center mt-4 px-4">
             <ProgressIndicator
@@ -100,23 +100,25 @@ const VerifyCertificate = () => {
           </div>
           <div className="flex flex-col items-center justify-center w-full p-4">
             {!correctData ? (
-              <Button
-                className="w-full p-3 text-[18px] font-light tracking-wider text-text-off bg-gray-300 rounded-xl"
-                type="button"
-                label="Continuar"
-              />
-            ) : (
-              <Link to={paths.loadInformation} className="flex w-full">
+              <div className="flex w-full justify-center">
                 <Button
-                  className="w-full p-3 text-[18px] font-light tracking-wider text-white bg-violet-brand rounded-xl"
+                  className="w-full p-3 text-[18px] font-light tracking-wider text-text-off bg-gray-300 rounded-xl max-w-sm"
+                  type="button"
+                  label="Continuar"
+                />
+              </div>
+            ) : (
+              <Link to={paths.loadInformation} className="flex w-full justify-center">
+                <Button
+                  className="w-full p-3 text-[18px] font-light tracking-wider text-white bg-violet-brand rounded-xl max-w-sm"
                   type="button"
                   label="Continuar"
                 />
               </Link>
             )}
-            <Link to={paths.uploadCertificate} className="flex w-full">
+            <Link to={paths.uploadCertificate} className="flex w-full justify-center">
               <Button
-                className="w-full p-3 text-[18px] font-light tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl"
+                className="w-full p-3 text-[18px] font-light tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl max-w-sm"
                 type="submit"
                 label="Volver a cargar imagen"
                 disabled={imageUploaded}
