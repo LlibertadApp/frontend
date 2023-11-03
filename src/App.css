@@ -2,10 +2,13 @@
   --violet-brand: #61439d;
   --violet-brand-transparent: #61439d80;
 }
-
+* {
+  font-family: 'Poppins' !important;
+}
 #root {
   margin: 0 auto;
   text-align: center;
+  font-family: 'Poppins' !important;
 }
 
 .logo {
