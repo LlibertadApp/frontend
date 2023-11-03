@@ -19,7 +19,7 @@ const Navbar: React.FC<INavbarProps> = ({
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
   const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
-    <div className="bg-violet-brand p-4 px-8 w-full flex flex-col h-18 relative z-20">
+    <div className="bg-violet-primary p-[10px] px-8 w-full flex flex-col h-18 relative z-20">
       <div className="w-full grid grid-rows-1 grid-col-3 place-items-center">
         <div className="flex w-full justify-between col-start-1 col-end-4 row-start-1 row-end-2">
           <div className="flex justify-center items-center">
@@ -54,15 +54,15 @@ const Navbar: React.FC<INavbarProps> = ({
                   <img
                     src="assets/icon/close.svg"
                     alt="User profile"
-                    className="object-cover rounded w-6 h-6"
+                    className="object-cover rounded w-6 h-6 p-[5px]"
                   />
                 )}
               </div>
             )}
 
             {menuOpen && (
-              <div className="absolute bg-white right-5 top-20 rounded-xl px-8 shadow-2xl">
-                <div className="absolute top-[-15px] right-12 w-0 h-0">
+              <div className="absolute w-[100vw] bg-white right-0 top-[72px] rounded-xl px-1 shadow-2xl">
+                <div className="absolute top-[-15px] right-[69px] w-0 h-0">
                   <svg width="50" height="20">
                     <polygon points="25,0 0,50 50,50" fill="white" />
                   </svg>
@@ -70,15 +70,15 @@ const Navbar: React.FC<INavbarProps> = ({
                 <div className="w-full text-left py-4 px-8 pt-6 border-b-2 border-gray-100 font-bold text-xl text-violet-brand">
                   <span>Javier</span>
                 </div>
-                <div className="flex flex-col px-8 py-8 gap-y-6 items-start text-left text-lg text-[#363F45]">
+                <div className="flex flex-col px-[30px] py-[25px] gap-y-6 items-start text-left text-text-off">
                   {/* El gris pactado no se parece al de figma */}
-                  <Link
+                  {/* <Link
                     to={paths.profile}
                     className={linkTransformClassName}
                     onClick={closeMenu}
                   >
                     Mi cuenta
-                  </Link>
+                  </Link> */}
                   <Link
                     to={paths.totalResults}
                     className={linkTransformClassName}
@@ -101,7 +101,7 @@ const Navbar: React.FC<INavbarProps> = ({
                       closeMenu();
                     }}
                   >
-                    Mesas cargadas
+                    Listado de mesas cargadas
                   </Link>
                   <Link
                     to={paths.home}
@@ -111,7 +111,7 @@ const Navbar: React.FC<INavbarProps> = ({
                       closeMenu();
                     }}
                   >
-                    Denunciar Irregularidades
+                    Denunciar fraude
                   </Link>
                 </div>
                 <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
@@ -141,7 +141,7 @@ const Navbar: React.FC<INavbarProps> = ({
             <img
               src="assets/logos/fenix-new.svg"
               alt="Logo"
-              className="object-cover rounded w-12 h-12 cursor-pointer"
+              className="object-cover rounded w-[60px] h-[60px] cursor-pointer"
             />
           </Link>
         </div>
