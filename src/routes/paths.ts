@@ -3,6 +3,7 @@ export const paths = {
   loadingPage: '/loading-page',
   home: '/home',
   profile: '/profile',
+  irregularities: '/irregularities',
   uploadCertificate: '/upload-certificate',
   verifyCertificate: '/verify-certificate',
   loadInformation: '/load-information',
