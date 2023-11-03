@@ -367,7 +367,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   ))}
                 </div>
 
-                <div className="flex items-center justify-center my-6 w-full p-4">
+                <div className="flex items-center justify-center mt-2 w-full p-4">
                   <div className="flex p-2 justify-between items-center w-full max-w-md">
                     <div
                       className={`text-3xl text-violet-brand font-bold px-3 py-5 tracking-wide ${
