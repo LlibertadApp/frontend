@@ -1,4 +1,5 @@
 export interface ILoginProps {
-  dni: string;
-  password: string;
+  email: '';
+  password: '';
+  isPasswordVisible: false;
 }
