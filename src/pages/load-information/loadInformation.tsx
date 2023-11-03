@@ -14,7 +14,6 @@ import * as Yup from 'yup';
 import { paths } from '#/routes/paths';
 
 import { TextField } from '@mui/material';
-
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red';
@@ -205,15 +204,18 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   <ProgressIndicator steps={progressStatus} />
                 </div>
                 <div className="py-8 text-neutral-700 text-xl font-bold">
-                  Cargar datos del certificado
+                  Completá los datos del <br/>certificado
                 </div>
+                
                 <div className="flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4">
                   <div>
                     <TextField
+                      InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+                      InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+                      sx={{ width: '100%' }}
                       type="number"
+                      label="Circuito"
                       variant='outlined'
-                      name="circuit"
-                      title='Circuito'
                       placeholder="000D"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
@@ -225,15 +227,19 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       } `}
                     />
                   </div>
-                  <div>
+                  <div >
                     <label
                       className="inline-block my-2 text-violet-brand font-bold text-xl"
                       htmlFor="table"
                     >
                     </label>
                     <TextField
+                      InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+                      InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+                      sx={{ width: '100%' }}
                       type="number"
                       name="table"
+                      label="00000/0"
                       placeholder="00000/0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
@@ -246,18 +252,17 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     />
                   </div>
                 </div>
-                <div className="flex items-center justify-center w-full p-2">
-                  <div className="flex p-2 justify-between items-center w-full  max-w-md ">
-                    <label
-                      className="text-xl text-neutral-700 font-bold px-3 py-5 tracking-wide"
-                      htmlFor="electors"
-                    >
-                      Cantidad de electores
-                    </label>
+
+                <div className='flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4'>
+                <div className="py-6">
                     <TextField
+                      InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+                      InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+                      sx={{ width: '100%' }}
                       type="number"
                       name="electors"
                       placeholder="0"
+                      label="0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
                       }}
@@ -265,19 +270,17 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
               ${values.electors ? selectedInputStyle : ''}
               ${votesDifference && touched.electors ? errorInputStyle : ''}`}
                     />
-                  </div>
                 </div>
-                <div className="flex items-center justify-center w-full p-2">
-                  <div className="flex p-2 justify-between items-center w-full max-w-md ">
-                    <label
-                      className="text-xl text-neutral-700 font-bold px-3 py-5 tracking-wide"
-                      htmlFor="envelopes"
-                    >
-                      Cantidad de sobres
-                    </label>
-                    <Field
+
+                <div className="py-6">
+                  <div className="">
+                    <TextField
+                      InputLabelProps={{ style: { fontFamily: 'Poppins' }}}
+                      InputProps={{ style: { borderRadius: '8px', fontFamily: 'Poppins' } }}
+                      sx={{ width: '100%' }}
                       type="number"
                       name="envelopes"
+                      label="0"
                       placeholder="0"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         preventNegativeValues(e, setFieldValue);
@@ -288,6 +291,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     />
                   </div>
                 </div>
+
+                </div>
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
                 <div className={`flex items-center justify-center w-full p-2`}>
                   <div
@@ -296,7 +301,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     } ${correctCertificate ? '!text-green' : null}`}
                   >
                     <div
-                      className={`text-xl font-bold px-3 py-5 tracking-wide`}
+                      className={`text-m font-bold px-1 py-5 tracking-wide`}
                     >
                       {values.electors !== 0 ? (
                         <div className="flex flex-row gap-2">
@@ -322,7 +327,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
                 <div className="flex flex-col items-center justify-center my-6 w-full p-2">
                   {flatList.map((item, index) => (
-                    <Field key={index} name={`flatList.${index}`}>
+                    <Field key={index}
+                          name={`flatList.${index}`}>
                       {({ field }: any) => (
                         <FlatList
                           {...field}
@@ -339,6 +345,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </Field>
                   ))}
                 </div>
+
                 <div className="flex items-center justify-center my-6 w-full p-2">
                   <div className="flex p-2 justify-between items-center w-full max-w-md">
                     <div
@@ -382,6 +389,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="text-base text-red max-w-md mx-auto text-left -mt-16 p-5">
                   {typeof values.envelopes === 'number' &&
                     typeof totalVotes === 'number' &&
@@ -484,13 +492,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
             );
           }}
         </Formik>
-        <div className="flex items-center justify-center my-10">
-          <Button
-            className="text-red bg-transparent p-3 w-full rounded-xl text-xl"
-            type="button"
-            label="Denunciar Irregularidad"
-          />
-        </div>
       </div>
     </section>
   );
