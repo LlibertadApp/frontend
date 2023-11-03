@@ -10,7 +10,7 @@
     font-weight: 400;
     font-display: auto;
 
-    src: url(./assets/fonts/Poppins-Regular.ttf);
+    src: url(assets/fonts/Poppins-Regular.ttf);
   }
 
   @font-face {
@@ -19,7 +19,7 @@
     font-weight: 500;
     font-display: auto;
 
-    src: url(./assets/fonts/Poppins-Medium.ttf);
+    src: url(assets/fonts/Poppins-Medium.ttf);
   }
 
   @font-face {
@@ -28,7 +28,7 @@
     font-weight: 600;
     font-display: auto;
 
-    src: url(./assets/fonts/Poppins-SemiBold.ttf);
+    src: url(assets/fonts/Poppins-SemiBold.ttf);
   }
 
   /* Italic Fonts */
@@ -38,7 +38,7 @@
     font-weight: 400;
     font-display: auto;
 
-    src: url(./assets/fonts/Poppins-Italic.ttf);
+    src: url(assets/fonts/Poppins-Italic.ttf);
   }
 
   @font-face {
@@ -47,7 +47,7 @@
     font-weight: 500;
     font-display: auto;
 
-    src: url(./assets/fonts/Poppins-MediumItalic.ttf);
+    src: url(assets/fonts/Poppins-MediumItalic.ttf);
   }
 
   @font-face {
@@ -56,7 +56,7 @@
     font-weight: 600;
     font-display: auto;
 
-    src: url(./assets/fonts/Poppins-SemiBoldItalic.ttf);
+    src: url(assets/fonts/Poppins-SemiBoldItalic.ttf);
   }
 }
 
