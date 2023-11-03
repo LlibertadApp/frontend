@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from '#/middlewares/protectedRoute';
 import { LoadingPage } from '#/pages/loading-page';
 import { paths } from './paths';
+import { ProtectedLogin } from '#/middlewares/protectedLogin';
 
 const Login = lazy(() => import('#/pages/login/login'));
 const Profile = lazy(() => import('#/pages/profile/profile'));
@@ -25,7 +26,14 @@ const NotFound = lazy(() => import('#/pages/not-found/notFound'));
 const AppRoutes: React.FC = () => (
   <Routes>
     {/* Auth */}
-    <Route path={paths.login} element={<Login />} />
+    <Route
+      path={paths.login}
+      element={
+        <ProtectedLogin>
+          <Login />
+        </ProtectedLogin>
+      }
+    />
     {/* Utils */}
     <Route path={paths.loadingPage} element={<LoadingPage />} />
     {/* 404 Not found */}
