@@ -321,26 +321,35 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         : null
                     }`}
                   >
-                    <div className={`text-m font-bold px-1 py-5 tracking-wide`}>
+                    <div className="px-1 py-5 tracking-wide">
                       {values.electors !== 0 ? (
                         <div className="flex flex-row gap-2">
-                          {correctCertificate && !votesDifference ? (
-                            <span className="font-light">
-                              No hay diferencia
-                            </span>
-                          ) : null}{' '}
+                          {!votesDifference ? (
+                            <span className="">No hay diferencia</span>
+                          ) : null}
                           {votesDifference && !correctCertificate ? (
-                            <span className="font-light">(impugnada)</span>
+                            <span className="">
+                              {' '}
+                              {isNaN(
+                                Number(values.electors) -
+                                  Number(values.envelopes),
+                              )
+                                ? 0
+                                : Number(values.electors) -
+                                  Number(values.envelopes)}
+                            </span>
                           ) : null}
                         </div>
                       ) : (
                         <div className="">Diferencia</div>
                       )}
                     </div>
-                    <div className="text-2xl font-semibold px-3 py-5 mr-10">
-                      {isNaN(Number(values.electors) - Number(values.envelopes))
-                        ? 0
-                        : Number(values.electors) - Number(values.envelopes)}
+                    <div className="font-2xl">
+                      {!votesDifference ? (
+                        <img src="/assets/icon/checkcircle.svg" alt="check" />
+                      ) : (
+                        <img src="/assets/icon/xcircle.svg" alt="error" />
+                      )}
                     </div>
                   </div>
                 </div>

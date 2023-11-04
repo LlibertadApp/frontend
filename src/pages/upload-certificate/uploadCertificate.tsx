@@ -31,7 +31,6 @@ const UploadCertificate = () => {
       <Navbar routerLink={paths.home} />
       <div className="flex justify-center p-4 w-full">
         <div className="container flex justify-center flex-col items-center">
-
           <div className="progressIndicator">
             <ProgressIndicator
               steps={[
