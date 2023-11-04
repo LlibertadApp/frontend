@@ -30,7 +30,7 @@ const UploadCertificate = () => {
 
     <section className="items-center flex flex-col ">
       <Navbar routerLink={paths.home} />
-      <div className="p-4 w-full">
+      <div className="p-4 w-full max-w-3xl">
         <div className="container flex-column items-center m-auto">
           <div className="progressIndicator">
 
