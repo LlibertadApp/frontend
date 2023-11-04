@@ -10,6 +10,7 @@ const FlatList = ({
   votes,
   edit = false,
   updateTotalVotes,
+  getValidationProps,
   correctCertificate,
 }: FlatListProps) => {
   const [vote, setVote] = useState<number>(votes);
@@ -57,9 +58,11 @@ const FlatList = ({
         <TextField
           id="inaccessibleInput"
           type="number"
+          {...getValidationProps()}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleVoteChange(Number(e.target.value))
           }
+          
           InputLabelProps={{
             style: { opacity: '0.6' },
           }}

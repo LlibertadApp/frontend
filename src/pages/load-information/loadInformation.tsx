@@ -1,19 +1,22 @@
 import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import toast, { Toaster } from 'react-hot-toast';
+import { Formik, Field, Form } from 'formik';
+import * as Yup from 'yup';
+
+import { ILoadInformationProps, FormValues } from './types';
+
+import { paths } from '#/routes/paths';
+
 import Button from '#/components/button';
 import FlatList from '#/components/flatList';
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
 import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
-import { ILoadInformationProps, FormValues } from './types';
-import toast, { Toaster } from 'react-hot-toast';
-import { Formik, Field, Form, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
-import { paths } from '#/routes/paths';
-
 import { TextField } from '@mui/material';
+
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red';
@@ -95,9 +98,9 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const validationSchema = Yup.object().shape({
     circuit: Yup.number().min(0).required(''),
     table: Yup.number().min(0).required(''),
-    electors: Yup.number().min(0).required(''),
-    envelopes: Yup.number().min(0).required(''),
-    totalVotes: Yup.number().min(0).required(''),
+    electors: Yup.number().min(0).positive().required(''),
+    envelopes: Yup.number().min(0).positive().required(''),
+    totalVotes: Yup.number().min(0).positive().required(''),
     correctData: Yup.boolean().required(''),
   });
 
@@ -110,19 +113,35 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const [correctCertificate, setCorrectCertificate] = useState<boolean>(false);
   const [votesDifference, setVotesDifference] = useState(false);
 
-  const preventNegativeValues = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
-  ) => {
-    const { name, value } = e.target;
-    const parsedValue = parseInt(value);
-
-    if (!isNaN(parsedValue) && parsedValue >= 0) {
-      const newValue = Math.max(0, parseInt(value, 10));
-      setFieldValue(name, newValue);
-    } else {
-      setFieldValue(name, '');
-    }
+  const getValidationProps = () => {
+    return {
+      onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const forbiddenKeys = [
+          'e',
+          'E',
+          '+',
+          '-',
+          ',',
+          '.',
+          'ArrowUp',
+          'ArrowDown',
+        ];
+        if (forbiddenKeys.includes(e.key)) {
+          e.preventDefault();
+        }
+      },
+      onPaste: (e: React.ClipboardEvent<HTMLInputElement>) =>
+        e.preventDefault(),
+      onContextMenu: (e: React.MouseEvent<HTMLInputElement>) =>
+        e.preventDefault(),
+      onDrop: (e: React.DragEvent<HTMLInputElement>) => e.preventDefault(),
+      onWheel: (e: React.WheelEvent<HTMLInputElement>) => {
+        if (e.target instanceof HTMLElement) {
+          e.target.blur();
+        }
+      },
+      autoComplete: 'off',
+    };
   };
 
   const updateCorrectCertificateData = (values: FormValues) => {
@@ -220,8 +239,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       name="circuit"
                       variant="outlined"
                       placeholder="000D"
+                      {...getValidationProps()}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        preventNegativeValues(e, setFieldValue);
                         handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
@@ -248,8 +267,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       name="table"
                       label="Mesa"
                       placeholder="00000/0"
+                      {...getValidationProps()}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        preventNegativeValues(e, setFieldValue);
                         handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
@@ -273,10 +292,10 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       sx={{ width: '100%' }}
                       type="number"
                       name="electors"
-                      placeholder="0"
                       label="Nro de electores"
+                      placeholder="0"
+                      {...getValidationProps()}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        preventNegativeValues(e, setFieldValue);
                         handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
@@ -299,8 +318,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         name="envelopes"
                         label="Sobres"
                         placeholder="0"
+                        {...getValidationProps()}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          preventNegativeValues(e, setFieldValue);
                           handleChange(e);
                         }}
                         className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl
@@ -317,7 +336,9 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                   <div
                     className={`flex justify-between items-center w-full px-4 !text-green-light bg-green-light/10 rounded-2xl ${
-                      votesDifference ? '!text-red-error !bg-red-error/10' : null
+                      votesDifference
+                        ? '!text-red-error !bg-red-error/10'
+                        : null
                     } ${correctCertificate ? '' : null}`}
                   >
                     <div className="px-1 py-5 tracking-wide">
@@ -367,6 +388,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                             votes={item.votes}
                             edit={item.edit}
                             updateTotalVotes={updateTotalVotes}
+                            getValidationProps={getValidationProps}
                             correctCertificate={correctCertificate}
                           />
                         )) as any

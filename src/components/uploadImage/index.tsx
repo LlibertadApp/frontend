@@ -83,7 +83,7 @@ export function UploadImage({
       <div className="flex items-center w-full text-center">
         <label
           htmlFor="open-camera"
-          className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full cursor-default "
+          className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full cursor-pointer"
         >
           <ImageInput
             id="open-camera"
