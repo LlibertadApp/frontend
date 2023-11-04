@@ -21,4 +21,5 @@ export interface FlatListProps {
   updateTotalVotes: UpdateTotalVotesFunction;
   getValidationProps: () => Record<string, React.EventHandler<any>>;
   correctCertificate?: boolean;
+  isLastFive: boolean;
 }

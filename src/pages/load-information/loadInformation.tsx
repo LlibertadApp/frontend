@@ -169,13 +169,13 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     updateVotesDifference(formValues);
     updateCorrectCertificateData(formValues);
     updateProgressStatus();
-  }, [totalVotes, formValues]);
+  }, [totalVotes, formValues, correctCertificate, votesDifference]);
 
   const updateProgressStatus = () => {
     setProgressStatus([
       ProgressStepStatus.Successful,
       ProgressStepStatus.Successful,
-      !(totalVotes !== formValues.envelopes || votesDifference)
+      formValues.correctData && correctCertificate && !votesDifference
         ? ProgressStepStatus.Active
         : ProgressStepStatus.Error,
     ]);
@@ -228,7 +228,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   certificado
                 </div>
 
-                <div className="flex w-full justify-center gap-[20vw] sm:gap-24 px-4">
+                <div className="flex w-full justify-center gap-6 sm:gap-24">
                   <div>
                     <TextField
                       InputLabelProps={{ style: { opacity: '0.6' } }}
@@ -280,7 +280,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4">
+                <div className="flex w-full justify-center gap-6 sm:gap-24">
                   <div className="py-6">
                     <TextField
                       InputLabelProps={{
@@ -329,7 +329,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                   </div>
                 </div>
-                <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
+                <hr className="h-[2px] my-1 bg-gray-300/50 border-0 max-w-md mx-auto"></hr>
                 <div className="flex flex-col justify-center w-full py-5">
                   <div className="text-left pl-1 pb-1 text-gray-darker">
                     Diferencia
@@ -373,84 +373,38 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                   </div>
                 </div>
-                <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
-                <div className="flex flex-col items-center justify-center my-6 w-full p-4">
+                <hr className="h-[2px] my-1 bg-gray-300/50 border-0 max-w-md mx-auto"></hr>
+                <div className="flex flex-col items-center justify-center mt-[30px] w-full gap-4">
                   {flatList.map((item, index) => (
                     <Field key={index} name={`flatList.${index}`}>
-                      {
-                        (({ field }: any) => (
-                          <FlatList
-                            {...field}
-                            logo={item.logo}
-                            type={item.type}
-                            subTitle={item.subTitle}
-                            title={item.title}
-                            votes={item.votes}
-                            edit={item.edit}
-                            updateTotalVotes={updateTotalVotes}
-                            getValidationProps={getValidationProps}
-                            correctCertificate={correctCertificate}
-                          />
-                        )) as any
-                      }
+                      {({ field }: any) => (
+                        <FlatList
+                          {...field}
+                          logo={item.logo}
+                          type={item.type}
+                          subTitle={item.subTitle}
+                          title={item.title}
+                          votes={item.votes}
+                          edit={item.edit}
+                          updateTotalVotes={updateTotalVotes}
+                          getValidationProps={getValidationProps}
+                          correctCertificate={correctCertificate}
+                          isLastFive={index >= flatList.length - 5}
+                        />
+                      )}
                     </Field>
                   ))}
                 </div>
-
-                <div className="flex items-center justify-center mt-2 w-full p-4">
-                  <div className="flex p-2 justify-between items-center w-full max-w-md">
-                    <div
-                      className={`text-3xl text-violet-brand font-bold px-3 py-5 tracking-wide ${
-                        typeof values.envelopes === 'number' &&
-                        typeof totalVotes === 'number'
-                          ? values.envelopes - totalVotes !== 0
-                            ? 'text-red'
-                            : ''
-                          : ''
-                      }`}
-                    >
-                      {typeof values.envelopes === 'number' ? (
-                        values.envelopes - totalVotes !== 0 ? (
-                          <div className="flex flex-row gap-2">
-                            Total{' '}
-                            <img
-                              src="/assets/icon/warn-icon.svg"
-                              alt="warn-icon"
-                            />
-                          </div>
-                        ) : (
-                          'Total'
-                        )
-                      ) : (
-                        'Total'
-                      )}
+                <div className="flex items-center justify-center mt-2 w-full">
+                  <div className="flex justify-between items-center w-full max-w-md">
+                    <div className="`text-gray-darker py-5 tracking-wide">
+                      <div className="ml-[60px]">Votos totales </div>
                     </div>
-
-                    <div
-                      className={`text-2xl font-semibold px-3 py-5 mr-10 ${
-                        typeof values.envelopes === 'number' &&
-                        typeof totalVotes === 'number'
-                          ? values.envelopes - totalVotes !== 0
-                            ? 'text-red'
-                            : ''
-                          : ''
-                      }`}
-                    >
-                      {totalVotes}
-                    </div>
+                    <div className="w-20 text-text-off">{totalVotes}</div>
                   </div>
                 </div>
-
-                <div className="text-base text-red max-w-md mx-auto -mt-8 p-5 text-center">
-                  {typeof values.envelopes === 'number' &&
-                    typeof totalVotes === 'number' &&
-                    (values.envelopes - totalVotes !== 0
-                      ? 'El total de votos no coincide con la cantidad de sobres. Revisa los datos cargados'
-                      : null)}
-                </div>
-
-                <div className="flex items-center justify-center text-sm my-2">
-                  <div className="flex items-center px-4">
+                <div className="flex items-center justify-center text-sm">
+                  <div className="flex items-center">
                     <div className="inline-flex items-center">
                       <label
                         className="relative flex items-center p-3 rounded-full cursor-pointer"
@@ -460,44 +414,36 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                           type="checkbox"
                           name="correctData"
                           checked={values.correctData}
-                          className="before:content[''] peer relative h-7 w-7 cursor-pointer appearance-none rounded-md border-2 border-violet-brand transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-violet-brand checked:bg-violet-brand checked:before:bg-violet-500 hover:before:opacity-10"
+                          className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-violet-primary transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-violet-primary checked:bg-violet-primary checked:before:bg-violet-500 hover:before:opacity-10"
                         />
-
                         <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
                           <img src="/assets/icon/check-icon.svg" alt="check" />
                         </div>
                       </label>
                     </div>
                     <div
-                      className="px-3 cursor-pointer"
+                      className="cursor-pointer"
                       onClick={() =>
                         setFieldValue('correctData', !values.correctData)
                       }
                     >
-                      <h3 className="text-center text-md">
-                        Verifico que controlé y que todos <br />
-                        los datos son correctos.
+                      <h3 className="text-left mt-4">
+                        Verifico que controlé y que todos los datos son
+                        correctos.
                       </h3>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center justify-center my-10">
-                  {typeof values.electors === 'number' &&
-                  typeof values.envelopes === 'number' &&
-                  typeof totalVotes === 'number' &&
-                  typeof values.circuit === 'number' &&
-                  typeof values.table === 'number' &&
-                  values.electors - values.envelopes >= 0 &&
-                  values.electors - values.envelopes <= 4 &&
-                  values.envelopes - totalVotes === 0 &&
+                  {!votesDifference &&
                   totalVotes !== 0 &&
                   values.circuit !== 0 &&
                   values.table !== 0 &&
                   values.correctData ? (
-                    <Link to={paths.sendSuccess} className="w-full mx-6">
+                    <Link to={paths.sendSuccess} className="w-full mx-2">
                       <Button
                         onClick={() => onSubmit(values)}
-                        className="bg-violet-brand p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full"
+                        className="bg-violet-primary p-4 text-white rounded-xl font-light text-xl tracking-wider w-full"
                         type="submit"
                         label="Enviar Datos"
                       />
@@ -508,27 +454,19 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       <Button
                         onClick={() =>
                           handleToast(
-                            typeof values.electors === 'number' &&
-                              typeof values.envelopes === 'number' &&
-                              typeof totalVotes === 'number' &&
-                              typeof values.circuit === 'number' &&
-                              typeof values.table === 'number' &&
-                              values.electors - values.envelopes >= 0 &&
-                              values.electors - values.envelopes <= 4 &&
-                              values.envelopes - totalVotes === 0 &&
+                            votesDifference &&
                               totalVotes !== 0 &&
                               values.circuit !== 0 &&
                               values.table !== 0 &&
-                              values.correctData &&
-                              votesDifference
+                              values.correctData
                               ? 'submit'
                               : 'button',
                           )
                         }
                         className={
                           votesDifference && values.correctData
-                            ? 'bg-red p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full'
-                            : 'bg-gray-300 p-4 text-black rounded-xl font-medium text-xl tracking-wider w-full cursor-default'
+                            ? 'bg-red p-4 text-white rounded-xl font-light text-xl tracking-wider w-full'
+                            : 'bg-gray-300 p-4 text-black rounded-xl font-light text-xl tracking-wider w-full cursor-default'
                         }
                         type={values.correctData ? 'submit' : 'button'}
                         label={
