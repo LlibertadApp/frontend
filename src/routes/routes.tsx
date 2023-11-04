@@ -19,7 +19,9 @@ const VerifyCertificate = lazy(
   () => import('#/pages/verify-certificate/verifyCertificate'),
 );
 const TotalResults = lazy(() => import('#/pages/total-results/totalResults'));
-const FilterPage = lazy(() => import('#/pages/results/filter'));
+
+const FilterPage = lazy(() => import('#/pages/filter-results/filter-results'));
+const Irregularities = lazy(() => import('#/pages/irregularities/irregularities'));
 const NotFound = lazy(() => import('#/pages/not-found/notFound'));
 
 const AppRoutes: React.FC = () => (
@@ -44,9 +46,10 @@ const AppRoutes: React.FC = () => (
       <Route path={paths.sendSuccess} element={<SendSuccess />} />
       <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
-      {/* Filters & Results */}
+      {/* Filters, Results & Irregularities */}
       <Route path={paths.filterResults} element={<FilterPage />} />
       <Route path={paths.totalResults} element={<TotalResults />} />
+      <Route path={paths.irregularities} element={<Irregularities />} />
     </Route>
   </Routes>
 );

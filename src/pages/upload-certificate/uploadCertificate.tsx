@@ -31,7 +31,7 @@ const UploadCertificate = () => {
     <section className="items-center flex flex-col ">
       <Navbar routerLink={paths.home} />
       <div className="p-4 w-full">
-        <div className="container flex-column items-center">
+        <div className="container flex-column items-center m-auto">
           <div className="progressIndicator">
 
           <ProgressIndicator
@@ -47,7 +47,7 @@ const UploadCertificate = () => {
               Usa la cámara, subí el <b>certificado del fiscal</b>, <br/> o cargala desde la galería.
               
             </p>
-          <div className="flex flex-col text-start gap-3">
+          <div className="flex flex-col text-start gap-3 ">
           <UploadImage onUpload={url => setCertificateImage(url)} /> 
             
           </div>

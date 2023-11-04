@@ -10,6 +10,7 @@ export default {
         background: '#F2F2F2',
         uxp: '#23B2E8',
         'violet-brand': '#61439D',
+        'violet-primary': '#714FB6',
         'violet-dark': '#3C2865',
         'violet-light': '#8B6ACE',
         'violet-light-2': '#E4DEF6',

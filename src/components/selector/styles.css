@@ -1,0 +1,22 @@
+.select .MuiOutlinedInput-notchedOutline {
+  border-radius: 12px;
+}
+
+div.select-menu {
+  border-radius: 12px;
+  margin-top: 6px;
+  border: solid 1px var(--violet-brand-transparent);
+}
+
+div.select-menu li + li {
+  border-top: solid 1px var(--violet-brand-transparent);
+}
+
+div.select-menu li.Mui-selected {
+  border-left: solid 3px var(--violet-brand);
+  background-color: transparent;
+}
+
+div.select-menu li.Mui-selected:hover {
+  background-color: transparent;
+}
