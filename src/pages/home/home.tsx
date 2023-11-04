@@ -27,13 +27,10 @@ const HomePage = () => {
                 color={colors.Violet}
               />
               <CardLink
-                link={paths.home}
+                link={paths.deskList}
                 text={'Listado de mesas cargadas'}
                 icon={'list.svg'}
                 color={colors.Violet}
-                onClick={() => {
-                  alert('No existe la ruta aún');
-                }}
               />
               <CardLink
                 link={paths.irregularities}

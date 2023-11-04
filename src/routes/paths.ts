@@ -12,4 +12,5 @@ export const paths = {
   filterResults: '/filter-results',
   totalResults: '/total-results',
   index: '',
+  deskList:'/desk-list',
 };
