@@ -68,7 +68,7 @@ export function UploadImage({
         <div className="flex items-center justify-center w-full overflow-hidden">
           <label
             htmlFor="dropzone-file"
-            className="flex flex-col items-center justify-centercursor-pointer mt-[30px] mb-10"
+            className="flex flex-col items-center justify-center cursor-pointer mt-[30px] mb-10"
           >
             <div className="flex flex-col items-center justify-center">
               <img src={preview || 'assets/icon/upload-box.svg'} alt="" />
