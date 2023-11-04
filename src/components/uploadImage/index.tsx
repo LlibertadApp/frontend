@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ImageInput from '#/components/imageInput';
 import { getBase64 } from '#/utils';
 import Button from '#/components/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
- import toast, { Toaster } from 'react-hot-toast';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
@@ -42,21 +41,12 @@ export function UploadImage({
     setPreview(undefined);
     setUploaded(false);
   };
-  /* No estoy totalmente seguro de qué esto sea optimo, 
-  pero el useEffect se activa cuando uploaded cambia, 
-  lo que solo va a ocurrir una vez,
-  después de que el usuario ha subido una imagen */
-  useEffect(() => {
-    if (uploaded) {
-      try {
-        navigate(paths.verifyCertificate);
-      } catch (error) {
-        toast.error('Hubo un error al cargar la página porfavor refresqué la misma.', {
-          icon: '⛔',
-        });
-      }
-    }
-  }, [uploaded, navigate]);
+
+  if (uploaded) {
+    navigate(paths.verifyCertificate);
+    return null; // Puedes retornar null o cualquier otro contenido que desees en este caso
+  }
+
   return (
     <div className="flex flex-col items-center text-lg">
       <div
@@ -103,7 +93,6 @@ export function UploadImage({
             handleOnChange={(ev) => onUploadInternal(ev.target.files?.[0])}
           />
           <p className="mx-auto">Tomar foto</p>
-          <Toaster position="top-right" reverseOrder={false} />
         </label>
       </div>
     </div>
