@@ -2,14 +2,6 @@
   border-radius: 12px;
 }
 
-.select .Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
-  border-color: var(--violet-brand);
-}
-
-.select-label.Mui-focused.MuiInputLabel-shrink {
-  color: var(--violet-brand);
-}
-
 div.select-menu {
   border-radius: 12px;
   margin-top: 6px;
