@@ -14,12 +14,10 @@ La intencion de crear este sistema es mantener y preservar la democracia y la tr
   - [Componentes](#componentes)
   - [Repositorios y organización](#repositorios-y-organización)
   - [Tipos de Fraudes](#tipos-de-fraudes)
-    - [Sumarizacion Fraudulenta](#sumarizacion-fraudulenta)
     - [Mesas Inexistentes](#mesas-inexistentes)
     - [Datos de Mesa Correctos luego Incorrectos](#datos-de-mesa-correctos-luego-incorrectos)
     - [Fiscales Falsos](#fiscales-falsos)
     - [Fiscales Judas](#fiscales-judas)
-    - [Ficales Incompetentes](#ficales-incompetentes)
     - [Conteo de Voto Corrupto por falta del Fiscal de Mesa](#conteo-de-voto-corrupto-por-falta-del-fiscal-de-mesa)
   - [Usuarios](#usuarios)
   - [Funcionalidad](#funcionalidad)
@@ -29,11 +27,7 @@ La intencion de crear este sistema es mantener y preservar la democracia y la tr
       - [Servicios de Backend](#servicios-de-backend)
       - [Frontend](#frontend)
       - [Procesos Batch](#procesos-batch)
-  - [Responsables](#responsables)
-  - [Links de interes](#links-de-interes)
-- [Como contribuir](#como-contribuir)
-- [Autores](#autores)
-- [Contributors](#contributors)
+
 
 ## Objetivos
 
@@ -128,8 +122,6 @@ Esta APP tendría estos tipos de usuarios:
 5. **Mapa / Información de Bunkers-Sucursales**: El sistema debe permitir visualizar un mapa o varios mapas en los cuales se debería poder ver dónde ir a buscar boletas personales y así que la gente pueda ver dónde ir a buscarlas.
 
 ## Arquitectura del Sistema
-
-![image](https://github.com/Las-Fuerzas-Del-Cielo/Sistema-Anti-Fraude-Electoral/assets/140413871/d3b6c243-93b5-41f6-9060-5ab97d90995c)
 
 - **Cloudflare:** Se utiliza para la gestión de DNS, CDN y seguridad en la capa 7.
 
@@ -232,30 +224,6 @@ En resumen:
 - Agrega una descripción clara de los cambios en el PR.
 - Agrega etiquetas correspondientes a los cambios en el PR.
 
-## Responsables
-
-Al mejor estilo Open Source, aquel que desee hacerse responsable de alguna parte del sistema puede auto-listarse aquí abajo, modificando este readme a través de un PR.
-
-- Análisis General [@Luis-Fernando-Molina](https://www.github.com/Luis-Fernando-Molina)
-- UX/UI [@JoseOrtega02](https://github.com/JoseOrtega02), [cualquier persona que desee unirse]
-- FrontEnd [@JoseOrtega02](https://github.com/JoseOrtega02), [cualquier persona que desee unirse]
-
-## Enlaces de interés
-
-- Figma: [Enlace a Figma](https://www.figma.com/file/nyWx6CewFyvb3a7y3g1r7W/Libertarios-APP?type=design&node-id=0%3A1&mode=design&t=L4k93Fh2vw4b8yku-1)
-- Trello: [Enlace a Trello](https://trello.com/invite/b/3sdCNjhp/ATTI0ee6e921ed507577043c8411266d7206D016745E/libertarios-app-ux-ui-fronted)
-
-# Autores
-
-- [@Luis-Fernando-Molina](https://www.github.com/Luis-Fernando-Molina)
-- [@switTV](https://www.github.com/switTV)
-
-# Colaboradores
-
-<a href="https://github.com/Las-Fuerzas-Del-Cielo/Sistema-Anti-Fraude-Electoral/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Las-Fuerzas-Del-Cielo/Sistema-Anti-Fraude-Electoral" height="50"/>
-</a>
-
 # Discord para Desarrolladores
 
-[Enlace al Discord](https://discord.gg/BWDqcpXn)
+[Enlace al Discord](https://discord.gg/fGChFrWk)
