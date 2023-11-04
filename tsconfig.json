@@ -82,7 +82,7 @@
 
             "#icons/*": [
                 "src/icons/*"
-
+            ],
             "#middlewares/*": [
                 "src/middlewares/*"
             ]
