@@ -24,6 +24,8 @@ const FilterPage = lazy(() => import('#/pages/filter-results/filter-results'));
 const Irregularities = lazy(() => import('#/pages/irregularities/irregularities'));
 const NotFound = lazy(() => import('#/pages/not-found/notFound'));
 
+const DeskList = lazy (() => import('#/pages/desk-list/deskList'));
+
 const AppRoutes: React.FC = () => (
   <Routes>
     {/* Auth */}
@@ -50,6 +52,7 @@ const AppRoutes: React.FC = () => (
       <Route path={paths.filterResults} element={<FilterPage />} />
       <Route path={paths.totalResults} element={<TotalResults />} />
       <Route path={paths.irregularities} element={<Irregularities />} />
+      <Route path={paths.deskList} element={<DeskList />} />
     </Route>
   </Routes>
 );

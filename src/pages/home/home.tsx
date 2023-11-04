@@ -22,18 +22,16 @@ const HomePage = () => {
               </span>
               <CardLink
                 link={paths.uploadCertificate}
-                text={'Cargar resultados de tu mesa'}
+                text={'Cargá resultados de mesa'}
                 icon={'mail-open-outlined.svg'}
                 color={colors.Violet}
+
               />
               <CardLink
-                link={paths.home}
+                link={paths.deskList}
                 text={'Listado de mesas cargadas'}
                 icon={'list.svg'}
                 color={colors.Violet}
-                onClick={() => {
-                  alert('No existe la ruta aún');
-                }}
               />
               <CardLink
                 link={paths.irregularities}
@@ -44,7 +42,7 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-col items-center space-y-2 w-full">
-              <span className=" w-full p-4 font-bold">
+              <span className=" w-full p-4 pt-8 font-bold">
                 Escrutinio y resultados
               </span>
               <Link
