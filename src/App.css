@@ -1,3 +1,9 @@
+:root {
+  --violet-brand: #61439d;
+  --violet-brand-transparent: #61439d80;
+  --violet-brand-dark: #493570;
+  --violet-brand-light: #CCC9E1;
+}
 #root {
   margin: 0 auto;
   text-align: center;

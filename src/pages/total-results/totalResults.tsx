@@ -1,23 +1,71 @@
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
+
+import { Filter, useFilter } from '#/context/FilterContext';
+import { ButtonFilter } from '#/components/buttonFilter';
+import { ButtonClearFilter } from '#/components/buttonClearFilter';
+import { ListFilters } from '#/components/listFilters';
+
+
+
+
 import { paths } from '#/routes/paths';
+import { useEffect } from 'react';
+
+const customFilters: Filter[] = [
+  {
+    id: "1",
+    name: 'distrito',
+    value: 'Buenos Aires',
+  },
+  {
+    id: "2",
+    name: 'seccion_electoral',
+    value: 'Sección Tercera',
+  },
+  {
+    id: "3",
+    name: 'seccion',
+    value: 'Lanus',
+  },
+  {
+    id: "4",
+    name: 'municipio',
+    value: '771D',
+  },
+  {
+    id: "5",
+    name: 'municipio',
+    value: '00669/9',
+  }
+]
 
 const TotalResultsPage = () => {
+  const { filters, clearFilters, setFilters } = useFilter();
+  useEffect(() => {
+    setFilters(customFilters)
+  }, [])
+
   const percentages = [61.05, 38.95];
   const votes = ['16,482,688', '10,517,312'];
   return (
     <div className="bg-white h-screen flex flex-col">
+
       <Navbar routerLink={paths.home} />
+
       <div className="flex flex-col p-4">
-        <p className="font-bold text-[32px] text-violet-brand mt-[16px]">BALOTAJE</p>
-        <Link
-          to={paths.filterResults}
-          className="flex flex-row justify-center gap-[10px] bg-violet-brand text-white px-4 py-4 w-full rounded-xl text-[18px] tracking-wider hover:border-violet-light my-4"
-        >
-          Filtros <img src="assets/icon/sliders-icon.svg" alt="sliders" />
-        </Link>
+
+      <p className="font-bold text-[32px] text-violet-brand mt-[16px]">BALOTAJE</p>
+
+        {/* Sección de botones */}
+        {/* <section className="flex justify-center gap-4"> */}
+        <section className="flex flex-1 flex-row gap-5 mb-4">
+        {filters.length > 0 && <ButtonClearFilter amountOfFilters={filters.length} clearFilters={clearFilters} />}
+        <ButtonFilter amount={filters.length} />
+        </section>
+        {/* Lista de filtros */}
+        <ListFilters filters={filters} />
       </div>
       <div className="lg:px-60 px-3 flex flex-col gap-6">
         {
@@ -118,11 +166,12 @@ const TotalResultsPage = () => {
       </div>
       <div className="mt-4 p-4 hidden">
         <Button
-          className="border-2 border-rose-700 text-rose-700 bg-transparent p-3 w-full rounded-xl text-xl tracking-wider shadow-md hover:border-violet-light my-4"
+          className="border-2 border-rose-700 text-rose-700 bg-transparent p-3 w-full rounded-xl text-xl tracking-wider shadow-md hover:border-rose-300 hover:text-rose-300 my-4"
           type="button"
           label="Alerta Irregularidades"
         />
       </div>
+
     </div>
   );
 };
