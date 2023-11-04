@@ -7,6 +7,7 @@ import { CertificateProvider } from './context/CertificationContext';
 import Overlay from './components/overlay';
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material';
+import { FilterProvider } from './context/FilterContext';
 
 function App() {
   // Colores definidos
@@ -52,7 +53,9 @@ function App() {
           <Suspense fallback={<LoadingPage />}>
             <HamburgerProvider>
               <Overlay>
-                <AppRoutes />
+                <FilterProvider>
+                  <AppRoutes />
+                </FilterProvider>
               </Overlay>
             </HamburgerProvider>
           </Suspense>
