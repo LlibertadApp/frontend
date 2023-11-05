@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import ImageInput from '#/components/imageInput';
 import { getBase64 } from '#/utils';
-import Button from '#/components/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
- import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+import { useActivatedRoutes } from '#/context/ActivatedRoutesContext';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 text-[#444444]">
@@ -21,6 +21,7 @@ export function UploadImage({
   const [preview, setPreview] = useState<string>();
   const [uploaded, setUploaded] = useState(false);
   const navigate = useNavigate();
+  const { setActiveRoute } = useActivatedRoutes();
 
   async function onUploadInternal(file: File | null | undefined) {
     if (!file) return;
@@ -28,6 +29,7 @@ export function UploadImage({
     onUpload(base64);
     handlePreview(file);
     setUploaded(true);
+    setActiveRoute(true);
   }
 
   function handlePreview(file: File) {
@@ -49,9 +51,12 @@ export function UploadImage({
       try {
         navigate(paths.verifyCertificate);
       } catch (error) {
-        toast.error('Hubo un error al cargar la página porfavor refresqué la misma.', {
-          icon: '⛔',
-        });
+        toast.error(
+          'Hubo un error al cargar la página porfavor refresqué la misma.',
+          {
+            icon: '⛔',
+          },
+        );
       }
     }
   }, [uploaded, navigate]);
@@ -71,9 +76,7 @@ export function UploadImage({
         <div className="flex flex-col gap-4 w-full pt-[22px]">
           <CheckItem text="Buscá un lugar con buena luz." />
           <CheckItem text="Asegurate de que se vean todos los datos." />
-          <CheckItem
-            text="Asegurate que el certificado esté firmado por el presidente de tu mesa."
-          />
+          <CheckItem text="Asegurate que el certificado esté firmado por el presidente de tu mesa." />
         </div>
         <div className="flex items-center justify-center w-full overflow-hidden">
           <label

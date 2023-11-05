@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import { paths } from '#/routes/paths';
 
 import { TextField } from '@mui/material';
+import { useActivatedRoutes } from '#/context/ActivatedRoutesContext';
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red';
@@ -101,8 +102,12 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     correctData: Yup.boolean().required(''),
   });
 
+  const { setActiveRoute } = useActivatedRoutes();
+
   const onSubmit = async (values: FormValues) => {
     values.totalVotes = totalVotes;
+
+    setActiveRoute(true);
   };
 
   const [formValues, setFormValues] = useState(initialValues);
