@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Trash } from '@phosphor-icons/react';
 
 export interface ButtonClearFilterProps {
   amountOfFilters: number;
@@ -17,7 +18,7 @@ export const ButtonClearFilter: FC<ButtonClearFilterProps> = ({
     >
       <div className="flex justify-center items-center gap-2">
         <label className="cursor-pointer">Limpiar</label>{' '}
-        <img src="assets/icon/trash.svg" alt="trash" />
+        <Trash size={24}/>
       </div>
     </button>
   );
