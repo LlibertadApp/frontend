@@ -6,7 +6,6 @@ import {
   useEffect,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import useAxios from '#/hooks/utils/useAxios';
 import { IAuthData, IUser } from '#/interfaces/IUser';
 import { paths } from '#/routes/paths';
@@ -17,6 +16,10 @@ interface AuthContextType {
   login: (user: IAuthData) => void;
   logout: () => void;
   refreshToken: () => void;
+}
+
+interface JwtCustomPayload extends JwtPayload {
+  name: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -48,6 +51,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     navigate(paths.login);
   };
 
+  const validToken = (token: string): boolean => {
+    try {
+      const decodedToken = jwtDecode<JwtCustomPayload>(token);      
+      if (decodedToken && decodedToken?.exp && Date.now() > decodedToken.exp * 1000) {
+        return false;
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const refreshToken = async () => {
     const accessToken = sessionStorage.getItem('accessToken');
     if (!accessToken) return logout();
@@ -57,9 +72,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         authorization: `Bearer ${accessToken}`,
       },
     };
-
-    // TODO: Validar q el token sea valido no este vencido, este firmado, etc.
-
     const { data, error } = await axios.post(
       '/auth/sign-in-using-token',
       {},
