@@ -59,7 +59,6 @@ const TotalResultsPage = () => {
       <p className="font-bold text-[32px] text-violet-brand mt-[16px]">BALOTAJE</p>
 
         {/* Sección de botones */}
-        {/* <section className="flex justify-center gap-4"> */}
         <section className="flex flex-1 flex-row gap-5 mb-4">
         {filters.length > 0 && <ButtonClearFilter amountOfFilters={filters.length} clearFilters={clearFilters} />}
         <ButtonFilter amount={filters.length} />
