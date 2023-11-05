@@ -53,33 +53,44 @@ const FilterPage = () => {
               label="Distrito"
               onChange={setDistrito}
               options={districtsMock}
+              value={distrito}
             />
             <Selector
               label="Sección Electoral"
               onChange={setSeccionElectoral}
               options={electoralSectionsMock}
+              value={seccionElectoral}
             />
             <Selector
               label="Sección"
               onChange={setSeccion}
               options={sectionsMock}
+              value={seccion}
             />
             <Selector
               label="Municipio"
               onChange={setMunicipio}
               options={municipalitiesMock}
+              value={municipio}
             />
             <Selector
               label="Circuito"
               onChange={setCircuito}
               options={circuitsMock}
+              value={circuito}
             />
             <Selector
               label="Establecimiento"
               onChange={setEstablecimiento}
               options={establishmentsMock}
+              value={establecimiento}
             />
-            <Selector label="Mesa" onChange={setMesa} options={dummyData} />
+            <Selector
+              label="Mesa"
+              onChange={setMesa}
+              options={dummyData}
+              value={mesa}
+            />
           </div>
           <div className="flex flex-1 flex-row gap-5 mt-[50px]">
             <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] text-violet-primary border-2 border-violet-primary w-full rounded-xl font-medium">
