@@ -13,6 +13,8 @@ export interface FormValues {
   envelopes: number | string;
   validVotesDifference: boolean;
 
+  formAgreement: boolean;
+
   totalVotes: number;
   correctData: boolean;
 }
