@@ -469,9 +469,11 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                               : 'button',
                           )
                         }
-                        className="bg-gray-300 p-[14px] text-black rounded-xl font-light text-[1.125rem] tracking-wider w-full cursor-default"
+                        className="p-[14px]  rounded-xl font-light text-[1.125rem] tracking-wider w-full"
                         type="button"
                         label="Enviar datos"
+                        disabled
+                        appearance="disabled"
                       />
                       <Toaster position="top-right" reverseOrder={false} />
                     </div>
@@ -483,9 +485,10 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <Link to={paths.sendSuccess} className="w-full">
                       <Button
                         onClick={() => onSubmit(values)}
-                        className="bg-violet-primary p-[14px] text-white rounded-xl font-light text-[1.125rem] tracking-wider w-full"
+                        className="p-[14px] rounded-xl font-light text-[1.125rem] tracking-wider w-full"
                         type="submit"
                         label="Enviar datos"
+                        appearance="filled"
                       />
                       <Toaster position="top-right" reverseOrder={false} />
                     </Link>
@@ -494,9 +497,12 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <Link to={paths.sendSuccess} className="w-full">
                       <Button
                         onClick={() => onSubmit(values)}
-                        className="bg-red p-[14px] text-white rounded-xl font-light text-[1.125rem] tracking-wider w-full"
+                        className="p-[14px] rounded-xl font-light text-[1.125rem] tracking-wider w-full"
                         type="submit"
                         label="Enviar datos"
+                        appearance="error"
+                        // Seteo disabled hasta que este el feat del modal.
+                        disabled
                       />
                       <Toaster position="top-right" reverseOrder={false} />
                     </Link>
