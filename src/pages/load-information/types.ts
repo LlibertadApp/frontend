@@ -11,6 +11,8 @@ export interface FormValues {
   table: number | string;
   electors: number | string;
   envelopes: number | string;
+  validVotesDifference: boolean;
+
   totalVotes: number;
   correctData: boolean;
 }

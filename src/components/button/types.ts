@@ -2,6 +2,7 @@ export type ButtonAppearance =
   | 'filled'
   | 'outlined'
   | 'ghost'
+  | 'unstyled'
   | 'disabled'
   | 'error'
   | 'none';
