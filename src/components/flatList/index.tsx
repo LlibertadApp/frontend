@@ -17,11 +17,17 @@ const FlatList = ({
   const [vote, setVote] = useState<number>(votes);
 
   const handleVoteChange = (value: number) => {
-    const newValue: number = value;
-    if (newValue >= 0) {
-      setVote(newValue);
-      updateTotalVotes(newValue - vote);
+    if (value >= 0) {
+      setVote(value);
+      updateTotalVotes(value - vote);
+    } else {
+      setVote(0);
     }
+  };
+
+  const formatValue = (value: number) => {
+    const formattedValue = Number(value.toString());
+    return formattedValue;
   };
 
   const titleColor: any = {
@@ -46,7 +52,7 @@ const FlatList = ({
       <img
         src={logo}
         alt="logo"
-        className={`self-start w-12 h-12 ${isLastFive ? 'p-2' : ''}`}
+        className={`self-start w-11 h-11 ${isLastFive ? 'p-2' : ''}`}
       />
 
       <div className="flex flex-col justify-start items-start w-2/3 mr-1">
@@ -58,7 +64,7 @@ const FlatList = ({
         <label className="text-gray-darker text-left">{title}</label>
       </div>
 
-      <div className="flex items-center w-1/3 justify-end text-center">
+      <div className="flex items-center justify-end text-center">
         {/* Para el TextField */}
         <TextField
           id="inaccessibleInput"
@@ -73,10 +79,10 @@ const FlatList = ({
           InputProps={{
             style: { borderRadius: '8px' },
           }}
-          value={vote === 0 ? '' : vote}
+          value={vote === 0 ? '' : formatValue(vote)}
           placeholder="000"
           disabled={!correctCertificate ? edit : !edit}
-          className={` border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold h-12 w-20 border-rounded-2xl ${selectedInputStyle}`}
+          className={` border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold h-12 w-16 border-rounded-2xl ${selectedInputStyle}`}
           style={{ display: 'flex', justifyContent: 'center' }}
         />
       </div>
