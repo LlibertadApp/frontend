@@ -8,12 +8,15 @@ import { useCertificate } from '#/context/CertificationContext';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 import { paths } from '#/routes/paths';
+import { useActivatedRoutes } from '#/context/ActivatedRoutesContext';
 
 const VerifyCertificate = () => {
   const [correctData, setCorrectData] = useState<boolean>(false);
   const [imageUploaded, setImageUploaded] = useState<boolean>(false);
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
   const { certificateImage } = useCertificate();
+
+  const { setActiveRoute } = useActivatedRoutes();
 
   const handleCheckbox = () => {
     setCorrectData((correctData) => !correctData);
@@ -102,21 +105,28 @@ const VerifyCertificate = () => {
             {!correctData ? (
               <div className="flex w-full justify-center">
                 <Button
-                  className="w-full p-3 text-[18px] font-light tracking-wider text-text-off bg-gray-300 rounded-xl max-w-sm"
+                  className="w-full p-3 text-[18px] font-light tracking-wider text-text-off bg-gray-300 rounded-xl max-w-sm cursor-default"
                   type="button"
                   label="Continuar"
                 />
               </div>
             ) : (
-              <Link to={paths.loadInformation} className="flex w-full justify-center">
+              <Link
+                to={paths.loadInformation}
+                className="flex w-full justify-center"
+              >
                 <Button
                   className="w-full p-3 text-[18px] font-light tracking-wider text-white bg-violet-brand rounded-xl max-w-sm"
                   type="button"
                   label="Continuar"
+                  onClick={() => setActiveRoute(true)}
                 />
               </Link>
             )}
-            <Link to={paths.uploadCertificate} className="flex w-full justify-center">
+            <Link
+              to={paths.uploadCertificate}
+              className="flex w-full justify-center"
+            >
               <Button
                 className="w-full p-3 text-[18px] font-light tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl max-w-sm"
                 type="submit"
