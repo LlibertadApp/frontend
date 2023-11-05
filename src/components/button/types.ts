@@ -3,7 +3,8 @@ export type ButtonAppearance =
   | 'outlined'
   | 'ghost'
   | 'disabled'
-  | 'error';
+  | 'error'
+  | 'none';
 
 export interface IButtonProps {
   children?: React.ReactNode;
