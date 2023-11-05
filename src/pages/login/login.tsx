@@ -1,25 +1,24 @@
 import { useNavigate, Link } from 'react-router-dom';
-import { useFormik } from 'formik';
+import { Form, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import * as yup from 'yup';
 import Button from '#/components/button';
-import Input from '#/components/input';
 import useAxios from '#/hooks/utils/useAxios';
 import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
 import { paths } from '#/routes/paths';
-import { TextField } from '@mui/material';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const axios = useAxios();
 
-  const onSubmit = async (values: ILoginProps) => {
+  const onLogin = async (values: ILoginProps) => {
     //TODO: Cambiar cuando la logica del LOGIN (desde el back, me devuelva el JWT y la info del Usuario)
-    const { dni, password } = values;
+    const { email, password } = values;
     const { data, error, loading } = await axios.post('/auth/sign-in', {
-      dni,
+      email,
       password,
     });
 
@@ -31,108 +30,118 @@ const LoginPage: React.FC = () => {
   };
 
   const validationSchema = yup.object({
-    dni: yup.string().required('Campo requerido'),
+    email: yup.string().email('Email inválido').required('Campo requerido'),
     password: yup.string().required('Campo requerido'),
   });
 
-  const { handleSubmit, handleBlur, handleChange, errors, touched } = useFormik(
-    {
-      initialValues: {
-        dni: '',
-        password: '',
-      },
-      onSubmit,
-      validationSchema,
-    },
-  );
-
-  const handleClick = async () => {
-    // Maneja la lógica cuando se hace clic en el botón
-    return;
+  const initialValues: ILoginProps = {
+    email: '',
+    password: '',
+    isPasswordVisible: false,
   };
 
-  function dniChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    const cleanValue = value.replace(/[^\d]/g, ''); // Quitar todo excepto números
-
-    // Solo permitir hasta 8 dígitos para el DNI
-    const trimmedValue = cleanValue.slice(0, 8);
-
-    // Actualizar el valor del input con los dígitos limpios
-    e.target.value = trimmedValue;
-
-    // Llamar a handleChange con el nuevo evento
-    handleChange(e);
-  }
-
   return (
-    <section className="relative flex flex-col items-center h-screen overflow-hidden bg-gray-100 pt-20">
-      <div className="shadow-3xl rounded-xl">
-        <div className="container">
-          <div className="flex items-center justify-center my-10 w-30 ">
-            <img
-              src="assets/logos/fenix-login.svg"
-              alt="fenix"
-              className="object-cover h-auto rounded w-40"
-            />
-          </div>
-        </div>
+    <main className="px-4 mt-[50px] mx-auto flex flex-col items-center max-w-md">
+      <img
+        src="assets/logos/fenix-new-bg.svg"
+        alt="fenix"
+        className="object-cover h-auto w-28 mb-10"
+      />
 
-        <div className=" flex flex-col p-4 pt-2 pb-10 ">
-          <span className="text-3xl">Entre todos,</span>
-          <span className="text-3xl font-bold text-indigo-900">
-            evitemos el fraude.
-          </span>
-        </div>
-        <form className="w-full" onSubmit={handleSubmit}>
-          <div
-            className="flex items-center mb-6 text-lg md:mb-8 shadow-3xl"
+      <h1 className="text-[32px] font-light text-center white-space: pre-line">
+        Entre todos, <br />
+        <strong className="text-violet-brand font-semibold break-words">
+          evitemos el fraude.
+        </strong>
+      </h1>
+
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onLogin}
+        validationSchema={validationSchema}
+      >
+        {({
+          values,
+          handleChange,
+          handleBlur,
+          setFieldValue,
+          handleSubmit,
+          errors,
+        }) => (
+          <Form
+            className="w-full mt-16 flex flex-col gap-6"
+            onSubmit={handleSubmit}
           >
             <TextField
-              InputProps={{ style: { borderRadius: '8px' } }}
-              sx={{ width: '100%' }}
-              label="DNI"
-              type="text"
-              id="dni"
-              placeholder="DNI"
-              onChange={dniChange}
-              onBlur={handleBlur}
-              error={!!errors.dni && !!touched.dni}
-            />
-          </div>
-          <div className="flex items-center mb-6 text-lg md:mb-8 shadow-3xl">
-            <TextField
+              InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
               InputProps={{
-                style: { borderRadius: '8px' },
+                style: { borderRadius: '8px', fontFamily: 'Poppins' },
               }}
               sx={{ width: '100%' }}
-              label="Contraseña"
-              type="password"
-              id="password"
-              placeholder="Contraseña"
+              id="email"
+              value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={!!errors.password && !!touched.password}
-            />
-          </div>
-          <div className="flex flex-col items-center text-lg">
-            <Button
-              className="w-full p-4 text-xl font-semibold tracking-wider text-white bg-violet-brand rounded-xl"
-              type="submit"
-              label="Ingresar"
-              onClick={handleClick}
+              error={Boolean(errors.email)}
+              helperText={errors.email}
+              label="Correo electronico"
+              placeholder="example@gmail.com"
             />
 
+            <TextField
+              sx={{ width: '100%' }}
+              id="password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={Boolean(errors.password)}
+              helperText={errors.password}
+              InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
+              InputProps={{
+                style: { borderRadius: '8px', fontFamily: 'Poppins' },
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => {
+                        setFieldValue(
+                          'isPasswordVisible',
+                          !values.isPasswordVisible,
+                        );
+                      }}
+                    >
+                      {values.isPasswordVisible ? (
+                        <img src="assets/icon/eye.svg" alt="visibility" />
+                      ) : (
+                        <img
+                          src="assets/icon/eye-off.svg"
+                          alt="visibility-off"
+                        />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              type={values.isPasswordVisible ? 'text' : 'password'}
+              label="Contraseña"
+              placeholder="********"
+            />
+
+            <Button type="submit" className="mt-4" isLoading>
+              Ingresar
+            </Button>
+
+            {/* TODO: Desactivar el boton hasta las 21hs del día domingo 19 GMT-3 */}
             <Link
               to={paths.totalResults}
-              className="mt-24 text-lg text-center text-violet-light underline"
+              className="mt-4 p-[18px] w-full text-violet-brand underline rounded-xl"
             >
-              Ver escrutinios
+              Ver Escrutinio
             </Link>
-          </div>
-        </form>
-      </div>
-    </section>
+          </Form>
+        )}
+      </Formik>
+    </main>
   );
 };
 

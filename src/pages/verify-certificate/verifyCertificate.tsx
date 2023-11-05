@@ -102,7 +102,7 @@ const VerifyCertificate = () => {
             {!correctData ? (
               <div className="flex w-full justify-center">
                 <Button
-                  className="w-full p-3 text-[18px] font-light tracking-wider text-text-off bg-gray-300 rounded-xl max-w-sm"
+                  className="w-full p-3 text-[18px] font-light tracking-wider text-text-off bg-gray-300 rounded-xl max-w-sm cursor-default"
                   type="button"
                   label="Continuar"
                 />

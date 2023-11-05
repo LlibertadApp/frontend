@@ -21,7 +21,9 @@ const VerifyCertificate = lazy(
 const TotalResults = lazy(() => import('#/pages/total-results/totalResults'));
 
 const FilterPage = lazy(() => import('#/pages/filter-results/filter-results'));
-const Irregularities = lazy(() => import('#/pages/irregularities/irregularities'));
+const Irregularities = lazy(
+  () => import('#/pages/irregularities/irregularities'),
+);
 const NotFound = lazy(() => import('#/pages/not-found/notFound'));
 const DeskList = lazy(() => import('#/pages/desk-list/deskList'));
 
