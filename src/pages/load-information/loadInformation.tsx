@@ -452,8 +452,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                 <div className="flex items-center justify-center my-[1.875rem]">
                   {!votesDifference &&
                   !correctCertificate &&
-                  totalVotes === 0 &&
-                  values.correctData ? (
+                  totalVotes === 0 ? (
                     // case 1 - incomplete
                     <div className="w-full">
                       <Button
