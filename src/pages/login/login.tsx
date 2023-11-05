@@ -17,10 +17,13 @@ const LoginPage: React.FC = () => {
 
   const onSubmit = async (values: ILoginProps) => {
     //TODO: Cambiar cuando la logica del LOGIN (desde el back, me devuelva el JWT y la info del Usuario)
-    //TODO: Descomentar cuando este todo listo -> const { data, error, loading } = await axios.post('/auth', values);
-    const { data, error, loading } = await axios.get('/user');
+    const { dni, password } = values;
+    const { data, error, loading } = await axios.post('/auth/sign-in', {
+      dni,
+      password,
+    });
 
-    if (error) return; //TODO: Snackbar de error.
+    if (error && error?.response && error?.response?.data) return; //TODO: Snackbar de error.
     if (loading) return; //TODO: Spinner de carga.
 
     login(data);
@@ -50,13 +53,15 @@ const LoginPage: React.FC = () => {
 
   function dniChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    const cleanValue = value.replace(/[^\d]/g, '').slice(0, 8);
-    if (!cleanValue) {
-      e.target.value = cleanValue;
-    } else {
-      const formatted = parseInt(cleanValue).toLocaleString('es-AR');
-      e.target.value = formatted;
-    }
+    const cleanValue = value.replace(/[^\d]/g, ''); // Quitar todo excepto números
+
+    // Solo permitir hasta 8 dígitos para el DNI
+    const trimmedValue = cleanValue.slice(0, 8);
+
+    // Actualizar el valor del input con los dígitos limpios
+    e.target.value = trimmedValue;
+
+    // Llamar a handleChange con el nuevo evento
     handleChange(e);
   }
 

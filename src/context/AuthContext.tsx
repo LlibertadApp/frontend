@@ -6,15 +6,14 @@ import {
   useEffect,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import jwtDecode, { JwtPayload } from 'jwt-decode';
 import useAxios from '#/hooks/utils/useAxios';
-import { IUser } from '#/interfaces/IUser';
+import { IAuthData, IUser } from '#/interfaces/IUser';
 import { paths } from '#/routes/paths';
 
 interface AuthContextType {
   isAuthenticated: boolean;
   user: IUser | null;
-  login: (user: IUser) => void;
+  login: (user: IAuthData) => void;
   logout: () => void;
   refreshToken: () => void;
 }
@@ -39,10 +38,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     refreshToken();
   }, []);
 
-  const login = (userData: IUser) => {
-    sessionStorage.setItem('accessToken', userData.jwt);
+  const login = ({ data }: IAuthData): void => {
+    sessionStorage.setItem('accessToken', data?.accessToken);
     setIsAuthenticated(true);
-    setUser(userData);
+    setUser(data?.user);
   };
 
   const logout = () => {
@@ -68,9 +67,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const accessToken = sessionStorage.getItem('accessToken');
     if (!accessToken) return logout();
 
-    if (!validToken(accessToken)) return logout();
-
-    const { data, error } = await axios.get('/refreshToken');
+    const options = {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    };
+    const { data, error } = await axios.post(
+      '/auth/sign-in-using-token',
+      {},
+      options,
+    );
     if (error) return logout();
 
     login(data);
