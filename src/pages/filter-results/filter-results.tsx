@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Selector } from '#/components/selector';
 import Button from '#/components/button';
@@ -12,16 +12,14 @@ import {
   establishmentsMock,
   circuitsMock,
   tables,
-} from "#/mocks/_mocks";
-import { Trash, Faders, ArrowRight} from "@phosphor-icons/react";
+} from '#/mocks/_mocks';
+import { Trash, Faders, ArrowRight } from '@phosphor-icons/react';
 
 const dummyData = [
   { key: 'ex1', label: 'Example' },
   { key: 'ex2', label: 'Example 2' },
   { key: 'ex3', label: 'Example 3' },
 ];
-
-
 
 const FilterPage = () => {
   const [distrito, setDistrito] = useState<string>('');
@@ -31,6 +29,16 @@ const FilterPage = () => {
   const [circuito, setCircuito] = useState<string>('');
   const [establecimiento, setEstablecimiento] = useState<string>('');
   const [mesa, setMesa] = useState<string>('');
+
+  const clearFilters = useCallback(() => {
+    setDistrito('');
+    setSeccionElectoral('');
+    setSeccion('');
+    setMunicipio('');
+    setCircuito('');
+    setEstablecimiento('');
+    setMesa('');
+  }, []);
 
   return (
     <>
@@ -79,9 +87,9 @@ const FilterPage = () => {
                 className="text-xl tracking-wide"
                 type="submit"
                 label="Limpiar"
+                onClick={clearFilters}
               />
-              <Trash size={34}
-              />
+              <Trash size={34} />
             </div>
 
             <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
@@ -90,7 +98,7 @@ const FilterPage = () => {
                 type="submit"
                 label="Aplicar"
               />
-              <ArrowRight size= {34} />
+              <ArrowRight size={34} />
             </div>
           </div>
         </section>
