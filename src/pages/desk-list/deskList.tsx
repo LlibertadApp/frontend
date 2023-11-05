@@ -79,7 +79,6 @@ const DeskList = () => {
         )
     }
 
-
     return (
         <main>
             <Overlay>
@@ -90,15 +89,30 @@ const DeskList = () => {
                         <span className="text-violet-brand text-4xl font-black pt-4 p-4 start">
                             MESAS CARGADAS
                         </span>
-                        <div className='pb-4 py-4'>
-                            <span className='text-l'>
-                                Tus mesas cargadas
-                            </span>
-                        </div>
-                        {DummyData.desks.length === 0 ? (
-                            <p>No hay mesas cargadas</p>
+                        {DummyData.desks.length === 1 ? (
+                            <div>
+                                <div className='flex flex-col items-center pt-12'>
+
+                                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="100" height="100" rx="50" fill="#E1DCEC" />
+                                        <path d="M72.3606 35.4946C72.1961 35.1865 71.9105 35 71.6036 35H58.1721C57.8251 35 57.5092 35.2379 57.3613 35.6108L55.0635 41.4019L53.4209 35.719C53.2965 35.289 52.9559 35 52.5731 35H28.3964C28.1069 35 27.835 35.1662 27.6668 35.446C27.4986 35.7257 27.4545 36.085 27.5486 36.4103L29.8598 44.4064V63.9352C29.8598 64.5231 30.2612 64.9999 30.7562 64.9999H68.3642V65C68.8593 65 69.2606 64.5233 69.2606 63.9353V44.4672L72.4145 36.5187C72.5453 36.1888 72.525 35.8024 72.3606 35.4946ZM29.6519 37.1294H51.933L53.6772 43.1642H31.3962L29.6519 37.1294ZM54.0364 62.8708H31.6526V45.2936H54.0364V62.8708ZM67.4678 62.8708H55.8292V45.2936H67.4678V62.8708ZM67.7957 43.1642H56.3462L58.7406 37.1294H70.1901L67.7957 43.1642Z" fill="#714FB6" stroke="#714FB6" stroke-linejoin="round" />
+                                    </svg>
+                                    <p
+                                        className="py-8 text-2xl m-8 font-normal"
+                                    >Todavía no hay ninguna mesa cargada</p>
+
+                                </div>
+                            </div>
+
+
                         ) : (
                             <div className='py-4 justify-center'>
+
+                                <div className='pb-4 py-4'>
+                                    <span className='text-l'>
+                                        Tus mesas cargadas
+                                    </span>
+                                </div>
                                 {DummyData.desks.map(desk => (
                                     <Accordion key={desk.id}
                                         style={{ border: '1px linear #ccc', marginBottom: '1rem', borderRadius: '8px' }}
@@ -126,11 +140,12 @@ const DeskList = () => {
                                                 fontFamily={'Poppins'}
                                                 flexDirection={'row'}
                                                 fontSize='14px'
+
                                             >
 
-                                                <div className=''>
-                                                    <span className='flex flex-row text-m'>
-                                                        Circuito: <p className='text-gray-400 px-2'>{desk.circuit}</p>
+                                                <div className='bg-gray-100 rounded-md'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
+                                                        Circuito: <p className='text-gray-400 px-2'>{desk.electors}</p>
                                                     </span>
                                                 </div>
                                             </Typography>
@@ -144,7 +159,7 @@ const DeskList = () => {
 
                                             >
                                                 <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
                                                         Nro. de electores: <p className='text-gray-400 px-2'>{desk.electors}</p>
                                                     </span>
                                                 </div>
@@ -160,13 +175,23 @@ const DeskList = () => {
                                             >
 
 
-                                                <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+
+                                                <div className='bg-gray-100 rounded-md'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         Nro. de sobres: <p className='text-gray-400 px-2'>{desk.envelopes}</p>
                                                     </span>
                                                 </div>
                                             </Typography>
+
+
+                                            <div className='p-1'>
+
+                                                <svg width="390" height="1" viewBox="0 0 390 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <line x1="4.37114e-08" y1="0.5" x2="390" y2="0.5" stroke="#000000" />
+                                                </svg>
+
+                                            </div>
 
 
                                             <Typography
@@ -179,7 +204,7 @@ const DeskList = () => {
                                             >
 
                                                 <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         {desk.candidate1.name}: <p className='text-gray-400 px-2'>{desk.candidate1.votes}</p>
                                                     </span>
@@ -195,8 +220,8 @@ const DeskList = () => {
 
                                             >
 
-                                                <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                <div className='bg-gray-100 rounded-md'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         {desk.candidate2.name}: <p className='text-gray-400 px-2'>{desk.candidate2.votes}</p>
                                                     </span>
@@ -213,7 +238,7 @@ const DeskList = () => {
                                             >
 
                                                 <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         Votos nulos: <p className='text-gray-400 px-2'>{desk.nullVotes}</p>
                                                     </span>
@@ -229,8 +254,8 @@ const DeskList = () => {
 
                                             >
 
-                                                <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                <div className='bg-gray-100 rounded-md'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         Votos recurridos: <p className='text-gray-400 px-2'>{desk.recurredVotes}</p>
                                                     </span>
@@ -247,7 +272,7 @@ const DeskList = () => {
                                             >
 
                                                 <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         Votos identidad impugnada: <p className='text-gray-400 px-2'>{desk.envelopes}</p>
                                                     </span>
@@ -263,8 +288,8 @@ const DeskList = () => {
 
                                             >
 
-                                                <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                <div className='bg-gray-100 rounded-md'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         Votos de comando electoral: <p className='text-gray-400 px-2'>{desk.envelopes}</p>
                                                     </span>
@@ -281,12 +306,21 @@ const DeskList = () => {
                                             >
 
                                                 <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         Votos en blanco <p className='text-gray-400 px-2'>{desk.envelopes}</p>
                                                     </span>
                                                 </div>
                                             </Typography>
+
+                                            
+                                            <div className='p-1'>
+
+                                                <svg width="390" height="1" viewBox="0 0 390 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <line x1="4.37114e-08" y1="0.5" x2="390" y2="0.5" stroke="#000000" />
+                                                </svg>
+
+                                            </div>
 
                                             <Typography
                                                 color={'black'}
@@ -297,8 +331,8 @@ const DeskList = () => {
 
                                             >
 
-                                                <div className=''>
-                                                    <span className='flex flex-row py-2 text-m'>
+                                                <div className='bg-gray-100 rounded-md'>
+                                                    <span className='flex flex-row py-2 text-m px-2'>
 
                                                         Total <p className='text-gray-400 px-2'>{desk.envelopes}</p>
                                                     </span>
@@ -316,7 +350,7 @@ const DeskList = () => {
 
 
                                                 <div className=''>
-                                                    <span className='flex flex-row py-2 text-m text-black'>
+                                                    <span className='flex flex-row py-2 text-m text-black px-2'>
 
                                                         Estado: <p className='px-2' style={{ color: desk.status.normal ? '#439676' : '#AD3459' }}>{desk.status.normal ? 'Normal' : 'Irregular'}</p>
                                                     </span>
@@ -342,9 +376,10 @@ const DeskList = () => {
 
                                                     <Button
 
-                                                        className="border-2 border-rose-700 text-rose-700 bg-transparent w-24 rounded-xl text-xs p-2 tracking-wider shadow-md hover:border-violet-light my-4"
+                                                        className="border-2 border-rose-700 text-rose-700 bg-transparent w-42 rounded-xl text-xs p-2 tracking-wider shadow-md hover:border-violet-light my-4"
                                                         type="button"
-                                                        label="Eliminar"
+                                                        label="Denunciar fraude"
+
                                                     />
 
                                                 </div>
