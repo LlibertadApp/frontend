@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FlatListProps } from './types';
 import { TextField } from '@mui/material';
-
+import toast, { Toaster } from 'react-hot-toast';
 const FlatList = ({
   logo,
   type,
@@ -18,8 +18,16 @@ const FlatList = ({
 
   const handleVoteChange = (value: number) => {
     if (value >= 0) {
-      setVote(value);
-      updateTotalVotes(value - vote);
+      if (value > 999) {
+        toast.error('Número ingresado no válido, Máximo 999', {
+          id: 'custom-toast',
+        });
+        setVote(999);
+        updateTotalVotes(999 - vote);
+      } else {
+        setVote(value);
+        updateTotalVotes(value - vote);
+      }
     } else {
       setVote(0);
     }
@@ -85,6 +93,7 @@ const FlatList = ({
           className={` border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold h-12 w-16 border-rounded-2xl ${selectedInputStyle}`}
           style={{ display: 'flex', justifyContent: 'center' }}
         />
+        <Toaster position="top-right" toastOptions={{ duration: 1500 }} />
       </div>
     </div>
   );
