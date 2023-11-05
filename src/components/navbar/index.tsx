@@ -19,7 +19,7 @@ const Navbar: React.FC<INavbarProps> = ({
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
   const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
-    <div className="bg-violet-primary p-[10px] px-8 w-full flex flex-col h-18 relative z-20">
+    <div className="bg-violet-primary py-[5px] px-4 w-full flex flex-col h-18 relative z-20">
       <div className="w-full grid grid-rows-1 grid-col-3 place-items-center">
         <div className="flex w-full justify-between col-start-1 col-end-4 row-start-1 row-end-2">
           <div className="flex justify-center items-center">
