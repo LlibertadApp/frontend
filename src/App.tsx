@@ -8,6 +8,7 @@ import Overlay from './components/overlay';
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { FilterProvider } from './context/FilterContext';
+import { ActivatedRoutesProvider } from './context/ActivatedRoutesContext';
 
 function App() {
   // Colores definidos
@@ -54,7 +55,9 @@ function App() {
             <HamburgerProvider>
               <Overlay>
                 <FilterProvider>
-                  <AppRoutes />
+                  <ActivatedRoutesProvider>
+                    <AppRoutes />
+                  </ActivatedRoutesProvider>
                 </FilterProvider>
               </Overlay>
             </HamburgerProvider>
