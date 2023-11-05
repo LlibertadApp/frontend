@@ -1,4 +1,9 @@
-export type ButtonAppearance = 'filled' | 'outlined' | 'ghost';
+export type ButtonAppearance =
+  | 'filled'
+  | 'outlined'
+  | 'ghost'
+  | 'disabled'
+  | 'error';
 
 export interface IButtonProps {
   children?: React.ReactNode;
