@@ -11,6 +11,7 @@ export const paths = {
   uploadFailed: '/upload-failed',
   filterResults: '/filter-results',
   totalResults: '/total-results',
+  dashboard: '/dashboard',
   index: '',
   deskList:'/desk-list',
 };

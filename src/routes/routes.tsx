@@ -6,6 +6,7 @@ import { paths } from './paths';
 
 const Login = lazy(() => import('#/pages/login/login'));
 const Profile = lazy(() => import('#/pages/profile/profile'));
+const Dashboard = lazy(() => import('#/pages/dashboard/dashboard'));
 const SendSuccess = lazy(() => import('#/pages/send-success/sendSuccess'));
 const UploadFailed = lazy(() => import('#/pages/upload-failed/uploadFailed'));
 const LoadInformation = lazy(
@@ -21,7 +22,9 @@ const VerifyCertificate = lazy(
 const TotalResults = lazy(() => import('#/pages/total-results/totalResults'));
 
 const FilterPage = lazy(() => import('#/pages/filter-results/filter-results'));
-const Irregularities = lazy(() => import('#/pages/irregularities/irregularities'));
+const Irregularities = lazy(
+  () => import('#/pages/irregularities/irregularities'),
+);
 const NotFound = lazy(() => import('#/pages/not-found/notFound'));
 const DeskList = lazy(() => import('#/pages/desk-list/deskList'));
 
@@ -39,6 +42,7 @@ const AppRoutes: React.FC = () => (
       {/* Cuenta */}
       <Route path={paths.home} element={<Home />} />
       <Route path={paths.profile} element={<Profile />} />
+      <Route path={paths.dashboard} element={<Dashboard />} />
 
       {/* Steps Formulario */}
       <Route path={paths.uploadCertificate} element={<UploadCertificate />} />
