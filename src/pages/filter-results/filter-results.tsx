@@ -51,43 +51,43 @@ const FilterPage = () => {
           <div className="flex flex-col gap-7 py-3" id="filter-list">
             <Selector
               label="Distrito"
-              onChange={setDistrito}
+              onChange={(e) => setDistrito(e.target.value)}
               options={districtsMock}
               value={distrito}
             />
             <Selector
               label="Sección Electoral"
-              onChange={setSeccionElectoral}
+              onChange={(e) => setSeccionElectoral(e.target.value)}
               options={electoralSectionsMock}
               value={seccionElectoral}
             />
             <Selector
               label="Sección"
-              onChange={setSeccion}
+              onChange={(e) => setSeccion(e.target.value)}
               options={sectionsMock}
               value={seccion}
             />
             <Selector
               label="Municipio"
-              onChange={setMunicipio}
+              onChange={(e) => setMunicipio(e.target.value)}
               options={municipalitiesMock}
               value={municipio}
             />
             <Selector
               label="Circuito"
-              onChange={setCircuito}
+              onChange={(e) => setCircuito(e.target.value)}
               options={circuitsMock}
               value={circuito}
             />
             <Selector
               label="Establecimiento"
-              onChange={setEstablecimiento}
+              onChange={(e) => setEstablecimiento(e.target.value)}
               options={establishmentsMock}
               value={establecimiento}
             />
             <Selector
               label="Mesa"
-              onChange={setMesa}
+              onChange={(e) => setMesa(e.target.value)}
               options={dummyData}
               value={mesa}
             />
