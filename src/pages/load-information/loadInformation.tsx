@@ -438,9 +438,9 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                     <div
                       className="cursor-pointer"
-                      onClick={() => {
-                        setFieldValue('correctData', !values.correctData);
-                      }}
+                      onClick={() =>
+                        setFieldValue('correctData', !values.correctData)
+                      }
                     >
                       <h3 className="text-left text-sm tracking-tight">
                         Verifico que controlé y que todos los datos son
