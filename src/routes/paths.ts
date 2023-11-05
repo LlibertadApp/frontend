@@ -12,6 +12,6 @@ export const paths = {
   filterResults: '/filter-results',
   totalResults: '/total-results',
   dashboard: '/dashboard',
+  deskList: '/desk-list',
   index: '',
-  deskList:'/desk-list',
 };

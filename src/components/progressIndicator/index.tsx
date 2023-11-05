@@ -9,7 +9,7 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
         <React.Fragment key={index}>
           <div
             className={`circle flex justify-center items-center rounded-full ${step === ProgressStepStatus.Active
-                ? 'bg-violet-brand text-white'
+                ? 'bg-violet-primary text-white'
                 : step === ProgressStepStatus.Successful
                   ? 'bg-green text-white'
                   : step === ProgressStepStatus.Error
@@ -30,7 +30,7 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
                 alt=""
               />
             ) : (
-              <span className="font-normal text-xl">
+              <span>
                 {(index + 1).toString()}
               </span>
             )}

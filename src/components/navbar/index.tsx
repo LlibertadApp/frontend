@@ -116,20 +116,22 @@ const Navbar: React.FC<INavbarProps> = ({
                 </div>
                 <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
                   <div className={`${linkTransformClassName} flex gap-2`}>
-                    <img
-                      src="assets/icon/log-out.svg"
-                      alt="User profile"
-                      className="object-cover rounded"
-                    />
                     <Button
+                      appearance="ghost"
                       onClick={() => {
                         logout();
                         closeMenu();
                       }}
-                      label="Cerrar sesión"
                       type="button"
-                      className="text-violet-light"
-                    />
+                      className="text-violet-light text-left"
+                    >
+                      <img
+                        src="assets/icon/log-out.svg"
+                        alt="User profile"
+                        className="object-cover rounded"
+                      />
+                      Inicio de sesión
+                    </Button>
                   </div>
                 </div>
               </div>
