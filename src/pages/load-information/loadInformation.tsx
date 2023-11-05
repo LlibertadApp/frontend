@@ -1,22 +1,25 @@
 import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import toast, { Toaster } from 'react-hot-toast';
+import { Formik, Field, Form } from 'formik';
+import * as Yup from 'yup';
+
+import { ILoadInformationProps, FormValues } from './types';
+
+import { paths } from '#/routes/paths';
+
 import Button from '#/components/button';
 import FlatList from '#/components/flatList';
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
 import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
-import { ILoadInformationProps, FormValues } from './types';
-import toast, { Toaster } from 'react-hot-toast';
-import { Formik, Field, Form, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
-import { paths } from '#/routes/paths';
-
 import { TextField } from '@mui/material';
+
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
-  const errorInputStyle: string = 'border-2 !border-red !text-red';
+  const errorInputStyle: string = 'border-2 !border-red !text-red-error';
 
   const flatList = [
     {
@@ -24,7 +27,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       type: FlatListTypeEnum.milei,
       subTitle: 'Milei',
       title: 'Javier Gerardo',
-      votes: 0,
+      votes: '',
       edit: true,
     },
     {
@@ -32,7 +35,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       type: FlatListTypeEnum.massa,
       subTitle: 'Massa',
       title: 'Sergio Tomas',
-      votes: 0,
+      votes: '',
       edit: true,
     },
     {
@@ -40,7 +43,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       type: FlatListTypeEnum.null,
       subTitle: '',
       title: 'Votos nulos',
-      votes: 0,
+      votes: '',
       edit: true,
     },
     {
@@ -48,7 +51,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       type: FlatListTypeEnum.appealed,
       subTitle: '',
       title: 'Votos recurridos',
-      votes: 0,
+      votes: '',
       edit: true,
     },
     {
@@ -56,7 +59,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       type: FlatListTypeEnum.contested,
       subTitle: '',
       title: 'Votos identidad impugnada',
-      votes: 0,
+      votes: '',
       edit: true,
     },
     {
@@ -64,7 +67,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       type: FlatListTypeEnum.electoralCommand,
       subTitle: '',
       title: 'Votos de comando electoral',
-      votes: 0,
+      votes: '',
       edit: true,
     },
     {
@@ -72,7 +75,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
       type: FlatListTypeEnum.blank,
       subTitle: '',
       title: 'Votos en blanco',
-      votes: 0,
+      votes: '',
       edit: true,
     },
   ];
@@ -95,9 +98,9 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const validationSchema = Yup.object().shape({
     circuit: Yup.number().min(0).required(''),
     table: Yup.number().min(0).required(''),
-    electors: Yup.number().min(0).required(''),
-    envelopes: Yup.number().min(0).required(''),
-    totalVotes: Yup.number().min(0).required(''),
+    electors: Yup.number().min(0).positive().required(''),
+    envelopes: Yup.number().min(0).positive().required(''),
+    totalVotes: Yup.number().min(0).positive().required(''),
     correctData: Yup.boolean().required(''),
   });
 
@@ -108,31 +111,42 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [totalVotes, setTotalVotes] = useState<number>(0);
   const [correctCertificate, setCorrectCertificate] = useState<boolean>(false);
-  const [votesDifference, setVotesDifference] = useState(false);
+  const [votesDifference, setVotesDifference] = useState<boolean>(false);
 
-  const preventNegativeValues = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setFieldValue: FormikHelpers<FormValues>['setFieldValue'],
-  ) => {
-    const { name, value } = e.target;
-    const parsedValue = parseInt(value);
-
-    if (!isNaN(parsedValue) && parsedValue >= 0) {
-      const newValue = Math.max(0, parseInt(value, 10));
-      setFieldValue(name, newValue);
-    } else {
-      setFieldValue(name, '');
-    }
+  const getValidationProps = () => {
+    return {
+      onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const forbiddenKeys = [
+          'e',
+          'E',
+          '+',
+          '-',
+          ',',
+          '.',
+          'ArrowUp',
+          'ArrowDown',
+        ];
+        if (forbiddenKeys.includes(e.key)) {
+          e.preventDefault();
+        }
+      },
+      onPaste: (e: React.ClipboardEvent<HTMLInputElement>) =>
+        e.preventDefault(),
+      onContextMenu: (e: React.MouseEvent<HTMLInputElement>) =>
+        e.preventDefault(),
+      onDrop: (e: React.DragEvent<HTMLInputElement>) => e.preventDefault(),
+      onWheel: (e: React.WheelEvent<HTMLInputElement>) => {
+        if (e.target instanceof HTMLElement) {
+          e.target.blur();
+        }
+      },
+      autoComplete: 'off',
+    };
   };
 
   const updateCorrectCertificateData = (values: FormValues) => {
     const { circuit, table, electors, envelopes } = values;
-    const votesDifference =
-      typeof electors === 'number' &&
-      typeof envelopes === 'number' &&
-      (electors - envelopes > 4 || electors - envelopes < 0);
-
-    circuit && table && electors && envelopes && !votesDifference
+    circuit && table && electors && (envelopes || envelopes === 0)
       ? setCorrectCertificate(true)
       : setCorrectCertificate(false);
   };
@@ -141,7 +155,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     const { electors, envelopes } = values;
     typeof electors === 'number' &&
       typeof envelopes === 'number' &&
-      (electors - envelopes > 4 || electors - envelopes < 0
+      (electors - envelopes < 0
         ? setVotesDifference(true)
         : setVotesDifference(false));
   };
@@ -150,13 +164,13 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     updateVotesDifference(formValues);
     updateCorrectCertificateData(formValues);
     updateProgressStatus();
-  }, [totalVotes, formValues]);
+  }, [totalVotes, formValues, correctCertificate, votesDifference]);
 
   const updateProgressStatus = () => {
     setProgressStatus([
       ProgressStepStatus.Successful,
       ProgressStepStatus.Successful,
-      !(totalVotes !== formValues.envelopes || votesDifference)
+      formValues.correctData && correctCertificate && !votesDifference
         ? ProgressStepStatus.Active
         : ProgressStepStatus.Error,
     ]);
@@ -209,7 +223,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   certificado
                 </div>
 
-                <div className="flex w-full justify-center gap-[20vw] sm:gap-24 px-4">
+                <div className="flex w-full justify-center gap-6 sm:gap-24">
                   <div>
                     <TextField
                       InputLabelProps={{ style: { opacity: '0.6' } }}
@@ -220,8 +234,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       name="circuit"
                       variant="outlined"
                       placeholder="000D"
+                      {...getValidationProps()}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        preventNegativeValues(e, setFieldValue);
                         handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
@@ -248,8 +262,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       name="table"
                       label="Mesa"
                       placeholder="00000/0"
+                      {...getValidationProps()}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        preventNegativeValues(e, setFieldValue);
                         handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl ${
@@ -261,7 +275,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-row w-full justify-center gap-[20vw] sm:gap-24 px-4">
+                <div className="flex w-full justify-center gap-6 sm:gap-24">
                   <div className="py-6">
                     <TextField
                       InputLabelProps={{
@@ -273,10 +287,10 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       sx={{ width: '100%' }}
                       type="number"
                       name="electors"
-                      placeholder="0"
                       label="Nro de electores"
+                      placeholder="0"
+                      {...getValidationProps()}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        preventNegativeValues(e, setFieldValue);
                         handleChange(e);
                       }}
                       className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
@@ -299,8 +313,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         name="envelopes"
                         label="Sobres"
                         placeholder="0"
+                        {...getValidationProps()}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          preventNegativeValues(e, setFieldValue);
                           handleChange(e);
                         }}
                         className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl
@@ -310,40 +324,26 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                   </div>
                 </div>
-                <hr className="h-[2px] my-1 bg-gray-400/50 border-0 lg:w-2/5 max-w-md mx-auto"></hr>
-                <div className={`flex items-center justify-center p-4`}>
+                <hr className="h-[2px] my-1 bg-gray-300/50 border-0 max-w-md mx-auto"></hr>
+                <div className="flex flex-col justify-center w-full py-5">
+                  <div className="text-left pl-1 pb-1 text-gray-darker">
+                    Diferencia
+                  </div>
                   <div
-                    className={`flex justify-between items-center px-4 w-full lg:w-2/5 text-neutral-700 ${
-                      votesDifference ? '!text-red' : ''
-                    } ${
-                      correctCertificate
-                        ? '!text-green bg-[#55B6851A] bg-opacity-25 rounded-3xl'
-                        : null
-                    }`}
+                    className={`flex justify-between items-center w-full px-3 !text-green-light bg-green-light/10 rounded-2xl ${
+                      votesDifference ? '!text-red-error !bg-red-error/5' : null
+                    } ${correctCertificate ? '' : null}`}
                   >
-                    <div className="px-1 py-5 tracking-wide">
-                      {values.electors !== 0 ? (
+                    <div className="px-1 py-[14px] tracking-wide">
+                      {values.electors !== 0 && (
                         <div className="flex flex-row gap-2">
-                          {!votesDifference ? (
-                            <span className="">No hay diferencia</span>
-                          ) : null}
-                          {votesDifference && !correctCertificate ? (
-                            <span className="">
-                              {' '}
-                              {isNaN(
-                                Number(values.electors) -
-                                  Number(values.envelopes),
-                              )
-                                ? 0
-                                : Number(values.electors) -
-                                  Number(values.envelopes)}
-                            </span>
-                          ) : null}
+                          <span>
+                            {Number(values.electors) - Number(values.envelopes)}
+                          </span>
                         </div>
-                      ) : (
-                        <div className="">Diferencia</div>
                       )}
                     </div>
+
                     <div className="font-2xl">
                       {!votesDifference ? (
                         <img src="/assets/icon/checkcircle.svg" alt="check" />
@@ -353,169 +353,151 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     </div>
                   </div>
                 </div>
-                <hr className="h-[2px] my-1 bg-gray-400/50 border-0 max-w-md mx-auto"></hr>
-                <div className="flex flex-col items-center justify-center my-6 w-full p-4">
+                <hr className="h-[2px] my-1 bg-gray-300/50 border-0 max-w-md mx-auto"></hr>
+                <div className="flex flex-col items-center justify-center mt-[30px] w-full gap-4">
                   {flatList.map((item, index) => (
                     <Field key={index} name={`flatList.${index}`}>
-                      {
-                        (({ field }: any) => (
-                          <FlatList
-                            {...field}
-                            logo={item.logo}
-                            type={item.type}
-                            subTitle={item.subTitle}
-                            title={item.title}
-                            votes={item.votes}
-                            edit={item.edit}
-                            updateTotalVotes={updateTotalVotes}
-                            correctCertificate={correctCertificate}
-                          />
-                        )) as any
-                      }
+                      {({ field }: any) => (
+                        <FlatList
+                          {...field}
+                          logo={item.logo}
+                          type={item.type}
+                          subTitle={item.subTitle}
+                          title={item.title}
+                          votes={item.votes}
+                          edit={item.edit}
+                          updateTotalVotes={updateTotalVotes}
+                          getValidationProps={getValidationProps}
+                          correctCertificate={correctCertificate}
+                          isLastFive={index >= flatList.length - 5}
+                        />
+                      )}
                     </Field>
                   ))}
                 </div>
 
-                <div className="flex items-center justify-center mt-2 w-full p-4">
-                  <div className="flex p-2 justify-between items-center w-full max-w-md">
-                    <div
-                      className={`text-3xl text-violet-brand font-bold px-3 py-5 tracking-wide ${
-                        typeof values.envelopes === 'number' &&
-                        typeof totalVotes === 'number'
-                          ? values.envelopes - totalVotes !== 0
-                            ? 'text-red'
-                            : ''
-                          : ''
-                      }`}
-                    >
-                      {typeof values.envelopes === 'number' ? (
-                        values.envelopes - totalVotes !== 0 ? (
-                          <div className="flex flex-row gap-2">
-                            Total{' '}
-                            <img
-                              src="/assets/icon/warn-icon.svg"
-                              alt="warn-icon"
-                            />
-                          </div>
-                        ) : (
-                          'Total'
-                        )
+                <div
+                  className={`flex items-center justify-center my-5 px-3 py-[0.375rem] w-full text-violet-brand tracking-wide rounded-2xl ${
+                    typeof values.envelopes === 'number'
+                      ? values.envelopes - totalVotes !== 0
+                        ? '!text-red-error bg-red-error/5'
+                        : '!text-green-light bg-green-light/10'
+                      : ''
+                  }`}
+                >
+                  <div className="flex justify-between py-2 items-center w-full max-w-md">
+                    <div>Votos totales: {totalVotes}</div>
+                    {typeof values.envelopes === 'number' ? (
+                      values.envelopes - totalVotes !== 0 ? (
+                        <div>
+                          <img src="/assets/icon/xcircle.svg" alt="error" />
+                        </div>
                       ) : (
-                        'Total'
-                      )}
-                    </div>
-
-                    <div
-                      className={`text-2xl font-semibold px-3 py-5 mr-10 ${
-                        typeof values.envelopes === 'number' &&
-                        typeof totalVotes === 'number'
-                          ? values.envelopes - totalVotes !== 0
-                            ? 'text-red'
-                            : ''
-                          : ''
-                      }`}
-                    >
-                      {totalVotes}
-                    </div>
+                        <div>
+                          <img
+                            src="/assets/icon/checkcircle.svg"
+                            alt="success"
+                          />
+                        </div>
+                      )
+                    ) : null}
                   </div>
                 </div>
 
-                <div className="text-base text-red max-w-md mx-auto -mt-8 p-5 text-center">
-                  {typeof values.envelopes === 'number' &&
-                    typeof totalVotes === 'number' &&
-                    (values.envelopes - totalVotes !== 0
-                      ? 'El total de votos no coincide con la cantidad de sobres. Revisa los datos cargados'
-                      : null)}
-                </div>
-
-                <div className="flex items-center justify-center text-sm my-2">
-                  <div className="flex items-center px-4">
-                    <div className="inline-flex items-center">
+                <div className="flex items-center justify-center text-sm pt-[0.625rem]">
+                  <div className="flex items-center gap-2">
+                    <div className="inline-flex items-center pb-[0.625rem]">
                       <label
-                        className="relative flex items-center p-3 rounded-full cursor-pointer"
+                        className="relative flex items-center rounded-full cursor-pointer"
                         data-ripple-dark="true"
                       >
                         <Field
                           type="checkbox"
                           name="correctData"
                           checked={values.correctData}
-                          className="before:content[''] peer relative h-7 w-7 cursor-pointer appearance-none rounded-md border-2 border-violet-brand transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-violet-brand checked:bg-violet-brand checked:before:bg-violet-500 hover:before:opacity-10"
+                          className={`
+                            before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border-2
+                            ${
+                              typeof values.envelopes === 'number'
+                                ? (!correctCertificate && votesDifference) ||
+                                  values.envelopes - totalVotes !== 0
+                                  ? 'checked:border-red border-red checked:bg-red'
+                                  : 'checked:border-green border-green checked:bg-green'
+                                : 'checked:border-violet-primary border-violet-primary checked:bg-violet-primary'
+                            }
+                            transition-all before:absolute before:top-2/4 before:left-2/4 before:block 
+                            before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 
+                            before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity 
+                            hover:before:opacity-10
+                          `}
                         />
-
                         <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
                           <img src="/assets/icon/check-icon.svg" alt="check" />
                         </div>
                       </label>
                     </div>
                     <div
-                      className="px-3 cursor-pointer"
+                      className="cursor-pointer"
                       onClick={() =>
                         setFieldValue('correctData', !values.correctData)
                       }
                     >
-                      <h3 className="text-center text-md">
-                        Verifico que controlé y que todos <br />
-                        los datos son correctos.
+                      <h3 className="text-left text-sm tracking-tight">
+                        Verifico que controlé y que todos los datos son
+                        correctos.
                       </h3>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-center my-10">
-                  {typeof values.electors === 'number' &&
-                  typeof values.envelopes === 'number' &&
-                  typeof totalVotes === 'number' &&
-                  typeof values.circuit === 'number' &&
-                  typeof values.table === 'number' &&
-                  values.electors - values.envelopes >= 0 &&
-                  values.electors - values.envelopes <= 4 &&
-                  values.envelopes - totalVotes === 0 &&
-                  totalVotes !== 0 &&
-                  values.circuit !== 0 &&
-                  values.table !== 0 &&
-                  values.correctData ? (
-                    <Link to={paths.sendSuccess} className="w-full mx-6">
-                      <Button
-                        onClick={() => onSubmit(values)}
-                        className="bg-violet-brand p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full"
-                        type="submit"
-                        label="Enviar Datos"
-                      />
-                      <Toaster position="top-right" reverseOrder={false} />
-                    </Link>
-                  ) : (
-                    <div className="w-full mx-2">
+                <div className="flex items-center justify-center my-[1.875rem]">
+                  {!votesDifference &&
+                  !correctCertificate &&
+                  totalVotes === 0 ? (
+                    // case 1 - incomplete
+                    <div className="w-full">
                       <Button
                         onClick={() =>
                           handleToast(
-                            typeof values.electors === 'number' &&
-                              typeof values.envelopes === 'number' &&
-                              typeof totalVotes === 'number' &&
-                              typeof values.circuit === 'number' &&
-                              typeof values.table === 'number' &&
-                              values.electors - values.envelopes >= 0 &&
-                              values.electors - values.envelopes <= 4 &&
-                              values.envelopes - totalVotes === 0 &&
+                            votesDifference &&
                               totalVotes !== 0 &&
                               values.circuit !== 0 &&
                               values.table !== 0 &&
-                              values.correctData &&
-                              votesDifference
+                              values.correctData
                               ? 'submit'
                               : 'button',
                           )
                         }
-                        className={
-                          votesDifference && values.correctData
-                            ? 'bg-red p-4 text-white rounded-xl font-medium text-xl tracking-wider w-full'
-                            : 'bg-gray-300 p-4 text-black rounded-xl font-medium text-xl tracking-wider w-full cursor-default'
-                        }
-                        type={values.correctData ? 'submit' : 'button'}
-                        label={
-                          votesDifference ? 'Impugnar mesa' : 'Enviar datos'
-                        }
+                        className="bg-gray-300 p-[14px] text-black rounded-xl font-light text-[1.125rem] tracking-wider w-full cursor-default"
+                        type="button"
+                        label="Enviar datos"
                       />
                       <Toaster position="top-right" reverseOrder={false} />
                     </div>
+                  ) : correctCertificate &&
+                    !votesDifference &&
+                    totalVotes === values.envelopes &&
+                    values.correctData ? (
+                    // case 2 - ok
+                    <Link to={paths.sendSuccess} className="w-full">
+                      <Button
+                        onClick={() => onSubmit(values)}
+                        className="bg-violet-primary p-[14px] text-white rounded-xl font-light text-[1.125rem] tracking-wider w-full"
+                        type="submit"
+                        label="Enviar datos"
+                      />
+                      <Toaster position="top-right" reverseOrder={false} />
+                    </Link>
+                  ) : (
+                    // case 3 - something wrong
+                    <Link to={paths.sendSuccess} className="w-full">
+                      <Button
+                        onClick={() => onSubmit(values)}
+                        className="bg-red p-[14px] text-white rounded-xl font-light text-[1.125rem] tracking-wider w-full"
+                        type="submit"
+                        label="Enviar datos"
+                      />
+                      <Toaster position="top-right" reverseOrder={false} />
+                    </Link>
                   )}
                 </div>
               </Form>
