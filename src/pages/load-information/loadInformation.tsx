@@ -186,6 +186,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     } finally {
     }
   };
+
   return (
     <section className="bg-white items-center flex flex-col">
       <Navbar routerLink="/verify-certificate" />
