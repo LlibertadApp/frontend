@@ -4,6 +4,15 @@ import { Selector } from '#/components/selector';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
+import {
+  districtsMock,
+  electoralSectionsMock,
+  sectionsMock,
+  municipalitiesMock,
+  establishmentsMock,
+  circuitsMock,
+  tables,
+} from "#/mocks/_mocks";
 
 const dummyData = [
   { key: 'ex1', label: 'Example' },
@@ -32,32 +41,32 @@ const FilterPage = () => {
             <Selector
               label="Distrito"
               onChange={setDistrito}
-              options={dummyData}
+              options={districtsMock}
             />
             <Selector
               label="Sección Electoral"
               onChange={setSeccionElectoral}
-              options={dummyData}
+              options={electoralSectionsMock}
             />
             <Selector
               label="Sección"
               onChange={setSeccion}
-              options={dummyData}
+              options={sectionsMock}
             />
             <Selector
               label="Municipio"
               onChange={setMunicipio}
-              options={dummyData}
+              options={municipalitiesMock}
             />
             <Selector
               label="Circuito"
               onChange={setCircuito}
-              options={dummyData}
+              options={circuitsMock}
             />
             <Selector
               label="Establecimiento"
               onChange={setEstablecimiento}
-              options={dummyData}
+              options={establishmentsMock}
             />
             <Selector label="Mesa" onChange={setMesa} options={dummyData} />
           </div>
