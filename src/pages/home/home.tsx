@@ -5,7 +5,12 @@ import Overlay from '#/components/overlay';
 import { paths } from '#/routes/paths';
 import { CardLink } from '#/components/cardLink';
 import { colors } from '#/components/cardLink/types';
-import { ArrowRight, EnvelopeOpen, ListBullets, Megaphone } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  EnvelopeOpen,
+  ListBullets,
+  Megaphone,
+} from '@phosphor-icons/react';
 
 const HomePage = () => {
   return (
@@ -18,34 +23,31 @@ const HomePage = () => {
               ELECCIONES 2023
             </span>
             <div className="flex flex-col items-center space-y-2 w-full">
-              <span className=" w-full font-bold py-4 ">
+              <span className="w-full font-bold pt-8 text-left">
                 Acciones de fiscales
               </span>
               <CardLink
                 link={paths.uploadCertificate}
                 text={'Cargar resultados de tu mesa'}
-                icon={<EnvelopeOpen
-                      size={32} />}
+                icon={<EnvelopeOpen size={32} />}
                 color={colors.Violet}
               />
               <CardLink
                 link={paths.deskList}
                 text={'Listado de mesas cargadas'}
-                icon={<ListBullets
-                      size={32} />}
+                icon={<ListBullets size={32} />}
                 color={colors.Violet}
               />
               <CardLink
                 link={paths.irregularities}
                 text={'Denunciar irregularidades'}
-                icon={<Megaphone
-                      size={32} />}
+                icon={<Megaphone size={32} />}
                 color={colors.Red}
               />
             </div>
 
             <div className="flex flex-col items-center space-y-2 w-full">
-              <span className=" w-full p-4 font-bold">
+              <span className=" w-full pt-[50px] font-bold text-left">
                 Escrutinio y resultados
               </span>
               <Link
@@ -73,7 +75,7 @@ const HomePage = () => {
                 </div>
                 <div className="w-full p-4 text-sm font-normal text-white bg-violet-brand rounded-2xl flex justify-center items-center gap-3">
                   Ver escrutinio
-                  <ArrowRight size={20}/>
+                  <ArrowRight size={20} />
                 </div>
               </Link>
             </div>
