@@ -1,4 +1,5 @@
 type UpdateTotalVotesFunction = (votesDifference: number) => void;
+type HandleChangeFunction = () => void;
 
 export enum FlatListTypeEnum {
   massa = 'massa',
@@ -18,5 +19,7 @@ export interface FlatListProps {
   type: FlatListTypeEnum;
   votes: number;
   updateTotalVotes: UpdateTotalVotesFunction;
+  getValidationProps: () => Record<string, React.EventHandler<any>>;
   correctCertificate?: boolean;
+  isLastFive: boolean;
 }
