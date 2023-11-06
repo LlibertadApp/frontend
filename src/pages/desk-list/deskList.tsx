@@ -115,7 +115,7 @@ const DeskList: FC = () => {
     <main>
       <Navbar routerLink={paths.home} showArrow={true} />
       <section className="flex p-4 justify-center">
-        <div className="pt-8 overflow-x-hidden">
+        <div className="pt-8">
           {/* No hay datos, no hay mesas para mostrar */}
           <span className="text-violet-brand text-4xl font-black pt-4 p-4 start">
             MESAS CARGADAS
@@ -155,6 +155,12 @@ const DeskList: FC = () => {
                     border: '1px linear #ccc',
                     marginBottom: '1rem',
                     borderRadius: '8px',
+                    boxShadow: '0px 2px 5px 0px rgba(0, 0, 0, 0.25)',
+                  }}
+                  sx={{
+                    '&:before': {
+                      display: 'none',
+                    },
                   }}
                 >
                   <AccordionSummary expandIcon={<DropIcon />} className="pb-4">
@@ -237,21 +243,21 @@ const DeskList: FC = () => {
                     />
 
                     <div className="container flex flex-row gap-4 justify-between">
-                      <div className="flex flex-row">
-                        <Button
-                          className="border-2 text-white bg-violet-brand p-2 w-24 h-10 rounded-xl text-xs hover:border-violet-light my-4"
-                          type="button"
-                          label="Editar"
-                        />
-                      </div>
+                      <Button className="gap-[5px] border-none text-white bg-violet-brand rounded-xl flex justify-center items-center text-xs font-medium  hover:border-violet-light my-5 py-[5px] px-[10px] w-auto">
+                        <img src="assets/icon/edit.svg" alt="Icono editar" />
+                        Editar
+                      </Button>
 
-                      <div>
-                        <Button
-                          className="border-2 border-rose-700 text-rose-700 bg-transparent w-42 rounded-xl text-xs p-2 tracking-wider shadow-md hover:border-violet-light my-4"
-                          type="button"
-                          label="Denunciar fraude"
+                      <Button
+                        className="gap-[5px] border-red border-2 rounded-xl flex justify-center items-center text-xs font-medium my-5 py-[5px] px-[10px] bg-white text-red w-auto"
+                        type="button"
+                      >
+                        <img
+                          src="assets/icon/hand-speaker.svg"
+                          alt="Icono megafono"
                         />
-                      </div>
+                        Denunciar fraude
+                      </Button>
                     </div>
                   </AccordionDetails>
                 </Accordion>
