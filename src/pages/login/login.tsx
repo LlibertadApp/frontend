@@ -8,7 +8,7 @@ import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
 import { paths } from '#/routes/paths';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
-import { EyeSlash, Eye } from "@phosphor-icons/react";
+import { EyeSlash, Eye } from '@phosphor-icons/react';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -89,43 +89,71 @@ const LoginPage: React.FC = () => {
               placeholder="example@gmail.com"
             />
 
-            <TextField
-              sx={{ width: '100%' }}
-              id="password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={Boolean(errors.password)}
-              helperText={errors.password}
-              InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
-              InputProps={{
-                style: { borderRadius: '8px', fontFamily: 'Poppins' },
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => {
-                        setFieldValue(
-                          'isPasswordVisible',
-                          !values.isPasswordVisible,
-                        );
-                      }}
-                    >
-                      {values.isPasswordVisible ? (
-                        <Eye />
-                      ) : (
-                        <EyeSlash />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              type={values.isPasswordVisible ? 'text' : 'password'}
-              label="Contraseña"
-              placeholder="********"
-            />
+            {values.email === '' ||
+            !values.email.includes('@') ||
+            values.email.split('@')[1].length <= 0 ||
+            values.email.length <= 3 ? (
+              <TextField
+                sx={{ width: '100%', opacity: 0.5, pointerEvents: 'none' }}
+                id="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
+                InputProps={{
+                  style: { borderRadius: '8px', fontFamily: 'Poppins' },
+                }}
+                type={values.isPasswordVisible ? 'text' : 'password'}
+                label="Contraseña"
+                placeholder="********"
+              />
+            ) : (
+              <TextField
+                sx={{ width: '100%' }}
+                id="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={values.password.length < 3}
+                helperText={
+                  values.password.length < 3
+                    ? 'La contraseña debe tener al menos 3 caracteres'
+                    : ''
+                }
+                InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
+                InputProps={{
+                  style: { borderRadius: '8px', fontFamily: 'Poppins' },
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => {
+                          setFieldValue(
+                            'isPasswordVisible',
+                            !values.isPasswordVisible,
+                          );
+                        }}
+                      >
+                        {values.isPasswordVisible ? <Eye /> : <EyeSlash />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                type={values.isPasswordVisible ? 'text' : 'password'}
+                label="Contraseña"
+                placeholder="********"
+              />
+            )}
 
-            <Button type="submit" className="mt-4" isLoading>
+            <Button
+              type="submit"
+              className={`mt-4 ${
+                values.email === '' || values.password === ''
+                  ? 'opacity-50 cursor-not-allowed'
+                  : ''
+              }`}
+              disabled={values.email === '' || values.password === ''}
+            >
               Ingresar
             </Button>
 
