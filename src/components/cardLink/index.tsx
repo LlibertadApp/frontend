@@ -39,7 +39,7 @@ export const CardLink = ({
         <div
           className={`${config?.bg} w-16 h-16 rounded-full flex items-center justify-center`}
         >
-          <img src={`assets/icon/${icon}`} alt="Alerta" className="w-6 h-6" />
+          {icon}
         </div>
         <span className="text-sm font-medium">{text}</span>
       </div>

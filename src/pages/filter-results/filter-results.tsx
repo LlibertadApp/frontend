@@ -13,12 +13,15 @@ import {
   circuitsMock,
   tables,
 } from "#/mocks/_mocks";
+import { Trash, Faders, ArrowRight} from "@phosphor-icons/react";
 
 const dummyData = [
   { key: 'ex1', label: 'Example' },
   { key: 'ex2', label: 'Example 2' },
   { key: 'ex3', label: 'Example 3' },
 ];
+
+
 
 const FilterPage = () => {
   const [distrito, setDistrito] = useState<string>('');
@@ -77,7 +80,8 @@ const FilterPage = () => {
                 type="submit"
                 label="Limpiar"
               />
-              <img src="assets/icon/trash.svg" alt="trash" />
+              <Trash size={34}
+              />
             </div>
 
             <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
@@ -86,7 +90,7 @@ const FilterPage = () => {
                 type="submit"
                 label="Aplicar"
               />
-              <img src="assets/icon/arrow-apply.svg" alt="sliders" />
+              <ArrowRight size= {34} />
             </div>
           </div>
         </section>

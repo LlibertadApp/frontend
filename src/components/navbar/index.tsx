@@ -6,6 +6,7 @@ import { ICloseMenuProps, INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
 import { paths } from '#/routes/paths';
+import { SignOut } from '@phosphor-icons/react';
 
 const linkTransformClassName = 'transform transition-transform hover:scale-105';
 
@@ -104,7 +105,7 @@ const Navbar: React.FC<INavbarProps> = ({
                     className="text-red"
                   />
                 </div>
-                <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
+                <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
                   <div className={`${linkTransformClassName} flex gap-2`}>
                     <Button
                       appearance="ghost"

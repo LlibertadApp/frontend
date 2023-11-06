@@ -17,6 +17,7 @@ import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { TextField } from '@mui/material';
 
+
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red-error';
@@ -200,6 +201,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
     } finally {
     }
   };
+
   return (
     <section className="bg-white items-center flex flex-col">
       <Navbar routerLink="/verify-certificate" />
