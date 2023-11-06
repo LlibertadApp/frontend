@@ -4,6 +4,8 @@ import { Selector } from '#/components/selector';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
+import { X } from '@phosphor-icons/react'
+import { Link } from 'react-router-dom';
 import {
   districtsMock,
   electoralSectionsMock,
@@ -13,7 +15,8 @@ import {
   circuitsMock,
   tables,
 } from '#/mocks/_mocks';
-import { Trash, Faders, ArrowRight } from '@phosphor-icons/react';
+import { Trash, Faders, ArrowRight , ArrowLeft } from '@phosphor-icons/react';
+import { ButtonClearFilter } from '#/components';
 
 const dummyData = [
   { key: 'ex1', label: 'Example' },
@@ -21,7 +24,9 @@ const dummyData = [
   { key: 'ex3', label: 'Example 3' },
 ];
 
-const FilterPage = () => {
+
+
+export const FilterPage = () => {
   const [distrito, setDistrito] = useState<string>('');
   const [seccionElectoral, setSeccionElectoral] = useState<string>('');
   const [seccion, setSeccion] = useState<string>('');
@@ -42,13 +47,11 @@ const FilterPage = () => {
 
   return (
     <>
-      <Navbar routerLink={paths.totalResults} />
-      <main className="items-center flex flex-col relative px-4 pb-4">
-        <section className="md:w-1/2 w-full rounded-xl z-10">
-          <p className="font-bold text-[32px] text-violet-brand mt-5 mb-[22px]">
-            FILTROS
-          </p>
-          <div className="flex flex-col gap-7 py-3" id="filter-list">
+
+      <main className="items-center flex flex-col relative px-4 pb-4 ">
+        <section className="md:w-1/2 w-full rounded-xl z-10 items-end">
+
+          <div className="flex flex-col gap-7 py-2 " id="filter-list">
             <Selector
               label="Distrito"
               onChange={(e) => setDistrito(e.target.value)}
