@@ -73,7 +73,10 @@ const HomePage = () => {
                 </div>
                 <div className="w-full p-3 text-xs font-normal text-white bg-violet-primary rounded-xl flex justify-center items-center gap-3">
                   Ver escrutinio
-                  <ArrowRight size={20}/>
+                  <img
+                    src="assets/images/back-arrow.svg"
+                    className="rotate-180 h-3 w-3"
+                  />
                 </div>
               </Link>
             </div>
