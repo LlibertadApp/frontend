@@ -14,7 +14,7 @@ export const ButtonClearFilter: FC<ButtonClearFilterProps> = ({
     <button
       type="button"
       onClick={() => clearFilters()}
-      className="border-2 border-violet-brand text-violet-brand bg-transparent p-3 w-full rounded-xl tracking-wider shadow-md hover:border-violet-light my-4"
+      className="border-2 border-violet-primary text-violet-primary bg-transparent p-3 w-full rounded-xl tracking-wider shadow-md hover:border-violet-light my-4"
     >
       <div className="flex justify-center items-center gap-2">
         <label className="cursor-pointer">Limpiar</label>{' '}

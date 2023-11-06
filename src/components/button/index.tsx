@@ -11,9 +11,9 @@ export default function Button({
   className,
 }: IButtonProps) {
   const appereances: Record<ButtonAppearance, string> = {
-    filled: 'bg-violet-brand text-white',
-    outlined: 'border border-violet-brand text-violet-brand',
-    ghost: 'text-violet-brand',
+    filled: 'bg-violet-primary text-white',
+    outlined: 'border border-2 border-violet-primary text-violet-primary',
+    ghost: 'text-violet-primary',
     disabled: 'text-text-off bg-gray-disabled cursor-default',
     error: 'bg-red text-white',
     none: '',
@@ -27,7 +27,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
       className={classNames(
-        'w-full p-[18px] text-lg font-medium rounded-xl flex flex-row gap-[10px] justify-center items-center',
+        'w-full p-[18px] text-[18px] font-medium rounded-xl flex flex-row gap-[10px] justify-center items-center leading-5',
         buttonAppereance,
         className,
       )}
