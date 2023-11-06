@@ -93,24 +93,17 @@ const FilterPage = () => {
             />
           </div>
           <div className="flex flex-1 flex-row gap-5 mt-[50px]">
-            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] text-violet-primary border-2 border-violet-primary w-full rounded-xl font-medium">
-              <Button
-                className="text-xl tracking-wide"
-                type="submit"
-                label="Limpiar"
-                onClick={clearFilters}
-              />
-              <Trash size={34} />
-            </div>
-
-            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
-              <Button
-                className="text-xl tracking-wide"
-                type="submit"
-                label="Aplicar"
-              />
-              <ArrowRight size={34} />
-            </div>
+            <Button
+              appearance="outlined"
+              type="submit"
+              label="Limpiar"
+              onClick={clearFilters}
+            >
+              Limpiar <Trash size={20} />
+            </Button>
+            <Button appearance="filled" type="submit" label="Aplicar">
+              Aplicar <ArrowRight size={20} />
+            </Button>
           </div>
         </section>
       </main>

@@ -15,7 +15,7 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
                 ? 'bg-green text-white'
                 : step === ProgressStepStatus.Error
                 ? 'bg-red text-white'
-                : 'bg-gray-disabled text-black'
+                : 'bg-gray-light text-black'
             }`}
           >
             {step === ProgressStepStatus.Successful ? (
@@ -38,10 +38,10 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
             <div
               className={`stick ${
                 step === ProgressStepStatus.Active
-                  ? 'bg-gray-disabled text-white'
+                  ? 'bg-gray-light text-white'
                   : step === ProgressStepStatus.Successful
                   ? 'bg-green-check text-white'
-                  : 'bg-gray-disabled text-black'
+                  : 'bg-gray-light text-black'
               }`}
             ></div>
           )}
