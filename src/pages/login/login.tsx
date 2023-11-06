@@ -148,11 +148,11 @@ const LoginPage: React.FC = () => {
             <Button
               type="submit"
               className={`mt-4 ${
-                values.email === '' || values.password === ''
+                values.email.length < 3 || values.password.length < 3
                   ? 'opacity-50 cursor-not-allowed'
                   : ''
               }`}
-              disabled={values.email === '' || values.password === ''}
+              disabled={values.email.length < 3 || values.password.length < 3}
             >
               Ingresar
             </Button>
