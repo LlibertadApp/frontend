@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import Navbar from '#/components/navbar';
-import Overlay from '#/components/overlay';
-import { paths } from '#/routes/paths';
-import { CardLink } from '#/components/cardLink';
-import { colors } from '#/components/cardLink/types';
 import {
   ArrowRight,
   EnvelopeOpen,
   ListBullets,
   Megaphone,
 } from '@phosphor-icons/react';
+import Navbar from '#/components/navbar';
+import Overlay from '#/components/overlay';
+import { paths } from '#/routes/paths';
+import { CardLink } from '#/components/cardLink';
+import { colors } from '#/components/cardLink/types';
 
 const HomePage = () => {
   return (
@@ -62,7 +62,9 @@ const HomePage = () => {
                       alt="union por la patria logo"
                       className="h-16"
                     />
-                    <div className="text-[10px] font-bold">UNIÓN POR LA PATRIA</div>
+                    <div className="text-[10px] font-bold">
+                      UNIÓN POR LA PATRIA
+                    </div>
                   </div>
                   <div className="flex flex-col justify-between gap-[10px] p-4 bg-violet-brand/5 rounded-lg w-full">
                     <img
@@ -70,7 +72,9 @@ const HomePage = () => {
                       alt="la libertad avanza logo"
                       className="h-16"
                     />
-                    <div className="text-[10px] font-bold">LA LIBERTAD AVANZA</div>
+                    <div className="text-[10px] font-bold">
+                      LA LIBERTAD AVANZA
+                    </div>
                   </div>
                 </div>
                 <div className="w-full p-3 text-xs font-normal text-white bg-violet-primary rounded-xl flex justify-center items-center gap-3">

@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { Trash, ArrowRight } from '@phosphor-icons/react';
 import { Selector } from '#/components/selector';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
-import { X } from '@phosphor-icons/react';
-import { Link } from 'react-router-dom';
 import {
   districtsMock,
   electoralSectionsMock,
@@ -13,10 +12,7 @@ import {
   municipalitiesMock,
   establishmentsMock,
   circuitsMock,
-  tables,
 } from '#/mocks/_mocks';
-import { Trash, Faders, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
-import { ButtonClearFilter } from '#/components';
 
 const dummyData = [
   { key: 'ex1', label: 'Example' },
