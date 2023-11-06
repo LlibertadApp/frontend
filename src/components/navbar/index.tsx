@@ -2,25 +2,37 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 import Button from '#/components/button';
-import { INavbarProps } from './types';
+import { ICloseMenuProps, INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
 import { paths } from '#/routes/paths';
 import { SignOut } from '@phosphor-icons/react';
+
+const linkTransformClassName = 'transform transition-transform hover:scale-105';
+
+const CloseMenuLink: React.FC<ICloseMenuProps> = ({ label, to, className }) => {
+  const { closeMenu } = useHamburgerMenu();
+  return (
+    <Link
+      to={to}
+      className={`${linkTransformClassName} ${className}`}
+      onClick={closeMenu}
+    >
+      {label}
+    </Link>
+  );
+};
 
 const Navbar: React.FC<INavbarProps> = ({
   routerLink = paths.home,
   showArrow = true,
   showHamburger = true,
 }) => {
-  const linkTransformClassName =
-    'transform transition-transform hover:scale-105';
-
   const { logout } = useAuth();
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
   const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
-    <div className="bg-violet-primary p-[10px] px-8 w-full flex flex-col h-18 relative z-20">
+    <div className="bg-violet-primary py-[5px] px-4 w-full flex flex-col h-18 relative z-20">
       <div className="w-full grid grid-rows-1 grid-col-3 place-items-center">
         <div className="flex w-full justify-between col-start-1 col-end-4 row-start-1 row-end-2">
           <div className="flex justify-center items-center">
@@ -63,7 +75,7 @@ const Navbar: React.FC<INavbarProps> = ({
 
             {menuOpen && (
               <div className="absolute w-[100vw] bg-white right-0 top-[72px] rounded-xl px-1 shadow-2xl">
-                <div className="absolute top-[-15px] right-[69px] w-0 h-0">
+                <div className="absolute top-[-15px] right-[53px] w-0 h-0">
                   <svg width="50" height="20">
                     <polygon points="25,0 0,50 50,50" fill="white" />
                   </svg>
@@ -73,47 +85,25 @@ const Navbar: React.FC<INavbarProps> = ({
                 </div>
                 <div className="flex flex-col px-[30px] py-[25px] gap-y-6 items-start text-left text-text-off">
                   {/* El gris pactado no se parece al de figma */}
-                  {/* <Link
-                    to={paths.profile}
-                    className={linkTransformClassName}
-                    onClick={closeMenu}
-                  >
-                    Mi cuenta
-                  </Link> */}
-                  <Link
+                  <CloseMenuLink label="Inicio" to={paths.home} />
+                  <CloseMenuLink
+                    label="Ver Resultados"
                     to={paths.totalResults}
-                    className={linkTransformClassName}
-                    onClick={closeMenu}
-                  >
-                    Ver resultados
-                  </Link>
-                  <Link
+                  />
+                  <CloseMenuLink
+                    label="Cargar resultados de mesa"
                     to={paths.uploadCertificate}
-                    className={linkTransformClassName}
-                    onClick={closeMenu}
-                  >
-                    Cargar resultados de mesa
-                  </Link>
-                  <Link
-                    to={paths.home}
-                    className={`${linkTransformClassName} text-violet-light`}
-                    onClick={() => {
-                      alert('No existe la ruta aún');
-                      closeMenu();
-                    }}
-                  >
-                    Listado de mesas cargadas
-                  </Link>
-                  <Link
-                    to={paths.home}
-                    className={`${linkTransformClassName} text-red`}
-                    onClick={() => {
-                      alert('No existe la ruta aún');
-                      closeMenu();
-                    }}
-                  >
-                    Denunciar fraude
-                  </Link>
+                  />
+                  <CloseMenuLink
+                    label="Listado de mesas cargadas"
+                    to={paths.deskList}
+                    className="text-violet-light"
+                  />
+                  <CloseMenuLink
+                    label="Denunciar fraude"
+                    to={paths.irregularities}
+                    className="text-red"
+                  />
                 </div>
                 <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
                   <div className={`${linkTransformClassName} flex gap-2`}>
@@ -126,8 +116,12 @@ const Navbar: React.FC<INavbarProps> = ({
                       type="button"
                       className="text-violet-light text-left"
                     >
-                      <SignOut size={20}/>
-                      Inicio de sesión
+                      <img
+                        src="assets/icon/log-out.svg"
+                        alt="User profile"
+                        className="object-cover rounded"
+                      />
+                      Cerrar sesión
                     </Button>
                   </div>
                 </div>

@@ -7,61 +7,63 @@ import { ButtonFilter } from '#/components/buttonFilter';
 import { ButtonClearFilter } from '#/components/buttonClearFilter';
 import { ListFilters } from '#/components/listFilters';
 
-
-
-
 import { paths } from '#/routes/paths';
 import { useEffect } from 'react';
 
 const customFilters: Filter[] = [
   {
-    id: "1",
+    id: '1',
     name: 'distrito',
     value: 'Buenos Aires',
   },
   {
-    id: "2",
+    id: '2',
     name: 'seccion_electoral',
     value: 'Sección Tercera',
   },
   {
-    id: "3",
+    id: '3',
     name: 'seccion',
     value: 'Lanus',
   },
   {
-    id: "4",
+    id: '4',
     name: 'municipio',
     value: '771D',
   },
   {
-    id: "5",
+    id: '5',
     name: 'municipio',
     value: '00669/9',
-  }
-]
+  },
+];
 
 const TotalResultsPage = () => {
   const { filters, clearFilters, setFilters } = useFilter();
   useEffect(() => {
-    setFilters(customFilters)
-  }, [])
+    setFilters(customFilters);
+  }, []);
 
   const percentages = [61.05, 38.95];
   const votes = ['16,482,688', '10,517,312'];
   return (
     <div className="bg-white h-screen flex flex-col">
-
       <Navbar routerLink={paths.home} />
 
       <div className="flex flex-col p-4">
-
-      <p className="font-bold text-[32px] text-violet-brand mt-[16px]">BALOTAJE</p>
+        <p className="font-bold text-[32px] text-violet-brand mt-[16px]">
+          BALOTAJE
+        </p>
 
         {/* Sección de botones */}
         <section className="flex flex-1 flex-row gap-5 mb-4">
-        {filters.length > 0 && <ButtonClearFilter amountOfFilters={filters.length} clearFilters={clearFilters} />}
-        <ButtonFilter amount={filters.length} />
+          {filters.length > 0 && (
+            <ButtonClearFilter
+              amountOfFilters={filters.length}
+              clearFilters={clearFilters}
+            />
+          )}
+          <ButtonFilter amount={filters.length} />
         </section>
         {/* Lista de filtros */}
         <ListFilters filters={filters} />
@@ -141,26 +143,22 @@ const TotalResultsPage = () => {
         </div>
       </div>
       <div className="border border-t-1 border-gray-dark mt-10"></div>
-      <div className="flex flex-col px-4 py-5 lg:px-60 gap-7">
-        <div className='flex flex-col'>
-          <p className="text-[25px] font-bold uppercase text-text-off">
-            27,000,000
-          </p>
-          <span className="text-[17px] -mt-1 text-gray-dark">Total de votos</span>
+      <div className="flex flex-col px-4 py-5 lg:px-60 gap-10 leading-5">
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-dark">Total de votos</span>
+          <span className="text-[22px] font-bold text-text-off">27,000,000</span>
         </div>
-        <div className="flex flex-row justify-between mt-2 px-3 gap-10">
-          <div className="flex flex-1 flex-col">
-            <span className="text-[17px] text-gray-dark">Mesas escrutadas</span>
-            <p className="text-[25px] font-bold uppercase text-text-off">
-              90.00%
-            </p>
-          </div>
-          <div className="flex flex-1 flex-col">
-            <span className="text-[17px] text-gray-dark">Participación</span>
-            <p className="text-[25px] font-bold uppercase text-text-off">
-              76.36%
-            </p>
-          </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-dark">Mesas escrutadas</span>
+          <span className="text-[22px] font-bold text-text-off">
+            90.00%
+          </span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-dark">Participación</span>
+          <span className="text-[22px] font-bold text-text-off">
+            76.36%
+          </span>
         </div>
       </div>
       <div className="mt-4 p-4 hidden">
@@ -170,7 +168,6 @@ const TotalResultsPage = () => {
           label="Alerta Irregularidades"
         />
       </div>
-
     </div>
   );
 };
