@@ -56,7 +56,6 @@ const TotalResultsPage = () => {
         </p>
 
         {/* Sección de botones */}
-        {/* <section className="flex justify-center gap-4"> */}
         <section className="flex flex-1 flex-row gap-5 mb-4">
           {filters.length > 0 && (
             <ButtonClearFilter

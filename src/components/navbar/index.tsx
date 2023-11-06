@@ -6,6 +6,7 @@ import { INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
 import { paths } from '#/routes/paths';
+import { SignOut } from '@phosphor-icons/react';
 
 const Navbar: React.FC<INavbarProps> = ({
   routerLink = paths.home,
@@ -114,7 +115,7 @@ const Navbar: React.FC<INavbarProps> = ({
                     Denunciar fraude
                   </Link>
                 </div>
-                <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
+                <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
                   <div className={`${linkTransformClassName} flex gap-2`}>
                     <Button
                       appearance="ghost"
@@ -125,11 +126,7 @@ const Navbar: React.FC<INavbarProps> = ({
                       type="button"
                       className="text-violet-light text-left"
                     >
-                      <img
-                        src="assets/icon/log-out.svg"
-                        alt="User profile"
-                        className="object-cover rounded"
-                      />
+                      <SignOut size={20}/>
                       Inicio de sesión
                     </Button>
                   </div>

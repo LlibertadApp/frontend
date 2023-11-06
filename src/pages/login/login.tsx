@@ -8,6 +8,7 @@ import { useAuth } from '#/context/AuthContext';
 import { ILoginProps } from './types';
 import { paths } from '#/routes/paths';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { EyeSlash, Eye } from "@phosphor-icons/react";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -111,12 +112,9 @@ const LoginPage: React.FC = () => {
                       }}
                     >
                       {values.isPasswordVisible ? (
-                        <img src="assets/icon/eye.svg" alt="visibility" />
+                        <Eye />
                       ) : (
-                        <img
-                          src="assets/icon/eye-off.svg"
-                          alt="visibility-off"
-                        />
+                        <EyeSlash />
                       )}
                     </IconButton>
                   </InputAdornment>

@@ -5,6 +5,7 @@ import Overlay from '#/components/overlay';
 import { paths } from '#/routes/paths';
 import { CardLink } from '#/components/cardLink';
 import { colors } from '#/components/cardLink/types';
+import { ArrowRight, EnvelopeOpen, ListBullets, Megaphone } from "@phosphor-icons/react";
 
 const HomePage = () => {
   return (
@@ -23,19 +24,22 @@ const HomePage = () => {
               <CardLink
                 link={paths.uploadCertificate}
                 text={'Cargar resultados de tu mesa'}
-                icon={'mail-open-outlined.svg'}
+                icon={<EnvelopeOpen
+                      size={32} />}
                 color={colors.Violet}
               />
               <CardLink
                 link={paths.deskList}
                 text={'Listado de mesas cargadas'}
-                icon={'list.svg'}
+                icon={<ListBullets
+                      size={32} />}
                 color={colors.Violet}
               />
               <CardLink
                 link={paths.irregularities}
                 text={'Denunciar irregularidades'}
-                icon={'hand-speaker.svg'}
+                icon={<Megaphone
+                      size={32} />}
                 color={colors.Red}
               />
             </div>
@@ -67,12 +71,9 @@ const HomePage = () => {
                     <div className="text-[10px] font-bold">LA LIBERTAD AVANZA</div>
                   </div>
                 </div>
-                <div className="w-full p-3 text-xs font-normal text-white bg-violet-primary rounded-xl flex justify-center items-center gap-3">
-                  Ver escrutinio{' '}
-                  <img
-                    src="assets/images/back-arrow.svg"
-                    className="rotate-180 h-3 w-3"
-                  />
+                <div className="w-full p-4 text-sm font-normal text-white bg-violet-brand rounded-2xl flex justify-center items-center gap-3">
+                  Ver escrutinio
+                  <ArrowRight size={20}/>
                 </div>
               </Link>
             </div>

@@ -102,9 +102,11 @@ const VerifyCertificate = () => {
             {!correctData ? (
               <div className="flex w-full justify-center">
                 <Button
-                  className="w-full p-3 text-[18px] font-light tracking-wider text-text-off bg-gray-300 rounded-xl max-w-sm cursor-default"
+                  className="w-full p-3 text-[18px] font-light tracking-wider rounded-xl max-w-sm"
                   type="button"
                   label="Continuar"
+                  disabled
+                  appearance="disabled"
                 />
               </div>
             ) : (
@@ -118,11 +120,12 @@ const VerifyCertificate = () => {
             )}
             <Link to={paths.uploadCertificate} className="flex w-full justify-center">
               <Button
-                className="w-full p-3 text-[18px] font-light tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl max-w-sm"
+                className="w-full p-3 text-[18px] font-light tracking-wider border-2 hover:border-violet-light mt-4 rounded-xl max-w-sm"
                 type="submit"
                 label="Volver a cargar imagen"
                 disabled={imageUploaded}
                 onClick={handleReset}
+                appearance="outlined"
               />
             </Link>
           </div>
