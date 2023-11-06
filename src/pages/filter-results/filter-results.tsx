@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Selector } from '#/components/selector';
 import Button from '#/components/button';
@@ -14,8 +14,8 @@ import {
   establishmentsMock,
   circuitsMock,
   tables,
-} from "#/mocks/_mocks";
-import { Trash, Faders, ArrowRight, ArrowLeft } from "@phosphor-icons/react";
+} from '#/mocks/_mocks';
+import { Trash, Faders, ArrowRight , ArrowLeft } from '@phosphor-icons/react';
 import { ButtonClearFilter } from '#/components';
 
 const dummyData = [
@@ -35,6 +35,15 @@ export const FilterPage = () => {
   const [establecimiento, setEstablecimiento] = useState<string>('');
   const [mesa, setMesa] = useState<string>('');
 
+  const clearFilters = useCallback(() => {
+    setDistrito('');
+    setSeccionElectoral('');
+    setSeccion('');
+    setMunicipio('');
+    setCircuito('');
+    setEstablecimiento('');
+    setMesa('');
+  }, []);
 
   return (
     <>
@@ -45,34 +54,67 @@ export const FilterPage = () => {
           <div className="flex flex-col gap-7 py-2 " id="filter-list">
             <Selector
               label="Distrito"
-              onChange={setDistrito}
+              onChange={(e) => setDistrito(e.target.value)}
               options={districtsMock}
+              value={distrito}
             />
             <Selector
               label="Sección Electoral"
-              onChange={setSeccionElectoral}
+              onChange={(e) => setSeccionElectoral(e.target.value)}
               options={electoralSectionsMock}
+              value={seccionElectoral}
             />
             <Selector
               label="Sección"
-              onChange={setSeccion}
+              onChange={(e) => setSeccion(e.target.value)}
               options={sectionsMock}
+              value={seccion}
             />
             <Selector
               label="Municipio"
-              onChange={setMunicipio}
+              onChange={(e) => setMunicipio(e.target.value)}
               options={municipalitiesMock}
+              value={municipio}
             />
             <Selector
               label="Circuito"
-              onChange={setCircuito}
+              onChange={(e) => setCircuito(e.target.value)}
               options={circuitsMock}
+              value={circuito}
             />
-            <Selector label="Mesa" onChange={setMesa} options={dummyData} />
+            <Selector
+              label="Establecimiento"
+              onChange={(e) => setEstablecimiento(e.target.value)}
+              options={establishmentsMock}
+              value={establecimiento}
+            />
+            <Selector
+              label="Mesa"
+              onChange={(e) => setMesa(e.target.value)}
+              options={dummyData}
+              value={mesa}
+            />
           </div>
+          <div className="flex flex-1 flex-row gap-5 mt-[50px]">
+            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] text-violet-primary border-2 border-violet-primary w-full rounded-xl font-medium">
+              <Button
+                className="text-xl tracking-wide"
+                type="submit"
+                label="Limpiar"
+                onClick={clearFilters}
+              />
+              <Trash size={34} />
+            </div>
 
-
-
+            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
+              <Button
+                className="text-xl tracking-wide"
+                type="submit"
+                label="Aplicar"
+              />
+              <ArrowRight size={34} />
+            </div>
+          </div>
         </section>
       </main>
     </>
