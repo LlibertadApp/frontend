@@ -22,7 +22,7 @@ const VerifyCertificate = lazy(
 );
 const TotalResults = lazy(() => import('#/pages/total-results/totalResults'));
 
-const FilterPage = lazy(() => import('#/pages/filter-results/filter-results'));
+const FilterPage = lazy(() => import('#/pages/filter-results/filterResults'));
 const Irregularities = lazy(
   () => import('#/pages/irregularities/irregularities'),
 );

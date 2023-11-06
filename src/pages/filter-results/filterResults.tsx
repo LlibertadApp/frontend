@@ -4,7 +4,7 @@ import { Selector } from '#/components/selector';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
-import { X } from '@phosphor-icons/react'
+import { X } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 import {
   districtsMock,
@@ -15,7 +15,7 @@ import {
   circuitsMock,
   tables,
 } from '#/mocks/_mocks';
-import { Trash, Faders, ArrowRight , ArrowLeft } from '@phosphor-icons/react';
+import { Trash, Faders, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { ButtonClearFilter } from '#/components';
 
 const dummyData = [
@@ -23,8 +23,6 @@ const dummyData = [
   { key: 'ex2', label: 'Example 2' },
   { key: 'ex3', label: 'Example 3' },
 ];
-
-
 
 export const FilterPage = () => {
   const [distrito, setDistrito] = useState<string>('');
@@ -47,10 +45,12 @@ export const FilterPage = () => {
 
   return (
     <>
-
+      <Navbar routerLink={paths.totalResults} />
       <main className="items-center flex flex-col relative px-4 pb-4 ">
         <section className="md:w-1/2 w-full rounded-xl z-10 items-end">
-
+          <p className="font-bold text-[32px] text-violet-brand mt-5 mb-[22px]">
+            FILTROS
+          </p>
           <div className="flex flex-col gap-7 py-2 " id="filter-list">
             <Selector
               label="Distrito"

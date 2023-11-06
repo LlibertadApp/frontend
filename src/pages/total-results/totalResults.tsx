@@ -14,8 +14,6 @@ import { paths } from '#/routes/paths';
 import { useEffect } from 'react';
 import { X, ArrowRight } from '@phosphor-icons/react';
 
-
-
 const customFilters: Filter[] = [
   {
     id: '1',
@@ -48,7 +46,6 @@ const TotalResultsPage = () => {
   const { filters, clearFilters, setFilters } = useFilter();
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
 
-
   useEffect(() => {
     setFilters(customFilters);
   }, []);
@@ -67,10 +64,12 @@ const TotalResultsPage = () => {
         {/* Sección de botones */}
         <section className="flex flex-1 flex-row gap-5 mb-4">
           {filters.length > 0 && (
-            <ButtonClearFilter amountOfFilters={filters.length} clearFilters={clearFilters} />
+            <ButtonClearFilter
+              amountOfFilters={filters.length}
+              clearFilters={clearFilters}
+            />
           )}
-          <button onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}  >
-
+          <button onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}>
             <ButtonFilter amount={filters.length} />
           </button>
         </section>
@@ -82,18 +81,21 @@ const TotalResultsPage = () => {
         {/* Menú de filtros (desplegable) */}
         {isFilterMenuOpen && (
           <div
-            className={`fixed bottom-0 left-0 right-0 mx-auto my-auto bg-white p-2 rounded-3xl shadow-md border-t border-gray-300 z-10 transition-all duration-300 backdrop-filter  ${isFilterMenuOpen ? 'max-h-[82%]' : 'h-0'
-              } overflow-y-auto`}
+            className={`fixed bottom-0 left-0 right-0 mx-auto my-auto bg-white p-2 rounded-3xl shadow-md border-t border-gray-300 z-10 transition-all duration-300 backdrop-filter  ${
+              isFilterMenuOpen ? 'max-h-[82%]' : 'h-0'
+            } overflow-y-auto`}
           >
-            <div className="flex flex-row items-end gap-2 justify-between items-center px-4 py-4">
+            <div className="flex flex-row gap-2 justify-between items-center px-4 py-4">
               <p className="font-bold text-[20px] text-violet-brand pt-2">
                 Filtros
               </p>
-              <div className='p-4 flex justify-end' onClick={() => setIsFilterMenuOpen(false)}>
+              <div
+                className="p-4 flex justify-end"
+                onClick={() => setIsFilterMenuOpen(false)}
+              >
                 <X size={24} />
               </div>
             </div>
-
 
             <FilterPage />
 
@@ -101,7 +103,7 @@ const TotalResultsPage = () => {
               <div className="w-1/2">
                 <div className="flex h-full items-center justify-center">
                   <ButtonClearFilter
-                    clearFilters={() => { }}
+                    clearFilters={() => {}}
                     amountOfFilters={1}
                   />
                 </div>
@@ -198,21 +200,18 @@ const TotalResultsPage = () => {
       <div className="flex flex-col px-4 py-5 lg:px-60 gap-10 leading-5">
         <div className="flex flex-col">
           <span className="text-sm text-gray-dark">Total de votos</span>
-          <span className="text-[22px] font-bold text-text-off">27,000,000</span>
+          <span className="text-[22px] font-bold text-text-off">
+            27,000,000
+          </span>
         </div>
         <div className="flex flex-col">
           <span className="text-sm text-gray-dark">Mesas escrutadas</span>
-          <span className="text-[22px] font-bold text-text-off">
-            90.00%
-          </span>
+          <span className="text-[22px] font-bold text-text-off">90.00%</span>
         </div>
         <div className="flex flex-col">
           <span className="text-sm text-gray-dark">Participación</span>
-          <span className="text-[22px] font-bold text-text-off">
-            76.36%
-          </span>
+          <span className="text-[22px] font-bold text-text-off">76.36%</span>
         </div>
-
       </div>
 
       <div className="mt-4 p-4 hidden">
