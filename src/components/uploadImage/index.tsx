@@ -7,7 +7,7 @@ import { paths } from '#/routes/paths';
  import toast, { Toaster } from 'react-hot-toast';
 
 const CheckItem = ({ text }: { text: string }) => (
-  <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 text-[#444444]">
+  <div className="flex justify-space-around items-center md:text-lg text-xs gap-2 text-[#444444]">
     <img className="w-5 h-5" src="assets/icon/checkcircle.svg" alt="CheckCircle" />
     <p className="px-full">{text}</p>
   </div>
