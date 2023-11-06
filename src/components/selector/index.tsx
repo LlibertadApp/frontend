@@ -5,6 +5,7 @@ interface ISelectorProps {
   onChange: (e: any) => void;
   label: string;
   options: { key: string; label: string }[];
+  value: string;
 }
 
 const ArrowIcon = ({ className }: { className: string }) => {
@@ -17,7 +18,7 @@ const ArrowIcon = ({ className }: { className: string }) => {
   );
 };
 
-export function Selector({ onChange, label, options }: ISelectorProps) {
+export function Selector({ onChange, label, options, value }: ISelectorProps) {
   return (
     <FormControl fullWidth className="select">
       <InputLabel>{label}</InputLabel>
@@ -25,6 +26,7 @@ export function Selector({ onChange, label, options }: ISelectorProps) {
         label={label}
         className="w-full text-black text-left"
         IconComponent={ArrowIcon}
+        value={value}
         onChange={onChange}
         MenuProps={{
           slotProps: {
