@@ -8,7 +8,7 @@ import { paths } from '#/routes/paths';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 text-[#444444]">
-    <img className="w-5 h-5" src="assets/icon/checkcircle.svg" alt="" />
+    <img className="w-5 h-5" src="assets/icon/checkcircle.svg" alt="CheckCircle" />
     <p className="px-full">{text}</p>
   </div>
 );
@@ -81,7 +81,7 @@ export function UploadImage({
             className="flex flex-col items-center justify-center cursor-pointer mt-[30px] mb-10"
           >
             <div className="flex flex-col items-center justify-center">
-              <img src={preview || 'assets/icon/upload-box.svg'} alt="" />
+              <img src={preview || 'assets/icon/upload-box.svg'} alt="UploadBox" />
             </div>
             <ImageInput
               id="dropzone-file"

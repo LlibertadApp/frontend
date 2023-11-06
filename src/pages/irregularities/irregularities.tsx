@@ -3,6 +3,8 @@ import { colors } from '#/components/cardLink/types';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
 import { observer } from 'mobx-react';
+import { MinusSquare, SelectionInverse, Scissors, Megaphone } from '@phosphor-icons/react';
+
 
 const IrregularitiesPage = () => {
   return (
@@ -21,7 +23,7 @@ const IrregularitiesPage = () => {
             <CardLink
               link={paths.irregularities}
               text={'Impugnar mesa'}
-              icon={'challenge-table.svg'}
+              icon={<MinusSquare size={32} />}
               color={colors.Red}
             />
           </article>
@@ -33,21 +35,21 @@ const IrregularitiesPage = () => {
             <CardLink
               link={paths.irregularities}
               text={'Se roban las boletas'}
-              icon={'ballot-theft.svg'}
+              icon={<SelectionInverse size={32}/>}
               color={colors.Red}
             />
 
             <CardLink
               link={paths.irregularities}
               text={'Boletas adulteradas'}
-              icon={'tampered-ballots.svg'}
+              icon={<Scissors size={32}/>}
               color={colors.Red}
             />
 
             <CardLink
               link={paths.irregularities}
               text={'Otras irregularidades'}
-              icon={'megaphone.svg'}
+              icon={<Megaphone size={32}/>}
               color={colors.Red}
             />
           </article>

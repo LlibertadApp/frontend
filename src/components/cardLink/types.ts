@@ -1,10 +1,12 @@
+import React from "react";
+
 export enum colors {
   Red = 'red',
   Violet = 'violet',
 }
 
 export interface PropsCardLink {
-  icon: string;
+  icon: React.ReactNode;
   text: string;
   link: string;
   color: colors;
