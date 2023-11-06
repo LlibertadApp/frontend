@@ -1,7 +1,6 @@
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
-import Overlay from '#/components/overlay';
 import {
   Accordion,
   AccordionSummary,
@@ -9,8 +8,9 @@ import {
   Typography,
 } from '@mui/material';
 import { FC } from 'react';
+import { IDeskItemLabel } from './types';
 
-const DeskItemLabel: FC<any> = ({
+const DeskItemLabel: FC<IDeskItemLabel> = ({
   typoProps = {
     color: 'black',
     align: 'left',
@@ -35,7 +35,7 @@ const DeskItemLabel: FC<any> = ({
   );
 };
 
-const DeskList = () => {
+const DeskList: FC = () => {
   const DummyData = {
     desks: [
       {
