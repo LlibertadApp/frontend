@@ -11,7 +11,7 @@
 .stick {
   content: "";
   flex: 1;
-  height: 2px;
+  height: 2.5px;
 }
 
 .bg-green-check {
