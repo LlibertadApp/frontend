@@ -4,6 +4,7 @@ import { Selector } from '#/components/selector';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
+
 import {
   districtsMock,
   electoralSectionsMock,
@@ -13,7 +14,8 @@ import {
   circuitsMock,
   tables,
 } from "#/mocks/_mocks";
-import { Trash, Faders, ArrowRight} from "@phosphor-icons/react";
+import { Trash, Faders, ArrowRight, ArrowLeft } from "@phosphor-icons/react";
+import { ButtonClearFilter } from '#/components';
 
 const dummyData = [
   { key: 'ex1', label: 'Example' },
@@ -31,6 +33,7 @@ const FilterPage = () => {
   const [circuito, setCircuito] = useState<string>('');
   const [establecimiento, setEstablecimiento] = useState<string>('');
   const [mesa, setMesa] = useState<string>('');
+
 
   return (
     <>
@@ -73,26 +76,27 @@ const FilterPage = () => {
             />
             <Selector label="Mesa" onChange={setMesa} options={dummyData} />
           </div>
-          <div className="flex flex-1 flex-row gap-5 mt-[50px]">
-            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] text-violet-primary border-2 border-violet-primary w-full rounded-xl font-medium">
-              <Button
-                className="text-xl tracking-wide"
-                type="submit"
-                label="Limpiar"
-              />
-              <Trash size={34}
-              />
+
+          <div className="flex flex-1 flex-row gap-8 mt-4 items-center">
+            <div className="w-1/2">
+              <div className="flex h-full items-center justify-center">
+                <ButtonClearFilter
+                  clearFilters={() => { }}
+                  amountOfFilters={1}
+                />
+              </div>
             </div>
 
-            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
-              <Button
-                className="text-xl tracking-wide"
-                type="submit"
-                label="Aplicar"
-              />
-              <ArrowRight size= {34} />
+            <div className="w-1/2">
+              <button className="flex flex-row justify-center gap-4 bg-violet-brand text-white p-4 w-full rounded-xl tracking-wider hover:border-violet-light hover:bg-violet-dark">
+                <span className="flex items-center">
+                  Aplicar
+                  <ArrowRight size={22} style={{marginLeft: '18px'}}/>
+                </span>
+              </button>
             </div>
           </div>
+
         </section>
       </main>
     </>
