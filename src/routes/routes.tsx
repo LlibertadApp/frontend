@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { ProtectedRoute } from '#/middlewares/protectedRoute';
+import { ProtectedRoute } from '#/middlewares/protectedRoute'
+import { PublicRoute } from '#/middlewares/publicRoute';
 import { LoadingPage } from '#/pages/loading-page';
 import { paths } from './paths';
 
@@ -29,12 +30,16 @@ const DeskList = lazy(() => import('#/pages/desk-list/deskList'));
 
 const AppRoutes: React.FC = () => (
   <Routes>
-    {/* Auth */}
-    <Route path={paths.login} element={<Login />} />
     {/* Utils */}
     <Route path={paths.loadingPage} element={<LoadingPage />} />
     {/* 404 Not found */}
     <Route path="*" element={<NotFound />} />
+
+    {/* Public routes */}
+    <Route element={<PublicRoute path={paths.home} />}>
+      {/* Auth */}
+      <Route path={paths.login} element={<Login />} />
+    </Route>
 
     {/* Protected routes */}
     <Route element={<ProtectedRoute />}>
