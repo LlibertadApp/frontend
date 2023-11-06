@@ -17,7 +17,6 @@ import { FlatListTypeEnum } from '#/components/flatList/types';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { TextField } from '@mui/material';
 
-
 const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const selectedInputStyle: string = 'border-2 border-violet-brand !text-black';
   const errorInputStyle: string = 'border-2 !border-red !text-red-error';
@@ -180,28 +179,8 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
   const updateTotalVotes = (newValue: number) => {
     setTotalVotes((prevTotal: number) => prevTotal + newValue);
   };
-  const handleToast = (type: string) => {
-    try {
-      if (type === 'submit') {
-        toast.success('Se está cargando la información...', {
-          icon: '✔',
-        });
-      } else {
-        toast.error(
-          'Debes completar TODOS los datos requeridos, y aceptar el boton de verificación',
-          {
-            icon: '⛔',
-          },
-        );
-      }
-    } catch (error) {
-      toast.error('Oh oh algo está mal... Por favor, actualice la página', {
-        icon: '♻',
-      });
-    } finally {
-    }
-  };
-
+  //Fue inutilizado por no tener boton:
+  const handleToast = (type: string) => {};
   return (
     <section className="bg-white items-center flex flex-col">
       <Navbar routerLink="/verify-certificate" />
@@ -292,12 +271,31 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                       label="Nro de electores"
                       placeholder="0"
                       {...getValidationProps()}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        handleChange(e);
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>,
+                      ) => {
+                        const updatedValue = event.target.value;
+                        const parsedValue = parseInt(updatedValue, 10);
+
+                        // Limit the input value to 999 if necessary
+                        const limitedValue =
+                          parsedValue > 999
+                            ? 0 +
+                              toast.error(
+                                'Error al cargar el número de electores',
+                                { id: 'electors-toast' },
+                              )
+                            : parsedValue;
+
+                        // Update the input value with the limited value
+                        event.target.value = limitedValue.toString();
+
+                        // Call the original handleChange function with the limited value
+                        handleChange(event);
                       }}
-                      className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl 
-              ${values.electors ? selectedInputStyle : ''}
-              ${votesDifference && touched.electors ? errorInputStyle : ''}`}
+                      className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl
+            ${values.electors ? selectedInputStyle : ''}
+            ${votesDifference && touched.electors ? errorInputStyle : ''}`}
                     />
                   </div>
 
@@ -316,12 +314,31 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         label="Sobres"
                         placeholder="0"
                         {...getValidationProps()}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          handleChange(e);
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>,
+                        ) => {
+                          const updatedValue = event.target.value;
+                          const parsedValue = parseInt(updatedValue, 10);
+
+                          // Limit the input value to 999 if necessary
+                          const limitedValue =
+                            parsedValue > 999
+                              ? 0 +
+                                toast.error(
+                                  'Error al cargar el número de sobres',
+                                  { id: 'electors-toast' },
+                                )
+                              : parsedValue;
+
+                          // Update the input value with the limited value
+                          event.target.value = limitedValue.toString();
+
+                          // Call the original handleChange function with the limited value
+                          handleChange(event);
                         }}
                         className={`border-2 text-center border-gray-300 outline-none cursor-default bg-white text-neutral-500 font-bold rounded-xl h-12 w-32 flex text-2xl
-                    ${values.envelopes ? selectedInputStyle : ''}
-              ${votesDifference && touched.envelopes ? errorInputStyle : ''}`}
+            ${values.envelopes ? selectedInputStyle : ''}
+            ${votesDifference && touched.envelopes ? errorInputStyle : ''}`}
                       />
                     </div>
                   </div>
@@ -458,24 +475,12 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     // case 1 - incomplete
                     <div className="w-full">
                       <Button
-                        onClick={() =>
-                          handleToast(
-                            votesDifference &&
-                              totalVotes !== 0 &&
-                              values.circuit !== 0 &&
-                              values.table !== 0 &&
-                              values.correctData
-                              ? 'submit'
-                              : 'button',
-                          )
-                        }
                         className="p-[14px]  rounded-xl font-light text-[1.125rem] tracking-wider w-full"
                         type="button"
                         label="Enviar datos"
                         disabled
                         appearance="disabled"
                       />
-                      <Toaster position="top-right" reverseOrder={false} />
                     </div>
                   ) : correctCertificate &&
                     !votesDifference &&
@@ -490,7 +495,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         label="Enviar datos"
                         appearance="filled"
                       />
-                      <Toaster position="top-right" reverseOrder={false} />
                     </Link>
                   ) : (
                     // case 3 - something wrong
@@ -504,7 +508,6 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                         // Seteo disabled hasta que este el feat del modal.
                         disabled
                       />
-                      <Toaster position="top-right" reverseOrder={false} />
                     </Link>
                   )}
                 </div>
@@ -512,6 +515,11 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
             );
           }}
         </Formik>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+          toastOptions={{ duration: 1500 }}
+        />
       </div>
     </section>
   );

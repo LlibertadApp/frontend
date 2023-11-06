@@ -19,7 +19,7 @@ const FlatList = ({
   const handleVoteChange = (value: number) => {
     if (value >= 0) {
       if (value > 999) {
-        toast.error('Número ingresado no válido, Máximo 999', {
+        toast.error('Número de votos incorrecto, Máximo 999', {
           id: 'custom-toast',
         });
         setVote(999);
@@ -93,7 +93,6 @@ const FlatList = ({
           className={` border-gray-300 outline-none cursor-default bg-white text-neutral-700 font-bold h-12 w-16 border-rounded-2xl ${selectedInputStyle}`}
           style={{ display: 'flex', justifyContent: 'center' }}
         />
-        <Toaster position="top-right" toastOptions={{ duration: 1500 }} />
       </div>
     </div>
   );
