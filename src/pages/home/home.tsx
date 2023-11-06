@@ -47,7 +47,7 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-col items-center space-y-2 w-full">
-              <span className=" w-full pt-[50px] font-bold text-left">
+              <span className=" w-full pt-12 font-bold text-left">
                 Escrutinio y resultados
               </span>
               <Link
