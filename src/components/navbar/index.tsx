@@ -2,19 +2,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 import Button from '#/components/button';
-import { INavbarProps } from './types';
+import { ICloseMenuProps, INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
 import { paths } from '#/routes/paths';
+import { SignOut } from '@phosphor-icons/react';
+
+const linkTransformClassName = 'transform transition-transform hover:scale-105';
+
+const CloseMenuLink: React.FC<ICloseMenuProps> = ({ label, to, className }) => {
+  const { closeMenu } = useHamburgerMenu();
+  return (
+    <Link
+      to={to}
+      className={`${linkTransformClassName} ${className}`}
+      onClick={closeMenu}
+    >
+      {label}
+    </Link>
+  );
+};
 
 const Navbar: React.FC<INavbarProps> = ({
   routerLink = paths.home,
   showArrow = true,
   showHamburger = true,
 }) => {
-  const linkTransformClassName =
-    'transform transition-transform hover:scale-105';
-
   const { logout } = useAuth();
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
   const hamburgerMenuRef = useOutsideClick(closeMenu);
@@ -72,49 +85,27 @@ const Navbar: React.FC<INavbarProps> = ({
                 </div>
                 <div className="flex flex-col px-[30px] py-[25px] gap-y-6 items-start text-left text-text-off">
                   {/* El gris pactado no se parece al de figma */}
-                  {/* <Link
-                    to={paths.profile}
-                    className={linkTransformClassName}
-                    onClick={closeMenu}
-                  >
-                    Mi cuenta
-                  </Link> */}
-                  <Link
+                  <CloseMenuLink label="Inicio" to={paths.home} />
+                  <CloseMenuLink
+                    label="Ver Resultados"
                     to={paths.totalResults}
-                    className={linkTransformClassName}
-                    onClick={closeMenu}
-                  >
-                    Ver resultados
-                  </Link>
-                  <Link
+                  />
+                  <CloseMenuLink
+                    label="Cargar resultados de mesa"
                     to={paths.uploadCertificate}
-                    className={linkTransformClassName}
-                    onClick={closeMenu}
-                  >
-                    Cargar resultados de mesa
-                  </Link>
-                  <Link
-                    to={paths.home}
-                    className={`${linkTransformClassName} text-violet-light`}
-                    onClick={() => {
-                      alert('No existe la ruta aún');
-                      closeMenu();
-                    }}
-                  >
-                    Listado de mesas cargadas
-                  </Link>
-                  <Link
-                    to={paths.home}
-                    className={`${linkTransformClassName} text-red`}
-                    onClick={() => {
-                      alert('No existe la ruta aún');
-                      closeMenu();
-                    }}
-                  >
-                    Denunciar fraude
-                  </Link>
+                  />
+                  <CloseMenuLink
+                    label="Listado de mesas cargadas"
+                    to={paths.deskList}
+                    className="text-violet-light"
+                  />
+                  <CloseMenuLink
+                    label="Denunciar fraude"
+                    to={paths.irregularities}
+                    className="text-red"
+                  />
                 </div>
-                <div className="flex w-full text-left py-7 white px-8 border-t-2 border-gray-100 ">
+                <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
                   <div className={`${linkTransformClassName} flex gap-2`}>
                     <Button
                       appearance="ghost"
@@ -130,7 +121,7 @@ const Navbar: React.FC<INavbarProps> = ({
                         alt="User profile"
                         className="object-cover rounded"
                       />
-                      Inicio de sesión
+                      Cerrar sesión
                     </Button>
                   </div>
                 </div>

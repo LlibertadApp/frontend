@@ -84,7 +84,7 @@ const DeskList = () => {
             <Overlay>
                 <Navbar routerLink={paths.home} showArrow={true} />
                 <section className="flex p-4 justify-center">
-                    <div className='pt-8'>
+                    <div className='pt-8 overflow-x-hidden'>
                         {/* No hay datos, no hay mesas para mostrar */}
                         <span className="text-violet-brand text-4xl font-black pt-4 p-4 start">
                             MESAS CARGADAS
