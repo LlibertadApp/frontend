@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { ButtonAppearance, IButtonProps } from './types';
 
 export default function Button({
-  appearance = 'filled',
+  appearance = 'none',
   type,
   onClick,
   disabled,
@@ -14,6 +14,9 @@ export default function Button({
     filled: 'bg-violet-brand text-white',
     outlined: 'border border-violet-brand text-violet-brand',
     ghost: 'text-violet-brand',
+    disabled: 'text-text-off bg-gray-disabled cursor-default',
+    error: 'bg-red text-white',
+    none: '',
   };
 
   const buttonAppereance = appereances[appearance];

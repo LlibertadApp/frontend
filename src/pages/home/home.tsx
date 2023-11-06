@@ -5,7 +5,12 @@ import Overlay from '#/components/overlay';
 import { paths } from '#/routes/paths';
 import { CardLink } from '#/components/cardLink';
 import { colors } from '#/components/cardLink/types';
-import { ArrowRight, EnvelopeOpen, ListBullets, Megaphone } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  EnvelopeOpen,
+  ListBullets,
+  Megaphone,
+} from '@phosphor-icons/react';
 
 const HomePage = () => {
   return (
@@ -17,35 +22,32 @@ const HomePage = () => {
             <span className="text-violet-primary text-[2rem] font-black mb-4">
               ELECCIONES 2023
             </span>
-            <div className="flex flex-col items-center gap-[10px] w-full mb-10">
-              <span className="text-left w-full pt-4 font-light text-sm text-text-off">
+            <div className="flex flex-col items-center space-y-2 w-full">
+              <span className="w-full font-bold pt-8 text-left">
                 Acciones de fiscales
               </span>
               <CardLink
                 link={paths.uploadCertificate}
                 text={'Cargar resultados de tu mesa'}
-                icon={<EnvelopeOpen
-                      size={32} />}
+                icon={<EnvelopeOpen size={32} />}
                 color={colors.Violet}
               />
               <CardLink
                 link={paths.deskList}
                 text={'Listado de mesas cargadas'}
-                icon={<ListBullets
-                      size={32} />}
+                icon={<ListBullets size={32} />}
                 color={colors.Violet}
               />
               <CardLink
                 link={paths.irregularities}
                 text={'Denunciar irregularidades'}
-                icon={<Megaphone
-                      size={32} />}
+                icon={<Megaphone size={32} />}
                 color={colors.Red}
               />
             </div>
 
             <div className="flex flex-col items-center space-y-2 w-full">
-              <span className="w-full text-left font-light text-sm text-text-off">
+              <span className=" w-full pt-12 font-bold text-left">
                 Escrutinio y resultados
               </span>
               <Link
@@ -73,10 +75,7 @@ const HomePage = () => {
                 </div>
                 <div className="w-full p-3 text-xs font-normal text-white bg-violet-primary rounded-xl flex justify-center items-center gap-3">
                   Ver escrutinio
-                  <img
-                    src="assets/images/back-arrow.svg"
-                    className="rotate-180 h-3 w-3"
-                  />
+                  <ArrowRight size={20} />
                 </div>
               </Link>
             </div>

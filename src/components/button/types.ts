@@ -1,4 +1,10 @@
-export type ButtonAppearance = 'filled' | 'outlined' | 'ghost';
+export type ButtonAppearance =
+  | 'filled'
+  | 'outlined'
+  | 'ghost'
+  | 'disabled'
+  | 'error'
+  | 'none';
 
 export interface IButtonProps {
   children?: React.ReactNode;
@@ -10,10 +16,4 @@ export interface IButtonProps {
   label?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
-
-  // type: 'button' | 'submit' | 'reset';
-  // className: string;
-  // label: string;
-  // onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  // disabled?: boolean;
 }
