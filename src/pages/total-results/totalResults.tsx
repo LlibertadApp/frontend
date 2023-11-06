@@ -60,7 +60,7 @@ const TotalResultsPage = () => {
       <Navbar routerLink={paths.home} />
 
       <div className="flex flex-col p-4">
-        <p className="font-bold text-[32px] text-violet-brand mt-[16px]">
+        <p className="font-bold text-[32px] text-violet-primary mt-[16px]">
           BALOTAJE
         </p>
 
@@ -132,7 +132,7 @@ const TotalResultsPage = () => {
                 <span className={`text-[12px] text-gray-dark`}>
                   {votes[0]} votos
                 </span>
-                <p className={`font-bold uppercase text-violet-brand`}>
+                <p className={`font-bold uppercase text-violet-primary`}>
                   {percentages[0]}%
                 </p>
               </div>
@@ -140,12 +140,12 @@ const TotalResultsPage = () => {
             <div className="grid grid-rows-3 pb-4 pr-4 pl-4 pt-2 grid-cols-1 items-center">
               <div className="rounded-md h-2 bg-gray-light">
                 <div
-                  className={`h-full bg-violet-brand rounded-l`}
+                  className={`h-full bg-violet-primary rounded-l`}
                   style={{ width: `${percentages[0]}%` }}
                 ></div>
               </div>
               <p
-                className={`text-[13px] font-bold uppercase text-violet-brand flex items-start`}
+                className={`text-[13px] font-bold uppercase text-violet-primary flex items-start`}
               >
                 LA LIBERTAD AVANZA
               </p>

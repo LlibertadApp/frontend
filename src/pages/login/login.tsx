@@ -121,7 +121,7 @@ const LoginPage: React.FC = () => {
               placeholder="********"
             />
 
-            <Button type="submit" className="mt-4" isLoading>
+            <Button type="submit" className="mt-4" appearance='filled' isLoading>
               Ingresar
             </Button>
 
