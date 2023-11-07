@@ -7,26 +7,28 @@ interface CategoryVoteInputProps {
   subtitle?: string;
   titleClassName?: string;
 
+  disabled?: boolean;
   name?: string;
   value?: number;
-  onChange?: (value: number) => void;
-  onBlur?: () => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
-export default function ({icon, name, title, subtitle, titleClassName}: CategoryVoteInputProps) {
+export default function ({disabled, icon, name, title, subtitle, titleClassName, value, onChange, onBlur}: CategoryVoteInputProps) {
   return (
-    <article className="flex flex-row gap-3 items-center">
+    <article className={classNames("flex flex-row gap-3 items-center", disabled && 'opacity-25')}>
       { icon }
       <div className="flex flex-col flex-1">
         <h4 className={classNames("text-gray-darker text-left text-base font-semibold", titleClassName)}>{title}</h4>
         <p className="text-gray-darker text-left text-sm">{subtitle}</p>
       </div>
       <TextField
+        disabled={disabled}
         name={name}
         type="number"
-        // value={props.value}
-        // onChange={props.onChange}
-        // onBlur={props.onBlur}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
         placeholder="000"
         inputProps={{ style: { textAlign: 'center' } }}
         InputProps={{ style: { borderRadius: '8px'} }}

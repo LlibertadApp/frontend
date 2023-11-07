@@ -1,29 +1,24 @@
-export type HandleChangeFunction = (
-  e: React.ChangeEvent<HTMLInputElement>,
-) => void;
+export interface TelegramData {
+  // Datos de la mesa
+  circuit?: string; // Input type text [Debe ingresar un circuito]
+  table?: string; // Input type text [Debe ingresar una mesa]
+  electors?: number; // Input type number (Integer) (>= 0) [El número de electores debe ser mayor o igual a 0]
+  envelopes?: number; // Input type number (Integer) (>= 0) [El número de sobres debe ser mayor o igual a 0]
 
-export interface ILoadInformationProps {
-  message?: string;
-}
+  // Validaciones de los datos de la mesa
+  validVotesDifference: boolean; // |e - s| < 5
+  validTableInformation: boolean; // Circuit -> Valid && Table -> Valid && Electors -> Valid && Envelopes -> Valid && |e - s| < 5
 
-export interface FormValues {
-  circuit: number | string;
-  table: number | string;
-  electors: number | string;
-  envelopes: number | string;
-  validVotesDifference: boolean;
+  votes: {
+    lla: number; // Input type number (Integer) (>= 0) [El número de votos debe ser mayor o igual a 0]
+    uxp: number; // Input type number (Integer) (>= 0) [El número de votos debe ser mayor o igual a 0]
+    blank: number; // Input type number (Integer) (>= 0) [El número de votos debe ser mayor o igual a 0]
+    null: number; // Input type number (Integer) (>= 0) [El número de votos debe ser mayor o igual a 0]
+    disputed: number; // Input type number (Integer) (>= 0) [El número de votos debe ser mayor o igual a 0]
+    identity: number; // Input type number (Integer) (>= 0) [El número de votos debe ser mayor o igual a 0]
+    command: number; // Input type number (Integer) (>= 0) [El número de votos debe ser mayor o igual a 0]
+  };
 
-  formAgreement: boolean;
-
-  totalVotes: number;
-  correctData: boolean;
-}
-
-export interface ValidationProps {
-  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => void;
-  onContextMenu: (e: React.MouseEvent<HTMLInputElement>) => void;
-  onDrop: (e: React.DragEvent<HTMLInputElement>) => void;
-  onWheel: (e: React.WheelEvent<HTMLInputElement>) => void;
-  autoComplete: string;
+  validTotalVotes: boolean; // Total de votos = (lla + uxp + blank + null + disputed + identity + command) === sobres
+  formAgreement: boolean; // Input type checkbox (Boolean) [Debe aceptar el acuerdo de la mesa]
 }

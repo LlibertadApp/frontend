@@ -3,7 +3,7 @@ import { CheckCircle, XCircle } from '@phosphor-icons/react';
 
 interface AlertProps {
   error?: boolean;
-  message?: string;
+  message?: any;
 
   className?: string;
 }
@@ -14,7 +14,7 @@ export default function Alert({ error, message, className }: AlertProps) {
   return (
     <div
       className={classNames(
-        'flex justify-between items-center w-full px-3 py-[14px] rounded-2xl',
+        'flex justify-between items-center w-full px-3 py-[14px] rounded-2xl text-left',
         alertClass,
         className,
       )}
