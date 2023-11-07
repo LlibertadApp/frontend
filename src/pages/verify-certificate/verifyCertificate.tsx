@@ -60,45 +60,58 @@ const VerifyCertificate = () => {
             </span>
           </div>
 
-          <div className="flex items-center justify-center px-4 py-4">
-            <img
-              src={certificateImage || ''}
-              alt="data sent successful"
-              className="object-cover rounded w-100 h-auto"
-            />
-          </div>
+          {certificateImage ? (
+            <>
+              <div className="flex items-center justify-center px-4 py-4">
+                <img
+                  src={certificateImage || ''}
+                  alt="uploaded image"
+                  className="object-cover rounded-2xl w-100 h-auto"
+                />
+              </div>
 
-          <div className="flex items-center justify-center text-sm my-6">
-            <div className="flex items-center px-4">
-              <div className="inline-flex items-center">
-                <label
-                  className="relative flex items-center p-3 rounded-full cursor-pointer"
-                  data-ripple-dark="true"
-                >
-                  <input
-                    id="login"
-                    type="checkbox"
-                    checked={correctData}
-                    onChange={handleCheckbox}
-                    className="before:content[''] peer relative h-6 w-6 cursor-pointer appearance-none rounded-md border-2 border-violet-brand transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-violet-brand checked:bg-violet-brand checked:before:bg-violet-500 hover:before:opacity-10"
-                  />
-                  <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                    <img src="assets/icon/check-icon.svg" alt="check" />
+              <div className="flex items-center justify-center text-sm mt-[14px] mb-8">
+                <div className="flex items-start px-4 gap-2">
+                  <div className="inline-flex items-center pl-3 pt-[2px]">
+                    <label
+                      className="relative flex items-center rounded-full cursor-pointer"
+                      data-ripple-dark="true"
+                    >
+                      <input
+                        id="login"
+                        type="checkbox"
+                        checked={correctData}
+                        onChange={handleCheckbox}
+                        className="before:content[''] peer relative h-6 w-6 cursor-pointer appearance-none rounded-md border-2 border-violet-primary transition-all before:absolute before:top-2/4 before:left-2/4 before:block 
+                        before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 
+                        before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity 
+                        hover:before:opacity-10 checked:border-violet-primary checked:bg-violet-primary"
+                      />
+                      <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                        <img src="assets/icon/check-icon.svg" alt="check" />
+                      </div>
+                    </label>
                   </div>
-                </label>
+                  <div className="pl-2 pr-4">
+                    <h3
+                      className="text-start text-sm cursor-pointer text-text-off"
+                      onClick={handleCheckbox}
+                    >
+                      Verifico que la imagen está firmada por el presidente de
+                      mesa y fue completado por mí previamente.
+                    </h3>
+                  </div>
+                </div>
               </div>
-              <div className="pl-2 pr-4">
-                <h3
-                  className="text-start text-sm cursor-pointer text-text-off"
-                  onClick={handleCheckbox}
-                >
-                  Verifico que la imagen está firmada por el presidente de mesa
-                  y fue completado por mí previamente.
-                </h3>
-              </div>
+            </>
+          ) : (
+            <div className="px-4 py-16 m-4 text-red-error bg-red-error/10 rounded-xl">
+              Hubo un error al recuperar la foto, por favor, volvé a cargar la
+              imagen.
             </div>
-          </div>
-          <div className="flex flex-col items-center justify-center w-full p-4">
+          )}
+
+          <div className="flex flex-col items-center justify-center w-full px-4 py-5">
             {!correctData ? (
               <div className="flex w-full justify-center">
                 <Button
@@ -108,7 +121,10 @@ const VerifyCertificate = () => {
                 />
               </div>
             ) : (
-              <Link to={paths.loadInformation} className="flex w-full justify-center">
+              <Link
+                to={paths.loadInformation}
+                className="flex w-full justify-center"
+              >
                 <Button
                   className="w-full p-3 font-light tracking-wider text-white bg-violet-brand rounded-xl max-w-sm"
                   type="button"
@@ -116,7 +132,10 @@ const VerifyCertificate = () => {
                 />
               </Link>
             )}
-            <Link to={paths.uploadCertificate} className="flex w-full justify-center">
+            <Link
+              to={paths.uploadCertificate}
+              className="flex w-full justify-center"
+            >
               <Button
                 className="w-full p-3 font-light tracking-wider border-2 border-violet-brand text-violet-brand hover:border-violet-light mt-4 rounded-xl max-w-sm"
                 type="submit"
