@@ -14,6 +14,8 @@ export default function Button({
     filled: 'bg-violet-brand text-white',
     outlined: 'border border-violet-brand text-violet-brand',
     ghost: 'text-violet-brand',
+    disabled: 'text-text-off bg-gray-disabled cursor-default',
+    error: 'bg-red text-white',
   };
 
   const buttonAppereance = appereances[appearance];

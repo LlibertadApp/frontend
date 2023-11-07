@@ -18,6 +18,7 @@ export default {
         'gray-darker': '#413B50',
         'gray-inactive': '#CACACB',
         'gray-light': '#CBD5E1',
+        'gray-disabled': '#E3E3E9',
         'text-off': '#363F45',
         red: '#AD3459',
         'red-error': '#E13C3C',
