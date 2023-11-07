@@ -483,7 +483,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <Link to={paths.sendSuccess} className="w-full">
                       <Button
                         onClick={() => onSubmit(values)}
-                        className="bg-violet-primary p-[14px] text-white rounded-xl font-light text-[1.125rem] tracking-wider w-full"
+                        className="bg-violet-primary p-[14px] text-white rounded-xl tracking-wider w-full"
                         type="submit"
                         label="Enviar datos"
                       />
@@ -494,7 +494,7 @@ const LoadInformationPage: FC<ILoadInformationProps> = () => {
                     <Link to={paths.sendSuccess} className="w-full">
                       <Button
                         onClick={() => onSubmit(values)}
-                        className="bg-red p-[14px] text-white rounded-xl font-light text-[1.125rem] tracking-wider w-full"
+                        className="bg-red p-[14px] text-white rounded-xl tracking-wider w-full"
                         type="submit"
                         label="Enviar datos"
                       />

@@ -27,7 +27,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
       className={classNames(
-        'w-full p-[18px] text-[18px] font-medium rounded-xl flex flex-row gap-[10px] justify-center items-center leading-5',
+        'w-full p-[18px] text-[16px] tracking-normal font-medium rounded-xl flex flex-row gap-[10px] justify-center items-center leading-5',
         buttonAppereance,
         className,
       )}
