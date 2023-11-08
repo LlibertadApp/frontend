@@ -4,10 +4,7 @@ export interface TelegramData {
   table?: string; // Input type text [Debe ingresar una mesa]
   electors?: number; // Input type number (Integer) (>= 0) [El número de electores debe ser mayor o igual a 0]
   envelopes?: number; // Input type number (Integer) (>= 0) [El número de sobres debe ser mayor o igual a 0]
-
-  // Validaciones de los datos de la mesa
   validVotesDifference: boolean; // |e - s| < 5
-  validTableInformation: boolean; // Circuit -> Valid && Table -> Valid && Electors -> Valid && Envelopes -> Valid && |e - s| < 5
 
   votes: {
     lla: number; // Input type number (Integer) (>= 0) [El número de votos debe ser mayor o igual a 0]

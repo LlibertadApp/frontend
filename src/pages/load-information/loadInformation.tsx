@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import { TextField } from '@mui/material';
-import { Formik, Form, FormikErrors } from 'formik';
+import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
 import {
   XSquare,
   Scales,
@@ -21,65 +21,26 @@ import Checkbox from '#/components/checkbox/checkbox';
 import CategoryVoteInput from '#/components/categoryVoteInput';
 import { TelegramData } from './types';
 
-function validateForm(values: TelegramData) {
-  let { circuit, table, electors, envelopes, votes } = values;
-  const errors = {} as FormikErrors<TelegramData>;
-
-  // Verificamos que la diferencia entre electores y sobres sea menor a 5
-  const validVotesDifferenceCheck =
-    Math.abs((electors || 0) - (envelopes || 0)) < 5;
-  if (!validVotesDifferenceCheck) {
-    errors.validVotesDifference = `Hay una diferencia de ${Math.abs(
-      (electors || 0) - (envelopes || 0),
-    )} entre los electores y los sobres`;
-  }
-
-  // Validamos que la información de la mesa sea válida
-  const validTableInformationCheck =
-    circuit &&
-    table &&
-    Yup.number().min(0).required().isValidSync(electors) &&
-    Yup.number().min(0).required().isValidSync(envelopes) &&
-    validVotesDifferenceCheck;
-
-  if (!validTableInformationCheck) {
-    values.validTableInformation = false;
-    errors.validTableInformation = 'Los datos de la mesa no son válidos';
-  }
-
-  values.validTableInformation = true;
-
-  // Verificamos que la suma de los votos sea igual a la cantidad de sobres
-  const totalVotes =
-    votes.lla +
-    votes.uxp +
-    votes.blank +
-    votes.null +
-    votes.disputed +
-    votes.identity +
-    votes.command;
-
-  const validTotalVotesCheck = totalVotes === envelopes;
-  if (!validTotalVotesCheck) {
-    errors.validTotalVotes = 'La suma no coincide con el total de sobres';
-  }
-
-  return errors;
-}
-
 const validationSchema = Yup.object().shape({
   circuit: Yup.string().required('Debe ingresar un circuito'),
   table: Yup.string().required('Debe ingresar una mesa'),
   electors: Yup.number()
     .integer('El número de electores debe ser un entero')
-    .min(0, 'El número de electores debe ser mayor o igual a 0')
+    .positive('El número de electores debe ser mayor a 0')
     .required('El número de electores es obligatorio'),
   envelopes: Yup.number()
     .integer('El número de sobres debe ser un entero')
-    .min(0, 'El número de sobres debe ser mayor o igual a 0')
-    .required('El número de sobres es obligatorio'),
-  validVotesDifference: Yup.boolean(),
-  validTableInformation: Yup.boolean(),
+    .positive('El número de sobres debe ser mayor a 0')
+    .required('El número de sobres es obligatorio')
+    .test(
+      'is-within-range',
+      'El número de sobres debe tener una diferencia de más o menos 5 con respecto a los electores',
+      function(value) {
+        const { electors } = this.parent; // Obtiene el valor de "electores" del mismo contexto
+        return Math.abs((electors || 0) - (value || 0)) < 5 || this.createError({ path: 'validVotesDifference', message: 'Alto kuka sos que me estas queriendo hacer fraude' });
+      }
+    ),
+
   votes: Yup.object().shape({
     lla: Yup.number()
       .integer('El número de votos debe ser un entero')
@@ -110,7 +71,24 @@ const validationSchema = Yup.object().shape({
       .min(0, 'El número de votos debe ser mayor o igual a 0')
       .required('El número de votos es obligatorio'),
   }),
-  validTotalVotes: Yup.boolean(),
+  validTotalVotes: Yup.boolean().test(
+    'is-within-range',
+    'La suma no coincide con el total de sobres de majul',
+    function() {
+      const { envelopes, votes } = this.parent;
+      const totalVotes =
+        votes.lla +
+        votes.uxp +
+        votes.blank +
+        votes.null +
+        votes.disputed +
+        votes.identity +
+        votes.command;
+
+      return totalVotes === envelopes || this.createError({ path: 'validTotalVotes', message: 'La suma no coincide con el total de sobres de majul' });
+    },
+  ),
+
   formAgreement: Yup.boolean().oneOf(
     [true],
     'Debe aceptar el acuerdo de la mesa',
@@ -124,7 +102,6 @@ function LoadInformationPage() {
     electors: undefined,
     envelopes: undefined,
     validVotesDifference: false,
-    validTableInformation: false,
 
     votes: {
       lla: 0,
@@ -144,6 +121,13 @@ function LoadInformationPage() {
     console.log(values);
   };
 
+  const isTableDataValid = (touched: FormikTouched<TelegramData>, errors: FormikErrors<TelegramData>) => {
+    return (
+      (touched.table && touched.electors && touched.envelopes) &&
+      (!errors.circuit && !errors.table && !errors.electors && !errors.envelopes && !errors.validVotesDifference)
+    );
+  }
+
   return (
     <>
       <Navbar routerLink="/verify-certificate" />
@@ -162,17 +146,18 @@ function LoadInformationPage() {
           onSubmit={onSubmitForm}
           initialValues={initialValues}
           validationSchema={validationSchema}
-          validate={validateForm}
           validateOnBlur
           validateOnChange
         >
           {({
             values,
+            touched,
             handleSubmit,
             handleChange,
             handleBlur,
             errors,
             isValid,
+            setErrors
           }) => (
             <Form className="flex flex-col gap-8">
               <section className="grid grid-cols-2 gap-6">
@@ -193,7 +178,7 @@ function LoadInformationPage() {
                   name="table"
                   variant="outlined"
                   placeholder="00000/0"
-                  type="number"
+                  type="text"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   InputProps={{ style: { borderRadius: '8px' } }}
@@ -240,10 +225,7 @@ function LoadInformationPage() {
                 <section className="flex flex-col gap-4">
                   <CategoryVoteInput
                     name="votes.lla"
-                    disabled={
-                      !values.validTableInformation ||
-                      !!errors.validTableInformation
-                    }
+                    disabled={!isTableDataValid(touched, errors)}
                     value={values.votes.lla}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -259,10 +241,7 @@ function LoadInformationPage() {
 
                   <CategoryVoteInput
                     name="votes.uxp"
-                    disabled={
-                      !values.validTableInformation ||
-                      !!errors.validTableInformation
-                    }
+                    disabled={!isTableDataValid(touched, errors)}
                     value={values.votes.uxp}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -277,10 +256,7 @@ function LoadInformationPage() {
                   />
                   <CategoryVoteInput
                     name="votes.blank"
-                    disabled={
-                      !values.validTableInformation ||
-                      !!errors.validTableInformation
-                    }
+                    disabled={!isTableDataValid(touched, errors)}
                     value={values.votes.blank}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -289,10 +265,7 @@ function LoadInformationPage() {
                   />
                   <CategoryVoteInput
                     name="votes.null"
-                    disabled={
-                      !values.validTableInformation ||
-                      !!errors.validTableInformation
-                    }
+                    disabled={!isTableDataValid(touched, errors)}
                     value={values.votes.null}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -301,10 +274,7 @@ function LoadInformationPage() {
                   />
                   <CategoryVoteInput
                     name="votes.disputed"
-                    disabled={
-                      !values.validTableInformation ||
-                      !!errors.validTableInformation
-                    }
+                    disabled={!isTableDataValid(touched, errors)}
                     value={values.votes.disputed}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -315,10 +285,7 @@ function LoadInformationPage() {
                   />
                   <CategoryVoteInput
                     name="votes.identity"
-                    disabled={
-                      !values.validTableInformation ||
-                      !!errors.validTableInformation
-                    }
+                    disabled={!isTableDataValid(touched, errors)}
                     value={values.votes.identity}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -327,10 +294,7 @@ function LoadInformationPage() {
                   />
                   <CategoryVoteInput
                     name="votes.command"
-                    disabled={
-                      !values.validTableInformation ||
-                      !!errors.validTableInformation
-                    }
+                    disabled={!isTableDataValid(touched, errors)}
                     value={values.votes.command}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -354,17 +318,11 @@ function LoadInformationPage() {
                   onChange={handleChange}
                 />
                 <Button
-                  disabled={
-                    !values.formAgreement ||
-                    !values.validTableInformation ||
-                    !!errors.validTableInformation
-                  }
+                  disabled={ !isTableDataValid(touched, errors) || !values.formAgreement }
                   className={classNames(
-                    !isValid &&
-                      values.formAgreement &&
-                      (values.validTableInformation ||
-                        !!errors.validTableInformation) &&
-                      '!bg-red',
+                    (!isTableDataValid(touched, errors) || !values.formAgreement) ||
+                    ( !errors.validTotalVotes ) ||
+                    '!bg-red',
                   )}
                   type="submit"
                 >
