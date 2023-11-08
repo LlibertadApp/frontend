@@ -74,9 +74,9 @@ const LoginPage: React.FC = () => {
             onSubmit={handleSubmit}
           >
             <TextField
-              InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
+              InputLabelProps={{ shrink: true }}
               InputProps={{
-                style: { borderRadius: '8px', fontFamily: 'Poppins' },
+                style: { borderRadius: '8px', fontFamily: 'Poppins', transform: 'none', transformOrigin: 'top left' },
               }}
               sx={{ width: '100%' }}
               id="email"
@@ -86,7 +86,7 @@ const LoginPage: React.FC = () => {
               error={Boolean(errors.email)}
               helperText={errors.email}
               label="Correo electronico"
-              placeholder="example@gmail.com"
+              placeholder="Ingresa tu email"
             />
 
             <TextField
@@ -97,7 +97,7 @@ const LoginPage: React.FC = () => {
               onBlur={handleBlur}
               error={Boolean(errors.password)}
               helperText={errors.password}
-              InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
+              InputLabelProps={{ shrink: true }}
               InputProps={{
                 style: { borderRadius: '8px', fontFamily: 'Poppins' },
                 endAdornment: (
@@ -122,7 +122,7 @@ const LoginPage: React.FC = () => {
               }}
               type={values.isPasswordVisible ? 'text' : 'password'}
               label="Contraseña"
-              placeholder="********"
+              placeholder="Contraseña"
             />
 
             <Button type="submit" className="mt-4" isLoading>
