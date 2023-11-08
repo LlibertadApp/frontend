@@ -38,10 +38,10 @@ const UploadCertificate = () => {
               ]}
             />
           </div>
-          <div className="p-2 text-center my-[14px] mx-4 text-xl font-bold text-text-off">
+          <div className="p-2 text-center my-[14px] mx-4 text-2xl font-black text-text-off">
             <p>Cargar imagen</p>
           </div>
-          <p className="py-2 text-left">
+          <p className="py-2 text-left text-gray-darker">
             Usa la cámara para subir <b>el certificado del fiscal</b>, o cargala
             desde la galería.
           </p>

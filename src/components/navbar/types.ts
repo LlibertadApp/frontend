@@ -3,3 +3,9 @@ export interface INavbarProps {
   showArrow?: boolean;
   showHamburger?: boolean;
 }
+
+export interface ICloseMenuProps {
+  label: string;
+  to: string;
+  className?: string;
+}

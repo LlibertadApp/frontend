@@ -7,6 +7,16 @@ interface ISelectorProps {
   value: string;
 }
 
+const ArrowIcon = ({ className }: { className: string }) => {
+  return (
+    <div className="mr-4 w-10 h-10 relative">
+      <div className={className}>
+        <img src="/assets/icon/arrow-continue.svg" className="rotate-90" />
+      </div>
+    </div>
+  );
+};
+
 export function Selector({ onChange, label, options, value }: ISelectorProps) {
   return (
     <FormControl fullWidth className="select">

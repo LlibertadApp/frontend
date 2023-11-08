@@ -2,13 +2,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import * as yup from 'yup';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { EyeSlash, Eye } from '@phosphor-icons/react';
 import Button from '#/components/button';
 import useAxios from '#/hooks/utils/useAxios';
 import { useAuth } from '#/context/AuthContext';
-import { ILoginProps } from './types';
 import { paths } from '#/routes/paths';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
-import { EyeSlash, Eye } from "@phosphor-icons/react";
+import { ILoginProps } from './types';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -111,11 +111,7 @@ const LoginPage: React.FC = () => {
                         );
                       }}
                     >
-                      {values.isPasswordVisible ? (
-                        <Eye />
-                      ) : (
-                        <EyeSlash />
-                      )}
+                      {values.isPasswordVisible ? <Eye /> : <EyeSlash />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -125,7 +121,12 @@ const LoginPage: React.FC = () => {
               placeholder="********"
             />
 
-            <Button type="submit" className="mt-4" isLoading>
+            <Button
+              type="submit"
+              className="mt-4"
+              appearance="filled"
+              isLoading
+            >
               Ingresar
             </Button>
 

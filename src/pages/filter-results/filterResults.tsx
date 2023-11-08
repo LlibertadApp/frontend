@@ -1,6 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Trash, ArrowRight } from '@phosphor-icons/react';
 import { Selector } from '#/components/selector';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
@@ -12,7 +11,9 @@ import {
   municipalitiesMock,
   establishmentsMock,
   circuitsMock,
+  tables,
 } from '#/mocks/_mocks';
+import { Trash, Faders, ArrowRight } from '@phosphor-icons/react';
 
 const dummyData = [
   { key: 'ex1', label: 'Example' },
@@ -20,7 +21,7 @@ const dummyData = [
   { key: 'ex3', label: 'Example 3' },
 ];
 
-export const FilterPage = () => {
+const FilterPage = () => {
   const [distrito, setDistrito] = useState<string>('');
   const [seccionElectoral, setSeccionElectoral] = useState<string>('');
   const [seccion, setSeccion] = useState<string>('');
@@ -29,27 +30,17 @@ export const FilterPage = () => {
   const [establecimiento, setEstablecimiento] = useState<string>('');
   const [mesa, setMesa] = useState<string>('');
 
-  const clearFilters = useCallback(() => {
-    setDistrito('');
-    setSeccionElectoral('');
-    setSeccion('');
-    setMunicipio('');
-    setCircuito('');
-    setEstablecimiento('');
-    setMesa('');
-  }, []);
-
   return (
     <>
       <Navbar routerLink={paths.totalResults} />
-      <main className="items-center flex flex-col relative px-4 pb-4 ">
-        <section className="md:w-1/2 w-full rounded-xl z-10 items-end">
+      <main className="items-center flex flex-col relative px-4 pb-4">
+        <section className="md:w-1/2 w-full rounded-xl z-10">
           <p className="font-bold text-[32px] text-violet-brand mt-5 mb-[22px]">
             FILTROS
           </p>
-          <div className="flex flex-col gap-7 py-2 " id="filter-list">
+          <div className="flex flex-col gap-7 py-3" id="filter-list">
             <Selector
-              label="Distrito (Provincia)"
+              label="Distrito"
               onChange={setDistrito}
               options={districtsMock}
               value={distrito}
@@ -92,17 +83,23 @@ export const FilterPage = () => {
             />
           </div>
           <div className="flex flex-1 flex-row gap-5 mt-[50px]">
-            <Button
-              appearance="outlined"
-              type="submit"
-              label="Limpiar"
-              onClick={clearFilters}
-            >
-              Limpiar <Trash size={20} />
-            </Button>
-            <Button appearance="filled" type="submit" label="Aplicar">
-              Aplicar <ArrowRight size={20} />
-            </Button>
+            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] text-violet-primary border-2 border-violet-primary w-full rounded-xl font-medium">
+              <Button
+                className="text-xl tracking-wide"
+                type="submit"
+                label="Limpiar"
+              />
+              <Trash size={34} />
+            </div>
+
+            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
+              <Button
+                className="text-xl tracking-wide"
+                type="submit"
+                label="Aplicar"
+              />
+              <ArrowRight size={34} />
+            </div>
           </div>
         </section>
       </main>
