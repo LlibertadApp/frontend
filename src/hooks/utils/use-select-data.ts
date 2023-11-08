@@ -5,12 +5,11 @@ import {
     municipalitiesMock,
     establishmentsMock,
     circuitsMock,
-    tables,
+    tablesMock,
 } from "#/mocks/_mocks";
 
 
 export const useSelectData = () => {
-    
     return {
         districts: districtsMock,
         electoralSections: electoralSectionsMock,
@@ -18,6 +17,6 @@ export const useSelectData = () => {
         municipalities: municipalitiesMock,
         establishments: establishmentsMock,
         circuits: circuitsMock,
-        tables: tables,
+        tables: tablesMock,
     };
 }

@@ -5,39 +5,34 @@ import { Selector } from '#/components/selector';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
-import {
-  districtsMock,
-  electoralSectionsMock,
-  sectionsMock,
-  municipalitiesMock,
-  establishmentsMock,
-  circuitsMock,
-} from '#/mocks/_mocks';
-
-const dummyData = [
-  { key: 'ex1', label: 'Example' },
-  { key: 'ex2', label: 'Example 2' },
-  { key: 'ex3', label: 'Example 3' },
-];
+import { useSelectData } from '#/hooks/utils/use-select-data';
+import { useFilterResults } from './use-filter-results';
 
 export const FilterPage = () => {
-  const [distrito, setDistrito] = useState<string>('');
-  const [seccionElectoral, setSeccionElectoral] = useState<string>('');
-  const [seccion, setSeccion] = useState<string>('');
-  const [municipio, setMunicipio] = useState<string>('');
-  const [circuito, setCircuito] = useState<string>('');
-  const [establecimiento, setEstablecimiento] = useState<string>('');
-  const [mesa, setMesa] = useState<string>('');
-
-  const clearFilters = useCallback(() => {
-    setDistrito('');
-    setSeccionElectoral('');
-    setSeccion('');
-    setMunicipio('');
-    setCircuito('');
-    setEstablecimiento('');
-    setMesa('');
-  }, []);
+  const {
+    distrito,
+    setDistrito,
+    seccionElectoral,
+    setSeccionElectoral,
+    seccion,
+    setSeccion,
+    municipio,
+    setMunicipio,
+    circuito,
+    setCircuito,
+    establecimiento,
+    setEstablecimiento,
+    mesa,
+    setMesa,
+    districts,
+    electoralSections,
+    sections,
+    municipalities,
+    circuits,
+    establishments,
+    tables,
+    clearFilters,
+  } = useFilterResults();
 
   return (
     <>
@@ -51,43 +46,43 @@ export const FilterPage = () => {
             <Selector
               label="Distrito"
               onChange={(e) => setDistrito(e.target.value)}
-              options={districtsMock}
+              options={districts}
               value={distrito}
             />
             <Selector
               label="Sección Electoral"
               onChange={(e) => setSeccionElectoral(e.target.value)}
-              options={electoralSectionsMock}
+              options={electoralSections}
               value={seccionElectoral}
             />
             <Selector
               label="Sección"
               onChange={(e) => setSeccion(e.target.value)}
-              options={sectionsMock}
+              options={sections}
               value={seccion}
             />
             <Selector
               label="Municipio"
               onChange={(e) => setMunicipio(e.target.value)}
-              options={municipalitiesMock}
+              options={municipalities}
               value={municipio}
             />
             <Selector
               label="Circuito"
               onChange={(e) => setCircuito(e.target.value)}
-              options={circuitsMock}
+              options={circuits}
               value={circuito}
             />
             <Selector
               label="Establecimiento"
               onChange={(e) => setEstablecimiento(e.target.value)}
-              options={establishmentsMock}
+              options={establishments}
               value={establecimiento}
             />
             <Selector
               label="Mesa"
               onChange={(e) => setMesa(e.target.value)}
-              options={dummyData}
+              options={tables}
               value={mesa}
             />
           </div>

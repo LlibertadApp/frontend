@@ -88,7 +88,7 @@ export const electoralSectionsMock = [
     },
   ];
 
-  export const tables = [
+  export const tablesMock = [
     {
       key: '1',
       label: 'Mesa 1',
