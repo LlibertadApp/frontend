@@ -117,16 +117,17 @@ function LoadInformationPage() {
     formAgreement: false,
   };
 
-  const onSubmitForm = (values: TelegramData) => {
-    console.log(values);
-  };
-
   const isTableDataValid = (touched: FormikTouched<TelegramData>, errors: FormikErrors<TelegramData>) => {
     return (
       (touched.table && touched.electors && touched.envelopes) &&
       (!errors.circuit && !errors.table && !errors.electors && !errors.envelopes && !errors.validVotesDifference)
     );
   }
+
+  const onSubmitForm = (values: TelegramData, errors: FormikErrors<TelegramData>) => {
+    if (Object.keys(errors).length > 0) console.log('DENUCIAR!!!!!')
+    else console.log('ENVIAR DATOS', values);
+  };
 
   return (
     <>
@@ -143,7 +144,7 @@ function LoadInformationPage() {
           Completá los datos del certificado
         </h1>
         <Formik
-          onSubmit={onSubmitForm}
+          onSubmit={() => {}}
           initialValues={initialValues}
           validationSchema={validationSchema}
           validateOnBlur
@@ -318,13 +319,14 @@ function LoadInformationPage() {
                   onChange={handleChange}
                 />
                 <Button
+                  type='button'
+                  onClick={() => onSubmitForm(values, errors)}
                   disabled={ !isTableDataValid(touched, errors) || !values.formAgreement }
                   className={classNames(
                     (!isTableDataValid(touched, errors) || !values.formAgreement) ||
                     ( !errors.validTotalVotes ) ||
                     '!bg-red',
                   )}
-                  type="submit"
                 >
                   Enviar datos
                 </Button>
