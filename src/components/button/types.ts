@@ -7,9 +7,12 @@ export type ButtonAppearance =
   | 'error'
   | 'none';
 
+export type ButtonSize = 'sm' | 'md';
+
 export interface IButtonProps {
   children?: React.ReactNode;
   appearance?: ButtonAppearance;
+  size?: ButtonSize;
 
   isLoading?: boolean;
 

@@ -1,7 +1,9 @@
 import * as Yup from 'yup';
+import { useState } from 'react';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import { TextField } from '@mui/material';
+import { Dialog } from '@headlessui/react';
 import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
 import {
   XSquare,
@@ -11,14 +13,14 @@ import {
   NoteBlank,
 } from '@phosphor-icons/react';
 
+import Alert from '#/components/alert';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
+import Checkbox from '#/components/checkbox/checkbox';
+import CategoryVoteInput from '#/components/categoryVoteInput';
 import ProgressIndicator from '#/components/progressIndicator';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 
-import Alert from '#/components/alert';
-import Checkbox from '#/components/checkbox/checkbox';
-import CategoryVoteInput from '#/components/categoryVoteInput';
 import { TelegramData } from './types';
 
 const validationSchema = Yup.object().shape({
@@ -96,6 +98,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoadInformationPage() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const initialValues: TelegramData = {
     circuit: 'Circuito 1',
     table: '0012',
@@ -125,9 +129,21 @@ function LoadInformationPage() {
   }
 
   const onSubmitForm = (values: TelegramData, errors: FormikErrors<TelegramData>) => {
-    if (Object.keys(errors).length > 0) console.log('DENUCIAR!!!!!')
-    else console.log('ENVIAR DATOS', values);
+    if (Object.keys(errors).length > 0) {
+      setIsDialogOpen(true);
+    } else {
+      // TODO: Integrar con el envio de datos a la API cuando este disponible
+      // si la respuesta es exitosa, redirigir a la pantalla de carga exitosa
+      console.log('Sending data to API', values);
+    }
   };
+
+  const onReportTable = () => {
+    console.log('Reporting table');
+    // TODO: Llamar a la API para reportar la mesa, cerrar el dialogo
+    // si la respuesta es exitosa, redirigir a la pantalla de dencunciado exitoso
+    setIsDialogOpen(false);
+  }
 
   return (
     <>
@@ -335,6 +351,18 @@ function LoadInformationPage() {
           )}
         </Formik>
       </main>
+      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}  className="fixed inset-0 bg-black/25 backdrop-blur-sm z-20 flex justify-center items-center">
+        <Dialog.Panel className="fixed z-30 bg-white w-3/4 max-w-md rounded-xl p-5">
+          <Dialog.Description>
+            Los datos ingresados en el formulario contienen anomalías.
+            ¿Desea denunciar esta mesa?
+          </Dialog.Description>
+          <section className="flex flex-row gap-4 mt-4">
+            <Button appearance='ghost' size='sm' onClick={() => setIsDialogOpen(false)}>Volver</Button>
+            <Button appearance='filled' size='sm' className='!bg-red' onClick={onReportTable}>Denunciar</Button>
+          </section>
+        </Dialog.Panel>
+      </Dialog>
     </>
   );
 }
