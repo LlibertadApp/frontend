@@ -1,16 +1,7 @@
-import { motion } from 'framer-motion';
-import { Outlet } from 'react-router-dom';
+import React from 'react';
 
-const AnimatedRoute = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <Outlet />
-    </motion.div>
-  );
+const index = () => {
+  return <div>index</div>;
 };
 
-export default AnimatedRoute;
+export default index;
