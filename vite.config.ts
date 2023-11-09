@@ -52,15 +52,15 @@ export default defineConfig({
   ],
   build: {
     target: 'esnext',
-    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            const matches = id.match(/node_modules\/([^/]+)/);
-            if (matches && matches.length > 1) {
-              return matches[1];
-            }
+          if (id.indexOf('node_modules') !== -1) {
+            return id
+              .toString()
+              .split('node_modules/')[1]
+              .split('/')[0]
+              .toString();
           }
         },
       },
