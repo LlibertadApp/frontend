@@ -33,7 +33,6 @@ const AppRoutes: React.FC = () => {
   const location = useLocation();
   return (
     <Routes location={location} key={location.pathname}>
-      <Route element={<AnimatedRoute />}>
         {/* Public routes */}
         <Route element={<PublicRoute path={paths.home} />}>
           {/* Auth */}
@@ -68,7 +67,6 @@ const AppRoutes: React.FC = () => {
           <Route path={paths.irregularities} element={<Irregularities />} />
           <Route path={paths.deskList} element={<DeskList />} />
         </Route>
-      </Route>
     </Routes>
   );
 };
