@@ -52,18 +52,5 @@ export default defineConfig({
   ],
   build: {
     target: 'esnext',
-    rollupOptions: {
-      output: {
-        manualChunks: (id) => {
-          if (id.indexOf('node_modules') !== -1) {
-            return id
-              .toString()
-              .split('node_modules/')[1]
-              .split('/')[0]
-              .toString();
-          }
-        },
-      },
-    },
   },
 });
