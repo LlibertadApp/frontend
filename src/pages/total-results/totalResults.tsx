@@ -178,7 +178,7 @@ const TotalResultsPage = () => {
             <div className="grid grid-rows-3 pb-4 pr-4 pl-4 pt-2 grid-cols-1 items-center">
               <div className="rounded-md h-2 bg-gray-light">
                 <div
-                  className={`h-full bg-uxp rounded-l`}
+                  className={`h-full bg-party-uxp rounded-l`}
                   style={{ width: `${percentages[1]}%` }}
                 ></div>
               </div>
