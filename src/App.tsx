@@ -55,9 +55,9 @@ function App() {
             <HamburgerProvider>
               <Overlay>
                 <FilterProvider>
-                  <AnimatePresence>
+            
                     <AppRoutes />
-                  </AnimatePresence>
+            
                 </FilterProvider>
               </Overlay>
             </HamburgerProvider>
