@@ -36,10 +36,19 @@ const validationSchema = Yup.object().shape({
     .required('El número de sobres es obligatorio')
     .test(
       'is-within-range',
-      'El número de sobres debe tener una diferencia de más o menos 5 con respecto a los electores',
       function(value) {
         const { electors } = this.parent; // Obtiene el valor de "electores" del mismo contexto
-        return Math.abs((electors || 0) - (value || 0)) < 5 || this.createError({ path: 'validVotesDifference', message: 'Alto kuka sos que me estas queriendo hacer fraude' });
+        const difference = Math.abs((electors || 0) - (value || 0));
+
+        // El mensaje debe ser prural o singular dependiendo de la diferencia
+        // Mensaje de ejemplo: Hay una diferencia de 5 sobres con respecto a los electores
+        const message =
+          `Hay una diferencia de ${difference} ${difference > 1 ? 'sobres' : 'sobre' } con respecto a los electores`;
+
+        return (
+          difference < 5 || 
+          this.createError({ path: 'validVotesDifference', message })
+        )
       }
     ),
 
@@ -75,7 +84,6 @@ const validationSchema = Yup.object().shape({
   }),
   validTotalVotes: Yup.boolean().test(
     'is-within-range',
-    'La suma no coincide con el total de sobres de majul',
     function() {
       const { envelopes, votes } = this.parent;
       const totalVotes =
@@ -87,7 +95,7 @@ const validationSchema = Yup.object().shape({
         votes.identity +
         votes.command;
 
-      return totalVotes === envelopes || this.createError({ path: 'validTotalVotes', message: 'La suma no coincide con el total de sobres de majul' });
+      return totalVotes === envelopes || this.createError({ path: 'validTotalVotes', message: 'La suma no coincide con el total de sobres' });
     },
   ),
 
