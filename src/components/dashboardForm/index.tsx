@@ -1,10 +1,15 @@
 import React from 'react';
-import { Formik, Form, Field, FormikHelpers } from 'formik';
+import { Formik, Form, Field, FormikHelpers, useField } from 'formik';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import * as Yup from 'yup';
-import { FormValues, FormField } from './types';
+import { FormValues, FormField, CustomFieldProps, SelectField } from './types';
+import { provinces } from '#/constants/provinces';
 
 // Valores iniciales tipados
 const initialValues: FormValues = {
@@ -40,13 +45,60 @@ const validationSchema = Yup.object({
 
 const formFields: FormField[] = [
   { name: 'name', label: 'Nombre y Apellido', type: 'text' },
-  { name: 'province', label: 'Provincia', type: 'text' },
+  { name: 'province', label: 'Provincia', type: 'select', options: provinces },
   { name: 'locality', label: 'Localidad', type: 'text' },
   { name: 'school', label: 'Escuela', type: 'text' },
   { name: 'email', label: 'Email', type: 'email' },
   { name: 'phone', label: 'Telefono', type: 'number' },
   { name: 'dni', label: 'DNI', type: 'number' },
 ];
+
+const CustomField: React.FC<CustomFieldProps> = ({ field }) => {
+  const [fieldProps, meta] = useField(field.name);
+
+  const isSelectField = (field: FormField): field is SelectField =>
+    field.type === 'select';
+  let component = null;
+
+  if (isSelectField(field)) {
+    component = (
+      <FormControl fullWidth>
+        <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
+        <Select
+          labelId={`${field.name}-label`}
+          label={field.label}
+          style={{ borderRadius: '12px' }}
+          {...fieldProps}
+          error={meta.touched && Boolean(meta.error)}
+        >
+          {field.options.map((option, index) => (
+            <MenuItem key={index} value={option.element}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        {meta.touched && meta.error ? (
+          <div style={{ color: 'red', marginTop: '0.5rem' }}>{meta.error}</div>
+        ) : null}
+      </FormControl>
+    );
+  } else {
+    component = (
+      <TextField
+        {...fieldProps}
+        type={field.type}
+        label={field.label}
+        error={meta.touched && Boolean(meta.error)}
+        helperText={meta.touched && meta.error ? meta.error : ''}
+        InputProps={{
+          style: { borderRadius: '12px' },
+        }}
+      />
+    );
+  }
+
+  return component;
+};
 
 const DashboardForm: React.FC = () => {
   return (
@@ -68,27 +120,7 @@ const DashboardForm: React.FC = () => {
           <Form>
             <Stack spacing={2} padding={2}>
               {formFields.map((field) => (
-                <Field
-                  key={field.name}
-                  as={TextField}
-                  type={field.type}
-                  name={field.name}
-                  label={field.label}
-                  value={formikProps.values[field.name]}
-                  onChange={formikProps.handleChange}
-                  onBlur={formikProps.handleBlur}
-                  error={
-                    formikProps.touched[field.name] &&
-                    Boolean(formikProps.errors[field.name])
-                  }
-                  helperText={
-                    formikProps.touched[field.name] &&
-                    formikProps.errors[field.name]
-                  }
-                  InputProps={{
-                    style: { borderRadius: '12px' },
-                  }}
-                />
+                <CustomField key={field.name} field={field} />
               ))}
             </Stack>
             <div

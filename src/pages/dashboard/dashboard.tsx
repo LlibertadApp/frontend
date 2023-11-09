@@ -83,13 +83,15 @@ const DashboardPage: React.FC = () => {
       {/* Header Aguila y Perfil/Avatar */}
       <div className="container p-4">
         <div className="flex items-center justify-between mb-5">
-          <img
-            src="assets/logos/fenix-login.svg"
-            alt="fenix"
-            className="object-cover h-auto rounded w-10"
-          />
-          <div className="text-2xl text-start mb-2 text-violet-brand">
-            Fiscales
+          <div>
+            <img
+              src="assets/logos/fenix-login.svg"
+              alt="fenix"
+              className="object-cover h-auto rounded w-10"
+            />
+            <div className="text-2xl text-start mb-2 text-violet-brand">
+              Fiscales
+            </div>
           </div>
           <Avatar style={{ backgroundColor: '#714FB6' }} variant="rounded">
             JM
@@ -165,6 +167,12 @@ const DashboardPage: React.FC = () => {
         </Button>
       </div>
       <Drawer
+        PaperProps={{
+          sx: {
+            borderTopLeftRadius: 12, // Ajusta el valor de acuerdo a la curvatura deseada
+            borderTopRightRadius: 12, // Ajusta el valor de acuerdo a la curvatura deseada
+          },
+        }}
         anchor="bottom" // Cambia esto por la posición donde quieras que aparezca el Drawer
         open={isDrawerOpen}
         onClose={toggleDrawer(false)}

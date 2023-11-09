@@ -8,9 +8,23 @@ export interface FormValues {
   dni: string;
 }
 
-// Definición de la interfaz para los campos del formulario
-export interface FormField {
-  name: keyof FormValues;
+export interface BaseField {
+  name: string;
   label: string;
-  type: string;
+}
+
+export interface TextField extends BaseField {
+  type: 'text' | 'email' | 'number';
+}
+
+export interface SelectField extends BaseField {
+  type: 'select';
+  options: Array<{ element: string; label: string }>;
+}
+
+export type FormField = TextField | SelectField;
+
+// CustomFieldProps ahora usa el tipo FormField
+export interface CustomFieldProps {
+  field: FormField;
 }
