@@ -66,10 +66,7 @@ const TotalResultsPage = () => {
               clearFilters={clearFilters}
             />
           )}
-          <button
-            className="w-full"
-            onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
-          >
+          <button className='w-full' onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}>
             <ButtonFilter amount={filters.length} />
           </button>
         </section>
