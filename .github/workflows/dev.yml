@@ -27,6 +27,19 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Build .env with Python
+      run: |
+        VARIABLES_JSON='{
+          "VITE_REACT_apiKey": "${{ vars.VITE_REACT_apiKey }}",
+          "VITE_REACT_authDomain": "${{ vars.VITE_REACT_authDomain }}",
+          "VITE_REACT_projectId": "${{ vars.VITE_REACT_projectId }}",
+          "VITE_REACT_storageBucket": "${{ vars.VITE_REACT_storageBucket }}",
+          "VITE_REACT_messagingSenderId": "${{ vars.VITE_REACT_messagingSenderId }}",
+          "VITE_REACT_appId": "${{ vars.VITE_REACT_appId }}",
+          "VITE_REACT_measurementId": "${{ vars.VITE_REACT_measurementId }}"
+        }'
+        python3 dotEnvGenerator.py "$VARIABLES_JSON"
+        cat .env
     - name: Install dependencies
       run: |
         rm -rf node_modules && yarn install --frozen-lockfile
@@ -62,7 +75,7 @@ jobs:
 
       - name:  Copy statics to s3
         run: |
-          aws s3 sync ./${{ vars.ARTIFACTS_PATH }} s3://${{ vars.BUCKET_NAME }} --delete --exclude ".git/*" --exclude ".env" --exclude "node_modules/*"
+          aws s3 sync ./${{ vars.ARTIFACTS_PATH }} s3://${{ vars.BUCKET_NAME }} --delete --exclude ".git/*" --exclude ".env" --exclude ".env.example" --exclude "node_modules/*"
 
   InvalidateCloudFrontDistro:
     needs: S3PackageUpload
