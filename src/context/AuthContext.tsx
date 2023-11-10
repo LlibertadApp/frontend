@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { jwtDecode } from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import firebaseAuth from '#/service/firebase/firebase';
 
@@ -41,7 +41,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const idToken = await user.getIdToken();
 
     if (idToken) {
-      const decodedToken: any = jwtDecode(idToken);
+      const decodedToken: any = jwt_decode(idToken);
 
       if (decodedToken.mesas) {
         setMesas(decodedToken.mesas);
