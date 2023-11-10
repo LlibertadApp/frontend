@@ -1,13 +1,11 @@
 import { lazy } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '#/middlewares/protectedRoute';
-import { PublicRoute } from '#/middlewares/publicRoute';
 import { LoadingPage } from '#/pages/loading-page';
 import { paths } from './paths';
 import AnimatedRoute from '#/components/animatedRoute';
 
 const Login = lazy(() => import('#/pages/login/login'));
-const Profile = lazy(() => import('#/pages/profile/profile'));
 const SendSuccess = lazy(() => import('#/pages/send-success/sendSuccess'));
 const UploadFailed = lazy(() => import('#/pages/upload-failed/uploadFailed'));
 const LoadInformation = lazy(
@@ -37,7 +35,6 @@ const AppRoutes: React.FC = () => {
         {/* Public routes */}
         {/* <Route element={<PublicRoute path={paths.home} />}> */}
         {/* Auth */}
-        {/* <Route path={paths.login} element={<Login />} /> */}
         <Route path={paths.index} element={<Login />} />
         {/* </Route> */}
         {/* Utils */}
@@ -48,7 +45,6 @@ const AppRoutes: React.FC = () => {
         <Route element={<ProtectedRoute />}>
           {/* Cuenta */}
           <Route path={paths.home} element={<Home />} />
-          <Route path={paths.profile} element={<Profile />} />
 
           {/* Steps Formulario */}
           <Route
