@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, useState } from 'react';
-import { IDeskItemLabel, IDeskNormalStatus } from './types';
+import { IAccordionExpanded, IDeskItemLabel, IDeskNormalStatus } from './types';
 
 const DeskItemLabel: FC<IDeskItemLabel> = ({
   typoProps = {
@@ -166,10 +166,12 @@ const DeskList: FC = () => {
     ],
   };
 
-  const [accordionExpanded, setAccordionExpanded] = useState({} as any);
+  const [accordionExpanded, setAccordionExpanded] =
+    useState<IAccordionExpanded>({});
 
   const handleChange =
-    (deskNumber: string) => (event: any, isExpanded: boolean) => {
+    (deskNumber: string) =>
+    (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
       setAccordionExpanded({
         ...accordionExpanded,
         [deskNumber]: isExpanded,

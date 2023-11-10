@@ -11,3 +11,7 @@ export interface IDeskItemLabel {
 export interface IDeskNormalStatus {
   deskNormalStatus: boolean;
 }
+
+export interface IAccordionExpanded {
+  [key: string]: boolean;
+}
