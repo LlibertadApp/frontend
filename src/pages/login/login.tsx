@@ -74,7 +74,7 @@ const LoginPage: React.FC = () => {
         <h1 className="py-8 text-lg lg:text-2xl font-light text-center white-space: pre-line">
           Validando{' '}
           <strong className="text-violet-brand font-semibold break-words">
-            token...
+            identidad...
           </strong>
         </h1>
       </main>
