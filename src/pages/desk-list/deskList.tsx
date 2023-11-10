@@ -324,7 +324,7 @@ const DeskList: FC = () => {
                         rel="noopener noreferrer"
                       >
                         <Button
-                          className="gap-[5px] border-red border-2 rounded-xl flex justify-center items-center text-xs font-medium my-5 py-[5px] px-[10px] bg-white text-red !w-auto"
+                          className="gap-[5px] border-red border-2 rounded-xl flex justify-center items-center text-xs font-medium my-5 py-[5px] px-[10px] bg-white !text-red !w-auto"
                           type="button"
                         >
                           <img
