@@ -1,7 +1,8 @@
-import { FormControl, TextField, Autocomplete } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import './styles.css';
 
 interface ISelectorProps {
-  onChange: (value: string) => void;
+  onChange: (e: any) => void;
   label: string;
   options: { key: string; label: string }[];
   value: string;
@@ -20,17 +21,27 @@ const ArrowIcon = ({ className }: { className: string }) => {
 export function Selector({ onChange, label, options, value }: ISelectorProps) {
   return (
     <FormControl fullWidth className="select">
-      <Autocomplete
-        options={options}
-        getOptionLabel={(option) => option.label}
-        value={options.find((option) => option.key === value) || null}
-        onChange={(key, newValue) => {
-          if (newValue) {
-            onChange(newValue.key);
-          }
+      <InputLabel>{label}</InputLabel>
+      <Select
+        label={label}
+        className="w-full text-black text-left"
+        IconComponent={ArrowIcon}
+        value={value}
+        onChange={onChange}
+        MenuProps={{
+          slotProps: {
+            paper: {
+              className: 'select-menu',
+            },
+          },
         }}
-        renderInput={(params) => <TextField {...params} label={label} />}
-      />
+      >
+        {options.map((option) => (
+          <MenuItem key={option.key} value={option.key}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
     </FormControl>
   );
 }
