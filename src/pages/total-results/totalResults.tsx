@@ -82,7 +82,7 @@ const TotalResultsPage = () => {
               isFilterMenuOpen ? 'max-h-[82%]' : 'h-0'
             } overflow-y-auto`}
           >
-            <div className="flex flex-row gap-2 justify-between items-center px-4 py-4">
+            <div className="flex flex-row gap-2 justify-between items-center px-4 py-2">
               <p className="font-bold text-[20px] text-violet-brand pt-2">
                 Filtros
               </p>
@@ -96,25 +96,6 @@ const TotalResultsPage = () => {
 
             <FilterPage />
 
-            <div className="flex flex-1 flex-row gap-4 mt-2 items-center pb-14 p-4">
-              <div className="w-1/2">
-                <div className="flex h-full items-center justify-center">
-                  <ButtonClearFilter
-                    clearFilters={() => {}}
-                    amountOfFilters={1}
-                  />
-                </div>
-              </div>
-
-              <div className="w-1/2">
-                <button className="flex flex-row justify-center gap-4 bg-violet-brand text-white p-4 w-full rounded-xl tracking-wider hover:border-violet-light hover:bg-violet-dark">
-                  <span className="flex items-center">
-                    Aplicar
-                    <ArrowRight size={22} style={{ marginLeft: '18px' }} />
-                  </span>
-                </button>
-              </div>
-            </div>
           </div>
         )}
       </div>
