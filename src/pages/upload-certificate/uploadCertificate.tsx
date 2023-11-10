@@ -27,7 +27,7 @@ const UploadCertificate = () => {
   return (
     <section className="items-center flex flex-col ">
       <Navbar routerLink={paths.home} />
-      <div className="p-4 w-full max-w-3xl">
+      <div className="p-4 w-full max-w-[52.5rem] lg:px-0">
         <div className="container flex-column items-center m-auto">
           <div className="progressIndicator">
             <ProgressIndicator
@@ -38,10 +38,10 @@ const UploadCertificate = () => {
               ]}
             />
           </div>
-          <div className="p-2 text-center my-[14px] mx-4 text-2xl font-black text-text-off">
+          <div className="p-2 text-center my-[14px] mx-4 text-2xl font-black text-text-off lg:my-14 lg:p-1 lg:text-[2.5rem]">
             <p>Cargar imagen</p>
           </div>
-          <p className="py-2 text-left text-gray-darker">
+          <p className="py-2 text-left text-gray-darker lg:py-0 lg:text-xl lg:leading-6">
             Usa la cámara para subir <b>el certificado del fiscal</b>, o cargala
             desde la galería.
           </p>

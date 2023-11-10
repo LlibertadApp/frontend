@@ -50,7 +50,4 @@ export default defineConfig({
     viteObfuscateFile(obfuscator_options),
     dynamicImport(),
   ],
-  build: {
-    target: 'esnext',
-  },
 });

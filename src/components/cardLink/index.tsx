@@ -35,13 +35,13 @@ export const CardLink = ({
       type="submit"
       onClick={() => onClick && onClick()}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 lg:gap-4">
         <div
           className={`${config?.bg} w-[3.1875rem] h-[3.1875rem] rounded-full flex items-center justify-center`}
         >
           {icon}
         </div>
-        <span className="text-xs">{text}</span>
+        <span className="text-xs lg:text-lg">{text}</span>
       </div>
       <img src="assets/icon/arrow-continue.svg" alt="Ir" className="w-4 h-4" />
     </Link>

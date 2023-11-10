@@ -32,13 +32,9 @@ const FilterPage = () => {
 
   return (
     <>
-      <Navbar routerLink={paths.totalResults} />
-      <main className="items-center flex flex-col relative px-4 pb-4">
-        <section className="md:w-1/2 w-full rounded-xl z-10">
-          <p className="font-bold text-[32px] text-violet-brand mt-5 mb-[22px]">
-            FILTROS
-          </p>
-          <div className="flex flex-col gap-7 py-3" id="filter-list">
+      <main className="items-center flex flex-col relative px-4">
+        <section className="md:w-1/2 w-full rounded-xl z-10 items-end">
+          <div className="flex flex-col gap-4 py-2 " id="filter-list">
             <Selector
               label="Distrito"
               onChange={setDistrito}
@@ -82,24 +78,18 @@ const FilterPage = () => {
               value={mesa}
             />
           </div>
-          <div className="flex flex-1 flex-row gap-5 mt-[50px]">
-            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] text-violet-primary border-2 border-violet-primary w-full rounded-xl font-medium">
-              <Button
-                className="text-xl tracking-wide"
-                type="submit"
-                label="Limpiar"
-              />
-              <Trash size={34} />
-            </div>
-
-            <div className="flex flex-row gap-[10px] justify-center items-center py-[18px] bg-violet-primary text-white w-full rounded-xl ">
-              <Button
-                className="text-xl tracking-wide"
-                type="submit"
-                label="Aplicar"
-              />
-              <ArrowRight size={34} />
-            </div>
+          <div className="flex flex-1 flex-row gap-5 ">
+            <Button
+              appearance="outlined"
+              type="submit"
+              label="Limpiar"
+              onClick={clearFilters}
+            >
+              Limpiar <Trash size={20} />
+            </Button>
+            <Button appearance="filled" type="submit" label="Aplicar">
+              Aplicar <ArrowRight size={20} />
+            </Button>
           </div>
         </section>
       </main>
