@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useMediaQuery } from '@react-hook/media-query';
 import ImageInput from '#/components/imageInput';
 import { getBase64 } from '#/utils';
 import Button from '#/components/button';
@@ -62,6 +63,13 @@ export function UploadImage({
       }
     }
   }, [uploaded, navigate]);
+
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+
+  const previewSrc = isDesktop
+    ? 'assets/icon/upload-box-desktop.svg'
+    : 'assets/icon/upload-box.svg';
+
   return (
     <div className="flex flex-col items-center text-lg">
       <div
@@ -75,7 +83,7 @@ export function UploadImage({
           onUploadInternal(file);
         }}
       >
-        <div className="flex flex-col gap-4 w-full pt-[22px]">
+        <div className="flex flex-col gap-4 w-full pt-[22px] lg:py-[3.75rem]">
           <CheckItem text="Buscá un lugar con buena luz." />
           <CheckItem text="Asegurate de que se vean todos los datos." />
           <CheckItem text="Asegurate que el certificado esté firmado por el presidente de tu mesa." />
@@ -87,7 +95,7 @@ export function UploadImage({
           >
             <div className="flex flex-col items-center justify-center">
               <img
-                src={preview || 'assets/icon/upload-box.svg'}
+                src={preview || previewSrc}
                 alt="UploadBox"
               />
             </div>
@@ -98,8 +106,8 @@ export function UploadImage({
           </label>
         </div>
       </div>
-      <div className="flex items-center w-full text-center">
-        <Button type="submit" appearance="filled">
+      <div className="flex items-center w-full text-center lg:justify-center">
+        <Button type="submit" appearance="filled" className="lg:max-w-sm">
           <label htmlFor="open-camera">
             <ImageInput
               id="open-camera"
