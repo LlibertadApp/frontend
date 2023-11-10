@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 import Button from '#/components/button';
@@ -6,7 +6,6 @@ import { ICloseMenuProps, INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
 import { paths } from '#/routes/paths';
-import { SignOut } from '@phosphor-icons/react';
 
 const linkTransformClassName = 'transform transition-transform hover:scale-105';
 
@@ -23,6 +22,9 @@ const CloseMenuLink: React.FC<ICloseMenuProps> = ({ label, to, className }) => {
   );
 };
 
+const TRIANGLE_WIDTH = 50;
+const MAX_MENU_WIDTH = 400;
+
 const Navbar: React.FC<INavbarProps> = ({
   routerLink = paths.home,
   showArrow = true,
@@ -31,6 +33,32 @@ const Navbar: React.FC<INavbarProps> = ({
   const { logout } = useAuth();
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
   const hamburgerMenuRef = useOutsideClick(closeMenu);
+
+  const [position, setPosition] = useState({ left: 0, top: 0, menuRight: 0 });
+
+  useEffect(() => {
+    function handleResize() {
+      const x = hamburgerMenuRef.current.offsetLeft;
+      const width = hamburgerMenuRef.current.clientWidth;
+      const y = hamburgerMenuRef.current.offsetTop;
+      const height = hamburgerMenuRef.current.clientHeight;
+      const triangleLeft = x + width / 2 - TRIANGLE_WIDTH / 2;
+      const triangleTop = y + height;
+      const menuRight =
+        window.innerWidth - triangleLeft - MAX_MENU_WIDTH < 0
+          ? 0
+          : window.innerWidth - triangleLeft - MAX_MENU_WIDTH;
+      setPosition({ left: triangleLeft, top: triangleTop, menuRight });
+    }
+
+    handleResize(); // initial call to get position of the element on mount
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className="bg-violet-primary p-[10px] px-4 w-full flex flex-col h-18 relative z-20">
       <div className="w-full grid grid-rows-1 grid-col-3 place-items-center">
@@ -46,12 +74,10 @@ const Navbar: React.FC<INavbarProps> = ({
               </Link>
             )}
           </div>
-          <div
-            className="flex flex-col justify-center z-20"
-            ref={hamburgerMenuRef}
-          >
+          <div className="flex flex-col justify-center z-20 md:w-1/2">
             {showHamburger && (
               <div
+                ref={hamburgerMenuRef}
                 className="flex justify-center cursor-pointer transform transition-transform hover:scale-90"
                 onClick={() => {
                   setMenuOpen(!menuOpen);
@@ -74,58 +100,79 @@ const Navbar: React.FC<INavbarProps> = ({
             )}
 
             {menuOpen && (
-              <div className="absolute w-[100vw] bg-white right-0 top-[72px] rounded-xl px-1 shadow-2xl">
-                <div className="absolute top-[-15px] right-[53px] w-0 h-0">
-                  <svg width="50" height="20">
-                    <polygon points="25,0 0,50 50,50" fill="white" />
+              <>
+                <div
+                  className="absolute w-0 h-0"
+                  style={{
+                    top: position.top,
+                    left: position.left,
+                  }}
+                >
+                  <svg width={TRIANGLE_WIDTH} height="20">
+                    <polygon
+                      points={`${
+                        TRIANGLE_WIDTH / 2
+                      },0 0,${TRIANGLE_WIDTH} ${TRIANGLE_WIDTH},${TRIANGLE_WIDTH}`}
+                      fill="white"
+                    />
                   </svg>
                 </div>
-                <div className="w-full text-left py-4 px-8 pt-6 border-b-2 border-gray-100 font-bold text-xl text-violet-brand">
-                  <span>Javier</span>
-                </div>
-                <div className="flex flex-col px-[30px] py-[25px] gap-y-6 items-start text-left text-text-off">
-                  {/* El gris pactado no se parece al de figma */}
-                  <CloseMenuLink label="Inicio" to={paths.home} />
-                  <CloseMenuLink
-                    label="Ver Resultados"
-                    to={paths.totalResults}
-                  />
-                  <CloseMenuLink
-                    label="Cargar resultados de mesa"
-                    to={paths.uploadCertificate}
-                  />
-                  <CloseMenuLink
-                    label="Listado de mesas cargadas"
-                    to={paths.deskList}
-                    className="text-violet-light"
-                  />
-                  <CloseMenuLink
-                    label="Denunciar fraude"
-                    to={paths.irregularities}
-                    className="text-red"
-                  />
-                </div>
-                <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
-                  <div className={`${linkTransformClassName} flex gap-2`}>
-                    <Button
-                      appearance="ghost"
-                      onClick={() => {
-                        logout();
-                        closeMenu();
-                      }}
-                      type="button"
-                      className="text-violet-light text-left"
-                    >
-                      <img
-                        src="assets/icon/log-out.svg"
-                        alt="User profile"
-                        className="object-cover rounded"
-                      />
-                      Cerrar sesión
-                    </Button>
+
+                <div
+                  className="absolute w-[100vw] bg-white rounded-xl px-1 shadow-2xl"
+                  style={{
+                    right: position.menuRight,
+                    top: 72,
+                    maxWidth: MAX_MENU_WIDTH,
+                  }}
+                >
+                  <div className="w-full text-left py-4 px-8 pt-6 border-b-2 border-gray-100 font-bold text-xl text-violet-brand">
+                    <span>Javier</span>
+                  </div>
+                  <div className="flex flex-col px-[30px] py-[25px] gap-y-6 items-start text-left text-text-off">
+                    {/* El gris pactado no se parece al de figma */}
+                    <CloseMenuLink label="Inicio" to={paths.home} />
+                    <CloseMenuLink
+                      label="Ver Resultados"
+                      to={paths.totalResults}
+                    />
+                    <CloseMenuLink
+                      label="Cargar resultados de mesa"
+                      to={paths.uploadCertificate}
+                    />
+                    <CloseMenuLink
+                      label="Listado de mesas cargadas"
+                      to={paths.deskList}
+                      className="text-violet-light"
+                    />
+                    <CloseMenuLink
+                      label="Denunciar fraude"
+                      to={paths.irregularities}
+                      className="text-red"
+                    />
+                  </div>
+                  <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
+                    <div className={`${linkTransformClassName} flex gap-2`}>
+                      <Button
+                        appearance="ghost"
+                        onClick={() => {
+                          logout();
+                          closeMenu();
+                        }}
+                        type="button"
+                        className="text-violet-light text-left"
+                      >
+                        <img
+                          src="assets/icon/log-out.svg"
+                          alt="User profile"
+                          className="object-cover rounded"
+                        />
+                        Cerrar sesión
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
         </div>
