@@ -1,116 +1,67 @@
-import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-} from '@mui/material';
 import { FC } from 'react';
-import { IDeskItemLabel } from './types';
+import Desk from '#/components/deskAccordion';
 
-const DeskItemLabel: FC<IDeskItemLabel> = ({
-  typoProps = {
-    color: 'black',
-    align: 'left',
-    fontFamily: 'Poppins',
-    flexDirection: 'row',
-    fontSize: '14px',
-  },
-  className,
-  deskValue,
-  label,
-  statusStyle,
-}) => {
-  return (
-    <Typography {...typoProps} className={className}>
-      <span className="flex flex-row py-2 text-m px-2">
-        {label}:{' '}
-        <span className="text-gray-400 px-2" style={statusStyle}>
-          {deskValue}
-        </span>
-      </span>
-    </Typography>
-  );
+const DummyData = {
+  desks: [
+    {
+      id: 1,
+      name: 'Mesa 484',
+      description: '',
+      status: {
+        normal: true,
+      },
+      votes: 40,
+      envelopes: 240,
+      circuit: 635,
+      electors: 240,
+      candidate1: {
+        name: 'Javier Gerardo Milei',
+        votes: 190,
+      },
+      candidate2: {
+        name: 'Sergio Tomás Massa',
+        votes: 315,
+      },
+      nullVotes: 0,
+      recurredVotes: 0,
+      impugnedVotes: 0,
+      commandVotes: 0,
+      blankVotes: 0,
+      totalVotes: 240,
+    },
+
+    {
+      id: 2,
+      name: 'Mesa 777',
+      description: '',
+      status: {
+        warning: 'Irregular',
+      },
+      votes: 40,
+      envelopes: 240,
+      circuit: 635,
+      electors: 240,
+      candidate1: {
+        name: 'Javier Gerardo Milei',
+        votes: 190,
+      },
+      candidate2: {
+        name: 'Sergio Tomás Massa',
+        votes: 315,
+      },
+      nullVotes: 0,
+      recurredVotes: 0,
+      impugnedVotes: 0,
+      commandVotes: 0,
+      blankVotes: 0,
+      totalVotes: 240,
+    },
+  ],
 };
 
 const DeskList: FC = () => {
-  const DummyData = {
-    desks: [
-      {
-        id: 1,
-        name: 'Mesa 484',
-        description: '',
-        status: {
-          normal: true,
-        },
-        votes: 40,
-        envelopes: '240',
-        circuit: '635',
-        electors: '240',
-        candidate1: {
-          name: 'Javier Gerardo Milei',
-          votes: '190',
-        },
-        candidate2: {
-          name: 'Sergio Tomás Massa',
-          votes: '315',
-        },
-        nullVotes: '0',
-        recurredVotes: '0',
-        impugnedVotes: '0',
-        commandVotes: '0',
-        blankVotes: '0',
-        totalVotes: '240',
-      },
-
-      {
-        id: 2,
-        name: 'Mesa 777',
-        description: '',
-        status: {
-          warning: 'Irregular',
-        },
-        votes: 40,
-        envelopes: '240',
-        circuit: '635',
-        electors: '240',
-        candidate1: {
-          name: 'Javier Gerardo Milei',
-          votes: '190',
-        },
-        candidate2: {
-          name: 'Sergio Tomás Massa',
-          votes: '315',
-        },
-        nullVotes: '0',
-        recurredVotes: '0',
-        impugnedVotes: '0',
-        commandVotes: '0',
-        blankVotes: '0',
-        totalVotes: '240',
-      },
-    ],
-  };
-
-  const DropIcon = () => {
-    return (
-      <svg
-        width="13"
-        height="8"
-        viewBox="0 0 13 8"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12.021 1.80235L6.86479 6.9586C6.8169 7.00654 6.76003 7.04457 6.69743 7.07052C6.63484 7.09647 6.56774 7.10982 6.49998 7.10982C6.43222 7.10982 6.36512 7.09647 6.30253 7.07052C6.23993 7.04457 6.18306 7.00654 6.13518 6.9586L0.978927 1.80235C0.882175 1.7056 0.82782 1.57437 0.82782 1.43754C0.82782 1.30071 0.882175 1.16949 0.978927 1.07274C1.07568 0.975985 1.2069 0.921631 1.34373 0.921631C1.48056 0.921631 1.61178 0.975985 1.70854 1.07274L6.49998 5.86483L11.2914 1.07274C11.3393 1.02483 11.3962 0.986829 11.4588 0.960902C11.5214 0.934975 11.5885 0.921631 11.6562 0.921631C11.724 0.921631 11.7911 0.934975 11.8537 0.960902C11.9163 0.986829 11.9731 1.02483 12.021 1.07274C12.0689 1.12064 12.1069 1.17752 12.1329 1.24011C12.1588 1.3027 12.1721 1.36979 12.1721 1.43754C12.1721 1.50529 12.1588 1.57238 12.1329 1.63497C12.1069 1.69757 12.0689 1.75444 12.021 1.80235Z"
-          fill="#1D1A28"
-        />
-      </svg>
-    );
-  };
-
   return (
     <main>
       <Navbar routerLink={paths.home} showArrow={true} />
@@ -149,118 +100,7 @@ const DeskList: FC = () => {
                 <span className="text-l">Tus mesas cargadas</span>
               </div>
               {DummyData.desks.map((desk) => (
-                <Accordion
-                  key={desk.id}
-                  style={{
-                    border: '1px linear #ccc',
-                    marginBottom: '1rem',
-                    borderRadius: '8px',
-                    boxShadow: '0px 2px 5px 0px rgba(0, 0, 0, 0.25)',
-                  }}
-                  sx={{
-                    '&:before': {
-                      display: 'none',
-                    },
-                  }}
-                >
-                  <AccordionSummary expandIcon={<DropIcon />} className="pb-4">
-                    <Typography
-                      color={{
-                        color: desk.status.normal ? '#439676' : '#AD3459',
-                      }}
-                      align="left"
-                      fontFamily={'Poppins'}
-                      fontSize="18px"
-                    >
-                      {desk.name}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <DeskItemLabel
-                      className="bg-gray-100 rounded-md"
-                      deskValue={desk.circuit}
-                      label="Circuito"
-                    />
-                    <DeskItemLabel
-                      deskValue={desk.electors}
-                      label="Nro. de electores"
-                    />
-                    <DeskItemLabel
-                      className="bg-gray-100 rounded-md"
-                      deskValue={desk.envelopes}
-                      label="Nro. de sobres"
-                    />
-
-                    <hr className="border-t-gray-dark my-2 " />
-
-                    <DeskItemLabel
-                      deskValue={desk.candidate1.votes}
-                      label={desk.candidate1.name}
-                    />
-                    <DeskItemLabel
-                      className="bg-gray-100 rounded-md"
-                      deskValue={desk.candidate2.votes}
-                      label={desk.candidate2.name}
-                    />
-                    <DeskItemLabel
-                      deskValue={desk.nullVotes}
-                      label="Votos nulos"
-                    />
-                    <DeskItemLabel
-                      className="bg-gray-100 rounded-md"
-                      deskValue={desk.recurredVotes}
-                      label="Votos recurridos"
-                    />
-                    <DeskItemLabel
-                      deskValue={desk.impugnedVotes}
-                      label="Votos identidad impugnada"
-                    />
-                    <DeskItemLabel
-                      className="bg-gray-100 rounded-md"
-                      deskValue={desk.commandVotes}
-                      label="Votos de comando electoral"
-                    />
-                    <DeskItemLabel
-                      deskValue={desk.blankVotes}
-                      label="Votos en blanco"
-                    />
-
-                    <hr className="border-t-gray-dark my-2 " />
-
-                    <DeskItemLabel
-                      className="bg-gray-100 rounded-md"
-                      deskValue={desk.totalVotes}
-                      label="Total"
-                    />
-                    <DeskItemLabel
-                      deskValue={desk.status.normal ? 'Normal' : 'Irregular'}
-                      label="Estado"
-                      statusStyle={
-                        desk.status.normal
-                          ? { color: '#439676' }
-                          : { color: '#AD3459' }
-                      }
-                    />
-
-                    <div className="container flex flex-row gap-4 justify-between">
-                      <Button className="gap-[5px] border-none text-white bg-violet-brand rounded-xl flex justify-center items-center text-xs font-medium  hover:border-violet-light my-5 py-[5px] px-[10px] !w-auto">
-                        <img src="assets/icon/edit.svg" alt="Icono editar" />
-                        Editar
-                      </Button>
-
-                      <Button
-                        className="gap-[5px] border-red border-2 rounded-xl flex justify-center items-center text-xs font-medium my-5 py-[5px] px-[10px] bg-white text-red !w-auto"
-                        type="button"
-                      >
-                        <img
-                          src="assets/icon/hand-speaker.svg"
-                          alt="Icono megafono"
-                        />
-                        Denunciar fraude
-                      </Button>
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
+                <Desk desk={desk} />
               ))}
             </div>
           )}
