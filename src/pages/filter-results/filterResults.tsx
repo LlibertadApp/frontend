@@ -41,13 +41,9 @@ export const FilterPage = () => {
 
   return (
     <>
-      <Navbar routerLink={paths.totalResults} />
-      <main className="items-center flex flex-col relative px-4 pb-4 ">
+      <main className="items-center flex flex-col relative px-4">
         <section className="md:w-1/2 w-full rounded-xl z-10 items-end">
-          <p className="font-bold text-[32px] text-violet-brand mt-5 mb-[22px]">
-            FILTROS
-          </p>
-          <div className="flex flex-col gap-7 py-2 " id="filter-list">
+          <div className="flex flex-col gap-4 py-2 " id="filter-list">
             <Selector
               label="Distrito"
               onChange={(e) => setDistrito(e.target.value)}
@@ -91,7 +87,7 @@ export const FilterPage = () => {
               value={mesa}
             />
           </div>
-          <div className="flex flex-1 flex-row gap-5 mt-[50px]">
+          <div className="flex flex-1 flex-row gap-5 ">
             <Button
               appearance="outlined"
               type="submit"
