@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { FC, useState } from 'react';
 import { IAccordionExpanded, IDeskItemLabel, IDeskNormalStatus } from './types';
+import { DeskData } from '#/interfaces/IDesk';
 
 const DeskItemLabel: FC<IDeskItemLabel> = ({
   typoProps = {
@@ -108,7 +109,7 @@ const DeskStatus: FC<IDeskNormalStatus> = ({ deskNormalStatus }) => {
 };
 
 const DeskList: FC = () => {
-  const DummyData = {
+  const DummyData: DeskData = {
     desks: [
       {
         id: 1,
@@ -118,23 +119,23 @@ const DeskList: FC = () => {
           normal: true,
         },
         votes: 40,
-        envelopes: '240',
-        circuit: '635',
-        electors: '240',
+        envelopes: 240,
+        circuit: 635,
+        electors: 240,
         candidate1: {
           name: 'Javier Gerardo Milei',
-          votes: '190',
+          votes: 190,
         },
         candidate2: {
           name: 'Sergio Tomás Massa',
-          votes: '315',
+          votes: 315,
         },
-        nullVotes: '0',
-        recurredVotes: '0',
-        impugnedVotes: '0',
-        commandVotes: '0',
-        blankVotes: '0',
-        totalVotes: '240',
+        nullVotes: 0,
+        recurredVotes: 0,
+        impugnedVotes: 0,
+        commandVotes: 0,
+        blankVotes: 0,
+        totalVotes: 240,
       },
 
       {
@@ -145,23 +146,23 @@ const DeskList: FC = () => {
           normal: false,
         },
         votes: 40,
-        envelopes: '240',
-        circuit: '635',
-        electors: '240',
+        envelopes: 240,
+        circuit: 635,
+        electors: 240,
         candidate1: {
           name: 'Javier Gerardo Milei',
-          votes: '190',
+          votes: 190,
         },
         candidate2: {
           name: 'Sergio Tomás Massa',
-          votes: '315',
+          votes: 315,
         },
-        nullVotes: '0',
-        recurredVotes: '0',
-        impugnedVotes: '0',
-        commandVotes: '0',
-        blankVotes: '0',
-        totalVotes: '240',
+        nullVotes: 0,
+        recurredVotes: 0,
+        impugnedVotes: 0,
+        commandVotes: 0,
+        blankVotes: 0,
+        totalVotes: 240,
       },
     ],
   };
