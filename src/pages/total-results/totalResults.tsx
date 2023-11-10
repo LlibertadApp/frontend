@@ -95,7 +95,7 @@ const TotalResultsPage = () => {
             </div>
 
             <FilterPage />
-            
+
           </div>
         )}
       </div>
