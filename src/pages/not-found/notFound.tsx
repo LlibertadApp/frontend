@@ -6,7 +6,6 @@ import { paths } from '#/routes/paths';
 const NotFoundPage = () => {
   return (
     <main>
-      <Navbar routerLink={paths.home} showArrow={false} />
       <section className='mx-6 flex flex-col justify-center items-center mt-[90px]'>
         <div className='w-[126px] h-[126px] bg-violet-light-2 rounded-full flex justify-center items-center mb-6'>
           <img src='/assets/icon/dead-face.svg' alt='404' />

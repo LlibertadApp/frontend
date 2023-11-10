@@ -35,10 +35,11 @@ const AppRoutes: React.FC = () => {
     <Routes location={location} key={location.pathname}>
       <Route element={<AnimatedRoute />}>
         {/* Public routes */}
-        <Route element={<PublicRoute path={paths.home} />}>
-          {/* Auth */}
-          <Route path={paths.login} element={<Login />} />
-        </Route>
+        {/* <Route element={<PublicRoute path={paths.home} />}> */}
+        {/* Auth */}
+        {/* <Route path={paths.login} element={<Login />} /> */}
+        <Route path={paths.index} element={<Login />} />
+        {/* </Route> */}
         {/* Utils */}
         <Route path={paths.loadingPage} element={<LoadingPage />} />
         {/* 404 Not found */}

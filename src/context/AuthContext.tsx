@@ -7,73 +7,75 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import useAxios from '#/hooks/utils/useAxios';
-import { IAuthData, IUser } from '#/interfaces/IUser';
+import { jwtDecode } from 'jwt-decode';
+import { User, onAuthStateChanged } from 'firebase/auth';
+import firebaseAuth from '#/service/firebase/firebase';
+
 import { paths } from '#/routes/paths';
 
+type LogoutFunction = () => void;
+
 interface AuthContextType {
-  isAuthenticated: boolean;
-  user: IUser | null;
-  login: (user: IAuthData) => void;
-  logout: () => void;
-  refreshToken: () => void;
+  user: User | null;
+  mesas: Mesa[];
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  logout: LogoutFunction;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+interface Mesa {
+  mesaId: string;
+}
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const axios = useAxios();
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [mesas, setMesas] = useState([]);
 
-  useEffect(() => {
-    refreshToken();
-  }, []);
+  const getMesasFromToken = async (user: User) => {
+    const idToken = await user.getIdToken();
 
-  const login = ({ data }: IAuthData): void => {
-    sessionStorage.setItem('accessToken', data?.accessToken);
-    setIsAuthenticated(true);
-    setUser(data?.user);
+    if (idToken) {
+      const decodedToken: any = jwtDecode(idToken);
+
+      if (decodedToken.mesas) {
+        setMesas(decodedToken.mesas);
+      }
+    }
   };
 
   const logout = () => {
-    sessionStorage.removeItem('accessToken');
-    setIsAuthenticated(false);
     setUser(null);
-    navigate(paths.login);
+    navigate(paths.index);
   };
 
-  const refreshToken = async () => {
-    const accessToken = sessionStorage.getItem('accessToken');
-    if (!accessToken) return logout();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
 
-    const options = {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    };
+    return () => unsubscribe();
+  }, []);
 
-    // TODO: Validar q el token sea valido no este vencido, este firmado, etc.
+  useEffect(() => {
+    if (user) {
+      getMesasFromToken(user);
+    }
+  }, [user]);
 
-    const { data, error } = await axios.post(
-      '/auth/sign-in-using-token',
-      {},
-      options,
-    );
-    if (error) return logout();
-
-    login(data);
-  };
+  useEffect(() => {
+    console.log(mesas);
+  }, [mesas]);
 
   return (
-    <AuthContext.Provider
-      value={{ isAuthenticated, user, login, logout, refreshToken }}
-    >
+    <AuthContext.Provider value={{ user, mesas, setUser, logout }}>
       {children}
     </AuthContext.Provider>
   );
