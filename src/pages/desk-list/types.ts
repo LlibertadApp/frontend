@@ -7,3 +7,7 @@ export interface IDeskItemLabel {
   label: string;
   statusStyle?: {};
 }
+
+export interface IDeskNormalStatus {
+  deskNormalStatus: boolean;
+}
