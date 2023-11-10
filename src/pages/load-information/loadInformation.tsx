@@ -156,7 +156,7 @@ function LoadInformationPage() {
   return (
     <>
       <Navbar routerLink="/verify-certificate" />
-      <main className="container mx-auto p-4 flex flex-col gap-[30px]">
+      <main className="container mx-auto p-4 flex flex-col gap-[30px] max-w-[52.5rem]">
         <ProgressIndicator
           steps={[
             ProgressStepStatus.Successful,
@@ -164,7 +164,7 @@ function LoadInformationPage() {
             ProgressStepStatus.Active,
           ]}
         />
-        <h1 className="py-8 text-neutral-700 text-xl font-semibold">
+        <h1 className="py-8 text-neutral-700 text-xl font-semibold lg:text-3xl">
           Completá los datos del certificado
         </h1>
         <Formik
@@ -185,7 +185,7 @@ function LoadInformationPage() {
             setErrors
           }) => (
             <Form className="flex flex-col gap-8">
-              <section className="grid grid-cols-2 gap-6">
+              <section className="grid grid-cols-2 gap-6 lg:grid-cols-4 lg:mb-4">
                 <TextField
                   disabled
                   label="Circuito"
@@ -237,7 +237,7 @@ function LoadInformationPage() {
               </section>
               <hr className="w-full border-x border-gray-300/50" />
               <section className="flex flex-col gap-1">
-                <h2 className="text-sm text-left text-gray-darker">
+                <h2 className="text-sm text-left text-gray-darker lg:text-lg lg:my-2">
                   Diferencia
                 </h2>
                 <Alert
@@ -349,7 +349,7 @@ function LoadInformationPage() {
                   className={classNames(
                     (!isTableDataValid(touched, errors) || !values.formAgreement) ||
                     ( !errors.validTotalVotes ) ||
-                    '!bg-red',
+                    '!bg-red', 'lg:max-w-xs lg:m-auto'
                   )}
                 >
                   Enviar datos

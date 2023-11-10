@@ -60,8 +60,8 @@ const Navbar: React.FC<INavbarProps> = ({
   }, []);
 
   return (
-    <div className="bg-violet-primary p-[10px] px-4 w-full flex flex-col h-18 relative z-20">
-      <div className="w-full grid grid-rows-1 grid-col-3 place-items-center">
+    <div className="bg-violet-primary p-[10px] px-4 w-full flex flex-col h-18 relative z-20 lg:items-center">
+      <div className="w-full grid grid-rows-1 grid-col-3 place-items-center lg:max-w-[52.5rem]">
         <div className="flex w-full justify-between col-start-1 col-end-4 row-start-1 row-end-2">
           <div className="flex justify-center items-center">
             {showArrow && (
@@ -74,7 +74,8 @@ const Navbar: React.FC<INavbarProps> = ({
               </Link>
             )}
           </div>
-          <div className="flex flex-col justify-center z-20 md:w-1/2">
+
+          <div className="flex flex-col justify-center z-20 lg:max-w-md">
             {showHamburger && (
               <div
                 ref={hamburgerMenuRef}

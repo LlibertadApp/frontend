@@ -8,7 +8,7 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
       {steps.map((step, index) => (
         <React.Fragment key={index}>
           <div
-            className={`circle flex justify-center items-center rounded-full ${
+            className={`circle flex justify-center items-center rounded-full lg:!w-16 lg:!h-16 lg:text-[32px] ${
               step === ProgressStepStatus.Active
                 ? 'bg-violet-primary text-white'
                 : step === ProgressStepStatus.Successful
@@ -20,13 +20,13 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
           >
             {step === ProgressStepStatus.Successful ? (
               <img
-                className="w-4 h-4"
+                className="w-4 h-4 lg:w-8 lg:h-8"
                 src="assets/icon/check-icon.svg"
                 alt=""
               />
             ) : step === ProgressStepStatus.Error ? (
               <img
-                className="w-4 h-4"
+                className="w-4 h-4 lg:w-8 lg:h-8"
                 src="assets/icon/error-icon.svg"
                 alt=""
               />

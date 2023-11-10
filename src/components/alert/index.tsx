@@ -19,7 +19,7 @@ export default function Alert({ error, message, className }: AlertProps) {
         className,
       )}
     >
-      <span className='text-sm'>{message}</span>
+      <span className='text-sm lg:text-base'>{message}</span>
       {
         error ? (
           <XCircle size={24} />

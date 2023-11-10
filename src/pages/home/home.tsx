@@ -18,12 +18,12 @@ const HomePage = () => {
       <Overlay>
         <Navbar routerLink={paths.home} showArrow={false} />
         <section className="flex justify-center px-4 py-10">
-          <div className="w-full md:w-1/2 shadow-3xl rounded-xl py-4 flex flex-col items-center">
-            <span className="text-violet-primary text-[2rem] font-black mb-4">
+          <div className="w-full md:w-1/2 lg:w-full shadow-3xl rounded-xl py-4 flex flex-col items-center lg:max-w-[52.5rem]">
+            <span className="text-violet-primary text-[2rem] lg:text-[2.5rem] font-black mb-4">
               ELECCIONES 2023
             </span>
-            <div className="flex flex-col items-center space-y-2 w-full">
-              <span className="w-full font-bold pt-8 text-left">
+            <div className="flex flex-col items-center space-y-2 w-full lg:space-y-4">
+              <span className="w-full pt-8 text-left lg:text-center lg:text-2xl lg:mb-3 lg:pt-6">
                 Acciones de fiscales
               </span>
               <CardLink
@@ -47,7 +47,7 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-col items-center space-y-2 w-full">
-              <span className=" w-full pt-12 font-bold text-left">
+              <span className=" w-full pt-12 font-bold text-left lg:text-2xl">
                 Escrutinio y resultados
               </span>
               <Link
@@ -77,7 +77,7 @@ const HomePage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-full p-3 text-xs font-normal text-white bg-violet-primary rounded-xl flex justify-center items-center gap-3">
+                <div className="w-full p-3 text-xs font-normal text-white bg-violet-primary rounded-xl flex justify-center items-center gap-3 lg:w-60 lg:text-sm lg:my-6">
                   Ver escrutinio
                   <ArrowRight size={20} />
                 </div>
