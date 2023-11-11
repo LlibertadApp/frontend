@@ -24,4 +24,11 @@ package-lock.json
 *.sln
 *.sw?
 
+# misc
 .env
+.DS_Store
+.env.dev
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

@@ -81,6 +81,9 @@
             ],
             "#middlewares/*": [
                 "src/middlewares/*"
+            ],
+            "#_core/*": [
+                "src/_core/*"
             ]
         }
     },
