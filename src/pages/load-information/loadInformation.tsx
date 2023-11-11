@@ -202,6 +202,9 @@ function LoadInformationPage() {
         // // Agrega la imagen del certificado a los datos antes de enviarlos
         // const dataToSend = { ...values, certificateImage };
         // console.log(dataToSend);
+
+        const endpoint = process.env.BACKEND_ENDPOINT?.toString() || '';
+
         const payload = new FormData();
         payload.append('mesaId', values.table || '');
         payload.append('userId', userId || '');
@@ -222,7 +225,7 @@ function LoadInformationPage() {
 
         // Hago post al endpoint de actas de la API 
         const response = await axios.post(
-          'https://f7bdqf9mug.execute-api.us-east-2.amazonaws.com/actas',
+          endpoint,
           payload,
           {
             headers: {
