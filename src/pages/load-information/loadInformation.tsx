@@ -204,7 +204,7 @@ function LoadInformationPage() {
         // const dataToSend = { ...values, certificateImage };
         // console.log(dataToSend);
         
-        const endpoint = import.meta.env.VITE_REACT_BACKEND_ENDPOINT;
+        const endpoint = import.meta.env.VITE_REACT_backend_endpoint;
 
         const payload = new FormData();
         payload.append('mesaId', values.table || '');
