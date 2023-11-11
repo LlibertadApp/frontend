@@ -13,6 +13,9 @@ import {
   NoteBlank,
 } from '@phosphor-icons/react';
 
+import axios from 'axios';
+import { useCertificate } from '#/context/CertificationContext';
+
 import Alert from '#/components/alert';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
@@ -136,13 +139,32 @@ function LoadInformationPage() {
     );
   }
 
-  const onSubmitForm = (values: TelegramData, errors: FormikErrors<TelegramData>) => {
+  const onSubmitForm = async (values: TelegramData, errors: FormikErrors<TelegramData>) => {
     if (Object.keys(errors).length > 0) {
+      console.log(values)
       setIsDialogOpen(true);
     } else {
-      // TODO: Integrar con el envio de datos a la API cuando este disponible
-      // si la respuesta es exitosa, redirigir a la pantalla de carga exitosa
-      console.log('Sending data to API', values);
+      try {
+                // Obtén el contexto del certificado
+        const { certificateImage } = useCertificate();
+
+        // Agrega la imagen del certificado a los datos antes de enviarlos
+        const dataToSend = { ...values, certificateImage };
+        console.log(dataToSend);
+
+        // Hago post al endpoint de actas de la API 
+        const response = await axios.post('https://f7bdqf9mug.execute-api.us-east-2.amazonaws.com/actas', dataToSend);
+        
+        
+        if (response.status === 200) {
+          console.log('Data sent successfully');
+          
+        } else {
+          console.error('Error sending data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
@@ -152,6 +174,7 @@ function LoadInformationPage() {
     // si la respuesta es exitosa, redirigir a la pantalla de dencunciado exitoso
     setIsDialogOpen(false);
   }
+  
 
   return (
     <>

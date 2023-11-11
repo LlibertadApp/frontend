@@ -52,6 +52,7 @@ export function UploadImage({
   useEffect(() => {
     if (uploaded) {
       try {
+        console.log(uploaded)
         navigate(paths.verifyCertificate);
       } catch (error) {
         toast.error(

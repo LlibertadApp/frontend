@@ -10,7 +10,7 @@ export class Http {
   private waitForConnectionPromise: Promise<void> | undefined;
 
   public constructor() {
-    axios.defaults.baseURL = '/api';
+    axios.defaults.baseURL = 'https://hasd87ashd87as.aws.com';
   }
 
   public setConnection(isInternetReachable: boolean) {

@@ -9,6 +9,7 @@ export function getBase64(file: File) {
     reader.readAsDataURL(file);
     reader.onload = function () {
       resolve(reader.result as string);
+      console.log(reader.result?.toString())
     };
     reader.onerror = function (error) {
       reject(error);
