@@ -164,6 +164,58 @@ const DeskList: FC = () => {
         blankVotes: 0,
         totalVotes: 240,
       },
+      {
+        id: 3,
+        deskNumber: '123',
+        description: 'VIP Area',
+        status: {
+          normal: true,
+        },
+        votes: 50,
+        envelopes: 300,
+        circuit: 635,
+        electors: 300,
+        candidate1: {
+          name: 'Alberto Fernandez',
+          votes: 150,
+        },
+        candidate2: {
+          name: 'Mauricio Macri',
+          votes: 120,
+        },
+        nullVotes: 5,
+        recurredVotes: 2,
+        impugnedVotes: 1,
+        commandVotes: 0,
+        blankVotes: 2,
+        totalVotes: 300,
+      },
+      {
+        id: 4,
+        deskNumber: '555',
+        description: 'Student Union',
+        status: {
+          normal: true,
+        },
+        votes: 30,
+        envelopes: 180,
+        circuit: 635,
+        electors: 180,
+        candidate1: {
+          name: 'Gabriel Boric',
+          votes: 100,
+        },
+        candidate2: {
+          name: 'Jose Antonio Kast',
+          votes: 60,
+        },
+        nullVotes: 2,
+        recurredVotes: 1,
+        impugnedVotes: 0,
+        commandVotes: 0,
+        blankVotes: 1,
+        totalVotes: 180,
+      },
     ],
   };
 
@@ -183,7 +235,7 @@ const DeskList: FC = () => {
     <main>
       <Navbar routerLink={paths.home} showArrow={true} />
       <section className="flex p-4 justify-center">
-        <div className="pt-8">
+        <div className="flex flex-col pt-8">
           {/* No hay datos, no hay mesas para mostrar */}
           <span className="text-violet-brand text-4xl font-black pt-4 start">
             MESAS CARGADAS
@@ -212,15 +264,18 @@ const DeskList: FC = () => {
               </div>
             </div>
           ) : (
-            <div className="py-8">
+            <div className="md:flex md:flex-row md:items-start md:flex-wrap md:justify-around flex flex-col items-center py-8 gap-2">
               {DummyData.desks.map((desk) => (
                 <Accordion
                   key={desk.id}
                   style={{
                     border: '1px solid #E3E3E9',
-                    marginBottom: '1rem',
                     borderRadius: '8px',
                     boxShadow: '0px 10px 10px 0px rgba(0, 0, 0, 0.05)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    margin: '10px 0px',
+                    width: '300px',
                   }}
                   sx={{
                     boxShadow: 'none',
