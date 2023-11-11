@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react';
+import { useMediaQuery } from '@react-hook/media-query';
 import ImageInput from '#/components/imageInput';
 import { getBase64 } from '#/utils';
 import Button from '#/components/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
- import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 const CheckItem = ({ text }: { text: string }) => (
-  <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 text-[#444444]">
-    <img className="w-5 h-5" src="assets/icon/checkcircle.svg" alt="CheckCircle" />
+  <div className="flex justify-space-around items-center md:text-lg text-xs gap-2 text-[#444444]">
+    <img
+      className="w-5 h-5"
+      src="assets/icon/checkcircle.svg"
+      alt="CheckCircle"
+    />
     <p className="px-full">{text}</p>
   </div>
 );
@@ -47,14 +52,25 @@ export function UploadImage({
   useEffect(() => {
     if (uploaded) {
       try {
+        console.log(uploaded)
         navigate(paths.verifyCertificate);
       } catch (error) {
-        toast.error('Hubo un error al cargar la página porfavor refresqué la misma.', {
-          icon: '⛔',
-        });
+        toast.error(
+          'Hubo un error al cargar la página porfavor refresqué la misma.',
+          {
+            icon: '⛔',
+          },
+        );
       }
     }
   }, [uploaded, navigate]);
+
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+
+  const previewSrc = isDesktop
+    ? 'assets/icon/upload-box-desktop.svg'
+    : 'assets/icon/upload-box.svg';
+
   return (
     <div className="flex flex-col items-center text-lg">
       <div
@@ -68,12 +84,10 @@ export function UploadImage({
           onUploadInternal(file);
         }}
       >
-        <div className="flex flex-col gap-4 w-full pt-[22px]">
+        <div className="flex flex-col gap-4 w-full pt-[22px] lg:py-[3.75rem]">
           <CheckItem text="Buscá un lugar con buena luz." />
           <CheckItem text="Asegurate de que se vean todos los datos." />
-          <CheckItem
-            text="Asegurate que el certificado esté firmado por el presidente de tu mesa."
-          />
+          <CheckItem text="Asegurate que el certificado esté firmado por el presidente de tu mesa." />
         </div>
         <div className="flex items-center justify-center w-full overflow-hidden">
           <label
@@ -81,7 +95,10 @@ export function UploadImage({
             className="flex flex-col items-center justify-center cursor-pointer mt-[30px] mb-10"
           >
             <div className="flex flex-col items-center justify-center">
-              <img src={preview || 'assets/icon/upload-box.svg'} alt="UploadBox" />
+              <img
+                src={preview || previewSrc}
+                alt="UploadBox"
+              />
             </div>
             <ImageInput
               id="dropzone-file"
@@ -90,17 +107,16 @@ export function UploadImage({
           </label>
         </div>
       </div>
-      <div className="flex items-center w-full text-center">
-        <label
-          htmlFor="open-camera"
-          className="bg-violet-brand p-4 text-white rounded-xl font-semibold text-xl tracking-wider w-full cursor-pointer"
-        >
-          <ImageInput
-            id="open-camera"
-            handleOnChange={(ev) => onUploadInternal(ev.target.files?.[0])}
-          />
-          <p className="mx-auto font-light">Cargar Imagen</p>
-        </label>
+      <div className="flex items-center w-full text-center lg:justify-center">
+        <Button type="submit" appearance="filled" className="lg:max-w-sm">
+          <label htmlFor="open-camera">
+            <ImageInput
+              id="open-camera"
+              handleOnChange={(ev) => onUploadInternal(ev.target.files?.[0])}
+            />
+            Cargar Imagen
+          </label>
+        </Button>
       </div>
     </div>
   );

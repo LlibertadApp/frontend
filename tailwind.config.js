@@ -8,7 +8,6 @@ export default {
     extend: {
       colors: {
         background: '#F2F2F2',
-        uxp: '#23B2E8',
         'violet-brand': '#61439D',
         'violet-primary': '#714FB6',
         'violet-dark': '#3C2865',
@@ -27,6 +26,11 @@ export default {
         black: '#000000',
         white: '#FFFFFF',
         overlay: 'rgba(32, 27, 43, 0.3)',
+
+        party: {
+          lla: '#7C5BC2',
+          uxp: '#23B2E8',
+        },
       },
       fontFamily: {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],

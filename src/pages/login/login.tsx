@@ -1,145 +1,120 @@
-import { useNavigate, Link } from 'react-router-dom';
-import { Form, Formik } from 'formik';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import * as yup from 'yup';
-import Button from '#/components/button';
-import useAxios from '#/hooks/utils/useAxios';
-import { useAuth } from '#/context/AuthContext';
-import { ILoginProps } from './types';
 import { paths } from '#/routes/paths';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
-import { EyeSlash, Eye } from "@phosphor-icons/react";
+
+import firebaseAuth from '#/service/firebase/firebase';
+
+import { signInWithCustomToken } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+
+import { useAuth } from '#/context/AuthContext';
+import { LoadingIndicator } from '#/components/loadingIndicator';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const axios = useAxios();
+  const { user } = useAuth();
 
-  const onLogin = async (values: ILoginProps) => {
-    //TODO: Cambiar cuando la logica del LOGIN (desde el back, me devuelva el JWT y la info del Usuario)
-    const { email, password } = values;
-    const { data, error, loading } = await axios.post('/auth/sign-in', {
-      email,
-      password,
-    });
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const authToken = queryParams.get('authToken');
+  const [error, setError] = useState<boolean>(!authToken);
 
-    if (error && error?.response && error?.response?.data) return; //TODO: Snackbar de error.
-    if (loading) return; //TODO: Spinner de carga.
+  useEffect(() => {
+    let isComponentMounted = true;
 
-    login(data);
-    navigate(paths.home);
-  };
+    const loginWithToken = async () => {
+      try {
+        if (authToken) {
+          await signInWithCustomToken(firebaseAuth, authToken);
+          const user = firebaseAuth.currentUser;
 
-  const validationSchema = yup.object({
-    email: yup.string().email('Email inválido').required('Campo requerido'),
-    password: yup.string().required('Campo requerido'),
-  });
+          const uid = user?.uid;
+          const userToken = await user?.getIdToken(true);
 
-  const initialValues: ILoginProps = {
-    email: '',
-    password: '',
-    isPasswordVisible: false,
-  };
+          // Si no hay uid o token, no se puede continuar
+          if (!uid || !userToken) {
+            setError(true);
+            return; // TODO: Ver si hay que hacer algo más
+          }
 
-  return (
-    <main className="px-4 mt-[50px] mx-auto flex flex-col items-center max-w-md">
-      <img
-        src="assets/logos/fenix-new-bg.svg"
-        alt="fenix"
-        className="object-cover h-auto w-28 mb-10"
-      />
+          // Seteamos en el session storage el token del usuario y su uid
+          sessionStorage.setItem('uid', uid);
+          sessionStorage.setItem('token', userToken);
 
-      <h1 className="text-[32px] font-light text-center white-space: pre-line">
-        Entre todos, <br />
-        <strong className="text-violet-brand font-semibold break-words">
-          evitemos el fraude.
-        </strong>
-      </h1>
+          if (isComponentMounted) {
+            if (user) {
+              user
+                .getIdToken(true)
+                .then(() => {
+                  navigate(paths.home);
+                })
+                .catch((error) => {
+                  setError(true);
+                  console.log('error', error);
+                });
+            }
+          }
+        }
+      } catch (error) {
+        if (isComponentMounted) {
+          setError(true);
+          console.error(error);
+        }
+      }
+    };
 
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onLogin}
-        validationSchema={validationSchema}
-      >
-        {({
-          values,
-          handleChange,
-          handleBlur,
-          setFieldValue,
-          handleSubmit,
-          errors,
-        }) => (
-          <Form
-            className="w-full mt-16 flex flex-col gap-6"
-            onSubmit={handleSubmit}
-          >
-            <TextField
-              InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
-              InputProps={{
-                style: { borderRadius: '8px', fontFamily: 'Poppins' },
-              }}
-              sx={{ width: '100%' }}
-              id="email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={Boolean(errors.email)}
-              helperText={errors.email}
-              label="Correo electronico"
-              placeholder="example@gmail.com"
-            />
+    if (authToken) {
+      loginWithToken();
+    }
 
-            <TextField
-              sx={{ width: '100%' }}
-              id="password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={Boolean(errors.password)}
-              helperText={errors.password}
-              InputLabelProps={{ style: { fontFamily: 'Poppins' } }}
-              InputProps={{
-                style: { borderRadius: '8px', fontFamily: 'Poppins' },
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => {
-                        setFieldValue(
-                          'isPasswordVisible',
-                          !values.isPasswordVisible,
-                        );
-                      }}
-                    >
-                      {values.isPasswordVisible ? (
-                        <Eye />
-                      ) : (
-                        <EyeSlash />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              type={values.isPasswordVisible ? 'text' : 'password'}
-              label="Contraseña"
-              placeholder="********"
-            />
+    return () => {
+      isComponentMounted = false;
+    };
+  }, [authToken]);
 
-            <Button type="submit" className="mt-4" isLoading>
-              Ingresar
-            </Button>
-
-            {/* TODO: Desactivar el boton hasta las 21hs del día domingo 19 GMT-3 */}
-            <Link
-              to={paths.totalResults}
-              className="mt-4 p-[18px] w-full text-violet-brand underline rounded-xl"
-            >
-              Ver Escrutinio
-            </Link>
-          </Form>
-        )}
-      </Formik>
-    </main>
+  return error ? (
+    <>
+      <div className="lg:absolute lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-red-error lg:z-0"></div>
+      <main className="px-4 mx-auto flex flex-col items-center rounded-3xl max-w-md gap-8 mt-20 lg:max-w-[624px] lg:px-[108px] lg:py-[50px] lg:relative lg:bg-white lg:mt-52">
+        <h1 className="text-3xl lg:text-[38px] font-light text-center white-space: pre-line">
+          El token de autenticación <br />
+          <strong className="text-red font-semibold break-words">
+            no es válido o está vencido.
+          </strong>
+        </h1>
+        <img
+          src="assets/logos/fenix-new-bg.svg"
+          alt="fenix"
+          className="object-cover h-auto w-28 lg:w-40 mb-10"
+        />
+      </main>
+    </>
+  ) : (
+    <>
+      <div className="lg:absolute lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-violet-primary lg:z-0"></div>
+      <main className="px-4 mt-52 mx-auto flex flex-col items-center max-w-md lg:max-w-[624px] lg:px-[108px] lg:py-[50px] rounded-3xl lg:relative lg:bg-white">
+        <span className="relative flex items-center justify-center w-28 lg:w-40">
+          <span className="animate-[ping_2s_infinite] absolute inline-flex h-3/4 w-3/4 rounded-full bg-violet-700 opacity-75"></span>
+          <img
+            src="assets/logos/fenix-new-bg.svg"
+            alt="fenix"
+            className="object-cover h-auto w-28 lg:w-40"
+          />
+        </span>
+        <h1 className="text-[32px] lg:text-[38px] font-light text-center white-space: pre-line mt-10">
+          Entre todos, <br />
+          <strong className="text-violet-brand font-semibold break-words">
+            evitemos el fraude.
+          </strong>
+        </h1>
+        <h1 className="py-8 text-lg lg:text-2xl font-light text-center white-space: pre-line">
+          Validando{' '}
+          <strong className="text-violet-brand font-semibold break-words animate-[pulse_2s_infinite]">
+            identidad...
+          </strong>
+        </h1>
+      </main>
+    </>
   );
 };
 
