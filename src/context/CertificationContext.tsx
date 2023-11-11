@@ -1,31 +1,26 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// type CertificateImageType = string | null;
-type CertificateImageType = File | null | undefined;
-type CertificateImageBase64Type = string |null;
-
 // Crear un contexto para el certificado
 const CertificateContext = createContext<{
-  certificateImage: CertificateImageType;
-  certificateImageBase64: CertificateImageBase64Type;
-  setCertificateImage: (file: CertificateImageType) => void;
-  setCertificateImageBase64: (base64: CertificateImageBase64Type) => void;
+  file?: File
+  setFile: (file: File) => void
+
+  certificateImage?: string
+  setCertificateImage: (image: string) => void
 } | undefined>(undefined);
 
-
-
-// Proveedor de contexto
-export const CertificateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Estado que almacena la URL de la imagen del certificado (TEMPORAL)
-  const [certificateImage, setCertificateImage] = useState<CertificateImageType>(null);
-  const [certificateImageBase64, setCertificateImageBase64] = useState<CertificateImageBase64Type>(null);
+export function CertificateProvider(
+  { children }: { children: ReactNode }
+) {
+  const [file, setFile] = useState<File>();
+  const [certificateImage, setCertificateImage] = useState<string>();
 
   return (
-    <CertificateContext.Provider value={{ certificateImage, setCertificateImage, certificateImageBase64, setCertificateImageBase64 }}>
+    <CertificateContext.Provider value={{ file, setFile, certificateImage, setCertificateImage }}>
       {children}
     </CertificateContext.Provider>
   );
-};
+}
 
 // Crear un hook personalizado para acceder al contexto
 export const useCertificate = () => {

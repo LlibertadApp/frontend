@@ -127,11 +127,11 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoadInformationPage() {
+  const reader = new FileReader();
   const navigate = useNavigate();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  // const [certificateImage, setCertificateImage] = useState<File>()
-  const { certificateImage } = useCertificate();
+  const { file } = useCertificate();
   const { mesas } = useAuth()
   const [ mesa, setMesa ] = useState<string | undefined>('')
 
@@ -220,7 +220,7 @@ function LoadInformationPage() {
           Object.values(values.votes).reduce((acc, curr) => acc + curr, 0).toString() || ''
         );
 
-        payload.append('imagenActa', certificateImage || '');
+        payload.append('imagenActa', file || '');
 
         // Hago post al endpoint de actas de la API 
         const response = await axios.post(
@@ -237,6 +237,7 @@ function LoadInformationPage() {
         if (response.status !== 201) {
           console.error('Error sending data:', response.statusText);
         }
+
         navigate(paths.sendSuccess)
       } catch (error) {
         console.error('Error:', error);
@@ -270,7 +271,10 @@ function LoadInformationPage() {
           accept='image/*'
           onChange={
             (e) => {
-              setCertificateImage(e.target.files?.[0])
+              setCertificateImage({
+                file: e.target.files?.[0]!,
+                preview: URL.createObjectURL(e.target.files?.[0]!)
+              })
             }
           }
         /> */}
