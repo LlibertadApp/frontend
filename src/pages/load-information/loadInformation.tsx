@@ -15,7 +15,7 @@ import {
 } from '@phosphor-icons/react';
 
 import { paths } from '#/routes/paths';
-
+import { useCertificate } from '#/context/CertificationContext';
 import Alert from '#/components/alert';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
@@ -25,6 +25,7 @@ import ProgressIndicator from '#/components/progressIndicator';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 
 import { TelegramData } from './types';
+import axios from 'axios';
 
 const validationSchema = Yup.object().shape({
   circuit: Yup.string().required('Debe ingresar un circuito'),
@@ -128,6 +129,7 @@ function LoadInformationPage() {
   const navigate = useNavigate();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [certificateImage, setCertificateImage] = useState<File>()
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1',
@@ -183,20 +185,60 @@ function LoadInformationPage() {
       return 'Sin información';
     }
   }
-
-  const onSubmitForm = (
-    values: TelegramData,
-    errors: FormikErrors<TelegramData>,
-  ) => {
+  
+  const onSubmitForm = async (values: TelegramData, errors: FormikErrors<TelegramData>) => {
     if (Object.keys(errors).length > 0) {
-      console.log(errors);
+      console.log(values)
       setIsDialogOpen(true);
     } else {
-      // TODO: Integrar con el envio de datos a la API cuando este disponible
-      // si la respuesta es exitosa, redirigir a la pantalla de carga exitosa
-      console.log(errors);
-      console.log('Sending data to API', values);
-      navigate(paths.sendSuccess);
+      const userToken = sessionStorage.getItem('token');
+      const userId = sessionStorage.getItem('uid');
+
+      try {
+        
+        // // Obtén el contexto del certificado
+        // const { certificateImage } = useCertificate();
+
+        // // Agrega la imagen del certificado a los datos antes de enviarlos
+        // const dataToSend = { ...values, certificateImage };
+        // console.log(dataToSend);
+        const payload = new FormData();
+        payload.append('mesaId', values.table || '');
+        payload.append('userId', userId || '');
+
+        payload.append('conteoUp', values.votes.uxp.toString() || '');
+        payload.append('conteoLla', values.votes.lla.toString() || '');
+        payload.append('votosImpugnados', values.votes.identity.toString() || '');
+        payload.append('votosNulos', values.votes.null.toString() || '');
+        payload.append('votosEnBlanco', values.votes.blank.toString() || '');
+        payload.append('votosRecurridos', values.votes.disputed.toString() || '');
+
+        payload.append(
+          'votosEnTotal', 
+          Object.values(values.votes).reduce((acc, curr) => acc + curr, 0).toString() || ''
+        );
+
+        payload.append('imagenActa', certificateImage || '');
+
+        // Hago post al endpoint de actas de la API 
+        const response = await axios.post(
+          'https://f7bdqf9mug.execute-api.us-east-2.amazonaws.com/actas',
+          payload,
+          {
+            headers: {
+              'Content-Type': '',
+              'Authorization': userToken,
+            }
+          }
+        );
+        
+        if (response.status !== 201) {
+          console.error('Error sending data:', response.statusText);
+        }
+        navigate(paths.sendSuccess)
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
@@ -222,6 +264,15 @@ function LoadInformationPage() {
         <h1 className="py-8 text-neutral-700 text-xl font-semibold lg:text-3xl">
           Completá los datos del certificado
         </h1>
+        <input
+          type='file'
+          accept='image/*'
+          onChange={
+            (e) => {
+              setCertificateImage(e.target.files?.[0])
+            }
+          }
+        />
         <Formik
           onSubmit={() => {}}
           initialValues={initialValues}
@@ -338,27 +389,27 @@ function LoadInformationPage() {
                     subtitle="Sergio Massa - Agustín Rossi"
                   />
                   <CategoryVoteInput
-                    name="votes.blank"
+                    name="votes.null"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.blank}
+                    value={values.votes.null}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={<XSquare size={40} className="p-1" color="#908DA8" />}
                     title="Votos nulos"
                   />
                   <CategoryVoteInput
-                    name="votes.null"
+                    name="votes.disputed"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.null}
+                    value={values.votes.disputed}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={<Scales size={40} className="p-1" color="#908DA8" />}
                     title="Votos recurridos"
                   />
                   <CategoryVoteInput
-                    name="votes.disputed"
+                    name="votes.identity"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.disputed}
+                    value={values.votes.identity}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={
@@ -367,18 +418,18 @@ function LoadInformationPage() {
                     title="Votos identidad impugnada"
                   />
                   <CategoryVoteInput
-                    name="votes.identity"
+                    name="votes.command"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.identity}
+                    value={values.votes.command}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={<Users size={40} className="p-1" color="#908DA8" />}
                     title="Votos de comando electoral"
                   />
                   <CategoryVoteInput
-                    name="votes.command"
+                    name="votes.blank"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.command}
+                    value={values.votes.blank}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={

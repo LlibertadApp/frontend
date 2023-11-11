@@ -28,6 +28,19 @@ const LoginPage: React.FC = () => {
           await signInWithCustomToken(firebaseAuth, authToken);
           const user = firebaseAuth.currentUser;
 
+          const uid = user?.uid;
+          const userToken = await user?.getIdToken(true);
+
+          // Si no hay uid o token, no se puede continuar
+          if (!uid || !userToken) {
+            setError(true);
+            return; // TODO: Ver si hay que hacer algo más
+          }
+
+          // Seteamos en el session storage el token del usuario y su uid
+          sessionStorage.setItem('uid', uid);
+          sessionStorage.setItem('token', userToken);
+
           if (isComponentMounted) {
             if (user) {
               user
