@@ -188,7 +188,7 @@ function LoadInformationPage() {
   
   const onSubmitForm = async (values: TelegramData, errors: FormikErrors<TelegramData>) => {
     if (Object.keys(errors).length > 0) {
-      console.log(values)
+      
       setIsDialogOpen(true);
     } else {
       const userToken = sessionStorage.getItem('token');
@@ -196,13 +196,6 @@ function LoadInformationPage() {
       
       
       try {
-        
-        // // Obtén el contexto del certificado
-        // const { certificateImage } = useCertificate();
-        
-        // // Agrega la imagen del certificado a los datos antes de enviarlos
-        // const dataToSend = { ...values, certificateImage };
-        // console.log(dataToSend);
         
         const endpoint = import.meta.env.VITE_REACT_backend_endpoint;
 
@@ -223,8 +216,6 @@ function LoadInformationPage() {
         );
 
         payload.append('imagenActa', certificateImage || '');
-        console.log('Valor de endpoint:', endpoint);
-        console.log(import.meta.env)
 
         // Hago post al endpoint de actas de la API 
         const response = await axios.post(
@@ -249,7 +240,6 @@ function LoadInformationPage() {
   };
 
   const onReportTable = () => {
-    console.log('Reporting table');
     // TODO: Llamar a la API para reportar la mesa, cerrar el dialogo
     // si la respuesta es exitosa, redirigir a la pantalla de dencunciado exitoso
     setIsDialogOpen(false);
