@@ -103,13 +103,19 @@ const validationSchema = Yup.object().shape({
       votes.identity +
       votes.command;
 
-    return (
-      totalVotes === envelopes ||
-      this.createError({
+    if (totalVotes > 600) {
+      return this.createError({
         path: 'validTotalVotes',
-        message: 'La suma no coincide con el total de sobres',
-      })
-    );
+        message: 'El total de votos es mayor que 600',
+      });
+    } else if (!(totalVotes === envelopes)) {
+      return this.createError({
+        path: 'validTotalVotes',
+        message: 'La suma no coincide con el total de votos',
+      });
+    }
+
+    return true;
   }),
 
   formAgreement: Yup.boolean().oneOf(
@@ -159,16 +165,36 @@ function LoadInformationPage() {
     );
   };
 
+  const isVoteSumExceeded = (votes: TelegramData['votes']) =>
+    Object.values(votes).reduce((acc, curr) => acc + curr, 0) > 600;
+
+    const getDifferenceMessage = (data: TelegramData): string => {
+      const { electors, envelopes } = data;
+      const difference = Math.abs(electors! - envelopes!);
+
+    if (!electors) {
+      return 'Sin información';
+    } else if (difference <= 0) {
+      return 'Sin diferencia';
+    } else if (difference <= 5) {
+      const pluralSingular = difference > 1 ? 'sobres' : 'sobre';
+      return `Diferencia de ${difference} ${pluralSingular} con respecto a los electores`;
+    } else {
+      return 'Sin información';
+    }
+  }
+
   const onSubmitForm = (
     values: TelegramData,
     errors: FormikErrors<TelegramData>,
   ) => {
     if (Object.keys(errors).length > 0) {
-      console.log(errors)
+      console.log(errors);
       setIsDialogOpen(true);
     } else {
       // TODO: Integrar con el envio de datos a la API cuando este disponible
       // si la respuesta es exitosa, redirigir a la pantalla de carga exitosa
+      console.log(errors);
       console.log('Sending data to API', values);
       navigate(paths.sendSuccess);
     }
@@ -271,7 +297,10 @@ function LoadInformationPage() {
                 </h2>
                 <Alert
                   error={!!errors.validVotesDifference}
-                  message={errors.validVotesDifference || 'Sin diferencia'}
+                  message={
+                    errors.validVotesDifference ||
+                    getDifferenceMessage(values)
+                  }
                 />
               </section>
               <hr className="w-full border-x border-gray-300/50" />
@@ -375,15 +404,22 @@ function LoadInformationPage() {
                   type="button"
                   onClick={() => onSubmitForm(values, errors)}
                   disabled={
-                    !isTableDataValid(touched, errors) || !values.formAgreement || !!errors.votes
-                  }
-                  className={classNames(
                     !isTableDataValid(touched, errors) ||
-                      !values.formAgreement ||
-                      !errors.validTotalVotes ||
-                      '!bg-red !text-white',
-                    'lg:max-w-xs lg:m-auto',
-                  )}
+                    !values.formAgreement ||
+                    !!errors.votes ||
+                    isVoteSumExceeded(values.votes)
+                  }
+                  appearance={
+                    !isTableDataValid(touched, errors) ||
+                    !values.formAgreement ||
+                    !!errors.votes ||
+                    isVoteSumExceeded(values.votes)
+                      ? 'disabled'
+                      : !errors.validTotalVotes && !errors.validVotesDifference
+                      ? 'filled'
+                      : 'error'
+                  }
+                  className='lg:max-w-xs lg:mx-auto'
                 >
                   Enviar datos
                 </Button>
@@ -397,10 +433,10 @@ function LoadInformationPage() {
         onClose={() => setIsDialogOpen(false)}
         className="fixed inset-0 bg-black/25 backdrop-blur-sm z-20 flex justify-center items-center"
       >
-        <Dialog.Panel className="fixed z-30 bg-white max-w-xs rounded-xl px-4 py-8">
+        <Dialog.Panel className="fixed z-30 bg-white max-w-xs lg:max-w-md rounded-xl px-4 py-8 lg:px-10">
           <Dialog.Description>
             <div className="flex flex-col items-center">
-              <div className='bg-red/5 p-6 rounded-full mb-4'>
+              <div className="bg-red/5 p-6 rounded-full mb-4">
                 <img
                   src="assets/icon/warn-icon.svg"
                   alt="warning icon"
@@ -417,7 +453,7 @@ function LoadInformationPage() {
               </div>
             </div>
           </Dialog.Description>
-          <section className="flex flex-row gap-2 mt-[34px]">
+          <section className="flex flex-row gap-2 mt-[34px] lg:gap-5">
             <Button
               appearance="outlined"
               size="md"

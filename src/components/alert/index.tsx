@@ -9,7 +9,9 @@ interface AlertProps {
 }
 
 export default function Alert({ error, message, className }: AlertProps) {
-  const alertClass = error ? 'bg-red-error/10 text-red-error' : 'bg-green-light/10 text-green-light';
+  const alertClass = error
+    ? 'bg-red-error/10 text-red-error'
+    : 'bg-green-light/10 text-green-light';
 
   return (
     <div
@@ -19,15 +21,16 @@ export default function Alert({ error, message, className }: AlertProps) {
         className,
       )}
     >
-      <span className='text-sm lg:text-base'>{message}</span>
-      {
-        error ? (
+      <span className="text-sm lg:text-base">{message}</span>
+      {error ? (
+        <div className="w-6 h-6">
           <XCircle size={24} />
-        ) : (
+        </div>
+      ) : (
+        <div className="w-6 h-6">
           <CheckCircle size={24} />
-        )
-
-      }
+        </div>
+      )}
     </div>
   );
 }
