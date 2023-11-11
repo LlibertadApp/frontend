@@ -23,9 +23,9 @@ import Checkbox from '#/components/checkbox/checkbox';
 import CategoryVoteInput from '#/components/categoryVoteInput';
 import ProgressIndicator from '#/components/progressIndicator';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
-
 import { TelegramData } from './types';
 import axios from 'axios';
+
 
 const validationSchema = Yup.object().shape({
   circuit: Yup.string().required('Debe ingresar un circuito'),
@@ -193,15 +193,19 @@ function LoadInformationPage() {
     } else {
       const userToken = sessionStorage.getItem('token');
       const userId = sessionStorage.getItem('uid');
-
+      
+      
       try {
         
         // // Obtén el contexto del certificado
         // const { certificateImage } = useCertificate();
-
+        
         // // Agrega la imagen del certificado a los datos antes de enviarlos
         // const dataToSend = { ...values, certificateImage };
         // console.log(dataToSend);
+        
+        const endpoint = import.meta.env.VITE_REACT_BACKEND_ENDPOINT;
+
         const payload = new FormData();
         payload.append('mesaId', values.table || '');
         payload.append('userId', userId || '');
@@ -219,10 +223,12 @@ function LoadInformationPage() {
         );
 
         payload.append('imagenActa', certificateImage || '');
+        console.log('Valor de endpoint:', endpoint);
+        console.log(import.meta.env)
 
         // Hago post al endpoint de actas de la API 
         const response = await axios.post(
-          'https://f7bdqf9mug.execute-api.us-east-2.amazonaws.com/actas',
+          `${endpoint}/actas`,
           payload,
           {
             headers: {
