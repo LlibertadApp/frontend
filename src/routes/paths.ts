@@ -8,6 +8,7 @@ export const paths = {
   verifyCertificate: '/verify-certificate',
   loadInformation: '/load-information',
   sendSuccess: '/send-success',
+  sendWarning: '/send-warning',
   uploadFailed: '/upload-failed',
   filterResults: '/filter-results',
   totalResults: '/total-results',

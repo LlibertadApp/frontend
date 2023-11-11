@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import { TextField } from '@mui/material';
@@ -12,6 +13,8 @@ import {
   Users,
   NoteBlank,
 } from '@phosphor-icons/react';
+
+import { paths } from '#/routes/paths';
 
 import Alert from '#/components/alert';
 import Button from '#/components/button';
@@ -29,75 +32,85 @@ const validationSchema = Yup.object().shape({
   electors: Yup.number()
     .integer('El número de electores debe ser un entero')
     .positive('El número de electores debe ser mayor a 0')
+    .max(600, 'El número de votos no puede ser mayor que 600')
     .required('El número de electores es obligatorio'),
   envelopes: Yup.number()
     .integer('El número de sobres debe ser un entero')
     .positive('El número de sobres debe ser mayor a 0')
+    .max(600, 'El número de votos no puede ser mayor que 600')
     .required('El número de sobres es obligatorio')
-    .test(
-      'is-within-range',
-      function(value) {
-        const { electors } = this.parent; // Obtiene el valor de "electores" del mismo contexto
-        const difference = Math.abs((electors || 0) - (value || 0));
+    .test('is-within-range', function (value) {
+      const { electors } = this.parent; // Obtiene el valor de "electores" del mismo contexto
+      const difference = Math.abs((electors || 0) - (value || 0));
 
-        // El mensaje debe ser prural o singular dependiendo de la diferencia
-        // Mensaje de ejemplo: Hay una diferencia de 5 sobres con respecto a los electores
-        const message =
-          `Hay una diferencia de ${difference} ${difference > 1 ? 'sobres' : 'sobre' } con respecto a los electores`;
+      // El mensaje debe ser prural o singular dependiendo de la diferencia
+      // Mensaje de ejemplo: Hay una diferencia de 5 sobres con respecto a los electores
+      const message = `Hay una diferencia de ${difference} ${
+        difference > 1 ? 'sobres' : 'sobre'
+      } con respecto a los electores`;
 
-        return (
-          difference < 5 || 
-          this.createError({ path: 'validVotesDifference', message })
-        )
-      }
-    ),
+      return (
+        difference < 5 ||
+        this.createError({ path: 'validVotesDifference', message })
+      );
+    }),
 
   votes: Yup.object().shape({
     lla: Yup.number()
       .integer('El número de votos debe ser un entero')
       .min(0, 'El número de votos debe ser mayor o igual a 0')
+      .max(600, 'El número de votos no puede ser mayor que 600')
       .required('El número de votos es obligatorio'),
     uxp: Yup.number()
       .integer('El número de votos debe ser un entero')
       .min(0, 'El número de votos debe ser mayor o igual a 0')
+      .max(600, 'El número de votos no puede ser mayor que 600')
       .required('El número de votos es obligatorio'),
     blank: Yup.number()
       .integer('El número de votos debe ser un entero')
       .min(0, 'El número de votos debe ser mayor o igual a 0')
+      .max(600, 'El número de votos no puede ser mayor que 600')
       .required('El número de votos es obligatorio'),
     null: Yup.number()
       .integer('El número de votos debe ser un entero')
       .min(0, 'El número de votos debe ser mayor o igual a 0')
+      .max(600, 'El número de votos no puede ser mayor que 600')
       .required('El número de votos es obligatorio'),
     disputed: Yup.number()
       .integer('El número de votos debe ser un entero')
       .min(0, 'El número de votos debe ser mayor o igual a 0')
+      .max(600, 'El número de votos no puede ser mayor que 600')
       .required('El número de votos es obligatorio'),
     identity: Yup.number()
       .integer('El número de votos debe ser un entero')
       .min(0, 'El número de votos debe ser mayor o igual a 0')
+      .max(600, 'El número de votos no puede ser mayor que 600')
       .required('El número de votos es obligatorio'),
     command: Yup.number()
       .integer('El número de votos debe ser un entero')
       .min(0, 'El número de votos debe ser mayor o igual a 0')
+      .max(600, 'El número de votos no puede ser mayor que 600')
       .required('El número de votos es obligatorio'),
   }),
-  validTotalVotes: Yup.boolean().test(
-    'is-within-range',
-    function() {
-      const { envelopes, votes } = this.parent;
-      const totalVotes =
-        votes.lla +
-        votes.uxp +
-        votes.blank +
-        votes.null +
-        votes.disputed +
-        votes.identity +
-        votes.command;
+  validTotalVotes: Yup.boolean().test('is-within-range', function () {
+    const { envelopes, votes } = this.parent;
+    const totalVotes =
+      votes.lla +
+      votes.uxp +
+      votes.blank +
+      votes.null +
+      votes.disputed +
+      votes.identity +
+      votes.command;
 
-      return totalVotes === envelopes || this.createError({ path: 'validTotalVotes', message: 'La suma no coincide con el total de sobres' });
-    },
-  ),
+    return (
+      totalVotes === envelopes ||
+      this.createError({
+        path: 'validTotalVotes',
+        message: 'La suma no coincide con el total de sobres',
+      })
+    );
+  }),
 
   formAgreement: Yup.boolean().oneOf(
     [true],
@@ -106,6 +119,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoadInformationPage() {
+  const navigate = useNavigate();
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const initialValues: TelegramData = {
@@ -129,20 +144,33 @@ function LoadInformationPage() {
     formAgreement: false,
   };
 
-  const isTableDataValid = (touched: FormikTouched<TelegramData>, errors: FormikErrors<TelegramData>) => {
+  const isTableDataValid = (
+    touched: FormikTouched<TelegramData>,
+    errors: FormikErrors<TelegramData>,
+  ) => {
     return (
-      (touched.table && touched.electors && touched.envelopes) &&
-      (!errors.circuit && !errors.table && !errors.electors && !errors.envelopes && !errors.validVotesDifference)
+      touched.table &&
+      touched.electors &&
+      touched.envelopes &&
+      !errors.circuit &&
+      !errors.table &&
+      !errors.electors &&
+      !errors.envelopes
     );
-  }
+  };
 
-  const onSubmitForm = (values: TelegramData, errors: FormikErrors<TelegramData>) => {
+  const onSubmitForm = (
+    values: TelegramData,
+    errors: FormikErrors<TelegramData>,
+  ) => {
     if (Object.keys(errors).length > 0) {
+      console.log(errors)
       setIsDialogOpen(true);
     } else {
       // TODO: Integrar con el envio de datos a la API cuando este disponible
       // si la respuesta es exitosa, redirigir a la pantalla de carga exitosa
       console.log('Sending data to API', values);
+      navigate(paths.sendSuccess);
     }
   };
 
@@ -151,7 +179,8 @@ function LoadInformationPage() {
     // TODO: Llamar a la API para reportar la mesa, cerrar el dialogo
     // si la respuesta es exitosa, redirigir a la pantalla de dencunciado exitoso
     setIsDialogOpen(false);
-  }
+    navigate(paths.sendWarning);
+  };
 
   return (
     <>
@@ -182,7 +211,7 @@ function LoadInformationPage() {
             handleBlur,
             errors,
             isValid,
-            setErrors
+            setErrors,
           }) => (
             <Form className="flex flex-col gap-8">
               <section className="grid grid-cols-2 gap-6 lg:grid-cols-4 lg:mb-4">
@@ -343,13 +372,17 @@ function LoadInformationPage() {
                   onChange={handleChange}
                 />
                 <Button
-                  type='button'
+                  type="button"
                   onClick={() => onSubmitForm(values, errors)}
-                  disabled={ !isTableDataValid(touched, errors) || !values.formAgreement }
+                  disabled={
+                    !isTableDataValid(touched, errors) || !values.formAgreement || !!errors.votes
+                  }
                   className={classNames(
-                    (!isTableDataValid(touched, errors) || !values.formAgreement) ||
-                    ( !errors.validTotalVotes ) ||
-                    '!bg-red', 'lg:max-w-xs lg:m-auto'
+                    !isTableDataValid(touched, errors) ||
+                      !values.formAgreement ||
+                      !errors.validTotalVotes ||
+                      '!bg-red !text-white',
+                    'lg:max-w-xs lg:m-auto',
                   )}
                 >
                   Enviar datos
@@ -359,15 +392,48 @@ function LoadInformationPage() {
           )}
         </Formik>
       </main>
-      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}  className="fixed inset-0 bg-black/25 backdrop-blur-sm z-20 flex justify-center items-center">
-        <Dialog.Panel className="fixed z-30 bg-white w-3/4 max-w-md rounded-xl p-5">
+      <Dialog
+        open={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        className="fixed inset-0 bg-black/25 backdrop-blur-sm z-20 flex justify-center items-center"
+      >
+        <Dialog.Panel className="fixed z-30 bg-white max-w-xs rounded-xl px-4 py-8">
           <Dialog.Description>
-            Los datos ingresados en el formulario contienen anomalías.
-            ¿Desea denunciar esta mesa?
+            <div className="flex flex-col items-center">
+              <div className='bg-red/5 p-6 rounded-full mb-4'>
+                <img
+                  src="assets/icon/warn-icon.svg"
+                  alt="warning icon"
+                  className="h-10 w-10"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-center leading-5 text-red">
+                  Los datos ingresados presentan discrepancias.
+                </p>
+                <p className="text-center leading-5">
+                  ¿Desea enviar estos datos de todas formas?
+                </p>
+              </div>
+            </div>
           </Dialog.Description>
-          <section className="flex flex-row gap-4 mt-4">
-            <Button appearance='ghost' size='sm' onClick={() => setIsDialogOpen(false)}>Volver</Button>
-            <Button appearance='filled' size='sm' className='!bg-red' onClick={onReportTable}>Denunciar</Button>
+          <section className="flex flex-row gap-2 mt-[34px]">
+            <Button
+              appearance="outlined"
+              size="md"
+              className="!text-base h-14"
+              onClick={() => setIsDialogOpen(false)}
+            >
+              Volver
+            </Button>
+            <Button
+              appearance="filled"
+              size="md"
+              className="!text-base h-14 bg-violet-primary"
+              onClick={onReportTable}
+            >
+              Enviar
+            </Button>
           </section>
         </Dialog.Panel>
       </Dialog>
