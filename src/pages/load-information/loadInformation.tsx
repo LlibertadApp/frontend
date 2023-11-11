@@ -225,7 +225,7 @@ function LoadInformationPage() {
 
         // Hago post al endpoint de actas de la API 
         const response = await axios.post(
-          endpoint,
+          `${endpoint}/actas`,
           payload,
           {
             headers: {
