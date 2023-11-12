@@ -5,15 +5,15 @@ const CertificateContext = createContext<{
   file?: File
   setFile: (file: File) => void
 
-  certificateImage?: string
-  setCertificateImage: (image: string) => void
+  certificateImage?: File
+  setCertificateImage: (image: File) => void
 } | undefined>(undefined);
 
 export function CertificateProvider(
   { children }: { children: ReactNode }
 ) {
   const [file, setFile] = useState<File>();
-  const [certificateImage, setCertificateImage] = useState<string>();
+  const [certificateImage, setCertificateImage] = useState<File>();
 
   return (
     <CertificateContext.Provider value={{ file, setFile, certificateImage, setCertificateImage }}>

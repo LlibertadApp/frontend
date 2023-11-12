@@ -27,7 +27,6 @@ import { TelegramData } from './types';
 import axios from 'axios';
 import { useAuth } from '#/context/AuthContext';
 
-
 const validationSchema = Yup.object().shape({
   circuit: Yup.string().required('Debe ingresar un circuito'),
   table: Yup.string().required('Debe ingresar una mesa'),
@@ -128,16 +127,16 @@ const validationSchema = Yup.object().shape({
 
 function LoadInformationPage() {
   const navigate = useNavigate();
-  
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { file } = useCertificate();
-  const { mesas } = useAuth()
-  const [ mesa, setMesa ] = useState<string | undefined>('')
+  const { mesas } = useAuth();
+  const [mesa, setMesa] = useState<string | undefined>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const initialValues: TelegramData = {
-    circuit: 'Circuito 1',
-    table: '0012', // ?? por qué tiene este valor hardcodeado?
+    circuit: 'Circuito 1', // Acá se cambia por el circuito del token
+    table: '0', // ?? por qué tiene este valor hardcodeado?
     electors: undefined,
     envelopes: undefined,
     validVotesDifference: false,
@@ -174,9 +173,9 @@ function LoadInformationPage() {
   const isVoteSumExceeded = (votes: TelegramData['votes']) =>
     Object.values(votes).reduce((acc, curr) => acc + curr, 0) > 600;
 
-    const getDifferenceMessage = (data: TelegramData): string => {
-      const { electors, envelopes } = data;
-      const difference = Math.abs(electors! - envelopes!);
+  const getDifferenceMessage = (data: TelegramData): string => {
+    const { electors, envelopes } = data;
+    const difference = Math.abs(electors! - envelopes!);
 
     if (!electors) {
       return 'Sin información';
@@ -188,22 +187,23 @@ function LoadInformationPage() {
     } else {
       return 'Sin información';
     }
-  }
-  
-  const onSubmitForm = async (values: TelegramData, errors: FormikErrors<TelegramData>) => {
+  };
+
+  const onSubmitForm = async (
+    values: TelegramData,
+    errors: FormikErrors<TelegramData>,
+    comesFromReport: boolean,
+  ) => {
     setIsSubmitting(true);
 
-    if (Object.keys(errors).length > 0) {
-      
+    if (Object.keys(errors).length > 0 && !comesFromReport) {
       setIsDialogOpen(true);
       setIsSubmitting(false);
     } else {
       const userToken = sessionStorage.getItem('token');
       const userId = sessionStorage.getItem('uid');
-      
-      
+
       try {
-        
         const endpoint = import.meta.env.VITE_REACT_backend_endpoint;
 
         const payload = new FormData();
@@ -213,51 +213,63 @@ function LoadInformationPage() {
 
         payload.append('conteoUp', values.votes.uxp.toString() || '');
         payload.append('conteoLla', values.votes.lla.toString() || '');
-        payload.append('votosImpugnados', values.votes.identity.toString() || '');
+        payload.append(
+          'votosImpugnados',
+          values.votes.identity.toString() || '',
+        );
         payload.append('votosNulos', values.votes.null.toString() || '');
         payload.append('votosEnBlanco', values.votes.blank.toString() || '');
-        payload.append('votosRecurridos', values.votes.disputed.toString() || '');
+        payload.append(
+          'votosRecurridos',
+          values.votes.disputed.toString() || '',
+        );
 
         payload.append(
-          'votosEnTotal', 
-          Object.values(values.votes).reduce((acc, curr) => acc + curr, 0).toString() || ''
+          'votosEnTotal',
+          Object.values(values.votes)
+            .reduce((acc, curr) => acc + curr, 0)
+            .toString() || '',
         );
 
         payload.append('imagenActa', file || '');
         console.log('Valor de endpoint:', endpoint);
-        console.log(import.meta.env)
+        console.log(import.meta.env);
 
-        // Hago post al endpoint de actas de la API 
-        const response = await axios.post(
-          `${endpoint}/actas`,
-          payload,
-          {
-            headers: {
-              'Content-Type': '',
-              'Authorization': userToken,
-            }
-          }
-        );
-        
+        // Hago post al endpoint de actas de la API
+        const response = await axios.post(`${endpoint}/actas`, payload, {
+          headers: {
+            'Content-Type': '',
+            Authorization: userToken,
+          },
+        });
+
         if (response.status !== 201) {
           setIsSubmitting(false);
           console.error('Error sending data:', response.statusText);
+          navigate(paths.uploadFailed);
         }
 
         setIsSubmitting(false);
-        navigate(paths.sendSuccess)
+
+        comesFromReport
+          ? navigate(paths.sendWarning)
+          : navigate(paths.sendSuccess);
       } catch (error) {
         setIsSubmitting(false);
         console.error('Error:', error);
+        navigate(paths.uploadFailed);
       }
     }
   };
 
-  const onReportTable = () => {
-    // TODO: Llamar a la API para reportar la mesa, cerrar el dialogo
-    // si la respuesta es exitosa, redirigir a la pantalla de dencunciado exitoso
+  const onReportTable = (
+    values: TelegramData,
+    errors: FormikErrors<TelegramData>,
+    comesFromReport: boolean,
+  ) => {
+    errors = {};
     setIsDialogOpen(false);
-    navigate(paths.sendWarning);
+    onSubmitForm(values, errors, comesFromReport);
   };
 
   return (
@@ -317,28 +329,23 @@ function LoadInformationPage() {
                   error={!!errors.table}
                 /> */}
                 <TextField
-                  value={mesa}                  
+                  value={mesa}
                   label="Mesa"
-                  id='table-select'
+                  id="table-select"
                   name="table"
                   variant="outlined"
                   placeholder="00000/0"
                   select
-                  onChange={(e) => setMesa(e.target.value) }
+                  onChange={(e) => setMesa(e.target.value)}
                   onBlur={handleBlur}
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.table}
                 >
-                  {
-                    mesas.map(option => (
-                      <MenuItem
-                        key={option.mesaId}
-                        value={option.mesaId}
-                      >
-                        {option.mesaId}
-                      </MenuItem>          
-                    ))
-                  }
+                  {mesas.map((option) => (
+                    <MenuItem key={option.mesaId} value={option.mesaId}>
+                      {option.mesaId}
+                    </MenuItem>
+                  ))}
                 </TextField>
 
                 <TextField
@@ -374,8 +381,7 @@ function LoadInformationPage() {
                 <Alert
                   error={!!errors.validVotesDifference}
                   message={
-                    errors.validVotesDifference ||
-                    getDifferenceMessage(values)
+                    errors.validVotesDifference || getDifferenceMessage(values)
                   }
                 />
               </section>
@@ -478,7 +484,7 @@ function LoadInformationPage() {
                 />
                 <Button
                   type="button"
-                  onClick={() => onSubmitForm(values, errors)}
+                  onClick={() => onSubmitForm(values, errors, false)}
                   disabled={
                     !isTableDataValid(touched, errors) ||
                     !values.formAgreement ||
@@ -496,61 +502,61 @@ function LoadInformationPage() {
                       ? 'filled'
                       : 'error'
                   }
-                  className='lg:max-w-xs lg:mx-auto'
+                  className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}
                 >
                   Enviar datos
                 </Button>
               </section>
+              <Dialog
+                open={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                className="fixed inset-0 bg-black/25 backdrop-blur-sm z-20 flex justify-center items-center"
+              >
+                <Dialog.Panel className="fixed z-30 bg-white max-w-xs lg:max-w-md rounded-xl px-4 py-8 lg:px-10">
+                  <Dialog.Description>
+                    <div className="flex flex-col items-center">
+                      <div className="bg-red/5 p-6 rounded-full mb-4">
+                        <img
+                          src="assets/icon/warn-icon.svg"
+                          alt="warning icon"
+                          className="h-10 w-10"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <p className="text-center leading-5 text-red">
+                          Los datos ingresados presentan discrepancias.
+                        </p>
+                        <p className="text-center leading-5">
+                          ¿Desea enviar estos datos de todas formas?
+                        </p>
+                      </div>
+                    </div>
+                  </Dialog.Description>
+                  <section className="flex flex-row gap-2 mt-[34px] lg:gap-5">
+                    <Button
+                      appearance="outlined"
+                      size="md"
+                      className="!text-base h-14"
+                      onClick={() => setIsDialogOpen(false)}
+                    >
+                      Volver
+                    </Button>
+                    <Button
+                      appearance="filled"
+                      size="md"
+                      className="!text-base h-14 bg-violet-primary"
+                      onClick={() => onReportTable(values, errors, true)}
+                    >
+                      Enviar
+                    </Button>
+                  </section>
+                </Dialog.Panel>
+              </Dialog>
             </Form>
           )}
         </Formik>
       </main>
-      <Dialog
-        open={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        className="fixed inset-0 bg-black/25 backdrop-blur-sm z-20 flex justify-center items-center"
-      >
-        <Dialog.Panel className="fixed z-30 bg-white max-w-xs lg:max-w-md rounded-xl px-4 py-8 lg:px-10">
-          <Dialog.Description>
-            <div className="flex flex-col items-center">
-              <div className="bg-red/5 p-6 rounded-full mb-4">
-                <img
-                  src="assets/icon/warn-icon.svg"
-                  alt="warning icon"
-                  className="h-10 w-10"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="text-center leading-5 text-red">
-                  Los datos ingresados presentan discrepancias.
-                </p>
-                <p className="text-center leading-5">
-                  ¿Desea enviar estos datos de todas formas?
-                </p>
-              </div>
-            </div>
-          </Dialog.Description>
-          <section className="flex flex-row gap-2 mt-[34px] lg:gap-5">
-            <Button
-              appearance="outlined"
-              size="md"
-              className="!text-base h-14"
-              onClick={() => setIsDialogOpen(false)}
-            >
-              Volver
-            </Button>
-            <Button
-              appearance="filled"
-              size="md"
-              className="!text-base h-14 bg-violet-primary"
-              onClick={onReportTable}
-            >
-              Enviar
-            </Button>
-          </section>
-        </Dialog.Panel>
-      </Dialog>
     </>
   );
 }
