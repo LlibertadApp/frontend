@@ -36,7 +36,8 @@ jobs:
           "VITE_REACT_storageBucket": "${{ vars.VITE_REACT_storageBucket }}",
           "VITE_REACT_messagingSenderId": "${{ vars.VITE_REACT_messagingSenderId }}",
           "VITE_REACT_appId": "${{ vars.VITE_REACT_appId }}",
-          "VITE_REACT_measurementId": "${{ vars.VITE_REACT_measurementId }}"
+          "VITE_REACT_measurementId": "${{ vars.VITE_REACT_measurementId }}",
+          "VITE_REACT_backend_endpoint": "${{ vars.VITE_REACT_backend_endpoint }}"
         }'
         python3 dotEnvGenerator.py "$VARIABLES_JSON"
         cat .env

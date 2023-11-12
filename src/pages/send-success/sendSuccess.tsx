@@ -27,7 +27,7 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
             </h3>
           </div>
           <h3 className="flex text-center text-base justify-center lg:text-2xl lg:mt-[14px]">
-            Muchas gracias por fiscalizar, ¡VLLC!
+            Muchas gracias por fiscalizar!
           </h3>
           <div className="flex items-center justify-center my-20">
             {/* TODO: Mover a Home */}

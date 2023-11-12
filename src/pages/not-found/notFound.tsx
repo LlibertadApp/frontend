@@ -14,7 +14,7 @@ const NotFoundPage = () => {
         <p className='text-base text-center font-medium text-[#485760] max-w-[224px]'>
           Ups. La página que estás buscando no existe.
         </p>
-        <Link className='w-full max-w-xs bg-violet-primary rounded-xl p-4 mt-[98px] text-white' to={paths.home}>Volver al Inicio</Link>
+        
       </section>
     </main>
   );

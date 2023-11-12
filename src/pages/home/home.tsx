@@ -11,6 +11,8 @@ import Overlay from '#/components/overlay';
 import { paths } from '#/routes/paths';
 import { CardLink } from '#/components/cardLink';
 import { colors } from '#/components/cardLink/types';
+import LoadingSpinner from '#/components/loadingSpinner';
+import Button from '#/components/button';
 
 const HomePage = () => {
   return (

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import { TextField } from '@mui/material';
+import { TextField, MenuItem } from '@mui/material';
 import { Dialog } from '@headlessui/react';
 import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
 import {
@@ -23,9 +23,10 @@ import Checkbox from '#/components/checkbox/checkbox';
 import CategoryVoteInput from '#/components/categoryVoteInput';
 import ProgressIndicator from '#/components/progressIndicator';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
-
 import { TelegramData } from './types';
 import axios from 'axios';
+import { useAuth } from '#/context/AuthContext';
+
 
 const validationSchema = Yup.object().shape({
   circuit: Yup.string().required('Debe ingresar un circuito'),
@@ -127,13 +128,16 @@ const validationSchema = Yup.object().shape({
 
 function LoadInformationPage() {
   const navigate = useNavigate();
-
+  
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [certificateImage, setCertificateImage] = useState<File>()
+  const { file } = useCertificate();
+  const { mesas } = useAuth()
+  const [ mesa, setMesa ] = useState<string | undefined>('')
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1',
-    table: '0012',
+    table: '0012', // ?? por qué tiene este valor hardcodeado?
     electors: undefined,
     envelopes: undefined,
     validVotesDifference: false,
@@ -187,23 +191,24 @@ function LoadInformationPage() {
   }
   
   const onSubmitForm = async (values: TelegramData, errors: FormikErrors<TelegramData>) => {
+    setIsSubmitting(true);
+
     if (Object.keys(errors).length > 0) {
-      console.log(values)
+      
       setIsDialogOpen(true);
+      setIsSubmitting(false);
     } else {
       const userToken = sessionStorage.getItem('token');
       const userId = sessionStorage.getItem('uid');
-
+      
+      
       try {
         
-        // // Obtén el contexto del certificado
-        // const { certificateImage } = useCertificate();
+        const endpoint = import.meta.env.VITE_REACT_backend_endpoint;
 
-        // // Agrega la imagen del certificado a los datos antes de enviarlos
-        // const dataToSend = { ...values, certificateImage };
-        // console.log(dataToSend);
         const payload = new FormData();
-        payload.append('mesaId', values.table || '');
+        // payload.append('mesaId', values.table || '');
+        payload.append('mesaId', mesa || '');
         payload.append('userId', userId || '');
 
         payload.append('conteoUp', values.votes.uxp.toString() || '');
@@ -218,11 +223,13 @@ function LoadInformationPage() {
           Object.values(values.votes).reduce((acc, curr) => acc + curr, 0).toString() || ''
         );
 
-        payload.append('imagenActa', certificateImage || '');
+        payload.append('imagenActa', file || '');
+        console.log('Valor de endpoint:', endpoint);
+        console.log(import.meta.env)
 
         // Hago post al endpoint de actas de la API 
         const response = await axios.post(
-          'https://f7bdqf9mug.execute-api.us-east-2.amazonaws.com/actas',
+          `${endpoint}/actas`,
           payload,
           {
             headers: {
@@ -233,17 +240,20 @@ function LoadInformationPage() {
         );
         
         if (response.status !== 201) {
+          setIsSubmitting(false);
           console.error('Error sending data:', response.statusText);
         }
+
+        setIsSubmitting(false);
         navigate(paths.sendSuccess)
       } catch (error) {
+        setIsSubmitting(false);
         console.error('Error:', error);
       }
     }
   };
 
   const onReportTable = () => {
-    console.log('Reporting table');
     // TODO: Llamar a la API para reportar la mesa, cerrar el dialogo
     // si la respuesta es exitosa, redirigir a la pantalla de dencunciado exitoso
     setIsDialogOpen(false);
@@ -264,15 +274,6 @@ function LoadInformationPage() {
         <h1 className="py-8 text-neutral-700 text-xl font-semibold lg:text-3xl">
           Completá los datos del certificado
         </h1>
-        <input
-          type='file'
-          accept='image/*'
-          onChange={
-            (e) => {
-              setCertificateImage(e.target.files?.[0])
-            }
-          }
-        />
         <Formik
           onSubmit={() => {}}
           initialValues={initialValues}
@@ -304,7 +305,7 @@ function LoadInformationPage() {
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.circuit}
                 />
-                <TextField
+                {/* <TextField
                   label="Mesa"
                   name="table"
                   variant="outlined"
@@ -314,7 +315,31 @@ function LoadInformationPage() {
                   onBlur={handleBlur}
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.table}
-                />
+                /> */}
+                <TextField
+                  value={mesa}                  
+                  label="Mesa"
+                  id='table-select'
+                  name="table"
+                  variant="outlined"
+                  placeholder="00000/0"
+                  select
+                  onChange={(e) => setMesa(e.target.value) }
+                  onBlur={handleBlur}
+                  InputProps={{ style: { borderRadius: '8px' } }}
+                  error={!!errors.table}
+                >
+                  {
+                    mesas.map(option => (
+                      <MenuItem
+                        key={option.mesaId}
+                        value={option.mesaId}
+                      >
+                        {option.mesaId}
+                      </MenuItem>          
+                    ))
+                  }
+                </TextField>
 
                 <TextField
                   label="Nro de electores"
@@ -458,7 +483,8 @@ function LoadInformationPage() {
                     !isTableDataValid(touched, errors) ||
                     !values.formAgreement ||
                     !!errors.votes ||
-                    isVoteSumExceeded(values.votes)
+                    isVoteSumExceeded(values.votes) ||
+                    isSubmitting
                   }
                   appearance={
                     !isTableDataValid(touched, errors) ||
@@ -471,6 +497,7 @@ function LoadInformationPage() {
                       : 'error'
                   }
                   className='lg:max-w-xs lg:mx-auto'
+                  isLoading={isSubmitting}
                 >
                   Enviar datos
                 </Button>
