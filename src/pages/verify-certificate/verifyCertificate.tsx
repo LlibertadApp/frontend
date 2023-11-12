@@ -13,7 +13,7 @@ const VerifyCertificate = () => {
   const [correctData, setCorrectData] = useState<boolean>(false);
   const [imageUploaded, setImageUploaded] = useState<boolean>(false);
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
-  const { certificateImage } = useCertificate();
+  const { certificateImageBase64 } = useCertificate();
 
   const handleCheckbox = () => {
     setCorrectData((correctData) => !correctData);
@@ -60,11 +60,11 @@ const VerifyCertificate = () => {
             </span>
           </div>
 
-          {certificateImage ? (
+          {certificateImageBase64 ? (
             <>
               <div className="flex items-center justify-center px-4 py-4">
                 <img
-                  src={certificateImage || ''}
+                  src={certificateImageBase64 || ''}
                   alt="uploaded image"
                   className="object-cover rounded-2xl w-100 h-auto"
                 />

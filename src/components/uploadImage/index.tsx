@@ -6,6 +6,7 @@ import Button from '#/components/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
 import toast, { Toaster } from 'react-hot-toast';
+import { useCertificate } from '#/context/CertificationContext';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-lg text-xs gap-2 text-[#444444]">
@@ -21,21 +22,26 @@ const CheckItem = ({ text }: { text: string }) => (
 export function UploadImage({
   onUpload,
 }: {
-  onUpload: (image: string) => void;
+  // onUpload: (image: string) => void;
+  onUpload: (image: File) => void;
 }) {
   const [preview, setPreview] = useState<string>();
   const [uploaded, setUploaded] = useState(false);
   const navigate = useNavigate();
+  const { setCertificateImage, setCertificateImageBase64 } = useCertificate();
 
   async function onUploadInternal(file: File | null | undefined) {
     if (!file) return;
     const base64 = await getBase64(file);
-    onUpload(base64);
-    handlePreview(file);
+    // onUpload(base64);
+    onUpload(file);
+    await handlePreview(file);
     setUploaded(true);
+    setCertificateImage(file);
+    setCertificateImageBase64(base64);
   }
 
-  function handlePreview(file: File) {
+  async function handlePreview(file: File) {
     const objectUrl: string = URL.createObjectURL(file);
     setPreview(objectUrl);
   }
@@ -116,6 +122,15 @@ export function UploadImage({
             />
             Cargar Imagen
           </label>
+          {/* <input
+            type='file'
+            accept='image/*'
+            onChange={
+              (e) => {
+                setCertificateImage(e.target.files?.[0])
+              }
+            }
+          /> */}
         </Button>
       </div>
     </div>

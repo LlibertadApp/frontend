@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import { TextField } from '@mui/material';
+import { TextField, MenuItem } from '@mui/material';
 import { Dialog } from '@headlessui/react';
 import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
 import {
@@ -25,6 +25,7 @@ import ProgressIndicator from '#/components/progressIndicator';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { TelegramData } from './types';
 import axios from 'axios';
+import { useAuth } from '#/context/AuthContext';
 
 
 const validationSchema = Yup.object().shape({
@@ -129,11 +130,14 @@ function LoadInformationPage() {
   const navigate = useNavigate();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [certificateImage, setCertificateImage] = useState<File>()
+  // const [certificateImage, setCertificateImage] = useState<File>()
+  const { certificateImage } = useCertificate();
+  const { mesas } = useAuth()
+  const [ mesa, setMesa ] = useState<string | undefined>('')
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1',
-    table: '0012',
+    table: '0012', // ?? por qué tiene este valor hardcodeado?
     electors: undefined,
     envelopes: undefined,
     validVotesDifference: false,
@@ -200,7 +204,8 @@ function LoadInformationPage() {
         const endpoint = import.meta.env.VITE_REACT_backend_endpoint;
 
         const payload = new FormData();
-        payload.append('mesaId', values.table || '');
+        // payload.append('mesaId', values.table || '');
+        payload.append('mesaId', mesa || '');
         payload.append('userId', userId || '');
 
         payload.append('conteoUp', values.votes.uxp.toString() || '');
@@ -260,7 +265,7 @@ function LoadInformationPage() {
         <h1 className="py-8 text-neutral-700 text-xl font-semibold lg:text-3xl">
           Completá los datos del certificado
         </h1>
-        <input
+        {/* <input
           type='file'
           accept='image/*'
           onChange={
@@ -268,7 +273,7 @@ function LoadInformationPage() {
               setCertificateImage(e.target.files?.[0])
             }
           }
-        />
+        /> */}
         <Formik
           onSubmit={() => {}}
           initialValues={initialValues}
@@ -300,7 +305,7 @@ function LoadInformationPage() {
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.circuit}
                 />
-                <TextField
+                {/* <TextField
                   label="Mesa"
                   name="table"
                   variant="outlined"
@@ -310,7 +315,31 @@ function LoadInformationPage() {
                   onBlur={handleBlur}
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.table}
-                />
+                /> */}
+                <TextField
+                  value={mesa}                  
+                  label="Mesa"
+                  id='table-select'
+                  name="table"
+                  variant="outlined"
+                  placeholder="00000/0"
+                  select
+                  onChange={(e) => setMesa(e.target.value) }
+                  onBlur={handleBlur}
+                  InputProps={{ style: { borderRadius: '8px' } }}
+                  error={!!errors.table}
+                >
+                  {
+                    mesas.map(option => (
+                      <MenuItem
+                        key={option.mesaId}
+                        value={option.mesaId}
+                      >
+                        {option.mesaId}
+                      </MenuItem>          
+                    ))
+                  }
+                </TextField>
 
                 <TextField
                   label="Nro de electores"
