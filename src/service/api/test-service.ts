@@ -2,7 +2,7 @@ import { http } from "#/utils";
 import { RestClient } from "../rest";
 
 class TestClient extends RestClient {
-  public baseUrl = "/api";
+  public baseUrl = "";
 
   public async apiCallTest() {
     const response = await http.get(this.getUrl(`cualquiercosa`));

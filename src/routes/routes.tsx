@@ -7,6 +7,7 @@ import AnimatedRoute from '#/components/animatedRoute';
 
 const Login = lazy(() => import('#/pages/login/login'));
 const SendSuccess = lazy(() => import('#/pages/send-success/sendSuccess'));
+const SendWarning = lazy(() => import('#/pages/send-warning/sendWarning'));
 const UploadFailed = lazy(() => import('#/pages/upload-failed/uploadFailed'));
 const LoadInformation = lazy(
   () => import('#/pages/load-information/loadInformation'),
@@ -57,6 +58,7 @@ const AppRoutes: React.FC = () => {
           />
           <Route path={paths.loadInformation} element={<LoadInformation />} />
           <Route path={paths.sendSuccess} element={<SendSuccess />} />
+          <Route path={paths.sendWarning} element={<SendWarning />} />
           <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
           {/* Filters, Results & Irregularities */}

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { CheckCircle } from '@phosphor-icons/react';
+
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
 import UploadImage from '#/components/uploadImage';
@@ -8,6 +10,7 @@ import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useCertificate } from '#/context/CertificationContext';
 import { paths } from '#/routes/paths';
+import UploadInput from '#/components/uploadInput';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
@@ -22,36 +25,46 @@ const UploadCertificate = () => {
   const navigate = useNavigate();
 
   // TODO: Replace with context useState
-  const { setCertificateImage } = useCertificate();
+  const { setFile, setCertificateImage } = useCertificate();
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(e.target.files?.[0]!);
+    setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
+
+    navigate(paths.verifyCertificate);
+  }
 
   return (
-    <section className="items-center flex flex-col ">
+    <>
       <Navbar routerLink={paths.home} />
-      <div className="p-4 w-full max-w-[52.5rem] lg:px-0">
-        <div className="container flex-column items-center m-auto">
-          <div className="progressIndicator">
-            <ProgressIndicator
-              steps={[
-                ProgressStepStatus.Active,
-                ProgressStepStatus.Pending,
-                ProgressStepStatus.Pending,
-              ]}
-            />
-          </div>
-          <div className="p-2 text-center my-[14px] mx-4 text-2xl font-black text-text-off lg:my-14 lg:p-1 lg:text-[2.5rem]">
-            <p>Cargar imagen</p>
-          </div>
-          <p className="py-2 text-left text-gray-darker lg:py-0 lg:text-xl lg:leading-6">
-            Usa la cámara para subir <b>el certificado del fiscal</b>, o cargala
-            desde la galería.
-          </p>
-          <div className="flex flex-col text-start gap-3 ">
-            <UploadImage onUpload={(url) => setCertificateImage(url)} />
-          </div>
-        </div>
-        {/* Establece url al contexto */}
-      </div>
-    </section>
+      <main className='container mx-auto p-4 flex flex-col gap-[30px] max-w-[52.5rem]'>
+        <ProgressIndicator steps={[ProgressStepStatus.Active, ProgressStepStatus.Pending, ProgressStepStatus.Pending]} />
+        <h1 className="text-neutral-700 text-xl font-medium text-center">Cargar imagen</h1>
+        <p className="text-neutral-600 text-base">Usá la cámara para subir <b>el certificado del fiscal</b>, o cargala desde la galería.</p>
+        <UploadInput 
+          id='largeCertificateInput' 
+          size='lg' 
+          onChange={handleImageUpload}/>
+        <ul className="flex flex-col gap-[15px]">
+          <li className="flex flex-row gap-[8px] text-left">
+            <CheckCircle className="text-green" size={24} />
+            <span className="text-neutral-600 text-sm flex-1">Buscá un lugar con buena luz.</span>
+          </li>
+          <li className="flex flex-row gap-[8px] text-left">
+            <CheckCircle className="text-green" size={24} />
+            <span className="text-neutral-600 text-sm flex-1">Asegurate de que se vean todos los datos.</span>
+          </li>
+          <li className="flex flex-row gap-[8px] text-left">
+            <CheckCircle className="text-green" size={24} />
+            <span className="text-neutral-600 text-sm flex-1">Asegurate que el certificado esté firmado por el presidente de tu mesa.</span>
+          </li>
+        </ul>
+        <UploadInput 
+          id='buttonCertificateInput' 
+          size='md' 
+          onChange={handleImageUpload}/>
+      </main>
+    </>
   );
 };
 

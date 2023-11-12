@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { ButtonAppearance, ButtonSize, IButtonProps } from './types';
+import LoadingSpinner from '../loadingSpinner';
 
 export default function Button({
   appearance = 'filled',
@@ -10,6 +11,7 @@ export default function Button({
   label,
   children,
   className,
+  isLoading
 }: IButtonProps) {
   const appereances: Record<ButtonAppearance, string> = {
     filled:
@@ -41,6 +43,7 @@ export default function Button({
       )}
     >
       {children || label}
+      { isLoading && <LoadingSpinner /> }
     </button>
   );
 }
