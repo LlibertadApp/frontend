@@ -232,8 +232,8 @@ function LoadInformationPage() {
         );
 
         payload.append('imagenActa', file || '');
-        console.log('Valor de endpoint:', endpoint);
-        console.log(import.meta.env);
+        // console.log('Valor de endpoint:', endpoint);
+        // console.log(import.meta.env);
 
         // Hago post al endpoint de actas de la API
         const response = await axios.post(`${endpoint}/actas`, payload, {

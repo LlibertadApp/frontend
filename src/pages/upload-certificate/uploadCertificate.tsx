@@ -29,7 +29,8 @@ const UploadCertificate = () => {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0]!);
-    setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
+    // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
+    setCertificateImage(e.target.files?.[0]!); // test
 
     navigate(paths.verifyCertificate);
   }
