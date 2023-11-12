@@ -46,7 +46,7 @@ const UploadCertificate = () => {
             desde la galería.
           </p>
           <div className="flex flex-col text-start gap-3 ">
-            <UploadImage onUpload={(url) => setCertificateImage(url)} />
+            <UploadImage onUpload={(file) => setCertificateImage(file)} />
           </div>
         </div>
         {/* Establece url al contexto */}
