@@ -52,7 +52,7 @@ const validationSchema = Yup.object().shape({
       } con respecto a los electores`;
 
       return (
-        difference < 5 ||
+        difference <= 5 ||
         this.createError({ path: 'validVotesDifference', message })
       );
     }),
