@@ -2,7 +2,6 @@ import { CardLink } from '#/components/cardLink';
 import { colors } from '#/components/cardLink/types';
 import Navbar from '#/components/navbar';
 import { paths } from '#/routes/paths';
-import { observer } from 'mobx-react';
 import { MinusSquare, SelectionInverse, Scissors, Megaphone } from '@phosphor-icons/react';
 
 
@@ -59,6 +58,6 @@ const IrregularitiesPage = () => {
   );
 };
 
-export const Irregularities = observer(IrregularitiesPage);
+export const Irregularities = IrregularitiesPage;
 
 export default Irregularities;

@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import { observer } from 'mobx-react';
 import { TextField, MenuItem } from '@mui/material';
 import { Dialog } from '@headlessui/react';
 import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
@@ -561,6 +560,6 @@ function LoadInformationPage() {
   );
 }
 
-export const LoadInformation = observer(LoadInformationPage);
+export const LoadInformation = (LoadInformationPage);
 
 export default LoadInformation;

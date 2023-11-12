@@ -1,11 +1,10 @@
-import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
 import { paths } from '#/routes/paths';
 
 const UploadFailedPage = () => {
-    return (
+  return (
         <section className='items-center flex flex-col'>
             <Navbar routerLink={paths.loadInformation} />
             <div className="p-4 w-full lg:max-w-[52.5rem]">
@@ -40,5 +39,5 @@ const UploadFailedPage = () => {
     );
 };
 
-export const UploadFailed = observer(UploadFailedPage);
+export const UploadFailed = UploadFailedPage;
 export default UploadFailed;

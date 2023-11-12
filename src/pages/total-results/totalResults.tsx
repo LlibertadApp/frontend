@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
 import { X, ArrowRight } from '@phosphor-icons/react';
 
 import { FilterPage } from '#/pages/filter-results/filterResults';
@@ -95,7 +94,6 @@ const TotalResultsPage = () => {
             </div>
 
             <FilterPage />
-
           </div>
         )}
       </div>
@@ -203,5 +201,5 @@ const TotalResultsPage = () => {
   );
 };
 
-export const TotalResults = observer(TotalResultsPage);
+export const TotalResults = TotalResultsPage;
 export default TotalResults;

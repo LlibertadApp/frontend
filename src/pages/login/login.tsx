@@ -1,5 +1,4 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 import { paths } from '#/routes/paths';
 
 import firebaseAuth from '#/service/firebase/firebase';
@@ -118,6 +117,6 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export const Login = observer(LoginPage);
+export const Login = LoginPage;
 
 export default Login;

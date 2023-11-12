@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { observer } from 'mobx-react';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { ISendWarningProps } from './types';
@@ -63,6 +62,6 @@ const SendWarningPage: FC<ISendWarningProps> = ({ message }) => {
   );
 };
 
-export const SendWarning = observer(SendWarningPage);
+export const SendWarning = SendWarningPage;
 
 export default SendWarning;
