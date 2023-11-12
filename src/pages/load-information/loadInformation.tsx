@@ -128,12 +128,12 @@ const validationSchema = Yup.object().shape({
 
 function LoadInformationPage() {
   const navigate = useNavigate();
-
+  
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  // const [certificateImage, setCertificateImage] = useState<File>()
-  const { certificateImage } = useCertificate();
+  const { file } = useCertificate();
   const { mesas } = useAuth()
   const [ mesa, setMesa ] = useState<string | undefined>('')
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1',
@@ -191,9 +191,12 @@ function LoadInformationPage() {
   }
   
   const onSubmitForm = async (values: TelegramData, errors: FormikErrors<TelegramData>) => {
+    setIsSubmitting(true);
+
     if (Object.keys(errors).length > 0) {
       
       setIsDialogOpen(true);
+      setIsSubmitting(false);
     } else {
       const userToken = sessionStorage.getItem('token');
       const userId = sessionStorage.getItem('uid');
@@ -220,7 +223,9 @@ function LoadInformationPage() {
           Object.values(values.votes).reduce((acc, curr) => acc + curr, 0).toString() || ''
         );
 
-        payload.append('imagenActa', certificateImage || '');
+        payload.append('imagenActa', file || '');
+        console.log('Valor de endpoint:', endpoint);
+        console.log(import.meta.env)
 
         // Hago post al endpoint de actas de la API 
         const response = await axios.post(
@@ -235,10 +240,14 @@ function LoadInformationPage() {
         );
         
         if (response.status !== 201) {
+          setIsSubmitting(false);
           console.error('Error sending data:', response.statusText);
         }
+
+        setIsSubmitting(false);
         navigate(paths.sendSuccess)
       } catch (error) {
+        setIsSubmitting(false);
         console.error('Error:', error);
       }
     }
@@ -265,15 +274,6 @@ function LoadInformationPage() {
         <h1 className="py-8 text-neutral-700 text-xl font-semibold lg:text-3xl">
           Completá los datos del certificado
         </h1>
-        {/* <input
-          type='file'
-          accept='image/*'
-          onChange={
-            (e) => {
-              setCertificateImage(e.target.files?.[0])
-            }
-          }
-        /> */}
         <Formik
           onSubmit={() => {}}
           initialValues={initialValues}
@@ -483,7 +483,8 @@ function LoadInformationPage() {
                     !isTableDataValid(touched, errors) ||
                     !values.formAgreement ||
                     !!errors.votes ||
-                    isVoteSumExceeded(values.votes)
+                    isVoteSumExceeded(values.votes) ||
+                    isSubmitting
                   }
                   appearance={
                     !isTableDataValid(touched, errors) ||
@@ -496,6 +497,7 @@ function LoadInformationPage() {
                       : 'error'
                   }
                   className='lg:max-w-xs lg:mx-auto'
+                  isLoading={isSubmitting}
                 >
                   Enviar datos
                 </Button>
