@@ -22,7 +22,8 @@ function VerifyCertificate() {
 
   const handleImageReupload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0]!);
-    setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
+    // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
+    setCertificateImage(e.target.files?.[0]!);
 
     navigate(paths.verifyCertificate);
   }
@@ -44,7 +45,10 @@ function VerifyCertificate() {
         />
         <h1 className="text-neutral-700 text-xl font-medium text-center">Cargar el certificado del fiscal</h1>
         <p className="text-neutral-600 text-base">Chequeá que la imagen se vea nítida y completa antes de subirla</p>
-        <img src={certificateImage || ''} alt="uploaded image" className="object-cover rounded-2xl w-100 h-auto border-2" />
+        {/* <img src={certificateImage || ''} alt="uploaded image" className="object-cover rounded-2xl w-100 h-auto border-2" /> */}
+        {certificateImage && (
+          <img src={URL.createObjectURL(certificateImage)} alt="uploaded image" className="object-cover rounded-2xl w-100 h-auto border-2" />
+        )}
         <Checkbox
           label="Verifico que la imagen está firmada por el presidente de mesa y fue completado por mí previamente."
           checked={correctData}
