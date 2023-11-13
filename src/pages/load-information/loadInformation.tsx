@@ -161,7 +161,7 @@ function LoadInformationPage() {
     errors: FormikErrors<TelegramData>,
   ) => {
     return (
-      touched.table &&
+      touched.electors &&
       !errors.circuit &&
       !errors.table &&
       !errors.electors &&
@@ -383,7 +383,6 @@ function LoadInformationPage() {
                   <CategoryVoteInput
                     name="votes.lla"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.lla}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={
@@ -399,7 +398,6 @@ function LoadInformationPage() {
                   <CategoryVoteInput
                     name="votes.uxp"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.uxp}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={
@@ -414,7 +412,6 @@ function LoadInformationPage() {
                   <CategoryVoteInput
                     name="votes.null"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.null}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={<XSquare size={40} className="p-1" color="#908DA8" />}
@@ -423,7 +420,6 @@ function LoadInformationPage() {
                   <CategoryVoteInput
                     name="votes.disputed"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.disputed}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={<Scales size={40} className="p-1" color="#908DA8" />}
@@ -432,7 +428,6 @@ function LoadInformationPage() {
                   <CategoryVoteInput
                     name="votes.identity"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.identity}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={
@@ -443,7 +438,6 @@ function LoadInformationPage() {
                   <CategoryVoteInput
                     name="votes.command"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.command}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={<Users size={40} className="p-1" color="#908DA8" />}
@@ -452,8 +446,7 @@ function LoadInformationPage() {
                   <CategoryVoteInput
                     name="votes.blank"
                     disabled={!isTableDataValid(touched, errors)}
-                    value={values.votes.blank}
-                    onChange={handleChange}
+                     onChange={handleChange}
                     onBlur={handleBlur}
                     icon={
                       <NoteBlank size={40} className="p-1" color="#908DA8" />
