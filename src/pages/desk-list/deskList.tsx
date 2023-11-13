@@ -10,6 +10,7 @@ import {
 import { FC, useState } from 'react';
 import { IAccordionExpanded, IDeskItemLabel, IDeskNormalStatus } from './types';
 import { DeskData } from '#/interfaces/IDesk';
+import { getActas } from '#/service/api/actas';
 
 const DeskItemLabel: FC<IDeskItemLabel> = ({
   typoProps = {
@@ -109,125 +110,15 @@ const DeskStatus: FC<IDeskNormalStatus> = ({ deskNormalStatus }) => {
 };
 
 const DeskList: FC = () => {
-  const DummyData: DeskData = {
-    desks: [
-      {
-        id: 1,
-        deskNumber: '484',
-        description: '',
-        status: {
-          normal: true,
-        },
-        votes: 40,
-        envelopes: 240,
-        circuit: 635,
-        electors: 240,
-        candidate1: {
-          name: 'Javier Gerardo Milei',
-          votes: 190,
-        },
-        candidate2: {
-          name: 'Sergio Tomás Massa',
-          votes: 315,
-        },
-        nullVotes: 0,
-        recurredVotes: 0,
-        impugnedVotes: 0,
-        commandVotes: 0,
-        blankVotes: 0,
-        totalVotes: 240,
-      },
-
-      {
-        id: 2,
-        deskNumber: '777',
-        description: '',
-        status: {
-          normal: false,
-        },
-        votes: 40,
-        envelopes: 240,
-        circuit: 635,
-        electors: 240,
-        candidate1: {
-          name: 'Javier Gerardo Milei',
-          votes: 190,
-        },
-        candidate2: {
-          name: 'Sergio Tomás Massa',
-          votes: 315,
-        },
-        nullVotes: 0,
-        recurredVotes: 0,
-        impugnedVotes: 0,
-        commandVotes: 0,
-        blankVotes: 0,
-        totalVotes: 240,
-      },
-      {
-        id: 3,
-        deskNumber: '123',
-        description: 'VIP Area',
-        status: {
-          normal: true,
-        },
-        votes: 50,
-        envelopes: 300,
-        circuit: 635,
-        electors: 300,
-        candidate1: {
-          name: 'Alberto Fernandez',
-          votes: 150,
-        },
-        candidate2: {
-          name: 'Mauricio Macri',
-          votes: 120,
-        },
-        nullVotes: 5,
-        recurredVotes: 2,
-        impugnedVotes: 1,
-        commandVotes: 0,
-        blankVotes: 2,
-        totalVotes: 300,
-      },
-      {
-        id: 4,
-        deskNumber: '555',
-        description: 'Student Union',
-        status: {
-          normal: true,
-        },
-        votes: 30,
-        envelopes: 180,
-        circuit: 635,
-        electors: 180,
-        candidate1: {
-          name: 'Gabriel Boric',
-          votes: 100,
-        },
-        candidate2: {
-          name: 'Jose Antonio Kast',
-          votes: 60,
-        },
-        nullVotes: 2,
-        recurredVotes: 1,
-        impugnedVotes: 0,
-        commandVotes: 0,
-        blankVotes: 1,
-        totalVotes: 180,
-      },
-    ],
-  };
-
+  const actas = getActas();
   const [accordionExpanded, setAccordionExpanded] =
     useState<IAccordionExpanded>({});
 
   const handleChange =
-    (deskNumber: string) =>
-    (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+    (mesaId: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
       setAccordionExpanded({
         ...accordionExpanded,
-        [deskNumber]: isExpanded,
+        [mesaId]: isExpanded,
       });
     };
 
@@ -240,7 +131,7 @@ const DeskList: FC = () => {
           <span className="text-violet-brand text-4xl font-black pt-4 start">
             MESAS CARGADAS
           </span>
-          {DummyData.desks.length === 1 ? (
+          {!actas.length ? (
             <div>
               <div className="flex flex-col items-center pt-12">
                 <svg
@@ -258,16 +149,16 @@ const DeskList: FC = () => {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p className="py-8 text-2xl m-8 font-normal">
+                <p className="py-8 text-2xl m-8 font-normal text-center">
                   Todavía no hay ninguna mesa cargada
                 </p>
               </div>
             </div>
           ) : (
             <div className="md:flex md:flex-row md:items-start md:flex-wrap md:justify-around flex flex-col items-center py-8 gap-2">
-              {DummyData.desks.map((desk) => (
+              {actas.map((acta: any, index: number) => (
                 <Accordion
-                  key={desk.id}
+                  key={acta.mesaId + index}
                   style={{
                     border: '1px solid #E3E3E9',
                     borderRadius: '8px',
@@ -283,16 +174,16 @@ const DeskList: FC = () => {
                       display: 'none',
                     },
                   }}
-                  expanded={accordionExpanded[desk.deskNumber] || false}
-                  onChange={handleChange(desk.deskNumber)}
+                  expanded={accordionExpanded[acta.mesaId] || false}
+                  onChange={handleChange(acta.mesaId)}
                 >
                   <AccordionSummary
                     expandIcon={<DropIcon />}
                     className="pb-4"
                     classes={{ content: 'items-center gap-2' }}
                   >
-                    {!accordionExpanded[desk.deskNumber] && (
-                      <EllipseIcon deskNormalStatus={desk.status.normal} />
+                    {!accordionExpanded[acta.mesaId] && (
+                      <EllipseIcon deskNormalStatus={true} /> // ToDo: FIX Por Status
                     )}
                     <div className="flex flex-col">
                       <Typography
@@ -301,78 +192,74 @@ const DeskList: FC = () => {
                         fontFamily={'Poppins'}
                         fontSize="18px"
                       >
-                        <strong>Mesa</strong> {desk.deskNumber}
+                        <strong>Mesa</strong> {acta.mesaId}
                       </Typography>
-                      {!accordionExpanded[desk.deskNumber] && (
+                      {!accordionExpanded[acta.mesaId] && (
                         <Typography
                           color="#908DA8"
                           align="left"
                           fontFamily={'Poppins'}
                           fontSize="12px"
                         >
-                          {desk.electors} electores
+                          {acta.votosEnTotal} votos en total
                         </Typography>
                       )}
                     </div>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <DeskStatus deskNormalStatus={desk.status.normal} />
-                    <DeskItemLabel
+                    {/* ToDo: FIX Por Status */}
+                    <DeskStatus deskNormalStatus={true} />
+                    {/* <DeskItemLabel // TODO: No estoy seguro de que vayamos a tener esta data en el endpoint.
                       className="bg-gray-100 rounded-md"
-                      deskValue={desk.circuit}
+                      deskValue={acta.circuit}
                       label="Circuito"
                     />
                     <DeskItemLabel
-                      deskValue={desk.electors}
+                      deskValue={acta.electors}
                       label="Nro. de electores"
                       statusStyle={{
-                        color: !desk.status.normal ? '#E13C3C' : '',
+                        color: !acta.status.normal ? '#E13C3C' : '',
                       }}
                     />
                     <DeskItemLabel
                       className="bg-gray-100 rounded-md"
-                      deskValue={desk.envelopes}
+                      deskValue={acta.envelopes}
                       label="Nro. de sobres"
                       statusStyle={{
-                        color: !desk.status.normal ? '#E13C3C' : '',
+                        color: !acta.status.normal ? '#E13C3C' : '',
                       }}
-                    />
+                    /> */}
                     <hr className="border-t-gray-dark my-2 " />
                     <DeskItemLabel
-                      deskValue={desk.candidate1.votes}
-                      label={desk.candidate1.name}
+                      deskValue={acta.conteoLla}
+                      label={'Javier Gerardo Milei'}
                     />
                     <DeskItemLabel
                       className="bg-gray-100 rounded-md"
-                      deskValue={desk.candidate2.votes}
-                      label={desk.candidate2.name}
+                      deskValue={acta.conteoUp}
+                      label={'Sergio Tomás Massa'}
                     />
                     <DeskItemLabel
-                      deskValue={desk.nullVotes}
+                      deskValue={acta.votosNulos}
                       label="Votos nulos"
                     />
                     <DeskItemLabel
                       className="bg-gray-100 rounded-md"
-                      deskValue={desk.recurredVotes}
+                      deskValue={acta.votosRecurridos}
                       label="Votos recurridos"
                     />
                     <DeskItemLabel
-                      deskValue={desk.impugnedVotes}
+                      deskValue={acta.votosImpugnados}
                       label="Votos identidad impugnada"
                     />
                     <DeskItemLabel
-                      className="bg-gray-100 rounded-md"
-                      deskValue={desk.commandVotes}
-                      label="Votos de comando electoral"
-                    />
-                    <DeskItemLabel
-                      deskValue={desk.blankVotes}
+                      deskValue={acta.votosEnBlanco}
                       label="Votos en blanco"
                     />
                     <hr className="border-t-gray-dark my-2 " />
                     <DeskItemLabel
                       className="bg-gray-100 rounded-md"
-                      deskValue={desk.totalVotes}
+                      deskValue={acta.votosEnTotal}
                       label="Total"
                     />
                   </AccordionDetails>

@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import classNames from 'classnames';
+import axios from 'axios';
+import imageCompression from 'browser-image-compression';
 import { observer } from 'mobx-react';
 import { TextField, MenuItem } from '@mui/material';
 import { Dialog } from '@headlessui/react';
@@ -23,11 +24,9 @@ import Checkbox from '#/components/checkbox/checkbox';
 import CategoryVoteInput from '#/components/categoryVoteInput';
 import ProgressIndicator from '#/components/progressIndicator';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
-import { TelegramData } from './types';
-import axios from 'axios';
 import { useAuth } from '#/context/AuthContext';
-
-import imageCompression from 'browser-image-compression';
+import { saveActas } from '#/service/api/actas';
+import { TelegramData } from './types';
 
 const validationSchema = Yup.object().shape({
   circuit: Yup.string().required('Debe ingresar un circuito'),
@@ -248,13 +247,14 @@ function LoadInformationPage() {
 
         if (response.status !== 201) {
           setIsSubmitting(false);
-          console.error('Error sending data:', response.statusText);
-          navigate(paths.uploadFailed);
+          console.error('Error sending data:', response.statusText); // ToDo: Alerta de error.
+          return navigate(paths.uploadFailed);
         }
 
         setIsSubmitting(false);
-
-        comesFromReport
+        saveActas(payload);
+        
+        return comesFromReport
           ? navigate(paths.sendWarning)
           : navigate(paths.sendSuccess);
       } catch (error) {
