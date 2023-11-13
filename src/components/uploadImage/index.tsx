@@ -28,7 +28,7 @@ export function UploadImage({
   const [preview, setPreview] = useState<string>();
   const [uploaded, setUploaded] = useState(false);
   const navigate = useNavigate();
-  const { setCertificateImage, setCertificateImageBase64 } = useCertificate();
+  const { setCertificateImage } = useCertificate();
 
   async function onUploadInternal(file: File | null | undefined) {
     if (!file) return;
@@ -38,7 +38,7 @@ export function UploadImage({
     await handlePreview(file);
     setUploaded(true);
     setCertificateImage(file);
-    setCertificateImageBase64(base64);
+    // setCertificateImageBase64(base64);
   }
 
   async function handlePreview(file: File) {
