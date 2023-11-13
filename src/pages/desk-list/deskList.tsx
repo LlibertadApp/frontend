@@ -375,29 +375,6 @@ const DeskList: FC = () => {
                       deskValue={desk.totalVotes}
                       label="Total"
                     />
-                    <div className="container flex flex-row gap-4 justify-between">
-                      <a
-                        href="https://www.padron.gov.ar/cne_denuncias/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Button
-                          className="gap-[5px] border-red border-2 rounded-xl flex justify-center items-center text-xs font-medium my-5 py-[5px] px-[10px] bg-white !text-red !w-auto"
-                          type="button"
-                        >
-                          <img
-                            src="assets/icon/hand-speaker.svg"
-                            alt="Icono megafono"
-                          />
-                          Denunciar fraude
-                        </Button>
-                      </a>
-
-                      <Button className="gap-[5px] border-none text-white bg-violet-brand rounded-xl flex justify-center items-center text-xs font-medium  hover:border-violet-light my-5 py-[5px] px-[10px] !w-auto">
-                        <img src="assets/icon/edit.svg" alt="Icono editar" />
-                        Editar
-                      </Button>
-                    </div>
                   </AccordionDetails>
                 </Accordion>
               ))}
