@@ -161,7 +161,7 @@ function LoadInformationPage() {
     errors: FormikErrors<TelegramData>,
   ) => {
     return (
-      touched.electors &&
+      touched.table &&
       !errors.circuit &&
       !errors.table &&
       !errors.electors &&
