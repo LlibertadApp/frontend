@@ -58,7 +58,6 @@ function VerifyCertificate() {
           <label htmlFor='reuploadButton' className='w-full font-medium rounded-xl flex flex-row gap-[10px] justify-center items-center border border-violet-brand text-violet-brand p-[18px] text-lg'>
             <input 
               id='reuploadButton'
-              capture="environment"
               accept="image/*"
               onChange={handleImageReupload}
               type="file"
