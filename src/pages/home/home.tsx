@@ -40,12 +40,6 @@ const HomePage = () => {
                 icon={<ListBullets size={32} />}
                 color={colors.Violet}
               />
-              {/* <CardLink
-                link={paths.irregularities}
-                text={'Denunciar irregularidades'}
-                icon={<Megaphone size={32} />}
-                color={colors.Red}
-              /> */}
             </div>
 
             <div className="flex flex-col items-center space-y-2 w-full">
