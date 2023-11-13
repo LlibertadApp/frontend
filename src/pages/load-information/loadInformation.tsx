@@ -374,7 +374,16 @@ function LoadInformationPage() {
                   type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  onInput={(e) => {
+                    e.preventDefault();
+                    const target = e.target as HTMLInputElement;
+                    let value = parseInt(target.value, 10) || 0; 
+                    value = Math.min(600, value);
+                    target.value = value.toString();
+                    handleChange(e);
+                  }}
                   InputProps={{ style: { borderRadius: '8px' } }}
+                  inputProps={{ min: 0 }}
                   error={!!errors.electors || !!errors.validVotesDifference}
                   helperText={errors.electors}
                 />
@@ -386,7 +395,16 @@ function LoadInformationPage() {
                   type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  onInput={(e) => {
+                    e.preventDefault();
+                    const target = e.target as HTMLInputElement;
+                    let value = parseInt(target.value, 10) || 0; 
+                    value = Math.min(600, value);
+                    target.value = value.toString();
+                    handleChange(e);
+                  }}
                   InputProps={{ style: { borderRadius: '8px' } }}
+                  inputProps={{ min: 0 }}
                   error={!!errors.envelopes || !!errors.validVotesDifference}
                   helperText={errors.envelopes}
                 />
@@ -472,7 +490,7 @@ function LoadInformationPage() {
                   <CategoryVoteInput
                     name="votes.blank"
                     disabled={!isTableDataValid(touched, errors)}
-                     onChange={handleChange}
+                    onChange={handleChange}
                     onBlur={handleBlur}
                     icon={
                       <NoteBlank size={40} className="p-1" color="#908DA8" />
