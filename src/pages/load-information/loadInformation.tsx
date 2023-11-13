@@ -162,8 +162,6 @@ function LoadInformationPage() {
   ) => {
     return (
       touched.table &&
-      touched.electors &&
-      touched.envelopes &&
       !errors.circuit &&
       !errors.table &&
       !errors.electors &&
