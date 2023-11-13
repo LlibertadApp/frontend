@@ -375,7 +375,7 @@ const DeskList: FC = () => {
                       deskValue={desk.totalVotes}
                       label="Total"
                     />
-                    <div className="container flex flex-row gap-4 justify-between">
+                    {/* <div className="container flex flex-row gap-4 justify-between">
                       <a
                         href="https://www.padron.gov.ar/cne_denuncias/"
                         target="_blank"
@@ -397,7 +397,7 @@ const DeskList: FC = () => {
                         <img src="assets/icon/edit.svg" alt="Icono editar" />
                         Editar
                       </Button>
-                    </div>
+                    </div> */}
                   </AccordionDetails>
                 </Accordion>
               ))}
