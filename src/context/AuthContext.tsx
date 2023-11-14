@@ -43,14 +43,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [error, setError] = useState<boolean>(false);
 
   const loginWithToken = async (authToken: string) => {
-    console.log('login with token')
     if (!authToken) {
       throw new Error('No hay auth token');
     }
 
     await signInWithCustomToken(firebaseAuth, authToken);
     const user = firebaseAuth.currentUser;
-    console.log('we did user')
+
     if (!user) throw new Error('Ocurrió un error al iniciar sesión');
 
     const uid = user.uid;
@@ -61,47 +60,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     sessionStorage.setItem('token', userToken);
 
     setUser(user);
-    console.log('seted user')
+    await getMesasFromToken(userToken);
     return user;
   };
 
-  const getMesasFromToken = async (user: User) => {
-    const idToken = await user.getIdToken();
-
-    if (idToken) {
-      const decodedToken: any = jwt_decode(idToken);
+  const getMesasFromToken = useCallback(async (userToken: string) => {
+    if (userToken) {
+      const decodedToken: any = jwt_decode(userToken);
 
       if (decodedToken.mesas) {
         setMesas(decodedToken.mesas);
       }
     }
-  };
+  }, []);
 
   const logout = useCallback(async () => {
     setUser(null);
     navigate(paths.index);
   }, [])
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-  //     console.log({ user })
-  //     // if (user) {
-  //     //   setUser(user);
-  //     // }
-  //   });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
+      console.log({ user })
+    });
 
-  //   return () => unsubscribe();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     getMesasFromToken(user);
-  //   }
-  // }, [user]);
-
-  // useEffect(() => {
-  //   console.log(mesas);
-  // }, [mesas]);
+    return () => unsubscribe();
+  }, []);
 
   return (
     <AuthContext.Provider

@@ -17,8 +17,6 @@ const LoginPage: React.FC = () => {
   const login = useCallback(async () => {
     try {
       if (!authToken) return setError(true);
-      console.log('Initiating login with token', authToken)
-
       await loginWithToken(authToken);
       navigate(paths.home);
     } catch (error) {
@@ -27,7 +25,6 @@ const LoginPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('use effect login')
     login();
   }, [login]);
 
