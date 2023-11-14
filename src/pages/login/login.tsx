@@ -1,76 +1,35 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import { useAuth } from '#/context/AuthContext';
+
 import { paths } from '#/routes/paths';
 
-import firebaseAuth from '#/service/firebase/firebase';
-
-import { signInWithCustomToken } from 'firebase/auth';
-import { useEffect, useState } from 'react';
-
-import { useAuth } from '#/context/AuthContext';
-import { LoadingIndicator } from '#/components/loadingIndicator';
-
 const LoginPage: React.FC = () => {
+  const [error, setError] = useState<boolean>();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { loginWithToken } = useAuth();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const authToken = queryParams.get('authToken');
-  const [error, setError] = useState<boolean>(!authToken);
+
+  const login = useCallback(async () => {
+    try {
+      if (!authToken) return setError(true);
+      console.log('Initiating login with token', authToken)
+
+      await loginWithToken(authToken);
+      navigate(paths.home);
+    } catch (error) {
+      setError(true);
+    }
+  }, []);
 
   useEffect(() => {
-    let isComponentMounted = true;
-
-    const loginWithToken = async () => {
-      try {
-        if (authToken) {
-          await signInWithCustomToken(firebaseAuth, authToken);
-          const user = firebaseAuth.currentUser;
-
-          const uid = user?.uid;
-          const userToken = await user?.getIdToken(true);
-
-          // Si no hay uid o token, no se puede continuar
-          if (!uid || !userToken) {
-            setError(true);
-            return; // TODO: Ver si hay que hacer algo más
-          }
-
-          // Seteamos en el session storage el token del usuario y su uid
-          sessionStorage.setItem('uid', uid);
-          sessionStorage.setItem('token', userToken);
-
-          if (isComponentMounted) {
-            if (user) {
-              user
-                .getIdToken(true)
-                .then(() => {
-                  navigate(paths.home);
-                })
-                .catch((error) => {
-                  setError(true);
-                  console.log('error', error);
-                });
-            }
-          }
-        }
-      } catch (error) {
-        if (isComponentMounted) {
-          setError(true);
-          console.error(error);
-        }
-      }
-    };
-
-    if (authToken) {
-      loginWithToken();
-    }
-
-    return () => {
-      isComponentMounted = false;
-    };
-  }, [authToken]);
+    console.log('use effect login')
+    login();
+  }, [login]);
 
   return error ? (
     <>
