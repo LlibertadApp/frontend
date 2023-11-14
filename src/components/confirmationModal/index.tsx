@@ -6,7 +6,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { LogoutModalProps } from './types';
-import { SignOut } from '@phosphor-icons/react';
 
 const LogoutModal: React.FC<LogoutModalProps> = ({ open, setOpen }) => {
   const { logout } = useAuth();
@@ -40,7 +39,6 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ open, setOpen }) => {
           autoFocus
           variant="contained"
           color="error"
-          endIcon={<SignOut />}
         >
           Si, salir.
         </Button>

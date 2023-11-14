@@ -118,6 +118,11 @@ const Navbar: React.FC<INavbarProps> = ({
                         open={logoutModal}
                         setOpen={setLogoutModal}
                       />
+                      <img
+                        src="assets/icon/log-out.svg"
+                        alt="User profile"
+                        className="object-cover rounded"
+                      />
                       Cerrar sesión
                     </Button>
                   </div>
