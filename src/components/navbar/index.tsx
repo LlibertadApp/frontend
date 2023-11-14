@@ -28,7 +28,7 @@ const Navbar: React.FC<INavbarProps> = ({
   showHamburger = true,
 }) => {
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
-  const [open, setOpen] = React.useState(false);
+  const [logoutModal, setLogoutModal] = React.useState(false);
   const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
     <div className="bg-violet-primary p-[10px] px-4 w-full flex flex-col h-18 relative z-20 lg:items-center">
@@ -109,12 +109,15 @@ const Navbar: React.FC<INavbarProps> = ({
                     <Button
                       appearance="ghost"
                       onClick={() => {
-                        setOpen(!open);
+                        setLogoutModal(!logoutModal);
                       }}
                       type="button"
                       className="text-violet-light text-left"
                     >
-                      <LogoutModal open={open} setOpen={setOpen} />
+                      <LogoutModal
+                        open={logoutModal}
+                        setOpen={setLogoutModal}
+                      />
                       Cerrar sesión
                     </Button>
                   </div>
