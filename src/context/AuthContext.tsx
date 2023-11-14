@@ -26,7 +26,6 @@ interface AuthContextType {
   loginWithToken: (authToken: string) => Promise<User | undefined>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface Mesa {
   mesaId: string;
@@ -36,10 +35,14 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+const sessionMesas = JSON.parse(sessionStorage.getItem('mesas') || '[]');
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
-  const [mesas, setMesas] = useState([]);
+  const [mesas, setMesas] = useState(sessionMesas);
   const [error, setError] = useState<boolean>(false);
 
   const loginWithToken = async (authToken: string) => {
@@ -61,6 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     setUser(user);
     await getMesasFromToken(userToken);
+
     return user;
   };
 
@@ -70,6 +74,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (decodedToken.mesas) {
         setMesas(decodedToken.mesas);
+        sessionStorage.setItem('mesas', JSON.stringify(decodedToken.mesas));
       }
     }
   }, []);
