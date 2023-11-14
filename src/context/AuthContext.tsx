@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
 import firebaseAuth from '#/service/firebase/firebase';
-import { User, onAuthStateChanged, signInWithCustomToken } from 'firebase/auth';
+import { User, onAuthStateChanged, signInWithCustomToken, signOut } from 'firebase/auth';
 
 import { paths } from '#/routes/paths';
 
@@ -25,8 +25,6 @@ interface AuthContextType {
   logout: LogoutFunction;
   loginWithToken: (authToken: string) => Promise<User | undefined>;
 }
-
-
 interface Mesa {
   mesaId: string;
 }
@@ -80,13 +78,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const logout = useCallback(async () => {
+    await signOut(firebaseAuth)
     setUser(null);
-    navigate(paths.index);
   }, [])
 
+  // listn for auth status changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      console.log({ user })
+      if (user) {
+        // El usuario está autenticado
+        console.log('Usuario autenticado:', user);
+      } else {
+        // El usuario no está autenticado
+        console.log('Usuario no autenticado, atrás');
+        navigate(paths.index);
+      }
     });
 
     return () => unsubscribe();
