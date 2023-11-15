@@ -46,8 +46,9 @@ const HomePage = () => {
               <span className=" w-full pt-12 font-bold text-left lg:text-2xl">
                 Escrutinio y resultados
               </span>
-              <Link
-                to={paths.totalResults}
+              {/*TODO: CAMBIAR EL HREF AL AREA DE PRODUCCIÓN */}
+              <a
+                href="https://dashboard.dev.libertapp.net"
                 className="border-2 border-black/5 text-gray-dark bg-transparent p-2 w-full rounded-xl shadow-lg hover:border-black/20 flex flex-col items-center justify-between gap-[10px]"
                 type="submit"
               >
@@ -77,7 +78,7 @@ const HomePage = () => {
                   Ver escrutinio
                   <ArrowRight size={20} />
                 </div>
-              </Link>
+              </a>
             </div>
           </div>
         </section>
