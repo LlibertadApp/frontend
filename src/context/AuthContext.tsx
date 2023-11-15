@@ -10,7 +10,12 @@ import { useNavigate } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
 import firebaseAuth from '#/service/firebase/firebase';
-import { User, onAuthStateChanged, signInWithCustomToken, signOut } from 'firebase/auth';
+import {
+  User,
+  onAuthStateChanged,
+  signInWithCustomToken,
+  signOut
+} from 'firebase/auth';
 
 import { paths } from '#/routes/paths';
 
@@ -19,9 +24,6 @@ type LogoutFunction = () => void;
 interface AuthContextType {
   user: User | null;
   mesas: Mesa[];
-  error: boolean;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  setError: React.Dispatch<React.SetStateAction<boolean>>;
   logout: LogoutFunction;
   loginWithToken: (authToken: string) => Promise<User | undefined>;
 }
@@ -41,7 +43,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [mesas, setMesas] = useState(sessionMesas);
-  const [error, setError] = useState<boolean>(false);
 
   const loginWithToken = async (authToken: string) => {
     if (!authToken) {
@@ -78,19 +79,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const logout = useCallback(async () => {
-    await signOut(firebaseAuth)
+    await signOut(firebaseAuth);
     setUser(null);
-  }, [])
+  }, []);
 
-  // listn for auth status changes
+  // listen for auth status changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
-        // El usuario está autenticado
-        console.log('Usuario autenticado:', user);
+        setUser(user)
       } else {
-        // El usuario no está autenticado
-        console.log('Usuario no autenticado, atrás');
+        sessionStorage.removeItem('uid')
+        sessionStorage.removeItem('token')
+        sessionStorage.removeItem('mesas')
         navigate(paths.index);
       }
     });
@@ -99,9 +100,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, mesas, error, setError, setUser, logout, loginWithToken }}
-    >
+    <AuthContext.Provider value={{ user, mesas, logout, loginWithToken }}>
       {children}
     </AuthContext.Provider>
   );
