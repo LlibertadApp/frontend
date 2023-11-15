@@ -15,6 +15,8 @@ import {
   NoteBlank,
 } from '@phosphor-icons/react';
 
+import { validationProps } from '#/utils/validationProps';
+
 import { paths } from '#/routes/paths';
 import { useCertificate } from '#/context/CertificationContext';
 import Alert from '#/components/alert';
@@ -156,37 +158,6 @@ function LoadInformationPage() {
     formAgreement: false,
   };
 
-  const getValidationProps = () => {
-    return {
-      onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
-        const forbiddenKeys = [
-          'e',
-          'E',
-          '+',
-          '-',
-          ',',
-          '.',
-          'ArrowUp',
-          'ArrowDown',
-        ];
-        if (forbiddenKeys.includes(e.key)) {
-          e.preventDefault();
-        }
-      },
-      onPaste: (e: React.ClipboardEvent<HTMLInputElement>) =>
-        e.preventDefault(),
-      onContextMenu: (e: React.MouseEvent<HTMLInputElement>) =>
-        e.preventDefault(),
-      onDrop: (e: React.DragEvent<HTMLInputElement>) => e.preventDefault(),
-      onWheel: (e: React.WheelEvent<HTMLInputElement>) => {
-        if (e.target instanceof HTMLElement) {
-          e.target.blur();
-        }
-      },
-      autoComplete: 'off',
-    };
-  };
-
   const isTableDataValid = (
     touched: FormikTouched<TelegramData>,
     errors: FormikErrors<TelegramData>,
@@ -237,7 +208,6 @@ function LoadInformationPage() {
         const endpoint = import.meta.env.VITE_REACT_backend_endpoint;
 
         const payload = new FormData();
-        // payload.append('mesaId', values.table || '');
         payload.append('mesaId', mesa || '');
         payload.append('userId', userId || '');
 
@@ -278,13 +248,13 @@ function LoadInformationPage() {
 
         if (response.status !== 201) {
           setIsSubmitting(false);
-          console.error('Error sending data:', response.statusText); // ToDo: Alerta de error.
+          console.error('Error sending data:', response.statusText);
           return navigate(paths.uploadFailed);
         }
 
         setIsSubmitting(false);
         saveActas(payload);
-        
+
         return comesFromReport
           ? navigate(paths.sendWarning)
           : navigate(paths.sendSuccess);
@@ -368,17 +338,6 @@ function LoadInformationPage() {
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.circuit}
                 />
-                {/* <TextField
-                  label="Mesa"
-                  name="table"
-                  variant="outlined"
-                  placeholder="00000/0"
-                  type="text"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  InputProps={{ style: { borderRadius: '8px' } }}
-                  error={!!errors.table}
-                /> */}
                 <TextField
                   value={mesa}
                   label="Mesa"
@@ -398,12 +357,11 @@ function LoadInformationPage() {
                     </MenuItem>
                   ))}
                 </TextField>
-
                 <TextField
                   label="Nro de electores"
                   name="electors"
                   variant="outlined"
-                  // placeholder="0"
+                  {...validationProps()}
                   type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -415,7 +373,7 @@ function LoadInformationPage() {
                   label="Sobres"
                   name="envelopes"
                   variant="outlined"
-                  // placeholder="0"
+                  {...validationProps()}
                   type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}
