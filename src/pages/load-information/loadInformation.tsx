@@ -238,7 +238,7 @@ function LoadInformationPage() {
         }
 
         // Hago post al endpoint de actas de la API
-        const response = await axios.post(`${endpoint}/actas`, payload, {
+        const response = await axios.post(`${endpoint}/v1/actas`, payload, {
           headers: {
             'Content-Type': '',
             Authorization: userToken,
