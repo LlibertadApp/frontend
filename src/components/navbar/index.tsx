@@ -144,4 +144,3 @@ const Navbar: React.FC<INavbarProps> = ({
 };
 
 export default Navbar;
-
