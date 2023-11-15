@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
@@ -13,7 +13,13 @@ import Checkbox from '#/components/checkbox/checkbox';
 function VerifyCertificate() {
   const navigate = useNavigate();
   const [correctData, setCorrectData] = useState<boolean>(false);
-  const { certificateImage, setFile, setCertificateImage } = useCertificate();
+  const { certificateImage, setFile, setCertificateImage,completedForm } = useCertificate();
+
+  useEffect(() => {
+    if(completedForm){
+      navigate(paths.uploadCertificate)
+    }
+  }, [])
 
   const handleContinue = () => {
     if (!correctData) return;

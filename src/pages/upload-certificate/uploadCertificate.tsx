@@ -7,7 +7,7 @@ import Navbar from '#/components/navbar';
 import UploadImage from '#/components/uploadImage';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useCertificate } from '#/context/CertificationContext';
 import { paths } from '#/routes/paths';
 import UploadInput from '#/components/uploadInput';
@@ -24,15 +24,14 @@ const CheckItem = ({ text }: { text: string }) => (
 const UploadCertificate = () => {
   const navigate = useNavigate();
 
-  // TODO: Replace with context useState
-  const { setFile, setCertificateImage } = useCertificate();
+  const { setFile, setCertificateImage, setCompletedForm } = useCertificate();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0]!);
     // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
     setCertificateImage(e.target.files?.[0]!); // test
-
-    navigate(paths.verifyCertificate);
+    setCompletedForm(false)
+   navigate(paths.verifyCertificate);
   }
 
   return (
