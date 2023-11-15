@@ -74,7 +74,7 @@ const Navbar: React.FC<INavbarProps> = ({
             )}
 
             {menuOpen && (
-              <div className="absolute w-[100vw] bg-white right-0 lg:left-[26.6rem] 2xl:left-[27.3rem] top-[72px]  rounded-xl px-1 shadow-2xl lg:w-[50vw]">
+              <div className="absolute w-[100vw] bg-white right-0 top-[72px] rounded-xl px-1 shadow-2xl ">
                 <div className="absolute top-[-15px] right-[53px] w-0 h-0">
                   <svg width="50" height="20">
                     <polygon points="25,0 0,50 50,50" fill="white" />
