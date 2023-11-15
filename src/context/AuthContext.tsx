@@ -14,7 +14,7 @@ import {
   User,
   onAuthStateChanged,
   signInWithCustomToken,
-  signOut
+  signOut,
 } from 'firebase/auth';
 
 import { paths } from '#/routes/paths';
@@ -87,11 +87,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
-        setUser(user)
+        setUser(user);
       } else {
-        sessionStorage.removeItem('uid')
-        sessionStorage.removeItem('token')
-        sessionStorage.removeItem('mesas')
+        sessionStorage.removeItem('uid');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('mesas');
         navigate(paths.index);
       }
     });
