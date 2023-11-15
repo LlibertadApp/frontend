@@ -4,12 +4,13 @@ import {
   ReactNode,
   useState,
   useEffect,
+  useCallback,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
-import { User, onAuthStateChanged } from 'firebase/auth';
 import firebaseAuth from '#/service/firebase/firebase';
+import { User, onAuthStateChanged, signInWithCustomToken } from 'firebase/auth';
 
 import { paths } from '#/routes/paths';
 
@@ -18,8 +19,11 @@ type LogoutFunction = () => void;
 interface AuthContextType {
   user: User | null;
   mesas: Mesa[];
+  error: boolean;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
   logout: LogoutFunction;
+  loginWithToken: (authToken: string) => Promise<User | undefined>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,46 +40,57 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [mesas, setMesas] = useState([]);
+  const [error, setError] = useState<boolean>(false);
 
-  const getMesasFromToken = async (user: User) => {
-    const idToken = await user.getIdToken();
+  const loginWithToken = async (authToken: string) => {
+    if (!authToken) {
+      throw new Error('No hay auth token');
+    }
 
-    if (idToken) {
-      const decodedToken: any = jwt_decode(idToken);
+    await signInWithCustomToken(firebaseAuth, authToken);
+    const user = firebaseAuth.currentUser;
+
+    if (!user) throw new Error('Ocurrió un error al iniciar sesión');
+
+    const uid = user.uid;
+    const userToken = await user.getIdToken(true);
+
+    // Seteamos en el session storage el token del usuario y su uid
+    sessionStorage.setItem('uid', uid);
+    sessionStorage.setItem('token', userToken);
+
+    setUser(user);
+    await getMesasFromToken(userToken);
+    return user;
+  };
+
+  const getMesasFromToken = useCallback(async (userToken: string) => {
+    if (userToken) {
+      const decodedToken: any = jwt_decode(userToken);
 
       if (decodedToken.mesas) {
         setMesas(decodedToken.mesas);
       }
     }
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(async () => {
     setUser(null);
     navigate(paths.index);
-  };
+  }, [])
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      if (user) {
-        setUser(user);
-      }
+      console.log({ user })
     });
 
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      getMesasFromToken(user);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    console.log(mesas);
-  }, [mesas]);
-
   return (
-    <AuthContext.Provider value={{ user, mesas, setUser, logout }}>
+    <AuthContext.Provider
+      value={{ user, mesas, error, setError, setUser, logout, loginWithToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

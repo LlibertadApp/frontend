@@ -20,7 +20,6 @@ export default function UploadInput({ id, size, className, onChange }: UploadInp
         id={id}
         type="file"
         className="hidden"
-        capture="environment"
         accept="image/*" />
     </label>
   );
@@ -35,7 +34,6 @@ export default function UploadInput({ id, size, className, onChange }: UploadInp
         id={id}
         type="file"
         className="hidden"
-        capture="environment"
         accept="image/*" />
     </label>
   );

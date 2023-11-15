@@ -9,6 +9,7 @@ import { ButtonClearFilter } from '#/components/buttonClearFilter';
 import { ListFilters } from '#/components/listFilters';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
+import Alert from '#/components/alert';
 import { paths } from '#/routes/paths';
 
 const customFilters: Filter[] = [
@@ -66,7 +67,10 @@ const TotalResultsPage = () => {
               clearFilters={clearFilters}
             />
           )}
-          <button className='w-full' onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}>
+          <button
+            className="w-full"
+            onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
+          >
             <ButtonFilter amount={filters.length} />
           </button>
         </section>
@@ -95,14 +99,19 @@ const TotalResultsPage = () => {
             </div>
 
             <FilterPage />
-
           </div>
         )}
       </div>
 
       <div className="lg:px-60 px-3 flex flex-col gap-6">
         {
-          //Card Javier, VLL
+          <Alert
+            className="text-center bg-yellow-300/20 text-yellow-600"
+            error={true}
+            message={
+              'Este portal será habilitado desde las 21hs del domingo 19/11'
+            }
+          ></Alert>
         }
         <div className="flex flex-col border rounded-2xl">
           <div className="flex flex-col">
@@ -137,9 +146,6 @@ const TotalResultsPage = () => {
             </div>
           </div>
         </div>
-        {
-          //Card Massa, que asco
-        }
         <div className="flex flex-col border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
@@ -173,20 +179,27 @@ const TotalResultsPage = () => {
             </div>
           </div>
         </div>
+        {
+          <Alert
+            className="text-center bg-yellow-300/20 text-yellow-600"
+            error={true}
+            message={'Los datos visualizados son a modo ilustrativo'}
+          ></Alert>
+        }
       </div>
       <div className="border border-t-1 border-gray-dark mt-10"></div>
-      <div className="flex flex-col px-4 py-5 lg:px-60 gap-10 leading-5">
-        <div className="flex flex-col">
+      <div className="flex flex-col items-center px-4 py-5 gap-10 leading-5 lg:px-60">
+        <div className="flex flex-col items-center">
           <span className="text-sm text-gray-dark">Total de votos</span>
           <span className="text-[22px] font-bold text-text-off">
             27,000,000
           </span>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <span className="text-sm text-gray-dark">Mesas escrutadas</span>
           <span className="text-[22px] font-bold text-text-off">90.00%</span>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <span className="text-sm text-gray-dark">Participación</span>
           <span className="text-[22px] font-bold text-text-off">76.36%</span>
         </div>
