@@ -137,7 +137,7 @@ function LoadInformationPage() {
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1', // Acá se cambia por el circuito del token
-    table: '0', // ?? por qué tiene este valor hardcodeado?
+    table: '0',
     electors: undefined,
     envelopes: undefined,
     validVotesDifference: false,
@@ -154,6 +154,37 @@ function LoadInformationPage() {
     validTotalVotes: false,
 
     formAgreement: false,
+  };
+
+  const getValidationProps = () => {
+    return {
+      onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const forbiddenKeys = [
+          'e',
+          'E',
+          '+',
+          '-',
+          ',',
+          '.',
+          'ArrowUp',
+          'ArrowDown',
+        ];
+        if (forbiddenKeys.includes(e.key)) {
+          e.preventDefault();
+        }
+      },
+      onPaste: (e: React.ClipboardEvent<HTMLInputElement>) =>
+        e.preventDefault(),
+      onContextMenu: (e: React.MouseEvent<HTMLInputElement>) =>
+        e.preventDefault(),
+      onDrop: (e: React.DragEvent<HTMLInputElement>) => e.preventDefault(),
+      onWheel: (e: React.WheelEvent<HTMLInputElement>) => {
+        if (e.target instanceof HTMLElement) {
+          e.target.blur();
+        }
+      },
+      autoComplete: 'off',
+    };
   };
 
   const isTableDataValid = (
@@ -238,7 +269,7 @@ function LoadInformationPage() {
         }
 
         // Hago post al endpoint de actas de la API
-        const response = await axios.post(`${endpoint}/actas`, payload, {
+        const response = await axios.post(`${endpoint}/v1/actas`, payload, {
           headers: {
             'Content-Type': '',
             Authorization: userToken,
@@ -280,6 +311,8 @@ function LoadInformationPage() {
     const options = {
       maxSizeMB: 5,
       useWebWorker: true,
+      alwaysKeepResolution: true,
+      initialQuality: 1,
     };
 
     try {

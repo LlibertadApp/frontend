@@ -45,7 +45,6 @@ function VerifyCertificate() {
         />
         <h1 className="text-neutral-700 text-xl font-medium text-center">Cargar el certificado del fiscal</h1>
         <p className="text-neutral-600 text-base">Chequeá que la imagen se vea nítida y completa antes de subirla</p>
-        {/* <img src={certificateImage || ''} alt="uploaded image" className="object-cover rounded-2xl w-100 h-auto border-2" /> */}
         {certificateImage && (
           <img src={URL.createObjectURL(certificateImage)} alt="uploaded image" className="object-cover rounded-2xl w-100 h-auto border-2" />
         )}
@@ -55,15 +54,12 @@ function VerifyCertificate() {
           onChange={handleCheckbox} />
         <section className='flex flex-col gap-4'>
           <Button disabled={!correctData} type="button" onClick={handleContinue}>Continuar</Button>
-          <label htmlFor='reuploadButton' className='w-full font-medium rounded-xl flex flex-row gap-[10px] justify-center items-center border border-violet-brand text-violet-brand p-[18px] text-lg'>
-            <input 
-              id='reuploadButton'
-              accept="image/*"
-              onChange={handleImageReupload}
-              type="file"
-              className='hidden' />
-            Volver a cargar imagen
-          </label>
+          <Link to={paths.uploadCertificate} className="w-full">
+            <Button
+              appearance='outlined'
+              label="Volver a cargar imagen"
+            />
+          </Link>
         </section>
       </main>
     </>
