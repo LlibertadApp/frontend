@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -86,6 +85,6 @@ const HomePage = () => {
   );
 };
 
-export const Home = observer(HomePage);
+export const Home = (HomePage);
 
 export default Home;

@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
@@ -40,5 +39,5 @@ const UploadFailedPage = () => {
     );
 };
 
-export const UploadFailed = observer(UploadFailedPage);
+export const UploadFailed = (UploadFailedPage);
 export default UploadFailed;

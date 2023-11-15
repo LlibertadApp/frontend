@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
-import { observer } from 'mobx-react';
 import { TextField, MenuItem } from '@mui/material';
 import { Dialog } from '@headlessui/react';
 import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
@@ -572,6 +571,6 @@ function LoadInformationPage() {
   );
 }
 
-export const LoadInformation = observer(LoadInformationPage);
+export const LoadInformation = (LoadInformationPage);
 
 export default LoadInformation;

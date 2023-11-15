@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { observer } from 'mobx-react';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { ISendSuccessProps } from './types';
@@ -45,6 +44,6 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
   );
 };
 
-export const SendSuccess = observer(SendSuccessPage);
+export const SendSuccess = (SendSuccessPage);
 
 export default SendSuccess;
