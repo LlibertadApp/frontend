@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
@@ -13,19 +13,13 @@ import Checkbox from '#/components/checkbox/checkbox';
 function VerifyCertificate() {
   const navigate = useNavigate();
   const [correctData, setCorrectData] = useState<boolean>(false);
-  const { certificateImage, setFile, setCertificateImage } = useCertificate();
+  const { certificateImage } = useCertificate();
+
+  useEffect(() => setCorrectData(false), [])
 
   const handleContinue = () => {
     if (!correctData) return;
     navigate(paths.loadInformation);
-  }
-
-  const handleImageReupload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(e.target.files?.[0]!);
-    // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
-    setCertificateImage(e.target.files?.[0]!);
-
-    navigate(paths.verifyCertificate);
   }
 
   const handleCheckbox = () => {
