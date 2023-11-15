@@ -55,7 +55,7 @@ const TotalResultsPage = () => {
       <Navbar routerLink={paths.home} />
 
       <div className="flex flex-col p-4">
-        <p className="font-bold text-[32px] text-violet-primary mt-[16px]">
+        <p className=" self-center font-bold text-[32px] text-violet-primary mt-[16px]">
           BALOTAJE
         </p>
 
