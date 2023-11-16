@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '#/context/AuthContext';
 import Button from '#/components/button';
 import { ICloseMenuProps, INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
 import { paths } from '#/routes/paths';
-import { SignOut } from '@phosphor-icons/react';
+import LogoutModal from '../confirmationModal';
 
 const linkTransformClassName = 'transform transition-transform hover:scale-105';
 
@@ -28,8 +27,8 @@ const Navbar: React.FC<INavbarProps> = ({
   showArrow = true,
   showHamburger = true,
 }) => {
-  const { logout } = useAuth();
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
+  const [logoutModal, setLogoutModal] = React.useState(false);
   const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
     <div className="bg-violet-primary p-[10px] px-4 w-full flex flex-col h-18 relative z-20 lg:items-center">
@@ -107,12 +106,15 @@ const Navbar: React.FC<INavbarProps> = ({
                     <Button
                       appearance="ghost"
                       onClick={() => {
-                        logout();
-                        closeMenu();
+                        setLogoutModal(!logoutModal);
                       }}
                       type="button"
                       className="text-violet-light text-left"
                     >
+                      <LogoutModal
+                        open={logoutModal}
+                        setOpen={setLogoutModal}
+                      />
                       <img
                         src="/assets/icon/log-out.svg"
                         alt="User profile"
