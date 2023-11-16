@@ -7,9 +7,10 @@ import {
   AccordionDetails,
   Typography,
 } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IAccordionExpanded, IDeskItemLabel, IDeskNormalStatus } from './types';
 import { useActas } from '#/hooks/utils/useActas';
+import { getUserActas } from '#service/api/actas';
 
 const DeskItemLabel: FC<IDeskItemLabel> = ({
   typoProps = {
@@ -109,10 +110,24 @@ const DeskStatus: FC<IDeskNormalStatus> = ({ deskNormalStatus }) => {
 };
 
 const DeskList: FC = () => {
-  const { getStoredActas } = useActas();
-  const actas = getStoredActas();
+  // getUserActas();
+  // const { getStoredActas } = useActas();
+  // const actas = getStoredActas();
+  const [isLoading, setIsLoading] = useState(false);
+  const [actas, setActas] = useState([]);
+
   const [accordionExpanded, setAccordionExpanded] =
     useState<IAccordionExpanded>({});
+
+  useEffect(() => {
+    getUserActas()
+      .then((res) => {
+        setActas(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleChange =
     (mesaId: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {

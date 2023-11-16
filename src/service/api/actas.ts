@@ -1,3 +1,5 @@
+import axios from '#utils/axiosAdapter';
+
 export const saveActas = (acta: FormData) => {
   const formDataObject = Object.fromEntries(acta.entries());
   const actas = sessionStorage.getItem('actas');
@@ -6,7 +8,12 @@ export const saveActas = (acta: FormData) => {
   sessionStorage.setItem('actas', JSON.stringify(parsedActas));
 };
 
-export const getActas = () => {
-  const actas = sessionStorage.getItem('actas');
-  return actas ? JSON.parse(actas) : [];
+export const getUserActas = async () => {
+  const token = sessionStorage.getItem('token');
+
+  const { data } = await axios.get('v1/actas', {
+    headers: { Authorization: token },
+  });
+
+  return data;
 };
