@@ -516,25 +516,23 @@ function LoadInformationPage() {
                 className="fixed inset-0 bg-black/25 backdrop-blur-sm z-20 flex justify-center items-center"
               >
                 <Dialog.Panel className="fixed z-30 bg-white max-w-xs lg:max-w-md rounded-xl px-4 py-8 lg:px-10">
-                  <Dialog.Description>
-                    <div className="flex flex-col items-center">
-                      <div className="bg-red/5 p-6 rounded-full mb-4">
-                        <img
-                          src="assets/icon/warn-icon.svg"
-                          alt="warning icon"
-                          className="h-10 w-10"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <p className="text-center leading-5 text-red">
-                          Los datos ingresados presentan discrepancias.
-                        </p>
-                        <p className="text-center leading-5">
-                          ¿Desea enviar estos datos de todas formas?
-                        </p>
-                      </div>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-red/5 p-6 rounded-full mb-4">
+                      <img
+                        src="assets/icon/warn-icon.svg"
+                        alt="warning icon"
+                        className="h-10 w-10"
+                      />
                     </div>
-                  </Dialog.Description>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-center leading-5 text-red">
+                        Los datos ingresados presentan discrepancias.
+                      </p>
+                      <p className="text-center leading-5">
+                        ¿Desea enviar estos datos de todas formas?
+                      </p>
+                    </div>
+                  </div>
                   <section className="flex flex-row gap-2 mt-[34px] lg:gap-5">
                     <Button
                       appearance="outlined"

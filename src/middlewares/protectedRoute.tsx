@@ -1,18 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 
 export function ProtectedRoute(): React.ReactElement {
-  const { logout } = useAuth();
+  const { user, logout, checkUser } = useAuth();
+  console.log(user)
 
-  useEffect(() => {
-    const uid = sessionStorage.getItem('uid');
-    const userToken = sessionStorage.getItem('token');
-
-    if (!uid || !userToken) {
+  const verifyToken = useCallback(async () => {
+    try {
+      await checkUser(user);
+    } catch (error) {
       logout();
     }
-  }, [logout]);
+  }, [checkUser, logout, user]);
+
+  useEffect(() => {
+    if (user) {
+      verifyToken();
+    }
+  }, [verifyToken, user]);
 
   return <Outlet />;
 }

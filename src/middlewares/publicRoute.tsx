@@ -1,16 +1,16 @@
-// import { Navigate, Outlet } from 'react-router-dom';
-// import { useAuth } from '#/context/AuthContext';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '#/context/AuthContext';
 
-// interface PublicRouteProps {
-//   path: string;
-// }
+interface PublicRouteProps {
+  path: string;
+}
 
-// export function PublicRoute({ path }: PublicRouteProps): React.ReactElement {
-//   const { user, isAuthenticated } = useAuth();
+export function PublicRoute({ path }: PublicRouteProps): React.ReactElement {
+  const { user } = useAuth();
 
-//   if (user && isAuthenticated) {
-//     return <Navigate to={path} replace />;
-//   }
+  if (user) {
+    return <Navigate to={path} replace />;
+  }
 
-//   return <Outlet />;
-// }
+  return <Outlet />;
+}

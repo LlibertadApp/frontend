@@ -1,7 +1,6 @@
 import {
   createContext,
   useContext,
-  ReactNode,
   useState,
   useEffect,
   useCallback,
@@ -17,32 +16,24 @@ import {
   signOut,
 } from 'firebase/auth';
 
+import { LoadingPage } from '#/pages/loading-page';
+
 import { paths } from '#/routes/paths';
 
-type LogoutFunction = () => void;
-
-interface AuthContextType {
-  user: User | null;
-  mesas: Mesa[];
-  logout: LogoutFunction;
-  loginWithToken: (authToken: string) => Promise<User | undefined>;
-}
-interface Mesa {
-  mesaId: string;
-}
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
+import {
+  AuthContextType,
+  AuthProviderProps,
+  CheckUserFunction,
+  LogoutFunction,
+} from './types';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const sessionMesas = JSON.parse(sessionStorage.getItem('mesas') || '[]');
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
-  const [mesas, setMesas] = useState(sessionMesas);
+  const [mesas, setMesas] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const loginWithToken = async (authToken: string) => {
     if (!authToken) {
@@ -53,32 +44,50 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const user = firebaseAuth.currentUser;
 
     if (!user) throw new Error('Ocurrió un error al iniciar sesión');
-
-    const uid = user.uid;
-    const userToken = await user.getIdToken(true);
-
-    // Seteamos en el session storage el token del usuario y su uid
-    sessionStorage.setItem('uid', uid);
-    sessionStorage.setItem('token', userToken);
-
     setUser(user);
-    await getMesasFromToken(userToken);
 
     return user;
   };
 
-  const getMesasFromToken = useCallback(async (userToken: string) => {
-    if (userToken) {
+  const getMesasFromToken = useCallback(async (user: User) => {
+    if (user) {
+      const userToken = await user.getIdToken(true);
       const decodedToken: any = jwt_decode(userToken);
 
       if (decodedToken.mesas) {
         setMesas(decodedToken.mesas);
-        sessionStorage.setItem('mesas', JSON.stringify(decodedToken.mesas));
       }
     }
   }, []);
 
-  const logout = useCallback(async () => {
+  // Check user validity
+  const checkUser: CheckUserFunction = useCallback(
+    async (user: User | null) => {
+      if (user) {
+        try {
+          const userToken = await user.getIdToken();
+          const decodedToken: any = jwt_decode(userToken);
+          if (decodedToken.exp * 1000 < Date.now()) {
+            throw new Error('Token expirado');
+          }
+          return userToken as string;
+        } catch (error) {
+          throw new Error('Token inválido');
+        }
+      }
+
+      throw new Error('User is null');
+    },
+    [],
+  );
+
+  useEffect(() => {
+    if (user) {
+      getMesasFromToken(user);
+    }
+  }, [user]);
+
+  const logout: LogoutFunction = useCallback(async () => {
     await signOut(firebaseAuth);
     setUser(null);
   }, []);
@@ -86,21 +95,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // listen for auth status changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
+      console.log(user)
       if (user) {
         setUser(user);
       } else {
-        sessionStorage.removeItem('uid');
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('mesas');
-        navigate(paths.index);
+        // setUser(null);
+        // navigate(paths.index);
       }
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
+  if (loading) {
+    return <LoadingPage />;
+  }
+
   return (
-    <AuthContext.Provider value={{ user, mesas, logout, loginWithToken }}>
+    <AuthContext.Provider
+      value={{ user, mesas, loginWithToken, checkUser, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
