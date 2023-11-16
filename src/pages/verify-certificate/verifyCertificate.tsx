@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { observer } from 'mobx-react';
 import { useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
@@ -66,5 +65,5 @@ function VerifyCertificate() {
   );
 };
 
-export const VerifyCertificatePage = observer(VerifyCertificate);
+export const VerifyCertificatePage = (VerifyCertificate);
 export default VerifyCertificatePage;

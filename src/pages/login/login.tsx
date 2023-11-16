@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 import { useAuth } from '#/context/AuthContext';
 
 import { paths } from '#/routes/paths';
@@ -74,6 +73,6 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export const Login = observer(LoginPage);
+export const Login = (LoginPage);
 
 export default Login;
