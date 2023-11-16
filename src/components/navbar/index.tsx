@@ -39,7 +39,7 @@ const Navbar: React.FC<INavbarProps> = ({
             {showArrow && (
               <Link to={routerLink}>
                 <img
-                  src="assets/images/back-arrow.svg"
+                  src="/assets/images/back-arrow.svg"
                   alt="Volver"
                   className="object-cover rounded w-4 h-auto"
                 />
@@ -59,13 +59,13 @@ const Navbar: React.FC<INavbarProps> = ({
               >
                 {!menuOpen ? (
                   <img
-                    src="assets/icon/menu.svg"
+                    src="/assets/icon/menu.svg"
                     alt="User profile"
                     className="object-cover rounded w-6 h-6"
                   />
                 ) : (
                   <img
-                    src="assets/icon/close.svg"
+                    src="/assets/icon/close.svg"
                     alt="User profile"
                     className="object-cover rounded w-6 h-6 p-[5px]"
                   />
@@ -114,7 +114,7 @@ const Navbar: React.FC<INavbarProps> = ({
                       className="text-violet-light text-left"
                     >
                       <img
-                        src="assets/icon/log-out.svg"
+                        src="/assets/icon/log-out.svg"
                         alt="User profile"
                         className="object-cover rounded"
                       />
@@ -129,7 +129,7 @@ const Navbar: React.FC<INavbarProps> = ({
         <div className="flex col-start-2 col-end-3 row-start-1 row-end-2">
           <Link to={paths.home} className="flex-shrink-0 ml-auto">
             <img
-              src="assets/logos/fenix-new.svg"
+              src="/assets/logos/fenix-new.svg"
               alt="Logo"
               className="object-cover rounded w-[60px] h-[60px] cursor-pointer"
             />
