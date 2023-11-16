@@ -10,7 +10,7 @@ import { paths } from '#/routes/paths';
 const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
   return (
     <section className="items-center flex flex-col ">
-      <Navbar routerLink={paths.loadInformation} showArrow={false} />
+      <Navbar routerLink={paths.loadActaInfo} showArrow={false} />
       <div className="p-4 w-full">
         <div className="container mx-auto">
           <div className="flex items-center justify-center my-20 ">
@@ -44,6 +44,6 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
   );
 };
 
-export const SendSuccess = (SendSuccessPage);
+export const SendSuccess = SendSuccessPage;
 
 export default SendSuccess;

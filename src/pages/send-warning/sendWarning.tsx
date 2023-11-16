@@ -10,7 +10,7 @@ import { paths } from '#/routes/paths';
 const SendWarningPage: FC<ISendWarningProps> = ({ message }) => {
   return (
     <section className="items-center flex flex-col ">
-      <Navbar routerLink={paths.loadInformation} showArrow={false} />
+      <Navbar routerLink={paths.loadActaInfo} showArrow={false} />
       <div className="p-4 w-full">
         <div className="container mx-auto">
           <div className="flex items-center justify-center my-10">
@@ -35,12 +35,11 @@ const SendWarningPage: FC<ISendWarningProps> = ({ message }) => {
               className="w-6 h-6"
             />
             <h4 className="flex text-left text-xs justify-center lg:text-sm  leading-[18px]">
-              Los datos enviados tienen diferencias.
-              ¿Desea denunciar esta mesa?
+              Los datos enviados tienen diferencias. ¿Desea denunciar esta mesa?
             </h4>
           </div>
           <div className="flex items-center justify-center my-10 gap-2 lg:max-w-[408px] lg:mx-auto lg:gap-5">
-            <Link to={paths.deskList} className="w-full">
+            <Link to={paths.votationTables} className="w-full">
               <Button
                 appearance="filled"
                 className="!bg-red !p-4 rounded-xl w-full cursor-default lg:max-w-sm lg:m-auto h-14"
@@ -62,6 +61,6 @@ const SendWarningPage: FC<ISendWarningProps> = ({ message }) => {
   );
 };
 
-export const SendWarning = (SendWarningPage);
+export const SendWarning = SendWarningPage;
 
 export default SendWarning;

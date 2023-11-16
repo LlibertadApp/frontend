@@ -58,8 +58,8 @@ export function UploadImage({
   useEffect(() => {
     if (uploaded) {
       try {
-        console.log(uploaded)
-        navigate(paths.verifyCertificate);
+        console.log(uploaded);
+        navigate(paths.verifyActa);
       } catch (error) {
         toast.error(
           'Hubo un error al cargar la página porfavor refresqué la misma.',
@@ -101,10 +101,7 @@ export function UploadImage({
             className="flex flex-col items-center justify-center cursor-pointer mt-[30px] mb-10"
           >
             <div className="flex flex-col items-center justify-center">
-              <img
-                src={preview || previewSrc}
-                alt="UploadBox"
-              />
+              <img src={preview || previewSrc} alt="UploadBox" />
             </div>
             <ImageInput
               id="dropzone-file"
