@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { observer } from 'mobx-react';
 import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { ISendSuccessProps } from './types';
@@ -11,12 +10,12 @@ import { paths } from '#/routes/paths';
 const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
   return (
     <section className="items-center flex flex-col ">
-      <Navbar routerLink={paths.loadInformation} showArrow={false} />
+      <Navbar routerLink={paths.loadActaInfo} showArrow={false} />
       <div className="p-4 w-full">
         <div className="container mx-auto">
           <div className="flex items-center justify-center my-20 ">
             <img
-              src="assets/icon/success.svg"
+              src="/assets/icon/success.svg"
               alt="data sent successful"
               className="object-cover rounded w-68 h-auto lg:w-[25.5rem]"
             />
@@ -45,6 +44,6 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
   );
 };
 
-export const SendSuccess = observer(SendSuccessPage);
+export const SendSuccess = SendSuccessPage;
 
 export default SendSuccess;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
 import { X, ArrowRight } from '@phosphor-icons/react';
 
 import { FilterPage } from '#/pages/filter-results/filterResults';
@@ -116,7 +115,7 @@ const TotalResultsPage = () => {
         <div className="flex flex-col border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
-              <img src="assets/logos/fenix.png" className="w-16 h-14" alt="" />
+              <img src="/assets/logos/fenix.png" className="w-16 h-14" alt="" />
               <div className="flex flex-col items-end">
                 <span className={`text-[12px] text-gray-dark`}>
                   {votes[0]} votos
@@ -149,7 +148,7 @@ const TotalResultsPage = () => {
         <div className="flex flex-col border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
-              <img src="assets/logos/uxp.svg" className="w-16 h-14" alt="" />
+              <img src="/assets/logos/uxp.svg" className="w-16 h-14" alt="" />
               <div className="flex flex-col items-end">
                 <span className={`text-[12px] text-gray-dark`}>
                   {votes[1]} votos
@@ -216,5 +215,5 @@ const TotalResultsPage = () => {
   );
 };
 
-export const TotalResults = observer(TotalResultsPage);
+export const TotalResults = TotalResultsPage;
 export default TotalResults;

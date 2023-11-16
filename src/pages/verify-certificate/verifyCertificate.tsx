@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { observer } from 'mobx-react';
 import { useState } from 'react';
 import Button from '#/components/button';
 import ProgressIndicator from '#/components/progressIndicator';
@@ -20,7 +19,7 @@ function VerifyCertificate() {
   };
   const handleContinue = () => {
     if (!correctData) return;
-    navigate(paths.loadInformation);
+    navigate(paths.loadActaInfo);
   };
 
   const handleImageReupload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +27,7 @@ function VerifyCertificate() {
     // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
     setCertificateImage(e.target.files?.[0]!);
 
-    navigate(paths.verifyCertificate);
+    navigate(paths.verifyActa);
   };
 
   const handleCheckbox = () => {
@@ -72,12 +71,8 @@ function VerifyCertificate() {
           >
             Continuar
           </Button>
-          <Link to={paths.uploadCertificate} className="w-full">
-            <Button
-              appearance="outlined"
-              label="Volver a cargar imagen"
-              onClick={handleReset}
-            />
+          <Link to={paths.uploadActa} className="w-full">
+            <Button appearance="outlined" label="Volver a cargar imagen" onClick={handleReset}/>
           </Link>
         </section>
       </main>
@@ -85,5 +80,5 @@ function VerifyCertificate() {
   );
 }
 
-export const VerifyCertificatePage = observer(VerifyCertificate);
+export const VerifyCertificatePage = VerifyCertificate;
 export default VerifyCertificatePage;
