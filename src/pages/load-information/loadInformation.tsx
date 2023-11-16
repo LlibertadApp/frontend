@@ -25,7 +25,7 @@ import CategoryVoteInput from '#/components/categoryVoteInput';
 import ProgressIndicator from '#/components/progressIndicator';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { useAuth } from '#/context/AuthContext';
-import { saveActas } from '#/service/api/actas';
+import { useActas } from '#/hooks/utils/useActas';
 import { TelegramData } from './types';
 
 const validationSchema = Yup.object().shape({
@@ -134,6 +134,7 @@ function LoadInformationPage() {
   const { mesas } = useAuth();
   const [mesa, setMesa] = useState<string | undefined>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { saveActas } = useActas(); // Usa el Hook creado
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1', // Acá se cambia por el circuito del token
@@ -283,8 +284,8 @@ function LoadInformationPage() {
         }
 
         setIsSubmitting(false);
-        saveActas(payload);
-        
+        saveActas(payload); //Aca esta la llamada.
+
         return comesFromReport
           ? navigate(paths.sendWarning)
           : navigate(paths.sendSuccess);
