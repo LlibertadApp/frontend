@@ -12,7 +12,7 @@ const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-lg text-xs gap-2 text-[#444444]">
     <img
       className="w-5 h-5"
-      src="assets/icon/checkcircle.svg"
+      src="/assets/icon/checkcircle.svg"
       alt="CheckCircle"
     />
     <p className="px-full">{text}</p>
@@ -58,8 +58,8 @@ export function UploadImage({
   useEffect(() => {
     if (uploaded) {
       try {
-        console.log(uploaded)
-        navigate(paths.verifyCertificate);
+        console.log(uploaded);
+        navigate(paths.verifyActa);
       } catch (error) {
         toast.error(
           'Hubo un error al cargar la página porfavor refresqué la misma.',
@@ -74,8 +74,8 @@ export function UploadImage({
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const previewSrc = isDesktop
-    ? 'assets/icon/upload-box-desktop.svg'
-    : 'assets/icon/upload-box.svg';
+    ? '/assets/icon/upload-box-desktop.svg'
+    : '/assets/icon/upload-box.svg';
 
   return (
     <div className="flex flex-col items-center text-lg">
@@ -101,10 +101,7 @@ export function UploadImage({
             className="flex flex-col items-center justify-center cursor-pointer mt-[30px] mb-10"
           >
             <div className="flex flex-col items-center justify-center">
-              <img
-                src={preview || previewSrc}
-                alt="UploadBox"
-              />
+              <img src={preview || previewSrc} alt="UploadBox" />
             </div>
             <ImageInput
               id="dropzone-file"

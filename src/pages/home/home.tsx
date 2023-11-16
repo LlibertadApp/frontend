@@ -28,13 +28,13 @@ const HomePage = () => {
                 Acciones de fiscales
               </span>
               <CardLink
-                link={paths.uploadCertificate}
+                link={paths.uploadActa}
                 text={'Cargar resultados de tu mesa'}
                 icon={<EnvelopeOpen size={32} />}
                 color={colors.Violet}
               />
               <CardLink
-                link={paths.deskList}
+                link={paths.votationTables}
                 text={'Listado de mesas cargadas'}
                 icon={<ListBullets size={32} />}
                 color={colors.Violet}
@@ -46,14 +46,14 @@ const HomePage = () => {
                 Escrutinio y resultados
               </span>
               <Link
-                to={paths.totalResults}
+                to={paths.results}
                 className="border-2 border-black/5 text-gray-dark bg-transparent p-2 w-full rounded-xl shadow-lg hover:border-black/20 flex flex-col items-center justify-between gap-[10px]"
                 type="submit"
               >
                 <div className="flex text-center justify-between w-full gap-6">
                   <div className="flex flex-col justify-between gap-4 p-4 bg-party-uxp/5 rounded-lg w-full">
                     <img
-                      src="assets/logos/uxp.svg"
+                      src="/assets/logos/uxp.svg"
                       alt="union por la patria logo"
                       className="h-16"
                     />
@@ -63,7 +63,7 @@ const HomePage = () => {
                   </div>
                   <div className="flex flex-col justify-between gap-[10px] p-4 bg-violet-brand/5 rounded-lg w-full">
                     <img
-                      src="assets/logos/lla-logo.svg"
+                      src="/assets/logos/lla-logo.svg"
                       alt="la libertad avanza logo"
                       className="h-16"
                     />
@@ -85,6 +85,6 @@ const HomePage = () => {
   );
 };
 
-export const Home = (HomePage);
+export const Home = HomePage;
 
 export default Home;

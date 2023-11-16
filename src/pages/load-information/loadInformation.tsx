@@ -548,8 +548,8 @@ function LoadInformationPage() {
                     isVoteSumExceeded(values.votes)
                       ? 'disabled'
                       : !errors.validTotalVotes && !errors.validVotesDifference
-                      ? 'filled'
-                      : 'error'
+                        ? 'filled'
+                        : 'error'
                   }
                   className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}
@@ -567,7 +567,7 @@ function LoadInformationPage() {
                     <div className="flex flex-col items-center">
                       <div className="bg-red/5 p-6 rounded-full mb-4">
                         <img
-                          src="assets/icon/warn-icon.svg"
+                          src="/assets/icon/warn-icon.svg"
                           alt="warning icon"
                           className="h-10 w-10"
                         />
@@ -610,6 +610,6 @@ function LoadInformationPage() {
   );
 }
 
-export const LoadInformation = (LoadInformationPage);
+export const LoadInformation = LoadInformationPage;
 
 export default LoadInformation;
