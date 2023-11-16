@@ -53,7 +53,7 @@ const HomePage = () => {
                 <div className="flex text-center justify-between w-full gap-6">
                   <div className="flex flex-col justify-between gap-4 p-4 bg-party-uxp/5 rounded-lg w-full">
                     <img
-                      src="assets/logos/uxp.svg"
+                      src="/assets/logos/uxp.svg"
                       alt="union por la patria logo"
                       className="h-16"
                     />
@@ -63,7 +63,7 @@ const HomePage = () => {
                   </div>
                   <div className="flex flex-col justify-between gap-[10px] p-4 bg-violet-brand/5 rounded-lg w-full">
                     <img
-                      src="assets/logos/lla-logo.svg"
+                      src="/assets/logos/lla-logo.svg"
                       alt="la libertad avanza logo"
                       className="h-16"
                     />

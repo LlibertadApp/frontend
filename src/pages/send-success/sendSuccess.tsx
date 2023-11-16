@@ -15,7 +15,7 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
         <div className="container mx-auto">
           <div className="flex items-center justify-center my-20 ">
             <img
-              src="assets/icon/success.svg"
+              src="/assets/icon/success.svg"
               alt="data sent successful"
               className="object-cover rounded w-68 h-auto lg:w-[25.5rem]"
             />

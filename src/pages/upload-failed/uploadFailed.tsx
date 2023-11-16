@@ -11,7 +11,7 @@ const UploadFailedPage = () => {
         <div className="container mx-auto">
           <div className="flex items-center justify-center my-[60px]">
             <img
-              src="assets/icon/failed.svg"
+              src="/assets/icon/failed.svg"
               alt="data sent successful"
               className="object-cover rounded w-68 h-auto lg:w-[25.5rem]"
             />

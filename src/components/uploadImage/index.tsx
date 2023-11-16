@@ -12,7 +12,7 @@ const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-lg text-xs gap-2 text-[#444444]">
     <img
       className="w-5 h-5"
-      src="assets/icon/checkcircle.svg"
+      src="/assets/icon/checkcircle.svg"
       alt="CheckCircle"
     />
     <p className="px-full">{text}</p>
@@ -74,8 +74,8 @@ export function UploadImage({
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const previewSrc = isDesktop
-    ? 'assets/icon/upload-box-desktop.svg'
-    : 'assets/icon/upload-box.svg';
+    ? '/assets/icon/upload-box-desktop.svg'
+    : '/assets/icon/upload-box.svg';
 
   return (
     <div className="flex flex-col items-center text-lg">

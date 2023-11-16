@@ -15,7 +15,7 @@ const SendWarningPage: FC<ISendWarningProps> = ({ message }) => {
         <div className="container mx-auto">
           <div className="flex items-center justify-center my-10">
             <img
-              src="assets/icon/success.svg"
+              src="/assets/icon/success.svg"
               alt="success icon"
               className="w-64 h-auto lg:w-[25.5rem]"
             />
@@ -30,7 +30,7 @@ const SendWarningPage: FC<ISendWarningProps> = ({ message }) => {
           </h3>
           <div className="flex items-center justify-center py-2 px-4 border border-red-error rounded-lg gap-2 lg:max-w-[408px] lg:mx-auto">
             <img
-              src="assets/icon/alert-icon.svg"
+              src="/assets/icon/alert-icon.svg"
               alt="warning icon"
               className="w-6 h-6"
             />

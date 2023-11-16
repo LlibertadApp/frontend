@@ -12,22 +12,22 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
               step === ProgressStepStatus.Active
                 ? 'bg-violet-primary text-white'
                 : step === ProgressStepStatus.Successful
-                ? 'bg-green text-white'
-                : step === ProgressStepStatus.Error
-                ? 'bg-red text-white'
-                : 'bg-gray-light text-black'
+                  ? 'bg-green text-white'
+                  : step === ProgressStepStatus.Error
+                    ? 'bg-red text-white'
+                    : 'bg-gray-light text-black'
             }`}
           >
             {step === ProgressStepStatus.Successful ? (
               <img
                 className="w-4 h-4 lg:w-8 lg:h-8"
-                src="assets/icon/check-icon.svg"
+                src="/assets/icon/check-icon.svg"
                 alt=""
               />
             ) : step === ProgressStepStatus.Error ? (
               <img
                 className="w-4 h-4 lg:w-8 lg:h-8"
-                src="assets/icon/error-icon.svg"
+                src="/assets/icon/error-icon.svg"
                 alt=""
               />
             ) : (
@@ -40,8 +40,8 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
                 step === ProgressStepStatus.Active
                   ? 'bg-gray-light text-white'
                   : step === ProgressStepStatus.Successful
-                  ? 'bg-green-check text-white'
-                  : 'bg-gray-light text-black'
+                    ? 'bg-green-check text-white'
+                    : 'bg-gray-light text-black'
               }`}
             ></div>
           )}
