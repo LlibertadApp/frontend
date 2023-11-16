@@ -28,7 +28,7 @@ const DeskList: FC = () => {
   return (
     <>
       <Navbar routerLink={paths.home} showArrow={true} />
-      <main className="flex flex-col items-center px-4 py-8 max-w-4xl gap-8">
+      <main className="flex flex-col items-center px-4 py-8 max-w-4xl gap-8 m-auto">
         <h1 className="text-violet-brand text-3xl font-semibold text-center">
           MESAS CARGADAS
         </h1>
