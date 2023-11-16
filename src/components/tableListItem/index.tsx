@@ -1,3 +1,4 @@
+import Acta from '#/interfaces/acta.interface';
 import { IDeskItemLabel, IDeskNormalStatus } from '#/pages/desk-list/types';
 import {
   Accordion,
@@ -8,23 +9,6 @@ import {
 
 import { CaretDown } from '@phosphor-icons/react';
 import { FC, useState } from 'react';
-
-interface Acta {
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: any;
-  id: string;
-  mesaId: string;
-  userId: string;
-  conteoLla: number;
-  conteoUp: number;
-  votosImpugnados: number;
-  votosNulos: number;
-  votosEnBlanco: number;
-  votosRecurridos: number;
-  votosEnTotal: number;
-  estado: string;
-}
 
 interface TableListItemProps {
   acta: Acta;
@@ -125,8 +109,7 @@ export default function TableListItem({
         boxShadow: '0px 10px 10px 0px rgba(0, 0, 0, 0.05)',
         display: 'flex',
         flexDirection: 'column',
-        margin: '10px 0px',
-        width: '300px',
+        width: '100%',
       }}
       sx={{
         boxShadow: 'none',

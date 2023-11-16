@@ -1,3 +1,4 @@
+import Acta from '#/interfaces/acta.interface';
 import axios from '#utils/axiosAdapter';
 
 export const saveActas = (acta: FormData) => {
@@ -11,9 +12,9 @@ export const saveActas = (acta: FormData) => {
 export const getUserActas = async () => {
   const token = sessionStorage.getItem('token');
 
-  const { data } = await axios.get('v1/actas', {
+  const { data } = await axios.get<{ data: Acta[] }>('v1/actas', {
     headers: { Authorization: token },
   });
 
-  return data;
+  return data.data;
 };
