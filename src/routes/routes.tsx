@@ -33,39 +33,28 @@ const AppRoutes: React.FC = () => {
   return (
     <Routes location={location} key={location.pathname}>
       <Route element={<AnimatedRoute />}>
-        {/* Public routes */}
-        {/* <Route element={<PublicRoute path={paths.home} />}> */}
         {/* Auth */}
         <Route path={paths.index} element={<Login />} />
-        {/* </Route> */}
-        {/* Utils */}
-        <Route path={paths.loadingPage} element={<LoadingPage />} />
         {/* 404 Not found */}
         <Route path="*" element={<NotFound />} />
+
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
           {/* Cuenta */}
           <Route path={paths.home} element={<Home />} />
 
           {/* Steps Formulario */}
-          <Route
-            path={paths.uploadCertificate}
-            element={<UploadCertificate />}
-          />
-          <Route
-            path={paths.verifyCertificate}
-            element={<VerifyCertificate />}
-          />
-          <Route path={paths.loadInformation} element={<LoadInformation />} />
+          <Route path={paths.uploadActa} element={<UploadCertificate />} />
+          <Route path={paths.verifyActa} element={<VerifyCertificate />} />
+          <Route path={paths.loadActaInfo} element={<LoadInformation />} />
           <Route path={paths.sendSuccess} element={<SendSuccess />} />
           <Route path={paths.sendWarning} element={<SendWarning />} />
           <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
           {/* Filters, Results & Irregularities */}
-          <Route path={paths.filterResults} element={<FilterPage />} />
-          <Route path={paths.totalResults} element={<TotalResults />} />
+          <Route path={paths.results} element={<TotalResults />} />
           <Route path={paths.irregularities} element={<Irregularities />} />
-          <Route path={paths.deskList} element={<DeskList />} />
+          <Route path={paths.votationTables} element={<DeskList />} />
         </Route>
       </Route>
     </Routes>

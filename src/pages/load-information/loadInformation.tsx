@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
-import { observer } from 'mobx-react';
 import { TextField, MenuItem } from '@mui/material';
 import { Dialog } from '@headlessui/react';
 import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
@@ -25,7 +24,7 @@ import CategoryVoteInput from '#/components/categoryVoteInput';
 import ProgressIndicator from '#/components/progressIndicator';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import { useAuth } from '#/context/AuthContext';
-import { saveActas } from '#/service/api/actas';
+import { useActas } from '#/hooks/utils/useActas';
 import { TelegramData } from './types';
 
 const validationSchema = Yup.object().shape({
@@ -134,6 +133,7 @@ function LoadInformationPage() {
   const { mesas } = useAuth();
   const [mesa, setMesa] = useState<string | undefined>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { saveActas } = useActas(); // Usa el Hook creado
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1', // Acá se cambia por el circuito del token
@@ -283,8 +283,8 @@ function LoadInformationPage() {
         }
 
         setIsSubmitting(false);
-        saveActas(payload);
-        
+        saveActas(payload); //Aca esta la llamada.
+
         return comesFromReport
           ? navigate(paths.sendWarning)
           : navigate(paths.sendSuccess);
@@ -543,8 +543,8 @@ function LoadInformationPage() {
                     isVoteSumExceeded(values.votes)
                       ? 'disabled'
                       : !errors.validTotalVotes && !errors.validVotesDifference
-                      ? 'filled'
-                      : 'error'
+                        ? 'filled'
+                        : 'error'
                   }
                   className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}
@@ -562,7 +562,7 @@ function LoadInformationPage() {
                     <div className="flex flex-col items-center">
                       <div className="bg-red/5 p-6 rounded-full mb-4">
                         <img
-                          src="assets/icon/warn-icon.svg"
+                          src="/assets/icon/warn-icon.svg"
                           alt="warning icon"
                           className="h-10 w-10"
                         />
@@ -605,6 +605,6 @@ function LoadInformationPage() {
   );
 }
 
-export const LoadInformation = observer(LoadInformationPage);
+export const LoadInformation = LoadInformationPage;
 
 export default LoadInformation;
