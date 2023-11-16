@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
 import { CheckCircle } from '@phosphor-icons/react';
+
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
+import UploadImage from '#/components/uploadImage';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
+import './styles.css';
+import { useNavigate } from 'react-router-dom';
 import { useCertificate } from '#/context/CertificationContext';
 import { paths } from '#/routes/paths';
 import UploadInput from '#/components/uploadInput';
@@ -21,29 +25,52 @@ const UploadCertificate = () => {
   const navigate = useNavigate();
   const { setFile, setCertificateImage } = useCertificate();
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Check if actualPicture exists in localStorage
+  useEffect(() => {
+    const existingPicture = localStorage.getItem('actualPicture');
+    if (existingPicture) {
+      navigate(paths.verifyCertificate);
+    }
+  }, [navigate]);
+
+  const readFileAsDataURL = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        resolve(result);
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
 
     setFile(e.target.files?.[0]!);
     setCertificateImage(e.target.files?.[0]!);
 
     if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const fileDataUrl = e.target?.result as string;
+      try {
+        const fileDataUrl = await readFileAsDataURL(selectedFile);
         localStorage.setItem('actualPicture', fileDataUrl);
-      };
-      reader.readAsDataURL(selectedFile);
+
+        // Realizar la navegación solo si actualPicture tiene información
+        if (fileDataUrl) {
+          navigate(paths.verifyCertificate);
+        }
+      } catch (error) {
+        console.error('Error reading file:', error);
+        // Handle error if needed
+      }
     }
   };
-
-  // Verificar y navegar solo si actualPicture existe y tiene información
-  useEffect(() => {
-    const actualPicture = localStorage.getItem('actualPicture');
-    if (actualPicture) {
-      navigate(paths.verifyCertificate);
-    }
-  }, []);
 
   return (
     <>
