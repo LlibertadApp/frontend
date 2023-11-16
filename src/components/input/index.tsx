@@ -78,14 +78,14 @@ const Input: React.FC<IInputProps> = ({
           {type === 'password' &&
             (isPasswordVisible ? (
               <img
-                src="assets/icon/eye.svg"
+                src="/assets/icon/eye.svg"
                 alt="Show password"
                 className="object-cover h-auto rounded cursor-pointer"
                 onClick={() => setIsPasswordVisible(false)}
               />
             ) : (
               <img
-                src="assets/icon/eye-off.svg"
+                src="/assets/icon/eye-off.svg"
                 alt="Hide password"
                 className="object-cover h-auto rounded cursor-pointer"
                 onClick={() => setIsPasswordVisible(true)}

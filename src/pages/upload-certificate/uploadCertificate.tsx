@@ -15,7 +15,7 @@ import UploadInput from '#/components/uploadInput';
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
     <div className="flex justify-center items-center rounded-full bg-green-check text-white w-5 h-5 flex-shrink-0">
-      <img className="w-3 h-3" src="assets/icon/check-icon.svg" alt="" />
+      <img className="w-3 h-3" src="/assets/icon/check-icon.svg" alt="" />
     </div>
     <p>{text}</p>
   </div>
@@ -32,38 +32,58 @@ const UploadCertificate = () => {
     // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
     setCertificateImage(e.target.files?.[0]!); // test
 
-    navigate(paths.verifyCertificate);
-  }
+    navigate(paths.verifyActa);
+  };
 
   return (
     <>
       <Navbar routerLink={paths.home} />
-      <main className='container mx-auto p-4 flex flex-col gap-[30px] max-w-[52.5rem]'>
-        <ProgressIndicator steps={[ProgressStepStatus.Active, ProgressStepStatus.Pending, ProgressStepStatus.Pending]} />
-        <h1 className="text-neutral-700 text-xl font-medium text-center">Cargar imagen</h1>
-        <p className="text-neutral-600 text-base">Usá la cámara para subir <b>el certificado del fiscal</b>, o cargala desde la galería.</p>
-        <UploadInput 
-          id='largeCertificateInput' 
-          size='lg' 
-          onChange={handleImageUpload}/>
+      <main className="container mx-auto p-4 flex flex-col gap-[30px] max-w-[52.5rem]">
+        <ProgressIndicator
+          steps={[
+            ProgressStepStatus.Active,
+            ProgressStepStatus.Pending,
+            ProgressStepStatus.Pending,
+          ]}
+        />
+        <h1 className="text-neutral-700 text-xl font-medium text-center">
+          Cargar imagen
+        </h1>
+        <p className="text-neutral-600 text-base">
+          Usá la cámara para subir <b>el certificado del fiscal</b>, o cargala
+          desde la galería.
+        </p>
+        <UploadInput
+          id="largeCertificateInput"
+          size="lg"
+          onChange={handleImageUpload}
+        />
         <ul className="flex flex-col gap-[15px]">
           <li className="flex flex-row gap-[8px] text-left">
             <CheckCircle className="text-green" size={24} />
-            <span className="text-neutral-600 text-sm flex-1">Buscá un lugar con buena luz.</span>
+            <span className="text-neutral-600 text-sm flex-1">
+              Buscá un lugar con buena luz.
+            </span>
           </li>
           <li className="flex flex-row gap-[8px] text-left">
             <CheckCircle className="text-green" size={24} />
-            <span className="text-neutral-600 text-sm flex-1">Asegurate de que se vean todos los datos.</span>
+            <span className="text-neutral-600 text-sm flex-1">
+              Asegurate de que se vean todos los datos.
+            </span>
           </li>
           <li className="flex flex-row gap-[8px] text-left">
             <CheckCircle className="text-green" size={24} />
-            <span className="text-neutral-600 text-sm flex-1">Asegurate que el certificado esté firmado por el presidente de tu mesa.</span>
+            <span className="text-neutral-600 text-sm flex-1">
+              Asegurate que el certificado esté firmado por el presidente de tu
+              mesa.
+            </span>
           </li>
         </ul>
-        <UploadInput 
-          id='buttonCertificateInput' 
-          size='md' 
-          onChange={handleImageUpload}/>
+        <UploadInput
+          id="buttonCertificateInput"
+          size="md"
+          onChange={handleImageUpload}
+        />
       </main>
     </>
   );

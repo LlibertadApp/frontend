@@ -9,8 +9,7 @@ import {
 } from '@mui/material';
 import { FC, useState } from 'react';
 import { IAccordionExpanded, IDeskItemLabel, IDeskNormalStatus } from './types';
-import { DeskData } from '#/interfaces/IDesk';
-import { getActas } from '#/service/api/actas';
+import { useActas } from '#/hooks/utils/useActas';
 
 const DeskItemLabel: FC<IDeskItemLabel> = ({
   typoProps = {
@@ -110,7 +109,8 @@ const DeskStatus: FC<IDeskNormalStatus> = ({ deskNormalStatus }) => {
 };
 
 const DeskList: FC = () => {
-  const actas = getActas();
+  const { getStoredActas } = useActas();
+  const actas = getStoredActas();
   const [accordionExpanded, setAccordionExpanded] =
     useState<IAccordionExpanded>({});
 
