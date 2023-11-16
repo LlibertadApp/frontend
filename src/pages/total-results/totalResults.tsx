@@ -80,25 +80,31 @@ const TotalResultsPage = () => {
 
         {/* Menú de filtros (desplegable) */}
         {isFilterMenuOpen && (
-          <div
-            className={`fixed bottom-0 left-0 right-0 mx-auto my-auto bg-white p-2 rounded-3xl shadow-md border-t border-gray-300 z-10 transition-all duration-300 backdrop-filter  ${
-              isFilterMenuOpen ? 'max-h-[82%]' : 'h-0'
-            } overflow-y-auto`}
-          >
-            <div className="flex flex-row gap-2 justify-between items-center px-4 py-2">
-              <p className="font-bold text-[20px] text-violet-brand pt-2">
-                Filtros
-              </p>
-              <div
-                className="p-4 flex justify-end"
-                onClick={() => setIsFilterMenuOpen(false)}
-              >
-                <X size={24} />
+          <>
+            <div
+              className="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50 z-20"
+              onClick={() => setIsFilterMenuOpen(false)}
+            ></div>
+            <div
+              className={`fixed bottom-0 left-0 right-0 mx-auto my-auto bg-white p-2 rounded-3xl shadow-md border-t border-gray-300 z-20 transition-all duration-300 backdrop-filter  ${
+                isFilterMenuOpen ? 'max-h-[82%]' : 'h-0'
+              } overflow-y-auto`}
+            >
+              <div className="flex flex-row gap-2 justify-between items-center px-4 py-2">
+                <p className="font-bold text-[20px] text-violet-brand pt-2">
+                  Filtros
+                </p>
+                <div
+                  className="p-4 flex justify-end"
+                  onClick={() => setIsFilterMenuOpen(false)}
+                >
+                  <X size={24} />
+                </div>
               </div>
-            </div>
 
-            <FilterPage />
-          </div>
+              <FilterPage />
+            </div>
+          </>
         )}
       </div>
 
