@@ -1,17 +1,17 @@
 import { useEffect, useCallback } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 
+import { paths } from '#/routes/paths';
+
 export function ProtectedRoute(): React.ReactElement {
+  const location = useLocation();
   const { user, logout, checkUser } = useAuth();
 
-  // Checks user each time a protected route is visited
+  // Verifica user token por cada acceso a ruta protegida
   const verifyToken = useCallback(async () => {
-    try {
-      await checkUser(user);
-    } catch (error) {
-      logout();
-    }
+    const verifiedToken = await checkUser(user);
+    verifiedToken || logout();
   }, [checkUser, logout, user]);
 
   useEffect(() => {
@@ -19,6 +19,10 @@ export function ProtectedRoute(): React.ReactElement {
       verifyToken();
     }
   }, [verifyToken, user]);
+
+  if (!user) {
+    return <Navigate to={paths.index} state={{ from: location }} replace />;
+  }
 
   return <Outlet />;
 }

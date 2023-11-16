@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
-  // Check user validity
+  // Chequea validez del token de usuario
   const checkUser: CheckUserFunction = useCallback(
     async (user: User | null) => {
       if (user) {
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       }
 
-      throw new Error('User is null');
+      throw new Error('No existe usuario');
     },
     [],
   );
@@ -107,7 +107,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
   }, []);
 
-  // listen for auth status changes
+  // Escucha por cambios en la sesión de firebase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
