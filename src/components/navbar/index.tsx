@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '#/context/AuthContext';
 import Button from '#/components/button';
 import { ICloseMenuProps, INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
 import { paths } from '#/routes/paths';
-import { SignOut } from '@phosphor-icons/react';
+import LogoutModal from '../confirmationModal';
 
 const linkTransformClassName = 'transform transition-transform hover:scale-105';
 
@@ -28,8 +27,8 @@ const Navbar: React.FC<INavbarProps> = ({
   showArrow = true,
   showHamburger = true,
 }) => {
-  const { logout } = useAuth();
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
+  const [logoutModal, setLogoutModal] = React.useState(false);
   const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
     <div className="bg-violet-primary p-[10px] px-4 w-full flex flex-col h-18 relative z-20 lg:items-center">
@@ -74,7 +73,7 @@ const Navbar: React.FC<INavbarProps> = ({
             )}
 
             {menuOpen && (
-              <div className="absolute w-[100vw] bg-white right-0 lg:left-[26.6rem] 2xl:left-[27.3rem] top-[72px]  rounded-xl px-1 shadow-2xl lg:w-[50vw]">
+              <div className="absolute w-[100vw] bg-white right-0 top-[72px] rounded-xl px-1 shadow-2xl ">
                 <div className="absolute top-[-15px] right-[53px] w-0 h-0">
                   <svg width="50" height="20">
                     <polygon points="25,0 0,50 50,50" fill="white" />
@@ -107,12 +106,15 @@ const Navbar: React.FC<INavbarProps> = ({
                     <Button
                       appearance="ghost"
                       onClick={() => {
-                        logout();
-                        closeMenu();
+                        setLogoutModal(!logoutModal);
                       }}
                       type="button"
                       className="text-violet-light text-left"
                     >
+                      <LogoutModal
+                        open={logoutModal}
+                        setOpen={setLogoutModal}
+                      />
                       <img
                         src="/assets/icon/log-out.svg"
                         alt="User profile"
