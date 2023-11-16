@@ -1,11 +1,18 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 
 export function ProtectedRoute(): React.ReactElement {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
 
-  if (!user) logout();
+  useEffect(() => {
+    const uid = sessionStorage.getItem('uid');
+    const userToken = sessionStorage.getItem('token');
+
+    if (!uid || !userToken) {
+      logout();
+    }
+  }, [logout]);
 
   return <Outlet />;
 }

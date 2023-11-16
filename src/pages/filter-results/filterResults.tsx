@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { observer } from 'mobx-react-lite';
 import { Trash, ArrowRight } from '@phosphor-icons/react';
 import { Selector } from '#/components/selector';
 import Button from '#/components/button';
@@ -106,6 +105,6 @@ export const FilterPage = () => {
   );
 };
 
-export const Filter = observer(FilterPage);
+export const Filter = (FilterPage);
 
 export default Filter;
