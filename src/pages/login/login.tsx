@@ -1,32 +1,20 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useAuth } from '#/context/AuthContext';
 
-import { paths } from '#/routes/paths';
-
 const LoginPage: React.FC = () => {
-  const [error, setError] = useState<boolean>();
-  const navigate = useNavigate();
-  const { loginWithToken } = useAuth();
-
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const authToken = queryParams.get('authToken');
-
-  const login = useCallback(async () => {
-    try {
-      if (!authToken) return setError(true);
-      await loginWithToken(authToken);
-      navigate(paths.home);
-    } catch (error) {
-      setError(true);
-    }
-  }, []);
+  const [error, setError] = useState<boolean>(false);
+  const { user } = useAuth();
 
   useEffect(() => {
-    login();
-  }, [login]);
+    if (user) {
+      console.log("User exists")
+      setError(false)
+    } else {
+      console.log("User is null")
+      setError(true)
+    }
+  }, [user]);
 
   return error ? (
     <>

@@ -1,11 +1,11 @@
-import { useEffect, useCallback, useMemo } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 
 export function ProtectedRoute(): React.ReactElement {
   const { user, logout, checkUser } = useAuth();
-  console.log(user)
 
+  // Checks user each time a protected route is visited
   const verifyToken = useCallback(async () => {
     try {
       await checkUser(user);

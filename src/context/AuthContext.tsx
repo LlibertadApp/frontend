@@ -5,20 +5,9 @@ import {
   useEffect,
   useCallback,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
-import firebaseAuth from '#/service/firebase/firebase';
-import {
-  User,
-  onAuthStateChanged,
-  signInWithCustomToken,
-  signOut,
-} from 'firebase/auth';
-
-import { LoadingPage } from '#/pages/loading-page';
-
-import { paths } from '#/routes/paths';
 
 import {
   AuthContextType,
@@ -26,6 +15,17 @@ import {
   CheckUserFunction,
   LogoutFunction,
 } from './types';
+
+import {
+  User,
+  onAuthStateChanged,
+  signInWithCustomToken,
+  signOut,
+} from 'firebase/auth';
+import firebaseAuth from '#/service/firebase/firebase';
+
+import { LoadingPage } from '#/pages/loading-page';
+import { paths } from '#/routes/paths';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -35,19 +35,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [mesas, setMesas] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const loginWithToken = async (authToken: string) => {
-    if (!authToken) {
-      throw new Error('No hay auth token');
-    }
-
-    await signInWithCustomToken(firebaseAuth, authToken);
-    const user = firebaseAuth.currentUser;
-
-    if (!user) throw new Error('Ocurrió un error al iniciar sesión');
-    setUser(user);
-
-    return user;
-  };
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const authToken = queryParams.get('authToken');
 
   const getMesasFromToken = useCallback(async (user: User) => {
     if (user) {
@@ -87,6 +77,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    let isMounted = true;
+    if (authToken) {
+      const loginWithToken = async (authToken: string) => {
+        if (!authToken) {
+          throw new Error('No hay auth token');
+        }
+
+        await signInWithCustomToken(firebaseAuth, authToken);
+        const user = firebaseAuth.currentUser;
+
+        if (!user) throw new Error('Ocurrió un error al iniciar sesión');
+        setUser(user);
+
+        return user;
+      };
+      if (authToken) {
+        loginWithToken(authToken);
+      }
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [authToken]);
+
   const logout: LogoutFunction = useCallback(async () => {
     await signOut(firebaseAuth);
     setUser(null);
@@ -95,12 +110,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // listen for auth status changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      console.log(user)
       if (user) {
         setUser(user);
       } else {
-        // setUser(null);
-        // navigate(paths.index);
+        setUser(null);
+        navigate(paths.index);
       }
       setLoading(false);
     });
@@ -113,9 +127,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider
-      value={{ user, mesas, loginWithToken, checkUser, logout }}
-    >
+    <AuthContext.Provider value={{ user, mesas, checkUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

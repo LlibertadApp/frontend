@@ -7,7 +7,6 @@ export type CheckUserFunction = (user: User | null) => Promise<string>;
 export interface AuthContextType {
   user: User | null;
   mesas: { mesaId: string }[];
-  loginWithToken: (authToken: string) => Promise<User | undefined>;
   checkUser: CheckUserFunction;
   logout: LogoutFunction;
 }
