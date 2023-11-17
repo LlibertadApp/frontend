@@ -6,7 +6,7 @@ interface TableListProps {
 }
 
 export default function TableList({ actas }: TableListProps) {
-  if (!actas.length) {
+  if (!actas?.length) {
     return (
       <div className="flex flex-col items-center pt-[17.5]">
         <svg
