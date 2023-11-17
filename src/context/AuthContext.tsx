@@ -42,8 +42,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const getMesasFromToken = useCallback(async (user: User) => {
     if (user) {
-      const userToken = await user.getIdToken(true);
+      const userToken = await user.getIdToken();
       const decodedToken: any = jwt_decode(userToken);
+      const uid = user?.uid;
+
+      // Seteamos en el session storage el token del usuario y su uid
+      uid && sessionStorage.setItem('uid', uid);
+      userToken && sessionStorage.setItem('token', userToken);
 
       if (decodedToken.mesas) {
         setMesas(decodedToken.mesas);
@@ -81,6 +86,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       await signInWithCustomToken(firebaseAuth, authToken);
       const user = firebaseAuth.currentUser;
+
+      const uid = user?.uid;
+      const userToken = await user?.getIdToken(true);
+
+      // Seteamos en el session storage el token del usuario y su uid
+      uid && sessionStorage.setItem('uid', uid);
+      userToken && sessionStorage.setItem('token', userToken);
+      
       setUser(user);
       return user;
     } catch (error) {
