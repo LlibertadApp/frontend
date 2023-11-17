@@ -1,3 +1,4 @@
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Button from '#/components/button';
@@ -12,7 +13,13 @@ import Checkbox from '#/components/checkbox/checkbox';
 function VerifyCertificate() {
   const navigate = useNavigate();
   const [correctData, setCorrectData] = useState<boolean>(false);
-  const { certificateImage, setFile, setCertificateImage } = useCertificate();
+  const { certificateImage, setFile, setCertificateImage,completedForm } = useCertificate();
+
+  useEffect(() => {
+    if(completedForm){
+      navigate(paths.uploadCertificate)
+    }
+  }, [])
 
   const handleContinue = () => {
     if (!correctData) return;
