@@ -72,38 +72,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     [],
   );
 
-  useEffect(() => {
-    if (user) {
-      getMesasFromToken(user);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (authToken) {
-      const loginWithToken = async (authToken: string) => {
-        try {
-          await signInWithCustomToken(firebaseAuth, authToken);
-          const user = firebaseAuth.currentUser;
-          setUser(user);
-          return user;
-        } catch (error) {
-          setError(true);
-        }
-      };
-      if (authToken) {
-        loginWithToken(authToken);
-      }
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, [authToken]);
-
   const logout: LogoutFunction = useCallback(async () => {
     await signOut(firebaseAuth);
     setUser(null);
   }, []);
+
+  const loginWithToken = async (authToken: string) => {
+    try {
+      await signInWithCustomToken(firebaseAuth, authToken);
+      const user = firebaseAuth.currentUser;
+      setUser(user);
+      return user;
+    } catch (error) {
+      setError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (authToken) {
+      loginWithToken(authToken);
+    }
+    if (user) {
+      getMesasFromToken(user);
+    }
+  }, [authToken, user]);
 
   // Escucha por cambios en la sesión de firebase
   useEffect(() => {

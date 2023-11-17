@@ -6,7 +6,7 @@ const LoginPage: React.FC = () => {
 
   setTimeout(() => {
     setError(true);
-  }, 1500);
+  }, 2000);
 
   return !error ? (
     <>

@@ -6,11 +6,11 @@ export type CheckUserFunction = (user: User | null) => Promise<string>;
 
 export interface AuthContextType {
   user: User | null;
+  error: boolean | null;
   mesas: { mesaId: string }[];
+  setError: (error: boolean) => void
   checkUser: CheckUserFunction;
   logout: LogoutFunction;
-  error: boolean | null;
-  setError: (error: boolean) => void
 }
 
 export interface AuthProviderProps {
