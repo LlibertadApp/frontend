@@ -56,8 +56,8 @@ const AppRoutes: React.FC = () => {
           <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
           {/* Filters, Results & Irregularities */}
-          <Route path={paths.results} element={<TotalResults />} />
-          <Route path={paths.irregularities} element={<Irregularities />} />
+          {/* <Route path={paths.results} element={<TotalResults />} /> */}
+          {/* <Route path={paths.irregularities} element={<Irregularities />} /> */}
           <Route path={paths.votationTables} element={<DeskList />} />
         </Route>
       </Route>
