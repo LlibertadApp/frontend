@@ -2,9 +2,13 @@ import { observer } from 'mobx-react-lite';
 import { useAuth } from '#/context/AuthContext';
 
 const LoginPage: React.FC = () => {
-  const { user } = useAuth();
+  const { error, setError } = useAuth();
 
-  return user ? (
+  setTimeout(() => {
+    setError(true);
+  }, 1500);
+
+  return !error ? (
     <>
       <div className="lg:absolute lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-violet-primary lg:z-0"></div>
       <main className="px-4 mt-52 mx-auto flex flex-col items-center max-w-md lg:max-w-[624px] lg:px-[108px] lg:py-[50px] rounded-3xl lg:relative lg:bg-white">

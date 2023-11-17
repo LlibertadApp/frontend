@@ -34,6 +34,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [mesas, setMesas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<boolean>(false);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -81,17 +82,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     let isMounted = true;
     if (authToken) {
       const loginWithToken = async (authToken: string) => {
-        if (!authToken) {
-          throw new Error('No hay auth token');
+        try {
+          await signInWithCustomToken(firebaseAuth, authToken);
+          const user = firebaseAuth.currentUser;
+          setUser(user);
+          return user;
+        } catch (error) {
+          setError(true);
         }
-
-        await signInWithCustomToken(firebaseAuth, authToken);
-        const user = firebaseAuth.currentUser;
-
-        if (!user) throw new Error('Ocurrió un error al iniciar sesión');
-        setUser(user);
-
-        return user;
       };
       if (authToken) {
         loginWithToken(authToken);
@@ -127,7 +125,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, mesas, checkUser, logout }}>
+    <AuthContext.Provider
+      value={{ user, mesas, checkUser, logout, error, setError }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -9,6 +9,8 @@ export interface AuthContextType {
   mesas: { mesaId: string }[];
   checkUser: CheckUserFunction;
   logout: LogoutFunction;
+  error: boolean | null;
+  setError: (error: boolean) => void
 }
 
 export interface AuthProviderProps {
