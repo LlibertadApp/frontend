@@ -131,17 +131,17 @@ function LoadInformationPage() {
   const navigate = useNavigate();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { file , completedForm,setCompletedForm} = useCertificate();
+  const { file, completedForm, setCompletedForm } = useCertificate();
   const { mesas } = useAuth();
   const [mesa, setMesa] = useState<string | undefined>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { saveActas } = useActas(); // Usa el Hook creado
 
   useEffect(() => {
-    if(completedForm){
-      navigate(paths.uploadCertificate)
+    if (completedForm) {
+      navigate(paths.uploadActa);
     }
-  }, [])
+  }, []);
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1', // Acá se cambia por el circuito del token
@@ -243,7 +243,7 @@ function LoadInformationPage() {
         } else {
           throw new Error('No se proporcionó ningún archivo.');
         }
-        setCompletedForm(true)
+        setCompletedForm(true);
         // Hago post al endpoint de actas de la API
         const response = await axios.post(`${endpoint}/v1/actas`, payload, {
           headers: {
@@ -260,7 +260,6 @@ function LoadInformationPage() {
         setIsSubmitting(false);
         saveActas(payload);
 
-
         return comesFromReport
           ? navigate(paths.sendWarning)
           : navigate(paths.sendSuccess);
@@ -268,7 +267,7 @@ function LoadInformationPage() {
         setIsSubmitting(false);
         console.error('Error:', error);
         navigate(paths.uploadFailed);
-      } 
+      }
     }
   };
 
