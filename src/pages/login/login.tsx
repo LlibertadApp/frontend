@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import { useAuth } from '#/context/AuthContext';
 
 const LoginPage: React.FC = () => {
@@ -55,6 +54,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export const Login = observer(LoginPage);
-
-export default Login;
+export default LoginPage;

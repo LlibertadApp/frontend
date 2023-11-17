@@ -2,7 +2,6 @@ import { lazy } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '#/middlewares/protectedRoute';
 import { PublicRoute } from '#/middlewares/publicRoute';
-import { LoadingPage } from '#/pages/loading-page';
 import { paths } from './paths';
 import AnimatedRoute from '#/components/animatedRoute';
 
@@ -40,8 +39,6 @@ const AppRoutes: React.FC = () => {
           <Route path={paths.index} element={<Login />} />
         </Route>
 
-        {/* Utils */}
-        <Route path={paths.loadingPage} element={<LoadingPage />} />
         {/* 404 Not found */}
         <Route path="*" element={<NotFound />} />
 
