@@ -29,6 +29,8 @@ import { useAuth } from '#/context/AuthContext';
 import { useActas } from '#/hooks/utils/useActas';
 import { TelegramData } from './types';
 
+import warnIcon from "../../../public/assets/icon/warn-icon.svg" //Se cambió la propiedad de "#" para ubicar iconos
+
 const validationSchema = Yup.object().shape({
   circuit: Yup.string().required('Debe ingresar un circuito'),
   table: Yup.string().required('Debe ingresar una mesa'),
@@ -296,7 +298,7 @@ function LoadInformationPage() {
 
   return (
     <>
-      <Navbar routerLink="/verify-certificate" />
+      <Navbar routerLink="/acta/subir" />
       <main className="container mx-auto p-4 flex flex-col gap-[30px] max-w-[52.5rem]">
         <ProgressIndicator
           steps={[
@@ -520,7 +522,7 @@ function LoadInformationPage() {
                   <div className="flex flex-col items-center">
                     <div className="bg-red/5 p-6 rounded-full mb-4">
                       <img
-                        src="assets/icon/warn-icon.svg"
+                        src={warnIcon}
                         alt="warning icon"
                         className="h-10 w-10"
                       />
