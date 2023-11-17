@@ -85,7 +85,7 @@ const Navbar: React.FC<INavbarProps> = ({
                 <div className="flex flex-col px-[30px] py-[25px] gap-y-6 items-start text-left text-text-off">
                   {/* El gris pactado no se parece al de figma */}
                   <CloseMenuLink label="Inicio" to={paths.home} />
-                  <CloseMenuLink label="Ver Resultados" to={paths.results} />
+                  {/* <CloseMenuLink label="Ver Resultados" to={paths.results} /> */}
                   <CloseMenuLink
                     label="Cargar resultados de mesa"
                     to={paths.uploadActa}
@@ -95,11 +95,11 @@ const Navbar: React.FC<INavbarProps> = ({
                     to={paths.votationTables}
                     className="text-violet-light"
                   />
-                  <CloseMenuLink
+                  {/* <CloseMenuLink
                     label="Denunciar fraude"
                     to={paths.irregularities}
                     className="text-red"
-                  />
+                  /> */}
                 </div>
                 <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
                   <div className={`${linkTransformClassName} flex gap-2`}>

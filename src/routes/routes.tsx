@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '#/middlewares/protectedRoute';
-import { LoadingPage } from '#/pages/loading-page';
+import { PublicRoute } from '#/middlewares/publicRoute';
 import { paths } from './paths';
 import AnimatedRoute from '#/components/animatedRoute';
 
@@ -33,8 +33,12 @@ const AppRoutes: React.FC = () => {
   return (
     <Routes location={location} key={location.pathname}>
       <Route element={<AnimatedRoute />}>
-        {/* Auth */}
-        <Route path={paths.index} element={<Login />} />
+        {/* Public routes */}
+        <Route element={<PublicRoute path={paths.home} />}>
+          {/* Auth */}
+          <Route path={paths.index} element={<Login />} />
+        </Route>
+
         {/* 404 Not found */}
         <Route path="*" element={<NotFound />} />
 
@@ -52,8 +56,8 @@ const AppRoutes: React.FC = () => {
           <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
           {/* Filters, Results & Irregularities */}
-          <Route path={paths.results} element={<TotalResults />} />
-          <Route path={paths.irregularities} element={<Irregularities />} />
+          {/* <Route path={paths.results} element={<TotalResults />} /> */}
+          {/* <Route path={paths.irregularities} element={<Irregularities />} /> */}
           <Route path={paths.votationTables} element={<DeskList />} />
         </Route>
       </Route>
