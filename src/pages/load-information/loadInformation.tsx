@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 import { TextField, MenuItem } from '@mui/material';
@@ -131,11 +131,17 @@ function LoadInformationPage() {
   const navigate = useNavigate();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { file } = useCertificate();
+  const { file , completedForm,setCompletedForm} = useCertificate();
   const { mesas } = useAuth();
   const [mesa, setMesa] = useState<string | undefined>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { saveActas } = useActas(); // Usa el Hook creado
+
+  useEffect(() => {
+    if(completedForm){
+      navigate(paths.uploadCertificate)
+    }
+  }, [])
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1', // Acá se cambia por el circuito del token
@@ -237,7 +243,7 @@ function LoadInformationPage() {
         } else {
           throw new Error('No se proporcionó ningún archivo.');
         }
-
+        setCompletedForm(true)
         // Hago post al endpoint de actas de la API
         const response = await axios.post(`${endpoint}/v1/actas`, payload, {
           headers: {
@@ -245,7 +251,6 @@ function LoadInformationPage() {
             Authorization: userToken,
           },
         });
-
         if (response.status !== 201) {
           setIsSubmitting(false);
           console.error('Error sending data:', response.statusText);
@@ -263,7 +268,7 @@ function LoadInformationPage() {
         setIsSubmitting(false);
         console.error('Error:', error);
         navigate(paths.uploadFailed);
-      }
+      } 
     }
   };
 
