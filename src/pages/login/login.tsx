@@ -1,31 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '#/context/AuthContext';
 
-import { paths } from '#/routes/paths';
-
 const LoginPage: React.FC = () => {
-  const [error, setError] = useState<boolean>();
-  const navigate = useNavigate();
-  const { loginWithToken } = useAuth();
+  const { error, setError } = useAuth();
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const authToken = queryParams.get('authToken');
-
-  const login = useCallback(async () => {
-    try {
-      if (!authToken) return setError(true);
-      await loginWithToken(authToken);
-      navigate(paths.home);
-    } catch (error) {
-      setError(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    login();
-  }, [login]);
+  setTimeout(() => {
+    setError(true);
+  }, 2000);
 
   return error ? (
     <>
@@ -74,6 +54,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export const Login = LoginPage;
-
-export default Login;
+export default LoginPage;
