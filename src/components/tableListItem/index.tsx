@@ -1,4 +1,4 @@
-import Acta from '#/interfaces/acta.interface';
+import Acta, { Status } from '#/interfaces/acta.interface';
 import { IDeskItemLabel, IDeskNormalStatus } from '#/pages/desk-list/types';
 import {
   Accordion,
@@ -7,7 +7,8 @@ import {
   Typography,
 } from '@mui/material';
 
-import { CaretDown } from '@phosphor-icons/react';
+import { CaretDown, Cat } from '@phosphor-icons/react';
+import classNames from 'classnames';
 import { FC, useState } from 'react';
 
 interface TableListItemProps {
@@ -15,85 +16,56 @@ interface TableListItemProps {
   expanded?: boolean;
 }
 
-const DeskItemLabel: FC<IDeskItemLabel> = ({
-  typoProps = {
-    color: 'black',
-    align: 'left',
-    fontFamily: 'Poppins',
-    flexDirection: 'row',
-    fontSize: '14px',
-  },
-  className,
-  deskValue,
+function StatusIcon({ status }: { status: Status }) {
+  const appearances: Record<Status, string> = {
+    OK: 'bg-green/30 border-green',
+    ENVIADO: 'bg-blue-400/30 border-blue-400',
+    ANOMALIA: 'bg-red-error/30 border-red-error',
+    PROCESANDO: 'bg-amber-500/50 border-amber-500',
+  };
+
+  const appearance = appearances[status] || appearances.ENVIADO;
+
+  return <span className={`rounded-full w-5 h-5 border ${appearance}`} />;
+}
+
+function StatusBadge({ status }: { status: Status }) {
+  const appearances: Record<Status, string> = {
+    OK: 'bg-green/30 border-green',
+    ENVIADO: 'bg-blue-400/30 border-blue-400',
+    ANOMALIA: 'bg-red-error/30 border-red-error',
+    PROCESANDO: 'bg-amber-500/50 border-amber-500',
+  };
+
+  const appearance = appearances[status] || appearances.ENVIADO;
+
+  return (
+    <span className={`rounded-lg px-2 py-1 border text-sm ${appearance}`}>
+      {status}
+    </span>
+  );
+}
+
+function CategoryLabel({
   label,
-  statusStyle,
-}) => {
+  value,
+  className,
+}: {
+  label: string;
+  value: string | number;
+  className?: string;
+}) {
   return (
-    <Typography {...typoProps} className={className}>
-      <span className="flex flex-row py-2 text-m px-2">
-        {label}:{' '}
-        <span className="text-gray-400 px-2" style={statusStyle}>
-          {deskValue}
-        </span>
-      </span>
-    </Typography>
-  );
-};
-
-const EllipseIcon: FC<IDeskNormalStatus> = ({ deskNormalStatus }) => {
-  const fillColor = deskNormalStatus ? '#EEF9F5' : '#FDEFEF';
-  const fillStrokeColor = deskNormalStatus ? '#58C299' : '#E13C3C';
-
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="17"
-      viewBox="0 0 16 17"
-      fill="none"
+    <p
+      className={classNames(
+        'text-black text-sm p-2 rounded-md flex justify-between',
+        className,
+      )}
     >
-      <circle
-        cx="8"
-        cy="8.5"
-        r="7.5"
-        fill={fillColor}
-        stroke={fillStrokeColor}
-      />
-    </svg>
+      {label}: <span className="text-gray-400 px-2">{value}</span>
+    </p>
   );
-};
-
-const DeskStatusIcon: FC<IDeskNormalStatus> = ({ deskNormalStatus }) => {
-  const normalIcon = '/assets/icon/checkcircle.svg';
-
-  const irregularIcon = '/assets/icon/xcircle.svg';
-
-  return deskNormalStatus ? (
-    <img src={normalIcon} alt="Icono Check" loading="lazy" />
-  ) : (
-    <img src={irregularIcon} alt="Icono X" loading="lazy" />
-  );
-};
-
-const DeskStatus: FC<IDeskNormalStatus> = ({ deskNormalStatus }) => {
-  return (
-    <div className="flex gap-2 mb-6 items-center">
-      <p>Status de la mesa:</p>
-      <div
-        className={`${
-          deskNormalStatus
-            ? 'border-green-light bg-[#EEF9F5]'
-            : 'border-red-error bg-[#FDEFEF]'
-        } flex gap-2 p-2 border rounded-lg `}
-      >
-        <DeskStatusIcon deskNormalStatus={deskNormalStatus} />
-        <p className={deskNormalStatus ? 'text-green-light' : 'text-red-error'}>
-          {deskNormalStatus ? 'Normal' : 'Irregular'}
-        </p>
-      </div>
-    </div>
-  );
-};
+}
 
 export default function TableListItem({
   acta,
@@ -122,20 +94,22 @@ export default function TableListItem({
     >
       <AccordionSummary
         expandIcon={<CaretDown />}
-        className="pb-4"
         classes={{ content: 'items-center gap-2' }}
       >
-        {/* TODO: Fixear el estado */}
-        {!isExpanded && <EllipseIcon deskNormalStatus={true} />}
+        {!isExpanded && <StatusIcon status={acta.estado} />}
+
         <div className="flex flex-col">
-          <Typography
+          <h3 className="text-black text-lg">
+            <strong>Mesa</strong> {acta.mesaId}
+          </h3>
+          {/* <Typography
             color="#363745"
             align="left"
             fontFamily={'Poppins'}
             fontSize="18px"
           >
             <strong>Mesa</strong> {acta.mesaId}
-          </Typography>
+          </Typography> */}
           {!isExpanded && (
             <Typography
               color="#908DA8"
@@ -149,35 +123,38 @@ export default function TableListItem({
         </div>
       </AccordionSummary>
       <AccordionDetails>
-        {/* ToDo: FIX Por Status */}
-        <DeskStatus deskNormalStatus={true} />
+        <section className="flex gap-1 mb-5 items-center">
+          <span>Estado de la mesa:</span>
+          <StatusBadge status={acta.estado} />
+        </section>
+        <section className="flex flex-col odd:[&>p]:bg-gray-100">
+          <CategoryLabel label="Circuito" value="200A" />
+          <CategoryLabel label="Nro. Votantes" value="200" />
+          <CategoryLabel label="Nro. Sobres" value="200" />
+        </section>
         <hr className="border-t-gray-dark my-2 " />
-        <DeskItemLabel
-          deskValue={acta.conteoLla}
-          label={'Javier Gerardo Milei'}
-        />
-        <DeskItemLabel
-          className="bg-gray-100 rounded-md"
-          deskValue={acta.conteoUp}
-          label={'Sergio Tomás Massa'}
-        />
-        <DeskItemLabel deskValue={acta.votosNulos} label="Votos nulos" />
-        <DeskItemLabel
-          className="bg-gray-100 rounded-md"
-          deskValue={acta.votosRecurridos}
-          label="Votos recurridos"
-        />
-        <DeskItemLabel
-          deskValue={acta.votosImpugnados}
-          label="Votos identidad impugnada"
-        />
-        <DeskItemLabel deskValue={acta.votosEnBlanco} label="Votos en blanco" />
+        <section className="flex flex-col odd:[&>p]:bg-gray-100">
+          <CategoryLabel label="La Libertad Avanza" value={acta.conteoLla} />
+          <CategoryLabel label="Union por la Patria" value={acta.conteoUp} />
+          <CategoryLabel label="Votos nulos" value={acta.votosNulos} />
+          <CategoryLabel
+            label="Votos recurridos"
+            value={acta.votosRecurridos}
+          />
+          <CategoryLabel
+            label="Votos identidad impugnada"
+            value={acta.votosImpugnados}
+          />
+          <CategoryLabel label="Votos en blanco" value={acta.votosEnBlanco} />
+        </section>
         <hr className="border-t-gray-dark my-2 " />
-        <DeskItemLabel
-          className="bg-gray-100 rounded-md"
-          deskValue={acta.votosEnTotal}
-          label="Total"
-        />
+        <section className="flex flex-col odd:[&>p]:bg-gray-100">
+          <CategoryLabel
+            label="Total"
+            value={acta.votosEnTotal}
+            className="bg-gray-100"
+          />
+        </section>
       </AccordionDetails>
     </Accordion>
   );
