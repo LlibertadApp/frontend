@@ -102,14 +102,6 @@ export default function TableListItem({
           <h3 className="text-black text-lg">
             <strong>Mesa</strong> {acta.mesaId}
           </h3>
-          {/* <Typography
-            color="#363745"
-            align="left"
-            fontFamily={'Poppins'}
-            fontSize="18px"
-          >
-            <strong>Mesa</strong> {acta.mesaId}
-          </Typography> */}
           {!isExpanded && (
             <Typography
               color="#908DA8"
@@ -127,11 +119,11 @@ export default function TableListItem({
           <span>Estado de la mesa:</span>
           <StatusBadge status={acta.estado} />
         </section>
-        <section className="flex flex-col odd:[&>p]:bg-gray-100">
+        {/* <section className="flex flex-col odd:[&>p]:bg-gray-100">
           <CategoryLabel label="Circuito" value="200A" />
           <CategoryLabel label="Nro. Votantes" value="200" />
           <CategoryLabel label="Nro. Sobres" value="200" />
-        </section>
+        </section> */}
         <hr className="border-t-gray-dark my-2 " />
         <section className="flex flex-col odd:[&>p]:bg-gray-100">
           <CategoryLabel label="La Libertad Avanza" value={acta.conteoLla} />
