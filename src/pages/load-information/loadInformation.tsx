@@ -507,8 +507,8 @@ function LoadInformationPage() {
                     isVoteSumExceeded(values.votes)
                       ? 'disabled'
                       : !errors.validTotalVotes && !errors.validVotesDifference
-                      ? 'filled'
-                      : 'error'
+                        ? 'filled'
+                        : 'error'
                   }
                   className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}
