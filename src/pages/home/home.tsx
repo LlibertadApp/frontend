@@ -10,8 +10,6 @@ import Overlay from '#/components/overlay';
 import { paths } from '#/routes/paths';
 import { CardLink } from '#/components/cardLink';
 import { colors } from '#/components/cardLink/types';
-import LoadingSpinner from '#/components/loadingSpinner';
-import Button from '#/components/button';
 
 const HomePage = () => {
   return (
@@ -39,44 +37,6 @@ const HomePage = () => {
                 icon={<ListBullets size={32} />}
                 color={colors.Violet}
               />
-            </div>
-
-            <div className="flex flex-col items-center space-y-2 w-full">
-              <span className=" w-full pt-12 font-bold text-left lg:text-2xl">
-                Escrutinio y resultados
-              </span>
-              {/*TODO: CAMBIAR EL HREF AL AREA DE PRODUCCIÓN */}
-              <a
-                href="https://dashboard.dev.libertapp.net"
-                className="border-2 border-black/5 text-gray-dark bg-transparent p-2 w-full rounded-xl shadow-lg hover:border-black/20 flex flex-col items-center justify-between gap-[10px]"
-              >
-                <div className="flex text-center justify-between w-full gap-6">
-                  <div className="flex flex-col justify-between gap-4 p-4 bg-party-uxp/5 rounded-lg w-full">
-                    <img
-                      src="/assets/logos/uxp.svg"
-                      alt="union por la patria logo"
-                      className="h-16"
-                    />
-                    <div className="text-[10px] font-bold">
-                      UNIÓN POR LA PATRIA
-                    </div>
-                  </div>
-                  <div className="flex flex-col justify-between gap-[10px] p-4 bg-violet-brand/5 rounded-lg w-full">
-                    <img
-                      src="/assets/logos/lla-logo.svg"
-                      alt="la libertad avanza logo"
-                      className="h-16"
-                    />
-                    <div className="text-[10px] font-bold">
-                      LA LIBERTAD AVANZA
-                    </div>
-                  </div>
-                </div>
-                <div className="w-full p-3 text-xs font-normal text-white bg-violet-primary rounded-xl flex justify-center items-center gap-3 lg:w-60 lg:text-sm lg:my-6">
-                  Ver escrutinio
-                  <ArrowRight size={20} />
-                </div>
-              </a>
             </div>
           </div>
         </section>
