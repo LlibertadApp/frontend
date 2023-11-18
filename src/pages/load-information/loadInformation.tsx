@@ -301,7 +301,7 @@ function LoadInformationPage() {
 
   return (
     <>
-      <Navbar routerLink="/verify-certificate" />
+      <Navbar routerLink="/acta/subir" />
       <main className="container mx-auto p-4 flex flex-col gap-[30px] max-w-[52.5rem]">
         <ProgressIndicator
           steps={[
