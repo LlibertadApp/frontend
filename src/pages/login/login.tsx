@@ -9,7 +9,7 @@ const LoginPage: React.FC = () => {
 
   return error ? (
     <>
-      <div className="lg:Fixed lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-red-error lg:z-0"></div>
+      <div className="lg:fixed lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-red-error lg:z-0"></div>
       <main className="px-4 mx-auto flex flex-col items-center rounded-3xl max-w-md gap-8 mt-20 lg:max-w-[624px] lg:px-[108px] lg:py-[50px] lg:relative lg:bg-white lg:mt-52">
         <h1 className="text-3xl text-text-off lg:text-[38px] font-light text-center lg:leading-10">
           La sesión
@@ -27,7 +27,7 @@ const LoginPage: React.FC = () => {
     </>
   ) : (
     <>
-      <div className="lg:absolute lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-violet-primary lg:z-0"></div>
+      <div className="lg:fixed lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-violet-primary lg:z-0"></div>
       <main className="px-4 mt-52 mx-auto flex flex-col items-center max-w-md lg:max-w-[624px] lg:px-[108px] lg:py-[50px] rounded-3xl lg:relative lg:bg-white">
         <span className="relative flex items-center justify-center w-28 lg:w-40">
           <span className="animate-[ping_2s_infinite] absolute inline-flex h-3/4 w-3/4 rounded-full bg-violet-700 opacity-75"></span>
