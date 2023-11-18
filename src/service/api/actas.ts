@@ -11,10 +11,21 @@ export const saveActas = (acta: FormData) => {
 
 export const getUserActas = async () => {
   const token = sessionStorage.getItem('token');
+  const storagedActas = JSON.parse(
+    sessionStorage.getItem('actas') || '[]',
+  ) as Acta[];
 
   const { data } = await axios.get<{ data: Acta[] }>('v1/actas', {
     headers: { Authorization: token },
   });
 
-  return data.data;
+  // Removemos del storagedMesas aquellas mesas que ya vienen desde el backend
+  const parsedStoragedActas = storagedActas.filter(
+    (mesa) => !data.data.find((acta) => acta.id === mesa.id),
+  );
+
+  const actas = [...parsedStoragedActas, ...data.data];
+  console.log('actas', actas);
+
+  return actas;
 };
