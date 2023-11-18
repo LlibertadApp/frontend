@@ -1,106 +1,138 @@
 import {
   createContext,
   useContext,
-  ReactNode,
   useState,
   useEffect,
   useCallback,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
-import firebaseAuth from '#/service/firebase/firebase';
+
+import {
+  AuthContextType,
+  AuthProviderProps,
+  CheckUserFunction,
+  LogoutFunction,
+} from './types';
+
 import {
   User,
   onAuthStateChanged,
   signInWithCustomToken,
   signOut,
 } from 'firebase/auth';
+import firebaseAuth from '#/service/firebase/firebase';
 
+import { LoadingPage } from '#/pages/loading-page';
 import { paths } from '#/routes/paths';
 
-type LogoutFunction = () => void;
-
-interface AuthContextType {
-  user: User | null;
-  mesas: Mesa[];
-  logout: LogoutFunction;
-  loginWithToken: (authToken: string) => Promise<User | undefined>;
-}
-interface Mesa {
-  mesaId: string;
-}
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const sessionMesas = JSON.parse(sessionStorage.getItem('mesas') || '[]');
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
-  const [mesas, setMesas] = useState(sessionMesas);
+  const [mesas, setMesas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<boolean>(false);
 
-  const loginWithToken = async (authToken: string) => {
-    if (!authToken) {
-      throw new Error('No hay auth token');
-    }
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const authToken = queryParams.get('authToken');
 
-    await signInWithCustomToken(firebaseAuth, authToken);
-    const user = firebaseAuth.currentUser;
-
-    if (!user) throw new Error('Ocurrió un error al iniciar sesión');
-
-    const uid = user.uid;
-    const userToken = await user.getIdToken(true);
-
-    // Seteamos en el session storage el token del usuario y su uid
-    sessionStorage.setItem('uid', uid);
-    sessionStorage.setItem('token', userToken);
-
-    setUser(user);
-    await getMesasFromToken(userToken);
-
-    return user;
-  };
-
-  const getMesasFromToken = useCallback(async (userToken: string) => {
-    if (userToken) {
+  const getMesasFromToken = useCallback(async (user: User) => {
+    if (user) {
+      const userToken = await user.getIdToken();
       const decodedToken: any = jwt_decode(userToken);
+      const uid = user?.uid;
+
+      // Seteamos en el session storage el token del usuario y su uid
+      uid && sessionStorage.setItem('uid', uid);
+      userToken && sessionStorage.setItem('token', userToken);
 
       if (decodedToken.mesas) {
         setMesas(decodedToken.mesas);
-        sessionStorage.setItem('mesas', JSON.stringify(decodedToken.mesas));
       }
     }
   }, []);
 
-  const logout = useCallback(async () => {
+  // Chequea validez del token de usuario
+  const checkUser: CheckUserFunction = useCallback(
+    async (user: User | null) => {
+      if (user) {
+        try {
+          const userToken = await user.getIdToken();
+          const decodedToken: any = jwt_decode(userToken);
+          if (decodedToken.exp * 1000 < Date.now()) {
+            throw new Error('Token expirado');
+          }
+          return userToken as string;
+        } catch (error) {
+          throw new Error('Token inválido');
+        }
+      }
+
+      throw new Error('No existe usuario');
+    },
+    [],
+  );
+
+  const logout: LogoutFunction = useCallback(async () => {
     await signOut(firebaseAuth);
     setUser(null);
   }, []);
 
-  // listen for auth status changes
+  const loginWithToken = async (authToken: string) => {
+    try {
+      await signInWithCustomToken(firebaseAuth, authToken);
+      const user = firebaseAuth.currentUser;
+
+      const uid = user?.uid;
+      const userToken = await user?.getIdToken(true);
+
+      // Seteamos en el session storage el token del usuario y su uid
+      uid && sessionStorage.setItem('uid', uid);
+      userToken && sessionStorage.setItem('token', userToken);
+      
+      setUser(user);
+      return user;
+    } catch (error) {
+      setError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (authToken) {
+      loginWithToken(authToken);
+    }
+    if (user) {
+      getMesasFromToken(user);
+    }
+  }, [authToken, user]);
+
+  // Escucha por cambios en la sesión de firebase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
         setUser(user);
       } else {
-        sessionStorage.removeItem('uid');
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('mesas');
+        setUser(null);
         navigate(paths.index);
       }
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
+  if (loading) {
+    return <LoadingPage />;
+  }
+
   return (
-    <AuthContext.Provider value={{ user, mesas, logout, loginWithToken }}>
+    <AuthContext.Provider
+      value={{ user, mesas, checkUser, logout, error, setError }}
+    >
       {children}
     </AuthContext.Provider>
   );

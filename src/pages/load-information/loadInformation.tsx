@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 import { TextField, MenuItem } from '@mui/material';
@@ -13,6 +13,8 @@ import {
   Users,
   NoteBlank,
 } from '@phosphor-icons/react';
+
+import { validationProps } from '#/utils/validationProps';
 
 import { paths } from '#/routes/paths';
 import { useCertificate } from '#/context/CertificationContext';
@@ -129,11 +131,17 @@ function LoadInformationPage() {
   const navigate = useNavigate();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { file } = useCertificate();
+  const { file, completedForm, setCompletedForm } = useCertificate();
   const { mesas } = useAuth();
   const [mesa, setMesa] = useState<string | undefined>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { saveActas } = useActas(); // Usa el Hook creado
+
+  useEffect(() => {
+    if (completedForm) {
+      navigate(paths.uploadActa);
+    }
+  }, []);
 
   const initialValues: TelegramData = {
     circuit: 'Circuito 1', // Acá se cambia por el circuito del token
@@ -154,37 +162,6 @@ function LoadInformationPage() {
     validTotalVotes: false,
 
     formAgreement: false,
-  };
-
-  const getValidationProps = () => {
-    return {
-      onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
-        const forbiddenKeys = [
-          'e',
-          'E',
-          '+',
-          '-',
-          ',',
-          '.',
-          'ArrowUp',
-          'ArrowDown',
-        ];
-        if (forbiddenKeys.includes(e.key)) {
-          e.preventDefault();
-        }
-      },
-      onPaste: (e: React.ClipboardEvent<HTMLInputElement>) =>
-        e.preventDefault(),
-      onContextMenu: (e: React.MouseEvent<HTMLInputElement>) =>
-        e.preventDefault(),
-      onDrop: (e: React.DragEvent<HTMLInputElement>) => e.preventDefault(),
-      onWheel: (e: React.WheelEvent<HTMLInputElement>) => {
-        if (e.target instanceof HTMLElement) {
-          e.target.blur();
-        }
-      },
-      autoComplete: 'off',
-    };
   };
 
   const isTableDataValid = (
@@ -237,7 +214,6 @@ function LoadInformationPage() {
         const endpoint = import.meta.env.VITE_REACT_backend_endpoint;
 
         const payload = new FormData();
-        // payload.append('mesaId', values.table || '');
         payload.append('mesaId', mesa || '');
         payload.append('userId', userId || '');
 
@@ -267,7 +243,7 @@ function LoadInformationPage() {
         } else {
           throw new Error('No se proporcionó ningún archivo.');
         }
-
+        setCompletedForm(true);
         // Hago post al endpoint de actas de la API
         const response = await axios.post(`${endpoint}/v1/actas`, payload, {
           headers: {
@@ -275,15 +251,14 @@ function LoadInformationPage() {
             Authorization: userToken,
           },
         });
-
         if (response.status !== 201) {
           setIsSubmitting(false);
-          console.error('Error sending data:', response.statusText); // ToDo: Alerta de error.
+          console.error('Error sending data:', response.statusText);
           return navigate(paths.uploadFailed);
         }
 
         setIsSubmitting(false);
-        saveActas(payload); //Aca esta la llamada.
+        saveActas(payload);
 
         return comesFromReport
           ? navigate(paths.sendWarning)
@@ -387,11 +362,11 @@ function LoadInformationPage() {
                     </MenuItem>
                   ))}
                 </TextField>
-
                 <TextField
                   label="Nro de electores"
                   name="electors"
                   variant="outlined"
+                  {...validationProps()}
                   type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -403,6 +378,7 @@ function LoadInformationPage() {
                   label="Sobres"
                   name="envelopes"
                   variant="outlined"
+                  {...validationProps()}
                   type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -530,8 +506,8 @@ function LoadInformationPage() {
                     isVoteSumExceeded(values.votes)
                       ? 'disabled'
                       : !errors.validTotalVotes && !errors.validVotesDifference
-                      ? 'filled'
-                      : 'error'
+                        ? 'filled'
+                        : 'error'
                   }
                   className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}
@@ -545,25 +521,23 @@ function LoadInformationPage() {
                 className="fixed inset-0 bg-black/25 backdrop-blur-sm z-20 flex justify-center items-center"
               >
                 <Dialog.Panel className="fixed z-30 bg-white max-w-xs lg:max-w-md rounded-xl px-4 py-8 lg:px-10">
-                  <Dialog.Description>
-                    <div className="flex flex-col items-center">
-                      <div className="bg-red/5 p-6 rounded-full mb-4">
-                        <img
-                          src="assets/icon/warn-icon.svg"
-                          alt="warning icon"
-                          className="h-10 w-10"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <p className="text-center leading-5 text-red">
-                          Los datos ingresados presentan discrepancias.
-                        </p>
-                        <p className="text-center leading-5">
-                          ¿Desea enviar estos datos de todas formas?
-                        </p>
-                      </div>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-red/5 p-6 rounded-full mb-4">
+                      <img
+                        src="assets/icon/warn-icon.svg"
+                        alt="warning icon"
+                        className="h-10 w-10"
+                      />
                     </div>
-                  </Dialog.Description>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-center leading-5 text-red">
+                        Los datos ingresados presentan discrepancias.
+                      </p>
+                      <p className="text-center leading-5">
+                        ¿Desea enviar estos datos de todas formas?
+                      </p>
+                    </div>
+                  </div>
                   <section className="flex flex-row gap-2 mt-[34px] lg:gap-5">
                     <Button
                       appearance="outlined"
@@ -592,6 +566,6 @@ function LoadInformationPage() {
   );
 }
 
-export const LoadInformation = (LoadInformationPage);
+export const LoadInformation = LoadInformationPage;
 
 export default LoadInformation;

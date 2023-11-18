@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '#/context/AuthContext';
 import Button from '#/components/button';
 import { ICloseMenuProps, INavbarProps } from './types';
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
 import { paths } from '#/routes/paths';
-import { SignOut } from '@phosphor-icons/react';
+import LogoutModal from '../confirmationModal';
 
 const linkTransformClassName = 'transform transition-transform hover:scale-105';
 
@@ -28,8 +27,8 @@ const Navbar: React.FC<INavbarProps> = ({
   showArrow = true,
   showHamburger = true,
 }) => {
-  const { logout } = useAuth();
   const { menuOpen, setMenuOpen, closeMenu } = useHamburgerMenu();
+  const [logoutModal, setLogoutModal] = React.useState(false);
   const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
     <div className="bg-violet-primary p-[10px] px-4 w-full flex flex-col h-18 relative z-20 lg:items-center">
@@ -39,7 +38,7 @@ const Navbar: React.FC<INavbarProps> = ({
             {showArrow && (
               <Link to={routerLink}>
                 <img
-                  src="assets/images/back-arrow.svg"
+                  src="/assets/images/back-arrow.svg"
                   alt="Volver"
                   className="object-cover rounded w-4 h-auto"
                 />
@@ -59,13 +58,13 @@ const Navbar: React.FC<INavbarProps> = ({
               >
                 {!menuOpen ? (
                   <img
-                    src="assets/icon/menu.svg"
+                    src="/assets/icon/menu.svg"
                     alt="User profile"
                     className="object-cover rounded w-6 h-6"
                   />
                 ) : (
                   <img
-                    src="assets/icon/close.svg"
+                    src="/assets/icon/close.svg"
                     alt="User profile"
                     className="object-cover rounded w-6 h-6 p-[5px]"
                   />
@@ -86,38 +85,38 @@ const Navbar: React.FC<INavbarProps> = ({
                 <div className="flex flex-col px-[30px] py-[25px] gap-y-6 items-start text-left text-text-off">
                   {/* El gris pactado no se parece al de figma */}
                   <CloseMenuLink label="Inicio" to={paths.home} />
-                  <CloseMenuLink
-                    label="Ver Resultados"
-                    to={paths.totalResults}
-                  />
+                  {/* <CloseMenuLink label="Ver Resultados" to={paths.results} /> */}
                   <CloseMenuLink
                     label="Cargar resultados de mesa"
-                    to={paths.uploadCertificate}
+                    to={paths.uploadActa}
                   />
                   <CloseMenuLink
                     label="Listado de mesas cargadas"
-                    to={paths.deskList}
+                    to={paths.votationTables}
                     className="text-violet-light"
                   />
-                  <CloseMenuLink
+                  {/* <CloseMenuLink
                     label="Denunciar fraude"
                     to={paths.irregularities}
                     className="text-red"
-                  />
+                  /> */}
                 </div>
                 <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
                   <div className={`${linkTransformClassName} flex gap-2`}>
                     <Button
                       appearance="ghost"
                       onClick={() => {
-                        logout();
-                        closeMenu();
+                        setLogoutModal(!logoutModal);
                       }}
                       type="button"
                       className="text-violet-light text-left"
                     >
+                      <LogoutModal
+                        open={logoutModal}
+                        setOpen={setLogoutModal}
+                      />
                       <img
-                        src="assets/icon/log-out.svg"
+                        src="/assets/icon/log-out.svg"
                         alt="User profile"
                         className="object-cover rounded"
                       />
@@ -132,7 +131,7 @@ const Navbar: React.FC<INavbarProps> = ({
         <div className="flex col-start-2 col-end-3 row-start-1 row-end-2">
           <Link to={paths.home} className="flex-shrink-0 ml-auto">
             <img
-              src="assets/logos/fenix-new.svg"
+              src="/assets/logos/fenix-new.svg"
               alt="Logo"
               className="object-cover rounded w-[60px] h-[60px] cursor-pointer"
             />

@@ -2,18 +2,9 @@ import { TextField } from '@mui/material';
 import classNames from 'classnames';
 import { useState } from 'react';
 import React from 'react';
-interface CategoryVoteInputProps {
-  icon?: React.ReactNode;
-  title?: string;
-  subtitle?: string;
-  titleClassName?: string;
 
-  disabled?: boolean;
-  name?: string;
-  value?: number;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-}
+import { validationProps } from '#/utils/validationProps';
+import { CategoryVoteInputProps } from './types';
 
 export default function ({
   disabled,
@@ -67,6 +58,7 @@ export default function ({
         value={localValue}
         onChange={handleInputChange}
         onBlur={onBlur}
+        {...validationProps()}
         placeholder=""
         inputProps={{ style: { textAlign: 'center' }, maxLength: 3 }}
         InputProps={{ style: { borderRadius: '8px' } }}
