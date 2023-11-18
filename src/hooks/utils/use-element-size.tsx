@@ -32,6 +32,3 @@ export function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
 
   return [setRef, size];
 }
-
-// usage :  const [ref, { width, height }] = useElementSize()
-// Le pasamos la ref del elemento que queremos el tamaño y nos devuelve el width y height
