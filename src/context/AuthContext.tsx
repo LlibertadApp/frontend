@@ -32,7 +32,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
-  const [userName, setUserName] = useState<string | null>(null);
   const [mesas, setMesas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<boolean>(false);
@@ -52,8 +51,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       userToken && sessionStorage.setItem('token', userToken);
       decodedToken.fullName && sessionStorage.setItem('userName', decodedToken.fullName);
 
-      if (decodedToken.mesas) {
-        setMesas(decodedToken.mesas);
+      if (decodedToken.votingTables) {
+        setMesas(decodedToken.votingTables);
       }
     }
   }, []);

@@ -15,7 +15,7 @@ import {
 } from '@phosphor-icons/react';
 
 import { validationProps } from '#/utils/validationProps';
-import forcedWarn from '../../../public/assets/icon/warn-icon.svg'
+import forcedWarn from '/assets/icon/warn-icon.svg';
 
 import { paths } from '#/routes/paths';
 import { useCertificate } from '#/context/CertificationContext';
@@ -145,7 +145,7 @@ function LoadInformationPage() {
   }, []);
 
   const initialValues: TelegramData = {
-    circuit: 'Circuito 1', // Acá se cambia por el circuito del token
+    circuit: mesas[0].split('-')[3],
     table: '0',
     electors: undefined,
     envelopes: undefined,
@@ -357,9 +357,9 @@ function LoadInformationPage() {
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.table}
                 >
-                  {mesas.map((option) => (
-                    <MenuItem key={option.mesaId} value={option.mesaId}>
-                      {option.mesaId}
+                  {mesas.map((mesa, index) => (
+                    <MenuItem key={index} value={mesa.split('-').pop()}>
+                      {mesa.split('-').pop()}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -507,8 +507,8 @@ function LoadInformationPage() {
                     isVoteSumExceeded(values.votes)
                       ? 'disabled'
                       : !errors.validTotalVotes && !errors.validVotesDifference
-                        ? 'filled'
-                        : 'error'
+                      ? 'filled'
+                      : 'error'
                   }
                   className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}
