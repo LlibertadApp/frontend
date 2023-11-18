@@ -26,10 +26,10 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ open, setOpen }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">Confirmacion</DialogTitle>
+      <DialogTitle id="alert-dialog-title">Confirmación</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Quieres salir de tu cuenta como Fiscal?
+          Queres salir de tu cuenta como Fiscal?
         </DialogContentText>
       </DialogContent>
       <DialogActions>

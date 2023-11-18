@@ -44,7 +44,6 @@ function App() {
         secondary: colors.darkGray,
       },
     },
-    // Aquí puedes también sobrescribir otros aspectos del tema como tipografía, transiciones, etc.
   });
 
   return (

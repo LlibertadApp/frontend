@@ -23,7 +23,6 @@ export function CertificateProvider(
   );
 }
 
-// Crear un hook personalizado para acceder al contexto
 export const useCertificate = () => {
   const context = useContext(CertificateContext);
   if (!context) {
