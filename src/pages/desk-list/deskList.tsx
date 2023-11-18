@@ -25,12 +25,6 @@ const DeskList: FC = () => {
       });
   }, []);
 
-
-  const getBoards = () => {
-
-    
-  }
-
   return (
     <>
       <Navbar routerLink={paths.home} showArrow={true} />

@@ -34,7 +34,7 @@ export default function TableList({ actas }: TableListProps) {
   return (
     <div className="flex flex-col gap-2 w-full">
       {actas.map((acta) => (
-        <TableListItem acta={acta} key={acta.id} />
+        <TableListItem acta={acta} key={acta.mesaId} />
       ))}
     </div>
   );
