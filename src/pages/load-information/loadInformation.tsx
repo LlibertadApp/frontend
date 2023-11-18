@@ -15,6 +15,7 @@ import {
 } from '@phosphor-icons/react';
 
 import { validationProps } from '#/utils/validationProps';
+import forcedWarn from '../../../public/assets/icon/warn-icon.svg'
 
 import { paths } from '#/routes/paths';
 import { useCertificate } from '#/context/CertificationContext';
@@ -506,8 +507,8 @@ function LoadInformationPage() {
                     isVoteSumExceeded(values.votes)
                       ? 'disabled'
                       : !errors.validTotalVotes && !errors.validVotesDifference
-                        ? 'filled'
-                        : 'error'
+                      ? 'filled'
+                      : 'error'
                   }
                   className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}
@@ -524,7 +525,7 @@ function LoadInformationPage() {
                   <div className="flex flex-col items-center">
                     <div className="bg-red/5 p-6 rounded-full mb-4">
                       <img
-                        src="assets/icon/warn-icon.svg"
+                        src={forcedWarn}
                         alt="warning icon"
                         className="h-10 w-10"
                       />
