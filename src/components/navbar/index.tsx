@@ -32,7 +32,7 @@ const Navbar: React.FC<INavbarProps> = ({
   const hamburgerMenuRef = useOutsideClick(closeMenu);
   return (
     <div className="bg-violet-primary p-[10px] px-4 w-full flex flex-col h-18 relative z-20 lg:items-center">
-      <div className="w-full grid grid-rows-1 grid-col-3 place-items-center lg:max-w-[52.5rem]">
+      <div className="w-full grid grid-rows-1 grid-col-3 place-items-center lg:max-w-[100vw]">
         <div className="flex w-full justify-between col-start-1 col-end-4 row-start-1 row-end-2">
           <div className="flex justify-center items-center">
             {showArrow && (
@@ -60,20 +60,20 @@ const Navbar: React.FC<INavbarProps> = ({
                   <img
                     src="/assets/icon/menu.svg"
                     alt="User profile"
-                    className="object-cover rounded w-6 h-6"
+                    className="object-cover rounded w-6 h-6 mr-2"
                   />
                 ) : (
                   <img
                     src="/assets/icon/close.svg"
                     alt="User profile"
-                    className="object-cover rounded w-6 h-6 p-[5px]"
+                    className="object-cover rounded w-6 h-6 p-[5px] mr-2"
                   />
                 )}
               </div>
             )}
 
             {menuOpen && (
-              <div className="absolute w-[100vw] bg-white right-0 top-[72px] rounded-xl px-1 shadow-2xl ">
+              <div className="absolute max-w-[400px] mr-2 bg-white right-0 top-[72px] rounded-xl px-1 shadow-2xl ">
                 <div className="absolute top-[-15px] right-[53px] w-0 h-0">
                   <svg width="50" height="20">
                     <polygon points="25,0 0,50 50,50" fill="white" />
