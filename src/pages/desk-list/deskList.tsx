@@ -122,6 +122,12 @@ const DeskList: FC = () => {
       });
     };
 
+
+  const getBoards = () => {
+
+    
+  }
+
   return (
     <main>
       <Navbar routerLink={paths.home} showArrow={true} />
@@ -207,28 +213,7 @@ const DeskList: FC = () => {
                     </div>
                   </AccordionSummary>
                   <AccordionDetails>
-                    {/* ToDo: FIX Por Status */}
                     <DeskStatus deskNormalStatus={true} />
-                    {/* <DeskItemLabel // TODO: No estoy seguro de que vayamos a tener esta data en el endpoint.
-                      className="bg-gray-100 rounded-md"
-                      deskValue={acta.circuit}
-                      label="Circuito"
-                    />
-                    <DeskItemLabel
-                      deskValue={acta.electors}
-                      label="Nro. de electores"
-                      statusStyle={{
-                        color: !acta.status.normal ? '#E13C3C' : '',
-                      }}
-                    />
-                    <DeskItemLabel
-                      className="bg-gray-100 rounded-md"
-                      deskValue={acta.envelopes}
-                      label="Nro. de sobres"
-                      statusStyle={{
-                        color: !acta.status.normal ? '#E13C3C' : '',
-                      }}
-                    /> */}
                     <hr className="border-t-gray-dark my-2 " />
                     <DeskItemLabel
                       deskValue={acta.conteoLla}

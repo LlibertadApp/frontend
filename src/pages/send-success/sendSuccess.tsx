@@ -29,7 +29,6 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
             Muchas gracias por fiscalizar!
           </h3>
           <div className="flex items-center justify-center my-20">
-            {/* TODO: Mover a Home */}
             <Link to={paths.home} className="w-full">
               <Button
                 className="bg-violet-brand p-4 text-white rounded-xl w-full cursor-default lg:max-w-sm lg:m-auto"

@@ -33,12 +33,10 @@ export function UploadImage({
   async function onUploadInternal(file: File | null | undefined) {
     if (!file) return;
     const base64 = await getBase64(file);
-    // onUpload(base64);
     onUpload(file);
     await handlePreview(file);
     setUploaded(true);
     setCertificateImage(file);
-    // setCertificateImageBase64(base64);
   }
 
   async function handlePreview(file: File) {
@@ -51,10 +49,6 @@ export function UploadImage({
     setPreview(undefined);
     setUploaded(false);
   };
-  /* No estoy totalmente seguro de qué esto sea optimo, 
-  pero el useEffect se activa cuando uploaded cambia, 
-  lo que solo va a ocurrir una vez,
-  después de que el usuario ha subido una imagen */
   useEffect(() => {
     if (uploaded) {
       try {
@@ -122,15 +116,6 @@ export function UploadImage({
             />
             Cargar Imagen
           </label>
-          {/* <input
-            type='file'
-            accept='image/*'
-            onChange={
-              (e) => {
-                setCertificateImage(e.target.files?.[0])
-              }
-            }
-          /> */}
         </Button>
       </div>
     </div>

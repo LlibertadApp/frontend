@@ -368,17 +368,6 @@ function LoadInformationPage() {
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.circuit}
                 />
-                {/* <TextField
-                  label="Mesa"
-                  name="table"
-                  variant="outlined"
-                  placeholder="00000/0"
-                  type="text"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  InputProps={{ style: { borderRadius: '8px' } }}
-                  error={!!errors.table}
-                /> */}
                 <TextField
                   value={mesa}
                   label="Mesa"
@@ -403,7 +392,6 @@ function LoadInformationPage() {
                   label="Nro de electores"
                   name="electors"
                   variant="outlined"
-                  // placeholder="0"
                   type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -415,7 +403,6 @@ function LoadInformationPage() {
                   label="Sobres"
                   name="envelopes"
                   variant="outlined"
-                  // placeholder="0"
                   type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}

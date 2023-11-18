@@ -24,13 +24,11 @@ const CheckItem = ({ text }: { text: string }) => (
 const UploadCertificate = () => {
   const navigate = useNavigate();
 
-  // TODO: Replace with context useState
   const { setFile, setCertificateImage } = useCertificate();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0]!);
-    // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
-    setCertificateImage(e.target.files?.[0]!); // test
+    setCertificateImage(e.target.files?.[0]!); 
 
     navigate(paths.verifyCertificate);
   }

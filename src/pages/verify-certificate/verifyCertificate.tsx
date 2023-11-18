@@ -21,7 +21,6 @@ function VerifyCertificate() {
 
   const handleImageReupload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0]!);
-    // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
     setCertificateImage(e.target.files?.[0]!);
 
     navigate(paths.verifyCertificate);

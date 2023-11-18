@@ -25,5 +25,3 @@ export const useCopyToClipboard = (): [CopyFn, CopiedValue] => {
 
   return [copy, copiedText];
 };
-
-// usage :  const [value, copy] = useCopyToClipboard()

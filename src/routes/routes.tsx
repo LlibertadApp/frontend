@@ -33,8 +33,6 @@ const AppRoutes: React.FC = () => {
   return (
     <Routes location={location} key={location.pathname}>
       <Route element={<AnimatedRoute />}>
-        {/* Public routes */}
-        {/* <Route element={<PublicRoute path={paths.home} />}> */}
         {/* Auth */}
         <Route path={paths.index} element={<Login />} />
         {/* </Route> */}
