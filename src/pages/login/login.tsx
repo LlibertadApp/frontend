@@ -9,7 +9,7 @@ const LoginPage: React.FC = () => {
 
   return error ? (
     <>
-      <div className="lg:absolute lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-red-error lg:z-0"></div>
+      <div className="lg:Fixed lg:inset-0 lg:bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white to-red-error lg:z-0"></div>
       <main className="px-4 mx-auto flex flex-col items-center rounded-3xl max-w-md gap-8 mt-20 lg:max-w-[624px] lg:px-[108px] lg:py-[50px] lg:relative lg:bg-white lg:mt-52">
         <h1 className="text-3xl text-text-off lg:text-[38px] font-light text-center lg:leading-10">
           La sesión
