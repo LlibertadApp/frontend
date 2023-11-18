@@ -20,23 +20,16 @@ export const getUserActas = async () => {
   });
 
   const actas: Acta[] = [];
+  actas.push(
+    ...storagedActas.map((acta) => ({ ...acta, estado: 'PROCESANDO' }) as Acta),
+  );
 
-  // Removemos del storagedMesas aquellas mesas que ya vienen desde el backend
-  // y agregamos el estado: 'PROCESANDO' a las mesas que NO vienen desde el backend
   if (data.data) {
-    console.log('Data no es undefined');
-    const parsedStoragedActas = storagedActas
-      .filter((mesa) => !data.data.find((acta) => acta.id === mesa.id))
-      .map((acta) => ({ ...acta, estado: 'PROCESANDO' })) as Acta[];
+    // Si existen datos en la API, removemos aquellas mesas que ya vienen desde el backend
+    actas.filter((acta) => !data.data.find((acta) => acta.id === acta.id));
 
-    // Clona uno de los objetos del array de actas que vienen desde el backend
-    const anomaliaActa = JSON.parse(JSON.stringify(data.data[0]));
-    anomaliaActa.estado = 'ANOMALIA';
-
-    const okActa = JSON.parse(JSON.stringify(data.data[0]));
-    okActa.estado = 'OK';
-
-    actas.push(...parsedStoragedActas, anomaliaActa, okActa, ...data.data);
+    // Ingresamos en actas las mesas que vienen desde el backend
+    actas.push(...data.data);
   }
 
   return actas as Acta[];
