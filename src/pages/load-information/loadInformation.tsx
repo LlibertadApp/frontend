@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { useEffect, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 import { TextField, MenuItem } from '@mui/material';

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ButtonFilterProps } from './types';
 import { FC } from 'react';
-import { paths } from '#/routes/paths';
 import { Faders } from '@phosphor-icons/react';
 
 export const ButtonFilter: FC<ButtonFilterProps> = ({ amount = 5 }) => {

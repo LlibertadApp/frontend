@@ -2,8 +2,6 @@ import { useCallback, useState } from 'react';
 import { Trash, ArrowRight } from '@phosphor-icons/react';
 import { Selector } from '#/components/selector';
 import Button from '#/components/button';
-import Navbar from '#/components/navbar';
-import { paths } from '#/routes/paths';
 import {
   districtsMock,
   electoralSectionsMock,

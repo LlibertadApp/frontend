@@ -1,8 +1,3 @@
-import { Link } from 'react-router-dom';
-import Button from '#/components/button';
-import Navbar from '#/components/navbar';
-import { paths } from '#/routes/paths';
-
 const NotFoundPage = () => {
   return (
     <main>
@@ -14,7 +9,6 @@ const NotFoundPage = () => {
         <p className='text-base text-center font-medium text-[#485760] max-w-[224px]'>
           Ups. La página que estás buscando no existe.
         </p>
-        
       </section>
     </main>
   );

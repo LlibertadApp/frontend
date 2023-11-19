@@ -8,3 +8,4 @@ export * from './navbar';
 export * from './overlay'
 export * from './progressIndicator';
 export * from './snackbar';
+export * from './imageInput'

@@ -1,5 +1,3 @@
-import { Check } from '@phosphor-icons/react'
- 
 interface CheckboxProps {
   label?: string;
   children?: React.ReactNode;

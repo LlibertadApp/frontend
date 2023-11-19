@@ -1,5 +1,4 @@
 import Acta, { Status } from '#/interfaces/acta.interface';
-import { IDeskItemLabel, IDeskNormalStatus } from '#/pages/desk-list/types';
 import {
   Accordion,
   AccordionDetails,

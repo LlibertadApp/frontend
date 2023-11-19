@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, ArrowRight } from '@phosphor-icons/react';
+import { X } from '@phosphor-icons/react';
 
 import { FilterPage } from '#/pages/filter-results/filterResults';
 import { Filter, useFilter } from '#/context/FilterContext';

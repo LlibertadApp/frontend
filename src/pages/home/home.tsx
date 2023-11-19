@@ -1,9 +1,6 @@
-import { Link } from 'react-router-dom';
 import {
-  ArrowRight,
   EnvelopeOpen,
   ListBullets,
-  Megaphone,
 } from '@phosphor-icons/react';
 import Navbar from '#/components/navbar';
 import Overlay from '#/components/overlay';

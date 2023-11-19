@@ -11,7 +11,7 @@ export default function Button({
   label,
   children,
   className,
-  isLoading
+  isLoading,
 }: IButtonProps) {
   const appereances: Record<ButtonAppearance, string> = {
     filled:
@@ -43,7 +43,7 @@ export default function Button({
       )}
     >
       {children || label}
-      { isLoading && <LoadingSpinner /> }
+      {isLoading && <LoadingSpinner />}
     </button>
   );
 }
