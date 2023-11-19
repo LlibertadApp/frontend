@@ -357,11 +357,18 @@ function LoadInformationPage() {
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.table}
                 >
-                  {mesas.map((mesa, index) => (
-                    <MenuItem key={index} value={mesa}>
-                      {mesa.split('-').pop()}
-                    </MenuItem>
-                  ))}
+                  {mesas
+                    .filter(
+                      (mesa) =>
+                        !JSON.parse(sessionStorage.getItem('actas') || '[]')
+                          .map((acta: { mesaId: string }) => acta.mesaId)
+                          .includes(mesa),
+                    )
+                    .map((mesa, index) => (
+                      <MenuItem key={index} value={mesa}>
+                        {mesa.split('-').pop()}
+                      </MenuItem>
+                    ))}
                 </TextField>
                 <TextField
                   label="Nro de electores"
@@ -507,8 +514,8 @@ function LoadInformationPage() {
                     isVoteSumExceeded(values.votes)
                       ? 'disabled'
                       : !errors.validTotalVotes && !errors.validVotesDifference
-                        ? 'filled'
-                        : 'error'
+                      ? 'filled'
+                      : 'error'
                   }
                   className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}

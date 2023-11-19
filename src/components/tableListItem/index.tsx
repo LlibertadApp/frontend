@@ -100,7 +100,7 @@ export default function TableListItem({
 
         <div className="flex flex-col">
           <h3 className="text-black text-lg">
-            <strong>Mesa</strong> {acta.mesaId}
+            <strong>Mesa</strong> {acta.mesaId.split('-').pop()}
           </h3>
           {!isExpanded && (
             <Typography

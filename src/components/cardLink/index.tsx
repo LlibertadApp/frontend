@@ -26,11 +26,17 @@ export const CardLink = ({
       text: 'text-red',
       bg: 'bg-red/5',
     };
+  } else if (color === colors.Green) {
+    config = {
+      hover: 'border-green',
+      text: 'text-green',
+      bg: 'bg-green/5',
+    };
   }
 
   return (
     <Link
-      to={link}
+      to={link ?? '#'}
       className={`border-2 border-black/5 ${config?.text} bg-transparent p-4 w-full rounded-xl shadow-md hover:${config?.hover} flex items-center justify-between`}
       type="submit"
       onClick={() => onClick && onClick()}

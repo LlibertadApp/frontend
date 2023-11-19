@@ -4,6 +4,7 @@ import {
   EnvelopeOpen,
   ListBullets,
   Megaphone,
+  CheckCircle,
 } from '@phosphor-icons/react';
 import Navbar from '#/components/navbar';
 import Overlay from '#/components/overlay';
@@ -11,7 +12,16 @@ import { paths } from '#/routes/paths';
 import { CardLink } from '#/components/cardLink';
 import { colors } from '#/components/cardLink/types';
 
+import { useAuth } from '#/context/AuthContext';
+
 const HomePage = () => {
+  const { mesas } = useAuth();
+  const availableMesas = mesas.filter(
+    (mesa) =>
+      !JSON.parse(sessionStorage.getItem('actas') || '[]')
+        .map((acta: { mesaId: string }) => acta.mesaId)
+        .includes(mesa),
+  );
   return (
     <div className="min-h-screen">
       <Overlay>
@@ -25,12 +35,20 @@ const HomePage = () => {
               <span className="w-full pt-8 text-left lg:text-center lg:text-2xl lg:mb-3 lg:pt-6">
                 Acciones de fiscales
               </span>
-              <CardLink
-                link={paths.uploadActa}
-                text={'Cargar resultados de tu mesa'}
-                icon={<EnvelopeOpen size={32} />}
-                color={colors.Violet}
-              />
+              {availableMesas.length > 0 ? (
+                <CardLink
+                  link={paths.uploadActa}
+                  text={'Cargar resultados de tu mesa'}
+                  icon={<EnvelopeOpen size={32} />}
+                  color={colors.Violet}
+                />
+              ) : (
+                <CardLink
+                  text={'Ya has cargado todas tus mesas'}
+                  icon={<CheckCircle size={32} />}
+                  color={colors.Green}
+                />
+              )}
               <CardLink
                 link={paths.votationTables}
                 text={'Listado de mesas cargadas'}
