@@ -33,6 +33,8 @@ export default function TableList({ actas }: TableListProps) {
 
   return (
     <div className="flex flex-col gap-2 w-full">
+      {/* Circuito {actas[0].mesaId.split("-")[2]} */}
+      {/* // Esto es para mostrar el circuito, habría que ver cómo implementar en caso de que un usuario tenga más de un circuito. */}
       {actas.map((acta) => (
         <TableListItem acta={acta} key={acta.mesaId} />
       ))}

@@ -26,10 +26,13 @@ export const getUserActas = async () => {
 
   if (data.data) {
     // Si existen datos en la API, removemos aquellas mesas que ya vienen desde el backend
-    actas.filter((acta) => !data.data.find((acta) => acta.id === acta.id));
-
+    const filteredActas = actas.filter(
+      (acta) => !data.data.find((acta) => acta.mesaId === acta.mesaId),
+    );
     // Ingresamos en actas las mesas que vienen desde el backend
-    actas.push(...data.data);
+    filteredActas.push(...data.data);
+
+    return filteredActas as Acta[];
   }
 
   return actas as Acta[];

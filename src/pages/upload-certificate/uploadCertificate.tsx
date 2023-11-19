@@ -1,6 +1,7 @@
+import { CheckCircle } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
 
-import { CheckCircle } from '@phosphor-icons/react';
+import { useAuth } from '#/context/AuthContext';
 
 import ProgressIndicator from '#/components/progressIndicator';
 import Navbar from '#/components/navbar';
@@ -11,6 +12,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useCertificate } from '#/context/CertificationContext';
 import { paths } from '#/routes/paths';
 import UploadInput from '#/components/uploadInput';
+
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
@@ -34,6 +36,19 @@ const UploadCertificate = () => {
     navigate(paths.verifyActa);
   }
 
+  const { mesas } = useAuth();
+  const availableMesas = mesas.filter(
+    (mesa) =>
+      !JSON.parse(sessionStorage.getItem('actas') || '[]')
+        .map((acta: { mesaId: string }) => acta.mesaId)
+        .includes(mesa),
+  );
+
+  useEffect(() => {
+    if (availableMesas.length === 0) {
+      navigate(paths.home);
+    }
+  }, [availableMesas, navigate]);
 
   return (
     <>
