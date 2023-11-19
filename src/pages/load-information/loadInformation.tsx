@@ -232,7 +232,7 @@ function LoadInformationPage() {
         );
 
         payload.append('sobres', values.envelopes?.toString() || '')
-        payload.append('voters', values.electors?.toString() || '')
+        payload.append('votantes', values.electors?.toString() || '')
 
         payload.append(
           'votosEnTotal',
