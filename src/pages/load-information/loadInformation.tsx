@@ -358,7 +358,7 @@ function LoadInformationPage() {
                   error={!!errors.table}
                 >
                   {mesas.map((mesa, index) => (
-                    <MenuItem key={index} value={mesa.split('-').pop()}>
+                    <MenuItem key={index} value={mesa}>
                       {mesa.split('-').pop()}
                     </MenuItem>
                   ))}
@@ -507,8 +507,8 @@ function LoadInformationPage() {
                     isVoteSumExceeded(values.votes)
                       ? 'disabled'
                       : !errors.validTotalVotes && !errors.validVotesDifference
-                      ? 'filled'
-                      : 'error'
+                        ? 'filled'
+                        : 'error'
                   }
                   className="lg:max-w-xs lg:mx-auto"
                   isLoading={isSubmitting}
