@@ -49,9 +49,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Seteamos en el session storage el token del usuario y su uid
       uid && sessionStorage.setItem('uid', uid);
       userToken && sessionStorage.setItem('token', userToken);
+      decodedToken.fullName && sessionStorage.setItem('userName', decodedToken.fullName);
 
-      if (decodedToken.mesas) {
-        setMesas(decodedToken.mesas);
+      if (decodedToken.votingTables) {
+        setMesas(decodedToken.votingTables);
       }
     }
   }, []);

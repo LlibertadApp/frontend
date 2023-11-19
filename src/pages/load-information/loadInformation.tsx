@@ -15,6 +15,7 @@ import {
 } from '@phosphor-icons/react';
 
 import { validationProps } from '#/utils/validationProps';
+import forcedWarn from '/assets/icon/warn-icon.svg';
 
 import { paths } from '#/routes/paths';
 import { useCertificate } from '#/context/CertificationContext';
@@ -144,7 +145,7 @@ function LoadInformationPage() {
   }, []);
 
   const initialValues: TelegramData = {
-    circuit: 'Circuito 1', // Acá se cambia por el circuito del token
+    circuit: mesas[0].split('-')[3],
     table: '0',
     electors: undefined,
     envelopes: undefined,
@@ -300,7 +301,7 @@ function LoadInformationPage() {
 
   return (
     <>
-      <Navbar routerLink="/verify-certificate" />
+      <Navbar routerLink="/acta/subir" />
       <main className="container mx-auto p-4 flex flex-col gap-[30px] max-w-[52.5rem]">
         <ProgressIndicator
           steps={[
@@ -356,9 +357,9 @@ function LoadInformationPage() {
                   InputProps={{ style: { borderRadius: '8px' } }}
                   error={!!errors.table}
                 >
-                  {mesas.map((option) => (
-                    <MenuItem key={option.mesaId} value={option.mesaId}>
-                      {option.mesaId}
+                  {mesas.map((mesa, index) => (
+                    <MenuItem key={index} value={mesa}>
+                      {mesa.split('-').pop()}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -524,7 +525,7 @@ function LoadInformationPage() {
                   <div className="flex flex-col items-center">
                     <div className="bg-red/5 p-6 rounded-full mb-4">
                       <img
-                        src="assets/icon/warn-icon.svg"
+                        src={forcedWarn}
                         alt="warning icon"
                         className="h-10 w-10"
                       />

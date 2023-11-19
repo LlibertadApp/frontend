@@ -7,7 +7,7 @@ export type CheckUserFunction = (user: User | null) => Promise<string>;
 export interface AuthContextType {
   user: User | null;
   error: boolean | null;
-  mesas: { mesaId: string }[];
+  mesas: string[];
   setError: (error: boolean) => void
   checkUser: CheckUserFunction;
   logout: LogoutFunction;
