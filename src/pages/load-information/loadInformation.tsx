@@ -145,7 +145,7 @@ function LoadInformationPage() {
   }, []);
 
   const initialValues: TelegramData = {
-    circuit: mesas[0].split('-')[3],
+    circuit: mesas[0]?.split('-')[3],
     table: '0',
     electors: undefined,
     envelopes: undefined,
@@ -359,7 +359,7 @@ function LoadInformationPage() {
                 >
                   {mesas.map((mesa, index) => (
                     <MenuItem key={index} value={mesa}>
-                      {mesa.split('-').pop()}
+                      {mesa?.split('-').pop()}
                     </MenuItem>
                   ))}
                 </TextField>
