@@ -231,8 +231,8 @@ function LoadInformationPage() {
           values.votes.disputed.toString() || '',
         );
 
-        payload.append('envelopes', values.envelopes?.toString() || '')
-        payload.append('electors', values.electors?.toString() || '')
+        payload.append('sobres', values.envelopes?.toString() || '')
+        payload.append('voters', values.electors?.toString() || '')
 
         payload.append(
           'votosEnTotal',
