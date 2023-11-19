@@ -76,9 +76,6 @@
             "#interfaces/*": [
                 "src/interfaces/*"
             ],
-            "#mocks/*": [
-                "src/mocks/*"
-            ],
             "#middlewares/*": [
                 "src/middlewares/*"
             ],

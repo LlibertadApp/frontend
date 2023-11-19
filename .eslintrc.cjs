@@ -10,12 +10,6 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
-  // overrides: [
-  //   {
-  //     files: ['*.ts', '*.tsx'],
-  //     parserOptions: { project: ['./tsconfig.json'] },
-  //   },
-  // ],
   rules: {
     'prettier/prettier': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',

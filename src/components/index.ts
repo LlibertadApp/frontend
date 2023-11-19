@@ -1,7 +1,6 @@
 export * from './button';
 export * from './buttonClearFilter'
 export * from './buttonFilter'
-export * from './dataProfile';
 export * from './filterBadge'
 export * from './input';
 export * from './listFilters'
