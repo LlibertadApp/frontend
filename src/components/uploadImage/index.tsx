@@ -6,12 +6,13 @@ import Button from '#/components/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
 import toast, { Toaster } from 'react-hot-toast';
+import { useCertificate } from '#/context/CertificationContext';
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex justify-space-around items-center md:text-lg text-xs gap-2 text-[#444444]">
     <img
       className="w-5 h-5"
-      src="assets/icon/checkcircle.svg"
+      src="/assets/icon/checkcircle.svg"
       alt="CheckCircle"
     />
     <p className="px-full">{text}</p>
@@ -21,21 +22,24 @@ const CheckItem = ({ text }: { text: string }) => (
 export function UploadImage({
   onUpload,
 }: {
-  onUpload: (image: string) => void;
+  // onUpload: (image: string) => void;
+  onUpload: (image: File) => void;
 }) {
   const [preview, setPreview] = useState<string>();
   const [uploaded, setUploaded] = useState(false);
   const navigate = useNavigate();
+  const { setCertificateImage } = useCertificate();
 
   async function onUploadInternal(file: File | null | undefined) {
     if (!file) return;
     const base64 = await getBase64(file);
-    onUpload(base64);
-    handlePreview(file);
+    onUpload(file);
+    await handlePreview(file);
     setUploaded(true);
+    setCertificateImage(file);
   }
 
-  function handlePreview(file: File) {
+  async function handlePreview(file: File) {
     const objectUrl: string = URL.createObjectURL(file);
     setPreview(objectUrl);
   }
@@ -45,15 +49,11 @@ export function UploadImage({
     setPreview(undefined);
     setUploaded(false);
   };
-  /* No estoy totalmente seguro de qué esto sea optimo, 
-  pero el useEffect se activa cuando uploaded cambia, 
-  lo que solo va a ocurrir una vez,
-  después de que el usuario ha subido una imagen */
   useEffect(() => {
     if (uploaded) {
       try {
-        console.log(uploaded)
-        navigate(paths.verifyCertificate);
+        console.log(uploaded);
+        navigate(paths.verifyActa);
       } catch (error) {
         toast.error(
           'Hubo un error al cargar la página porfavor refresqué la misma.',
@@ -68,8 +68,8 @@ export function UploadImage({
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const previewSrc = isDesktop
-    ? 'assets/icon/upload-box-desktop.svg'
-    : 'assets/icon/upload-box.svg';
+    ? '/assets/icon/upload-box-desktop.svg'
+    : '/assets/icon/upload-box.svg';
 
   return (
     <div className="flex flex-col items-center text-lg">
@@ -95,10 +95,7 @@ export function UploadImage({
             className="flex flex-col items-center justify-center cursor-pointer mt-[30px] mb-10"
           >
             <div className="flex flex-col items-center justify-center">
-              <img
-                src={preview || previewSrc}
-                alt="UploadBox"
-              />
+              <img src={preview || previewSrc} alt="UploadBox" />
             </div>
             <ImageInput
               id="dropzone-file"

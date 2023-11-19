@@ -11,5 +11,3 @@ export const useIsFirstRender = (): boolean => {
 
   return isFirst.current;
 };
-
-// usage :  const isFirst = useIsFirstRender()

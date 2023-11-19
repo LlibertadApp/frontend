@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
 import { X, ArrowRight } from '@phosphor-icons/react';
 
 import { FilterPage } from '#/pages/filter-results/filterResults';
@@ -9,6 +8,7 @@ import { ButtonClearFilter } from '#/components/buttonClearFilter';
 import { ListFilters } from '#/components/listFilters';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
+import Alert from '#/components/alert';
 import { paths } from '#/routes/paths';
 
 const customFilters: Filter[] = [
@@ -66,7 +66,10 @@ const TotalResultsPage = () => {
               clearFilters={clearFilters}
             />
           )}
-          <button className='w-full' onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}>
+          <button
+            className="w-full"
+            onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
+          >
             <ButtonFilter amount={filters.length} />
           </button>
         </section>
@@ -77,37 +80,48 @@ const TotalResultsPage = () => {
 
         {/* Menú de filtros (desplegable) */}
         {isFilterMenuOpen && (
-          <div
-            className={`fixed bottom-0 left-0 right-0 mx-auto my-auto bg-white p-2 rounded-3xl shadow-md border-t border-gray-300 z-10 transition-all duration-300 backdrop-filter  ${
-              isFilterMenuOpen ? 'max-h-[82%]' : 'h-0'
-            } overflow-y-auto`}
-          >
-            <div className="flex flex-row gap-2 justify-between items-center px-4 py-2">
-              <p className="font-bold text-[20px] text-violet-brand pt-2">
-                Filtros
-              </p>
-              <div
-                className="p-4 flex justify-end"
-                onClick={() => setIsFilterMenuOpen(false)}
-              >
-                <X size={24} />
+          <>
+            <div
+              className="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50 z-20"
+              onClick={() => setIsFilterMenuOpen(false)}
+            ></div>
+            <div
+              className={`fixed bottom-0 left-0 right-0 mx-auto my-auto bg-white p-2 rounded-3xl shadow-md border-t border-gray-300 z-20 transition-all duration-300 backdrop-filter  ${
+                isFilterMenuOpen ? 'max-h-[82%]' : 'h-0'
+              } overflow-y-auto`}
+            >
+              <div className="flex flex-row gap-2 justify-between items-center px-4 py-2">
+                <p className="font-bold text-[20px] text-violet-brand pt-2">
+                  Filtros
+                </p>
+                <div
+                  className="p-4 flex justify-end"
+                  onClick={() => setIsFilterMenuOpen(false)}
+                >
+                  <X size={24} />
+                </div>
               </div>
+
+              <FilterPage />
             </div>
-
-            <FilterPage />
-
-          </div>
+          </>
         )}
       </div>
 
       <div className="lg:px-60 px-3 flex flex-col gap-6">
         {
-          //Card Javier, VLL
+          <Alert
+            className="text-center bg-yellow-300/20 text-yellow-600"
+            error={true}
+            message={
+              'Este portal será habilitado desde las 21hs del domingo 19/11'
+            }
+          ></Alert>
         }
         <div className="flex flex-col border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
-              <img src="assets/logos/fenix.png" className="w-16 h-14" alt="" />
+              <img src="/assets/logos/fenix.png" className="w-16 h-14" alt="" />
               <div className="flex flex-col items-end">
                 <span className={`text-[12px] text-gray-dark`}>
                   {votes[0]} votos
@@ -137,13 +151,10 @@ const TotalResultsPage = () => {
             </div>
           </div>
         </div>
-        {
-          //Card Massa, que asco
-        }
         <div className="flex flex-col border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row pl-4 pt-4 pr-4 pb-2 justify-between">
-              <img src="assets/logos/uxp.svg" className="w-16 h-14" alt="" />
+              <img src="/assets/logos/uxp.svg" className="w-16 h-14" alt="" />
               <div className="flex flex-col items-end">
                 <span className={`text-[12px] text-gray-dark`}>
                   {votes[1]} votos
@@ -173,20 +184,27 @@ const TotalResultsPage = () => {
             </div>
           </div>
         </div>
+        {
+          <Alert
+            className="text-center bg-yellow-300/20 text-yellow-600"
+            error={true}
+            message={'Los datos visualizados son a modo ilustrativo'}
+          ></Alert>
+        }
       </div>
       <div className="border border-t-1 border-gray-dark mt-10"></div>
-      <div className="flex flex-col px-4 py-5 lg:px-60 gap-10 leading-5">
-        <div className="flex flex-col">
+      <div className="flex flex-col items-center px-4 py-5 gap-10 leading-5 lg:px-60">
+        <div className="flex flex-col items-center">
           <span className="text-sm text-gray-dark">Total de votos</span>
           <span className="text-[22px] font-bold text-text-off">
             27,000,000
           </span>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <span className="text-sm text-gray-dark">Mesas escrutadas</span>
           <span className="text-[22px] font-bold text-text-off">90.00%</span>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <span className="text-sm text-gray-dark">Participación</span>
           <span className="text-[22px] font-bold text-text-off">76.36%</span>
         </div>
@@ -203,5 +221,5 @@ const TotalResultsPage = () => {
   );
 };
 
-export const TotalResults = observer(TotalResultsPage);
+export const TotalResults = TotalResultsPage;
 export default TotalResults;
