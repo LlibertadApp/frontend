@@ -24,8 +24,4 @@ export const paths = {
 
   /** Página con las mesas de votación cargadas */
   votationTables: '/mesas',
-  /** Página con los resultados de la votación @deprecated */
-  results: '/resultados',
-  /** Página con los resultados de la votación @deprecated */
-  irregularities: '/irregularidades',
 };
