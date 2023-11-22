@@ -1,12 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import './styles.css';
 
-interface ISelectorProps {
-  onChange: (e: any) => void;
-  label: string;
-  options: { key: string; label: string }[];
-  value: string;
-}
+import './styles.css';
+import { ISelectorProps } from './types';
 
 const ArrowIcon = ({ className }: { className: string }) => {
   return (

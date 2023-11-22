@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '#/components/button';
-import { ICloseMenuProps, INavbarProps } from './types';
+
 import { useHamburgerMenu } from '#/context/HamburgerContext';
 import useOutsideClick from '#/hooks/utils/use-outside-click';
-import { paths } from '#/routes/paths';
+
+import Button from '#/components/button';
 import LogoutModal from '../confirmationModal';
+
+import { paths } from '#/routes/paths';
+import { ICloseMenuProps, INavbarProps } from './types';
 
 const linkTransformClassName = 'transform transition-transform hover:scale-105';
 
@@ -73,7 +76,6 @@ const Navbar: React.FC<INavbarProps> = ({
                 )}
               </div>
             )}
-
             {menuOpen && (
               <div className="absolute max-w-[400px] mr-2 bg-white right-0 top-[72px] rounded-xl px-1 shadow-2xl ">
                 <div className="absolute top-[-15px] right-[53px] w-0 h-0">
@@ -85,9 +87,7 @@ const Navbar: React.FC<INavbarProps> = ({
                   <span>{userName}</span>
                 </div>
                 <div className="flex flex-col px-[30px] py-[25px] gap-y-6 items-start text-left text-text-off">
-                  {/* El gris pactado no se parece al de figma */}
                   <CloseMenuLink label="Inicio" to={paths.home} />
-                  {/* <CloseMenuLink label="Ver Resultados" to={paths.results} /> */}
                   <CloseMenuLink
                     label="Cargar resultados de mesa"
                     to={paths.uploadActa}
@@ -97,11 +97,6 @@ const Navbar: React.FC<INavbarProps> = ({
                     to={paths.votationTables}
                     className="text-violet-light"
                   />
-                  {/* <CloseMenuLink
-                    label="Denunciar fraude"
-                    to={paths.irregularities}
-                    className="text-red"
-                  /> */}
                 </div>
                 <div className="flex w-full text-left py-4 white px-4 border-t-2 border-gray-100 ">
                   <div className={`${linkTransformClassName} flex gap-2`}>
