@@ -1,4 +1,3 @@
-import Button from "../button";
 import EmptyImageIcon from "../icons/emptyImage";
 
 export type UploadInputSize = 'md' | 'lg'; 

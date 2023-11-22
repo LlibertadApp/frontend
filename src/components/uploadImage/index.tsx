@@ -3,9 +3,9 @@ import { useMediaQuery } from '@react-hook/media-query';
 import ImageInput from '#/components/imageInput';
 import { getBase64 } from '#/utils';
 import Button from '#/components/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useCertificate } from '#/context/CertificationContext';
 
 const CheckItem = ({ text }: { text: string }) => (
@@ -19,12 +19,7 @@ const CheckItem = ({ text }: { text: string }) => (
   </div>
 );
 
-export function UploadImage({
-  onUpload,
-}: {
-  // onUpload: (image: string) => void;
-  onUpload: (image: File) => void;
-}) {
+export function UploadImage({ onUpload }: { onUpload: (image: File) => void }) {
   const [preview, setPreview] = useState<string>();
   const [uploaded, setUploaded] = useState(false);
   const navigate = useNavigate();
@@ -32,7 +27,7 @@ export function UploadImage({
 
   async function onUploadInternal(file: File | null | undefined) {
     if (!file) return;
-    const base64 = await getBase64(file);
+    // const base64 = await getBase64(file);
     onUpload(file);
     await handlePreview(file);
     setUploaded(true);
@@ -45,10 +40,10 @@ export function UploadImage({
   }
 
   //Funcion para volver a cargar una imagen
-  const reuploadImage = () => {
-    setPreview(undefined);
-    setUploaded(false);
-  };
+  // const reuploadImage = () => {
+  //   setPreview(undefined);
+  //   setUploaded(false);
+  // };
   useEffect(() => {
     if (uploaded) {
       try {
