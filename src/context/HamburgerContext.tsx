@@ -1,16 +1,9 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-interface HamburgerContextType {
-  menuOpen: boolean;
-  setMenuOpen: (menuOpen: boolean) => void;
-  closeMenu: () => void
-}
+import { HamburgerContextType, HamburgerProviderProps } from './types';
 
 const HamburgerContext = createContext<HamburgerContextType | undefined>(undefined);
 
-interface HamburgerProviderProps {
-  children: ReactNode;
-}
 
 export const HamburgerProvider: React.FC<HamburgerProviderProps> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -29,7 +22,7 @@ export const HamburgerProvider: React.FC<HamburgerProviderProps> = ({ children }
 export const useHamburgerMenu = () => {
   const context = useContext(HamburgerContext);
   if (!context) {
-    throw new Error('Errrr!');
+    throw new Error('useHamburgerMenu must be used within a HamburgerProvider');
   }
   return context;
 };
