@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from '@react-hook/media-query';
 import ImageInput from '#/components/imageInput';
-import { getBase64 } from '#/utils';
 import Button from '#/components/button';
 import { useNavigate } from 'react-router-dom';
 import { paths } from '#/routes/paths';
@@ -27,7 +26,6 @@ export function UploadImage({ onUpload }: { onUpload: (image: File) => void }) {
 
   async function onUploadInternal(file: File | null | undefined) {
     if (!file) return;
-    // const base64 = await getBase64(file);
     onUpload(file);
     await handlePreview(file);
     setUploaded(true);
@@ -38,12 +36,7 @@ export function UploadImage({ onUpload }: { onUpload: (image: File) => void }) {
     const objectUrl: string = URL.createObjectURL(file);
     setPreview(objectUrl);
   }
-
-  //Funcion para volver a cargar una imagen
-  // const reuploadImage = () => {
-  //   setPreview(undefined);
-  //   setUploaded(false);
-  // };
+  
   useEffect(() => {
     if (uploaded) {
       try {
