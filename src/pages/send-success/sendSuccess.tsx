@@ -4,7 +4,6 @@ import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { ISendSuccessProps } from './types';
 
-import './styles.module.css';
 import { paths } from '#/routes/paths';
 
 const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
@@ -21,7 +20,7 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
             />
           </div>
           <div className="flex items-center justify-center py-4">
-            <h3 className="successfull lg:!text-[40px]">
+            <h3 className="text-[144%] font-semibold text-gray-darker  lg:!text-[40px]">
               {message ?? 'Datos enviados con éxito'}
             </h3>
           </div>
