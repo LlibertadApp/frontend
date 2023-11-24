@@ -1,6 +1,6 @@
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/Las-Fuerzas-Del-Cielo/Sistema-Anti-Fraude-Electoral)
 
-# :lion: Sistema-Anti-Fraude-Electoral :lion:
+# :lion: LibertApp :lion:
 
 Este es un proyecto **Open Source** (codigo libre) cuyo objetivo es minimizar y detectar la posibilidad de fraude electoral en las proximas elecciones presidenciales de Argentina donde se define finalmente quien sera presidente.
 
@@ -48,7 +48,8 @@ Los objetivos de este sistema son:
 Este repositorio tiene la finalidad de:
 
 - Explicar el proyecto en general
-- Alojar el [código para el frontend para fiscales](https://github.com/Las-Fuerzas-Del-Cielo/Sistema-Anti-Fraude-Electoral/tree/main/Frontend/fiscales-app-ts).
+- Alojar el frontend para fiscales.
+- Servir de sistema de documentacion general.
 
 Estos repositorios son las partes complementarias del proyecto:
 

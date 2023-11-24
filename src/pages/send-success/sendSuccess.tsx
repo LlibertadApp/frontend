@@ -4,7 +4,7 @@ import Button from '#/components/button';
 import Navbar from '#/components/navbar';
 import { ISendSuccessProps } from './types';
 
-import './styles.css';
+import './styles.module.css';
 import { paths } from '#/routes/paths';
 
 const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {

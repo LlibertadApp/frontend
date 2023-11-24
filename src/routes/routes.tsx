@@ -6,27 +6,15 @@ import { paths } from './paths';
 import AnimatedRoute from '#/components/animatedRoute';
 
 const Login = lazy(() => import('#/pages/login/login'));
+const UploadCertificate = lazy(() => import('#/pages/upload-certificate/uploadCertificate'));
+const VerifyCertificate = lazy(() => import('#/pages/verify-certificate/verifyCertificate'));
+const LoadInformation = lazy(() => import('#/pages/load-information/loadInformation'));
+const UploadFailed = lazy(() => import('#/pages/upload-failed/uploadFailed'));
 const SendSuccess = lazy(() => import('#/pages/send-success/sendSuccess'));
 const SendWarning = lazy(() => import('#/pages/send-warning/sendWarning'));
-const UploadFailed = lazy(() => import('#/pages/upload-failed/uploadFailed'));
-const LoadInformation = lazy(
-  () => import('#/pages/load-information/loadInformation'),
-);
-const Home = lazy(() => import('#/pages/home/home'));
-const UploadCertificate = lazy(
-  () => import('#/pages/upload-certificate/uploadCertificate'),
-);
-const VerifyCertificate = lazy(
-  () => import('#/pages/verify-certificate/verifyCertificate'),
-);
-const TotalResults = lazy(() => import('#/pages/total-results/totalResults'));
-
-const FilterPage = lazy(() => import('#/pages/filter-results/filterResults'));
-const Irregularities = lazy(
-  () => import('#/pages/irregularities/irregularities'),
-);
 const NotFound = lazy(() => import('#/pages/not-found/notFound'));
 const DeskList = lazy(() => import('#/pages/desk-list/deskList'));
+const Home = lazy(() => import('#/pages/home/home'));
 
 const AppRoutes: React.FC = () => {
   const location = useLocation();
@@ -56,8 +44,6 @@ const AppRoutes: React.FC = () => {
           <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
           {/* Filters, Results & Irregularities */}
-          {/* <Route path={paths.results} element={<TotalResults />} /> */}
-          {/* <Route path={paths.irregularities} element={<Irregularities />} /> */}
           <Route path={paths.votationTables} element={<DeskList />} />
         </Route>
       </Route>

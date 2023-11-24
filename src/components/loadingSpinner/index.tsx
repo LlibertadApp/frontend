@@ -1,8 +1,5 @@
 import classNames from 'classnames';
-
-interface LoadingSpinnerProps {
-  className?: string;
-}
+import { LoadingSpinnerProps } from './types';
 
 export default function LoadingSpinner({ className }: LoadingSpinnerProps) {
   return (

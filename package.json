@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"vite\" \"yarn run server\"",
-    "dev": "concurrently \"vite\" \"yarn run server\"",
+    "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "tsc && vite build && vite preview",

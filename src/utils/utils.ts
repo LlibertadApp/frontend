@@ -1,8 +1,3 @@
-export const sleep = (ms: number | undefined) =>
-  new Promise<void>((resolve) => {
-    setTimeout(resolve, ms);
-  });
-
 export function getBase64(file: File) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();

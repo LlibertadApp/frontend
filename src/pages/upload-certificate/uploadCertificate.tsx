@@ -1,27 +1,18 @@
 import { CheckCircle } from '@phosphor-icons/react';
-import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
+import './styles.css';
+
+import { paths } from '#/routes/paths';
+
+import { useCertificate } from '#/context/CertificationContext';
 import { useAuth } from '#/context/AuthContext';
 
-import ProgressIndicator from '#/components/progressIndicator';
-import Navbar from '#/components/navbar';
-import UploadImage from '#/components/uploadImage';
 import { ProgressStepStatus } from '#/components/progressIndicator/types';
-import './styles.css';
-import { useNavigate, useOutletContext } from 'react-router-dom';
-import { useCertificate } from '#/context/CertificationContext';
-import { paths } from '#/routes/paths';
+import ProgressIndicator from '#/components/progressIndicator';
 import UploadInput from '#/components/uploadInput';
-
-
-const CheckItem = ({ text }: { text: string }) => (
-  <div className="flex justify-space-around items-center md:text-xl text-sm gap-2 h-12">
-    <div className="flex justify-center items-center rounded-full bg-green-check text-white w-5 h-5 flex-shrink-0">
-      <img className="w-3 h-3" src="/assets/icon/check-icon.svg" alt="" />
-    </div>
-    <p>{text}</p>
-  </div>
-);
+import Navbar from '#/components/navbar';
 
 const UploadCertificate = () => {
   const navigate = useNavigate();
@@ -30,11 +21,10 @@ const UploadCertificate = () => {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0]!);
-    // setCertificateImage(URL.createObjectURL(e.target.files?.[0]!));
     setCertificateImage(e.target.files?.[0]!); // test
-    setCompletedForm(false)
+    setCompletedForm(false);
     navigate(paths.verifyActa);
-  }
+  };
 
   const { mesas } = useAuth();
   const availableMesas = mesas.filter(

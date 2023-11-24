@@ -1,5 +1,4 @@
 import Acta, { Status } from '#/interfaces/acta.interface';
-import { IDeskItemLabel, IDeskNormalStatus } from '#/pages/desk-list/types';
 import {
   Accordion,
   AccordionDetails,
@@ -7,9 +6,9 @@ import {
   Typography,
 } from '@mui/material';
 
-import { CaretDown, Cat } from '@phosphor-icons/react';
+import { CaretDown } from '@phosphor-icons/react';
 import classNames from 'classnames';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 interface TableListItemProps {
   acta: Acta;
@@ -119,11 +118,6 @@ export default function TableListItem({
           <span>Estado de la mesa:</span>
           <StatusBadge status={acta.estado} />
         </section>
-        {/* <section className="flex flex-col odd:[&>p]:bg-gray-100">
-          <CategoryLabel label="Circuito" value="200A" />
-          <CategoryLabel label="Nro. Votantes" value="200" />
-          <CategoryLabel label="Nro. Sobres" value="200" />
-        </section> */}
         <hr className="border-t-gray-dark my-2 " />
         <section className="flex flex-col odd:[&>p]:bg-gray-100">
           <CategoryLabel label="La Libertad Avanza" value={acta.conteoLla} />
