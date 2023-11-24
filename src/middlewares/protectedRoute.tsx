@@ -20,9 +20,6 @@ export function ProtectedRoute(): React.ReactElement {
     }
   }, [verifyToken, user]);
 
-  if (!user) {
-    return <Navigate to={paths.index} state={{ from: location }} replace />;
-  }
 
   return <Outlet />;
 }

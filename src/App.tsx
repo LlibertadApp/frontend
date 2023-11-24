@@ -8,6 +8,7 @@ import Overlay from './components/overlay';
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { AnimatePresence } from 'framer-motion';
+import TranslationWrapper from './context/TranslationContext';
 
 function App() {
   // Colores definidos
@@ -46,6 +47,8 @@ function App() {
   });
 
   return (
+      <TranslationWrapper>
+
     <AuthProvider>
       <CertificateProvider>
         <ThemeProvider theme={theme}>
@@ -61,6 +64,7 @@ function App() {
         </ThemeProvider>
       </CertificateProvider>
     </AuthProvider>
+      </TranslationWrapper>
   );
 }
 

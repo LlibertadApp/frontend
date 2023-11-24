@@ -8,11 +8,13 @@ import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import './styles.css';
 import { paths } from '#/routes/paths';
 import Checkbox from '#/components/checkbox/checkbox';
+import { useTranslation } from 'react-i18next';
 
 function VerifyCertificate() {
   const navigate = useNavigate();
+  const { t } = useTranslation('verifyCertificate')
   const [correctData, setCorrectData] = useState<boolean>(false);
-  const { certificateImage, setFile, setCertificateImage, completedForm } =
+  const { certificateImage, completedForm } =
     useCertificate();
 
   useEffect(() => {
@@ -24,13 +26,6 @@ function VerifyCertificate() {
   const handleContinue = () => {
     if (!correctData) return;
     navigate(paths.loadActaInfo);
-  };
-
-  const handleImageReupload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(e.target.files?.[0]!);
-    setCertificateImage(e.target.files?.[0]!);
-
-    navigate(paths.verifyActa);
   };
 
   const handleCheckbox = () => {
@@ -49,10 +44,10 @@ function VerifyCertificate() {
           ]}
         />
         <h1 className="text-neutral-700 text-xl font-medium text-center">
-          Cargar el certificado del fiscal
+          {t('upload_fiscal_certificate')}
         </h1>
         <p className="text-neutral-600 text-base">
-          Chequeá que la imagen se vea nítida y completa antes de subirla
+          {t('check_clear_complete_image')}
         </p>
         {certificateImage && (
           <img
@@ -62,7 +57,7 @@ function VerifyCertificate() {
           />
         )}
         <Checkbox
-          label="Verifico que la imagen está firmada por el presidente de mesa y fue completado por mí previamente."
+          label={t('verify_signed_by_president')}
           checked={correctData}
           onChange={handleCheckbox}
         />
@@ -72,10 +67,10 @@ function VerifyCertificate() {
             type="button"
             onClick={handleContinue}
           >
-            Continuar
+            {t('continue')}
           </Button>
           <Link to={paths.uploadActa} className="w-full">
-            <Button appearance="outlined" label="Volver a cargar imagen" />
+            <Button appearance="outlined" label={t('reload_image')} />
           </Link>
         </section>
       </main>

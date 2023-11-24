@@ -6,8 +6,10 @@ import { ISendSuccessProps } from './types';
 
 import './styles.module.css';
 import { paths } from '#/routes/paths';
+import { useTranslation } from 'react-i18next';
 
-const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
+const SendSuccess: FC<ISendSuccessProps> = ({ message }) => {
+  const { t } = useTranslation('sendSuccess')
   return (
     <section className="items-center flex flex-col ">
       <Navbar routerLink={paths.loadActaInfo} showArrow={false} />
@@ -22,18 +24,18 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
           </div>
           <div className="flex items-center justify-center py-4">
             <h3 className="successfull lg:!text-[40px]">
-              {message ?? 'Datos enviados con éxito'}
+              {message ?? t('data_sent_successfully')}
             </h3>
           </div>
           <h3 className="flex text-center text-base justify-center lg:text-2xl lg:mt-[14px]">
-            Muchas gracias por fiscalizar!
+            {t('thank_you_for_monitoring')}
           </h3>
           <div className="flex items-center justify-center my-20">
             <Link to={paths.home} className="w-full">
               <Button
                 className="bg-violet-brand p-4 text-white rounded-xl w-full cursor-default lg:max-w-sm lg:m-auto"
                 type="submit"
-                label="Volver a inicio"
+                label={t('return_to_home')}
               />
             </Link>
           </div>
@@ -42,7 +44,5 @@ const SendSuccessPage: FC<ISendSuccessProps> = ({ message }) => {
     </section>
   );
 };
-
-export const SendSuccess = SendSuccessPage;
 
 export default SendSuccess;

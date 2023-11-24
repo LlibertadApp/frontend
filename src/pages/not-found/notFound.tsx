@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
-import Button from '#/components/button';
-import Navbar from '#/components/navbar';
-import { paths } from '#/routes/paths';
+import { useTranslation } from "react-i18next";
 
 const NotFoundPage = () => {
+  const { t } = useTranslation('notFound');
+  
   return (
     <main>
       <section className='mx-6 flex flex-col justify-center items-center mt-[90px]'>
@@ -12,7 +11,7 @@ const NotFoundPage = () => {
         </div>
         <h1 className='text-8xl text-violet-primary font-semibold text-center mt-4'>404</h1>
         <p className='text-base text-center font-medium text-[#485760] max-w-[224px]'>
-          Ups. La página que estás buscando no existe.
+          {t('page_not_found_error')}
         </p>
         
       </section>

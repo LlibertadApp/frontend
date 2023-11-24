@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import Navbar from '#/components/navbar';
 import Button from '#/components/button';
 import { paths } from '#/routes/paths';
+import { useTranslation } from 'react-i18next';
 
 const UploadFailedPage = () => {
+  const { t } = useTranslation('uploadFailed')
   return (
     <section className="items-center flex flex-col">
       <Navbar routerLink={paths.loadActaInfo} />
@@ -18,19 +20,18 @@ const UploadFailedPage = () => {
           </div>
           <div className="flex flex-col items-center justify-center">
             <h3 className="text-xl font-medium lg:!text-[40px] lg:mb-5">
-              El envío de los datos falló
+              {t('data_submission_failed')}
             </h3>
           </div>
           <p className="flex text-center text-[0.95rem] leading-6 justify-center p-4 lg:text-2xl lg:mt-[14px] lg:p-0">
-            Lo sentimos, no fue posible completar la acción en este momento. Por
-            favor vuelve a intentarlo.
+           {t('action_not_completed')}
           </p>
           <div className="flex items-center justify-center my-10">
             <Link to={paths.loadActaInfo} className="w-full">
               <Button
                 className="bg-violet-brand p-4 text-white rounded-xl tracking-wider w-full cursor-default lg:max-w-sm lg:m-auto"
                 type="submit"
-                label="Reintentar"
+                label={t('retry')}
               />
             </Link>
           </div>
