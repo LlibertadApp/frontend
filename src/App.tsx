@@ -7,7 +7,6 @@ import { CertificateProvider } from './context/CertificationContext';
 import Overlay from './components/overlay';
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material';
-import { FilterProvider } from './context/FilterContext';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -53,11 +52,9 @@ function App() {
           <Suspense fallback={<LoadingPage />}>
             <HamburgerProvider>
               <Overlay>
-                <FilterProvider>
-                  <AnimatePresence>
-                    <AppRoutes />
-                  </AnimatePresence>
-                </FilterProvider>
+                <AnimatePresence>
+                  <AppRoutes />
+                </AnimatePresence>
               </Overlay>
             </HamburgerProvider>
           </Suspense>

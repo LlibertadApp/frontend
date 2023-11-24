@@ -1,11 +1,13 @@
-import * as Yup from 'yup';
-import { useEffect, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
-import axios from 'axios';
+import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
 import imageCompression from 'browser-image-compression';
+import { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+import { TelegramData } from './types';
+
 import { TextField, MenuItem } from '@mui/material';
 import { Dialog } from '@headlessui/react';
-import { Formik, Form, FormikErrors, FormikTouched } from 'formik';
 import {
   XSquare,
   Scales,
@@ -13,120 +15,56 @@ import {
   Users,
   NoteBlank,
 } from '@phosphor-icons/react';
-
-import { validationProps } from '#/utils/validationProps';
 import forcedWarn from '/assets/icon/warn-icon.svg';
 
-import { paths } from '#/routes/paths';
+import { validationProps } from '#/utils/validationProps';
+import { useActas } from '#/hooks/utils/useActas';
+import { validationSchema } from './yup'
+
 import { useCertificate } from '#/context/CertificationContext';
-import Alert from '#/components/alert';
-import Button from '#/components/button';
-import Navbar from '#/components/navbar';
-import Checkbox from '#/components/checkbox/checkbox';
+import { useAuth } from '#/context/AuthContext';
+
+import { paths } from '#/routes/paths';
+
+import { ProgressStepStatus } from '#/components/progressIndicator/types';
 import CategoryVoteInput from '#/components/categoryVoteInput';
 import ProgressIndicator from '#/components/progressIndicator';
-import { ProgressStepStatus } from '#/components/progressIndicator/types';
-import { useAuth } from '#/context/AuthContext';
-import { useActas } from '#/hooks/utils/useActas';
-import { TelegramData } from './types';
+import Checkbox from '#/components/checkbox/checkbox';
+import Button from '#/components/button';
+import Navbar from '#/components/navbar';
+import Alert from '#/components/alert';
 
-const validationSchema = Yup.object().shape({
-  circuit: Yup.string().required('Debe ingresar un circuito'),
-  table: Yup.string().required('Debe ingresar una mesa'),
-  electors: Yup.number()
-    .integer('El número de electores debe ser un entero')
-    .positive('El número de electores debe ser mayor a 0')
-    .max(600, 'El número de votos no puede ser mayor que 600')
-    .required('El número de electores es obligatorio'),
-  envelopes: Yup.number()
-    .integer('El número de sobres debe ser un entero')
-    .positive('El número de sobres debe ser mayor a 0')
-    .max(600, 'El número de votos no puede ser mayor que 600')
-    .required('El número de sobres es obligatorio')
-    .test('is-within-range', function (value) {
-      const { electors } = this.parent; // Obtiene el valor de "electores" del mismo contexto
-      const difference = Math.abs((electors || 0) - (value || 0));
+const isTableDataValid = (
+  touched: FormikTouched<TelegramData>,
+  errors: FormikErrors<TelegramData>,
+) => {
+  return (
+    touched.table &&
+    !errors.circuit &&
+    !errors.table &&
+    !errors.electors &&
+    !errors.envelopes
+  );
+};
 
-      // El mensaje debe ser prural o singular dependiendo de la diferencia
-      // Mensaje de ejemplo: Hay una diferencia de 5 sobres con respecto a los electores
-      const message = `Hay una diferencia de ${difference} ${
-        difference > 1 ? 'sobres' : 'sobre'
-      } con respecto a los electores`;
+const isVoteSumExceeded = (votes: TelegramData['votes']) =>
+Object.values(votes).reduce((acc, curr) => acc + curr, 0) > 600;
 
-      return (
-        difference <= 5 ||
-        this.createError({ path: 'validVotesDifference', message })
-      );
-    }),
+const getDifferenceMessage = (data: TelegramData): string => {
+  const { electors, envelopes } = data;
+  const difference = Math.abs(electors! - envelopes!);
 
-  votes: Yup.object().shape({
-    lla: Yup.number()
-      .integer('El número de votos debe ser un entero')
-      .min(0, 'El número de votos debe ser mayor o igual a 0')
-      .max(600, 'El número de votos no puede ser mayor que 600')
-      .required('El número de votos es obligatorio'),
-    uxp: Yup.number()
-      .integer('El número de votos debe ser un entero')
-      .min(0, 'El número de votos debe ser mayor o igual a 0')
-      .max(600, 'El número de votos no puede ser mayor que 600')
-      .required('El número de votos es obligatorio'),
-    blank: Yup.number()
-      .integer('El número de votos debe ser un entero')
-      .min(0, 'El número de votos debe ser mayor o igual a 0')
-      .max(600, 'El número de votos no puede ser mayor que 600')
-      .required('El número de votos es obligatorio'),
-    null: Yup.number()
-      .integer('El número de votos debe ser un entero')
-      .min(0, 'El número de votos debe ser mayor o igual a 0')
-      .max(600, 'El número de votos no puede ser mayor que 600')
-      .required('El número de votos es obligatorio'),
-    disputed: Yup.number()
-      .integer('El número de votos debe ser un entero')
-      .min(0, 'El número de votos debe ser mayor o igual a 0')
-      .max(600, 'El número de votos no puede ser mayor que 600')
-      .required('El número de votos es obligatorio'),
-    identity: Yup.number()
-      .integer('El número de votos debe ser un entero')
-      .min(0, 'El número de votos debe ser mayor o igual a 0')
-      .max(600, 'El número de votos no puede ser mayor que 600')
-      .required('El número de votos es obligatorio'),
-    command: Yup.number()
-      .integer('El número de votos debe ser un entero')
-      .min(0, 'El número de votos debe ser mayor o igual a 0')
-      .max(600, 'El número de votos no puede ser mayor que 600')
-      .required('El número de votos es obligatorio'),
-  }),
-  validTotalVotes: Yup.boolean().test('is-within-range', function () {
-    const { envelopes, votes } = this.parent;
-    const totalVotes =
-      votes.lla +
-      votes.uxp +
-      votes.blank +
-      votes.null +
-      votes.disputed +
-      votes.identity +
-      votes.command;
-
-    if (totalVotes > 600) {
-      return this.createError({
-        path: 'validTotalVotes',
-        message: 'El total de votos es mayor que 600',
-      });
-    } else if (!(totalVotes === envelopes)) {
-      return this.createError({
-        path: 'validTotalVotes',
-        message: 'La suma no coincide con el total de votos',
-      });
-    }
-
-    return true;
-  }),
-
-  formAgreement: Yup.boolean().oneOf(
-    [true],
-    'Debe aceptar el acuerdo de la mesa',
-  ),
-});
+  if (!electors) {
+    return 'Sin información';
+  } else if (difference <= 0) {
+    return 'Sin diferencia';
+  } else if (difference <= 5) {
+    const pluralSingular = difference > 1 ? 'sobres' : 'sobre';
+    return `Diferencia de ${difference} ${pluralSingular} con respecto a los electores`;
+  } else {
+    return 'Sin información';
+  }
+};
 
 function LoadInformationPage() {
   const navigate = useNavigate();
@@ -144,7 +82,7 @@ function LoadInformationPage() {
     }
   }, []);
 
-  const initialValues: TelegramData = {
+  const initialValues = useMemo<TelegramData>(() => ({
     circuit: mesas[0].split('-')[3],
     table: '0',
     electors: undefined,
@@ -161,41 +99,9 @@ function LoadInformationPage() {
       command: 0,
     },
     validTotalVotes: false,
-
     formAgreement: false,
-  };
+  }), [mesas]);
 
-  const isTableDataValid = (
-    touched: FormikTouched<TelegramData>,
-    errors: FormikErrors<TelegramData>,
-  ) => {
-    return (
-      touched.table &&
-      !errors.circuit &&
-      !errors.table &&
-      !errors.electors &&
-      !errors.envelopes
-    );
-  };
-
-  const isVoteSumExceeded = (votes: TelegramData['votes']) =>
-    Object.values(votes).reduce((acc, curr) => acc + curr, 0) > 600;
-
-  const getDifferenceMessage = (data: TelegramData): string => {
-    const { electors, envelopes } = data;
-    const difference = Math.abs(electors! - envelopes!);
-
-    if (!electors) {
-      return 'Sin información';
-    } else if (difference <= 0) {
-      return 'Sin diferencia';
-    } else if (difference <= 5) {
-      const pluralSingular = difference > 1 ? 'sobres' : 'sobre';
-      return `Diferencia de ${difference} ${pluralSingular} con respecto a los electores`;
-    } else {
-      return 'Sin información';
-    }
-  };
 
   const onSubmitForm = async (
     values: TelegramData,
@@ -326,12 +232,9 @@ function LoadInformationPage() {
           {({
             values,
             touched,
-            handleSubmit,
             handleChange,
             handleBlur,
             errors,
-            isValid,
-            setErrors,
           }) => (
             <Form className="flex flex-col gap-8">
               <section className="grid grid-cols-2 gap-6 lg:grid-cols-4 lg:mb-4">

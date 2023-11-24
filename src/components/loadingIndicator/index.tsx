@@ -1,8 +1,4 @@
-import { ILoadingIndicatorProps } from './types';
-
-export const LoadingIndicator: React.FC<ILoadingIndicatorProps> = ({
-  className = 'fill-white',
-}) => {
+export const LoadingIndicator = () => {
   return (
     <div className="flex flex-col w-full items-center justify-center">
       <div className="flex items-center justify-center my-10 w-full ">
