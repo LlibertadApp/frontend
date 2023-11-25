@@ -119,7 +119,7 @@ Esta APP tendría estos tipos de usuarios:
 
 4. **Auditor Interno:** Son personas de confianza del partido que se encargan de analizar los datos cargados por los fiscales donde a causa de un conflicto no hayan podido ser procesados por la Inteligencia Artificial, para que manualmente resuelvan la incidencia y carguen los datos correctos.
 
-5. **Público:** Cualquier persona que quiera ver los resultados en línea, de acuerdo a los datos cargados por los Fiscales de Mesa de LLA. También podrán navegar por toda la información disponible en el sistema.
+5. **Público:** Cualquier persona que quiera ver los resultados en línea, de acuerdo a los datos cargados por los Fiscales de Mesa del partido. También podrán navegar por toda la información disponible en el sistema.
 
 Es importante mencionar que las irregularidades se deben detectar y denunciar lo antes posible, para que antes de que se nombre un ganador, haya una reacción del público general ante un potencial fraude de gran escala, ya que una vez se declara un ganador es casi imposible de revertir, sin importar la cantidad de denuncias de fraude que se hayan presentado.
 
@@ -189,7 +189,7 @@ El backend principal será el que tenga la business logic de los casos de uso pr
 
 **Backend Read Only**
 
-Es posible que tengamos un backend para las operaciones read-only del público en general / auditores externos a LLA. Es posible que este backend trabaje con una réplica offline de la Base de Datos Principal, actualizada cada tanto.
+Es posible que tengamos un backend para las operaciones read-only del público en general / auditores externos al partido. Es posible que este backend trabaje con una réplica offline de la Base de Datos Principal, actualizada cada tanto.
 
 **Backend para Logins / Signups / Mantenimiento de Usuarios**
 
