@@ -1,7 +1,7 @@
 {
-    "upload_image": "Cargar imagen",
-    "use_camera_to_upload": "Usá la cámara para subir el certificado del fiscal, o cargala desde la galería.",
-    "find_well_lit_place": "Buscá un lugar con buena luz.",
-    "ensure_all_data_visible": "Asegurate de que se vean todos los datos.",
-    "ensure_certificate_signed": "Asegurate que el certificado esté firmado por el presidente de tu mesa."
+  "upload_image": "Cargar imagen",
+  "use_camera_to_upload": "Usá la cámara para subir el certificado del fiscal, o cargala desde la galería.",
+  "find_well_lit_place": "Buscá un lugar con buena luz.",
+  "ensure_all_data_visible": "Asegurate de que se vean todos los datos.",
+  "ensure_certificate_signed": "Asegurate que el certificado esté firmado por el presidente de tu mesa."
 }

@@ -1,93 +1,93 @@
 name: Build and upload statics
 on:
-    push:
-        branches:
-            - dev
+  push:
+    branches:
+      - dev
 # env:
 #   ENVIRONMENT: "dev"
 #   Esto no funciona (ni ganas de renegar con el contexto)
 #     Para prd/uat, hay que reemplazar  'environment: dev'
 permissions:
-    id-token: write # This is required for requesting the JWT
-    contents: read # This is required for actions/checkout
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        environment: dev
-        strategy:
-            matrix:
-                node-version: [16.x, 18.x]
-        steps:
-            - name: Git clone the repository
-              uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - name: Build .env with Python
-              run: |
-                  VARIABLES_JSON='{
-                    "VITE_REACT_apiKey": "${{ vars.VITE_REACT_apiKey }}",
-                    "VITE_REACT_authDomain": "${{ vars.VITE_REACT_authDomain }}",
-                    "VITE_REACT_projectId": "${{ vars.VITE_REACT_projectId }}",
-                    "VITE_REACT_storageBucket": "${{ vars.VITE_REACT_storageBucket }}",
-                    "VITE_REACT_messagingSenderId": "${{ vars.VITE_REACT_messagingSenderId }}",
-                    "VITE_REACT_appId": "${{ vars.VITE_REACT_appId }}",
-                    "VITE_REACT_measurementId": "${{ vars.VITE_REACT_measurementId }}",
-                    "VITE_REACT_backend_endpoint": "${{ vars.VITE_REACT_backend_endpoint }}"
-                  }'
-                  python3 dotEnvGenerator.py "$VARIABLES_JSON"
-                  cat .env
-            - name: Install dependencies
-              run: |
-                  rm -rf node_modules && yarn install --frozen-lockfile
-            - name: Staging Build
-              run: |
-                  CI=false npm run build
-            # - name: Unit Tests
-            #   run: |
-            #     npm test
-            - name: Store artifact for next job
-              uses: actions/upload-artifact@master
-              with:
-                  name: ${{ github.repository_id }}-${{ github.ref_name }}-${{ github.run_id }}
-                  path: ${{ vars.ARTIFACTS_PATH }}
+  build:
+    runs-on: ubuntu-latest
+    environment: dev
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Build .env with Python
+        run: |
+          VARIABLES_JSON='{
+            "VITE_REACT_apiKey": "${{ vars.VITE_REACT_apiKey }}",
+            "VITE_REACT_authDomain": "${{ vars.VITE_REACT_authDomain }}",
+            "VITE_REACT_projectId": "${{ vars.VITE_REACT_projectId }}",
+            "VITE_REACT_storageBucket": "${{ vars.VITE_REACT_storageBucket }}",
+            "VITE_REACT_messagingSenderId": "${{ vars.VITE_REACT_messagingSenderId }}",
+            "VITE_REACT_appId": "${{ vars.VITE_REACT_appId }}",
+            "VITE_REACT_measurementId": "${{ vars.VITE_REACT_measurementId }}",
+            "VITE_REACT_backend_endpoint": "${{ vars.VITE_REACT_backend_endpoint }}"
+          }'
+          python3 dotEnvGenerator.py "$VARIABLES_JSON"
+          cat .env
+      - name: Install dependencies
+        run: |
+          rm -rf node_modules && yarn install --frozen-lockfile
+      - name: Staging Build
+        run: |
+          CI=false npm run build
+      # - name: Unit Tests
+      #   run: |
+      #     npm test
+      - name: Store artifact for next job
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ github.repository_id }}-${{ github.ref_name }}-${{ github.run_id }}
+          path: ${{ vars.ARTIFACTS_PATH }}
 
-    S3PackageUpload:
-        needs: build
-        runs-on: ubuntu-latest
-        environment: dev
-        steps:
-            - name: Download artifact from previous job
-              uses: actions/download-artifact@master
-              with:
-                  name: ${{ github.repository_id }}-${{ github.ref_name }}-${{ github.run_id }}
-                  path: ${{ vars.ARTIFACTS_PATH }}
+  S3PackageUpload:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Download artifact from previous job
+        uses: actions/download-artifact@master
+        with:
+          name: ${{ github.repository_id }}-${{ github.ref_name }}-${{ github.run_id }}
+          path: ${{ vars.ARTIFACTS_PATH }}
 
-            - name: configure aws credentials
-              uses: aws-actions/configure-aws-credentials@v4
-              with:
-                  role-to-assume: arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/${{vars.ROLE_TO_ASSUME}}
-                  role-session-name: ${{ vars.ROLE_SESSION_NAME }}
-                  aws-region: ${{ secrets.AWS_REGION }}
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/${{vars.ROLE_TO_ASSUME}}
+          role-session-name: ${{ vars.ROLE_SESSION_NAME }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-            - name: Copy statics to s3
-              run: |
-                  aws s3 sync ./${{ vars.ARTIFACTS_PATH }} s3://${{ vars.BUCKET_NAME }} --delete --exclude ".git/*" --exclude ".env" --exclude ".env.example" --exclude "node_modules/*"
+      - name: Copy statics to s3
+        run: |
+          aws s3 sync ./${{ vars.ARTIFACTS_PATH }} s3://${{ vars.BUCKET_NAME }} --delete --exclude ".git/*" --exclude ".env" --exclude ".env.example" --exclude "node_modules/*"
 
-    InvalidateCloudFrontDistro:
-        needs: S3PackageUpload
-        runs-on: ubuntu-latest
-        environment: dev
-        steps:
-            - name: configure aws credentials
-              uses: aws-actions/configure-aws-credentials@v4
-              with:
-                  role-to-assume: arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/${{vars.ROLE_TO_ASSUME}}
-                  role-session-name: ${{ vars.ROLE_SESSION_NAME }}
-                  aws-region: ${{ secrets.AWS_REGION }}
+  InvalidateCloudFrontDistro:
+    needs: S3PackageUpload
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/${{vars.ROLE_TO_ASSUME}}
+          role-session-name: ${{ vars.ROLE_SESSION_NAME }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-            - name: Invalidate distribution
-              run: |
-                  aws cloudfront create-invalidation --distribution-id ${{ vars.CF_DISTRO_ID }} --paths "/*"
+      - name: Invalidate distribution
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ vars.CF_DISTRO_ID }} --paths "/*"

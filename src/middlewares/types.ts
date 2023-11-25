@@ -1,3 +1,3 @@
 export interface PublicRouteProps {
-    path: string;
+  path: string;
 }

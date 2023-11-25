@@ -1,7 +1,7 @@
 {
-    "upload_fiscal_certificate": "Cargar el certificado del fiscal",
-    "check_clear_complete_image": "Chequeá que la imagen se vea nítida y completa antes de subirla",
-    "verify_signed_by_president": "Verifico que la imagen está firmada por el presidente de mesa y fue completado por mí previamente.",
-    "continue": "Continuar",
-    "reload_image": "Volver a cargar imagen"
+  "upload_fiscal_certificate": "Cargar el certificado del fiscal",
+  "check_clear_complete_image": "Chequeá que la imagen se vea nítida y completa antes de subirla",
+  "verify_signed_by_president": "Verifico que la imagen está firmada por el presidente de mesa y fue completado por mí previamente.",
+  "continue": "Continuar",
+  "reload_image": "Volver a cargar imagen"
 }

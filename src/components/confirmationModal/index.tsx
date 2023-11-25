@@ -9,32 +9,32 @@ import { LogoutModalProps } from './types';
 import { useTranslation } from 'react-i18next';
 
 const LogoutModal: React.FC<LogoutModalProps> = ({ open, setOpen }) => {
-    const { t } = useTranslation('logoutModal')
-    const { logout } = useAuth();
+  const { t } = useTranslation('logoutModal');
+  const { logout } = useAuth();
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const handleLogout = () => {
-        logout();
-        handleClose();
-    };
+  const handleLogout = () => {
+    logout();
+    handleClose();
+  };
 
-    return (
-        <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-            <DialogTitle id="alert-dialog-title">{t('confirmation')}</DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-description">{t('you_want_to_leave?')}</DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose}>{t('cancel')}</Button>
-                <Button onClick={handleLogout} autoFocus variant="contained" color="error">
-                    {t('yes')}
-                </Button>
-            </DialogActions>
-        </Dialog>
-    );
+  return (
+    <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+      <DialogTitle id="alert-dialog-title">{t('confirmation')}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">{t('you_want_to_leave?')}</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>{t('cancel')}</Button>
+        <Button onClick={handleLogout} autoFocus variant="contained" color="error">
+          {t('yes')}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 };
 
 export default LogoutModal;

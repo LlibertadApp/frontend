@@ -1,8 +1,8 @@
 {
-    "session_invalid_or_expired": "La sesión",
-    "session_not_valid_or_expired": "no es válida o está vencida.",
-    "fraud_prevention_together": "Entre todos,",
-    "prevent_fraud_together": "evitemos el fraude.",
-    "validating_identity": "Validando",
-    "validating_identity_text": "identidad..."
+  "session_invalid_or_expired": "La sesión",
+  "session_not_valid_or_expired": "no es válida o está vencida.",
+  "fraud_prevention_together": "Entre todos,",
+  "prevent_fraud_together": "evitemos el fraude.",
+  "validating_identity": "Validando",
+  "validating_identity_text": "identidad..."
 }
