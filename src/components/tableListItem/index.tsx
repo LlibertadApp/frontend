@@ -1,10 +1,5 @@
 import Acta, { Status } from '#/interfaces/acta.interface';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 
 import { CaretDown } from '@phosphor-icons/react';
 import classNames from 'classnames';
@@ -38,38 +33,18 @@ function StatusBadge({ status }: { status: Status }) {
 
   const appearance = appearances[status] || appearances.ENVIADO;
 
-  return (
-    <span className={`rounded-lg px-2 py-1 border text-sm ${appearance}`}>
-      {status}
-    </span>
-  );
+  return <span className={`rounded-lg px-2 py-1 border text-sm ${appearance}`}>{status}</span>;
 }
 
-function CategoryLabel({
-  label,
-  value,
-  className,
-}: {
-  label: string;
-  value: string | number;
-  className?: string;
-}) {
+function CategoryLabel({ label, value, className }: { label: string; value: string | number; className?: string }) {
   return (
-    <p
-      className={classNames(
-        'text-black text-sm p-2 rounded-md flex justify-between',
-        className,
-      )}
-    >
+    <p className={classNames('text-black text-sm p-2 rounded-md flex justify-between', className)}>
       {label}: <span className="text-gray-400 px-2">{value}</span>
     </p>
   );
 }
 
-export default function TableListItem({
-  acta,
-  expanded = false,
-}: TableListItemProps) {
+export default function TableListItem({ acta, expanded = false }: TableListItemProps) {
   const [isExpanded, setExpanded] = useState(expanded);
 
   return (
@@ -91,10 +66,7 @@ export default function TableListItem({
       expanded={isExpanded}
       onChange={() => setExpanded(!isExpanded)}
     >
-      <AccordionSummary
-        expandIcon={<CaretDown />}
-        classes={{ content: 'items-center gap-2' }}
-      >
+      <AccordionSummary expandIcon={<CaretDown />} classes={{ content: 'items-center gap-2' }}>
         {!isExpanded && <StatusIcon status={acta.estado} />}
 
         <div className="flex flex-col">
@@ -102,12 +74,7 @@ export default function TableListItem({
             <strong>Mesa</strong> {acta.mesaId.split('-').pop()}
           </h3>
           {!isExpanded && (
-            <Typography
-              color="#908DA8"
-              align="left"
-              fontFamily={'Poppins'}
-              fontSize="12px"
-            >
+            <Typography color="#908DA8" align="left" fontFamily={'Poppins'} fontSize="12px">
               {acta.votosEnTotal} votos en total
             </Typography>
           )}
@@ -123,23 +90,13 @@ export default function TableListItem({
           <CategoryLabel label="La Libertad Avanza" value={acta.conteoLla} />
           <CategoryLabel label="Union por la Patria" value={acta.conteoUp} />
           <CategoryLabel label="Votos nulos" value={acta.votosNulos} />
-          <CategoryLabel
-            label="Votos recurridos"
-            value={acta.votosRecurridos}
-          />
-          <CategoryLabel
-            label="Votos identidad impugnada"
-            value={acta.votosImpugnados}
-          />
+          <CategoryLabel label="Votos recurridos" value={acta.votosRecurridos} />
+          <CategoryLabel label="Votos identidad impugnada" value={acta.votosImpugnados} />
           <CategoryLabel label="Votos en blanco" value={acta.votosEnBlanco} />
         </section>
         <hr className="border-t-gray-dark my-2 " />
         <section className="flex flex-col odd:[&>p]:bg-gray-100">
-          <CategoryLabel
-            label="Total"
-            value={acta.votosEnTotal}
-            className="bg-gray-100"
-          />
+          <CategoryLabel label="Total" value={acta.votosEnTotal} className="bg-gray-100" />
         </section>
       </AccordionDetails>
     </Accordion>

@@ -6,49 +6,23 @@ import React from 'react';
 import { validationProps } from '#/utils/validationProps';
 import { CategoryVoteInputProps } from './types';
 
-export default function ({
-  disabled,
-  icon,
-  name,
-  title,
-  subtitle,
-  titleClassName,
-  value,
-  onChange,
-  onBlur,
-}: CategoryVoteInputProps) {
+function CategoryVoteInput({ disabled, icon, name, title, subtitle, titleClassName, value, onChange, onBlur }: CategoryVoteInputProps) {
   const [localValue, setLocalValue] = useState<number | string>(value || '');
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    let newValue = e.target.value;
+    const newValue = e.target.value;
     const isValidNumber = /^[0-9]*$/.test(newValue);
 
-    const clampedValue = isValidNumber
-      ? Math.min(600, Math.max(0, Number(newValue)))
-      : 0;
+    const clampedValue = isValidNumber ? Math.min(600, Math.max(0, Number(newValue))) : 0;
     setLocalValue(clampedValue);
-    onChange &&
-      ((e.target.value = isValidNumber ? clampedValue.toString() : '0'),
-      onChange(e));
+    onChange && ((e.target.value = isValidNumber ? clampedValue.toString() : '0'), onChange(e));
   };
 
   return (
-    <article
-      className={classNames(
-        'flex flex-row gap-3 items-center',
-        disabled && 'opacity-25',
-      )}
-    >
+    <article className={classNames('flex flex-row gap-3 items-center', disabled && 'opacity-25')}>
       {icon}
       <div className="flex flex-col flex-1">
-        <h4
-          className={classNames(
-            'text-gray-darker text-left text-base font-semibold',
-            titleClassName,
-          )}
-        >
-          {title}
-        </h4>
+        <h4 className={classNames('text-gray-darker text-left text-base font-semibold', titleClassName)}>{title}</h4>
         <p className="text-gray-darker text-left text-sm">{subtitle}</p>
       </div>
       <TextField
@@ -67,3 +41,5 @@ export default function ({
     </article>
   );
 }
+
+export default CategoryVoteInput;

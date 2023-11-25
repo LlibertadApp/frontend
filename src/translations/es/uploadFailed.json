@@ -1,0 +1,5 @@
+{
+  "data_submission_failed": "El envío de los datos falló",
+  "action_not_completed": "Lo sentimos, no fue posible completar la acción en este momento. Por favor, vuelve a intentarlo.",
+  "retry": "Reintentar"
+}

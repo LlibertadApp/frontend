@@ -10,9 +10,7 @@ export default function TableList({ actas }: TableListProps) {
     return (
       <div className="flex flex-col items-center pt-[17.5]">
         <img src="assets/icon/box-icon.svg" alt="box icon" />
-        <p className="py-[26px] px-4 text-xl font-normal text-center">
-          Todavía no hay ninguna mesa cargada
-        </p>
+        <p className="py-[26px] px-4 text-xl font-normal text-center">Todavía no hay ninguna mesa cargada</p>
       </div>
     );
   }

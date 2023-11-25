@@ -9,18 +9,10 @@ interface AlertProps {
 }
 
 export default function Alert({ error, message, className }: AlertProps) {
-  const alertClass = error
-    ? 'bg-red-error/10 text-red-error'
-    : 'bg-green-light/10 text-green-light';
+  const alertClass = error ? 'bg-red-error/10 text-red-error' : 'bg-green-light/10 text-green-light';
 
   return (
-    <div
-      className={classNames(
-        'flex justify-between items-center w-full px-3 py-[14px] rounded-2xl text-left',
-        alertClass,
-        className,
-      )}
-    >
+    <div className={classNames('flex justify-between items-center w-full px-3 py-[14px] rounded-2xl text-left', alertClass, className)}>
       <span className="text-sm lg:text-base">{message}</span>
       {error ? (
         <div className="w-6 h-6">

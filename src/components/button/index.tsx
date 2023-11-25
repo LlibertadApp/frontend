@@ -2,20 +2,9 @@ import classNames from 'classnames';
 import { ButtonAppearance, ButtonSize, IButtonProps } from './types';
 import LoadingSpinner from '../loadingSpinner';
 
-export default function Button({
-  appearance = 'filled',
-  size = 'md',
-  type,
-  onClick,
-  disabled,
-  label,
-  children,
-  className,
-  isLoading
-}: IButtonProps) {
+export default function Button({ appearance = 'filled', size = 'md', type, onClick, disabled, label, children, className, isLoading }: IButtonProps) {
   const appereances: Record<ButtonAppearance, string> = {
-    filled:
-      'bg-violet-brand text-white disabled:bg-gray-300 disabled:text-gray-500',
+    filled: 'bg-violet-brand text-white disabled:bg-gray-300 disabled:text-gray-500',
     outlined: 'border border-violet-brand text-violet-brand',
     ghost: 'text-violet-brand focus:ring-2 focus:ring-violet-brand',
     unstyled: '',
@@ -36,14 +25,10 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={classNames(
-        'w-full font-medium rounded-xl flex flex-row gap-[10px] justify-center items-center',
-        buttonAppereance,
-        className,
-      )}
+      className={classNames('w-full font-medium rounded-xl flex flex-row gap-[10px] justify-center items-center', buttonAppereance, className)}
     >
       {children || label}
-      { isLoading && <LoadingSpinner /> }
+      {isLoading && <LoadingSpinner />}
     </button>
   );
 }

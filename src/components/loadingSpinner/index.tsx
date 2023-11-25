@@ -5,10 +5,7 @@ export default function LoadingSpinner({ className }: LoadingSpinnerProps) {
   return (
     <svg
       aria-hidden="true"
-      className={classNames(
-        'inline w-8 h-8 text-transparent animate-spin fill-white',
-        className,
-      )}
+      className={classNames('inline w-8 h-8 text-transparent animate-spin fill-white', className)}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

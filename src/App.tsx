@@ -8,6 +8,7 @@ import Overlay from './components/overlay';
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { AnimatePresence } from 'framer-motion';
+import TranslationWrapper from './context/TranslationContext';
 
 function App() {
   // Colores definidos
@@ -46,21 +47,23 @@ function App() {
   });
 
   return (
-    <AuthProvider>
-      <CertificateProvider>
-        <ThemeProvider theme={theme}>
-          <Suspense fallback={<LoadingPage />}>
-            <HamburgerProvider>
-              <Overlay>
-                <AnimatePresence>
-                  <AppRoutes />
-                </AnimatePresence>
-              </Overlay>
-            </HamburgerProvider>
-          </Suspense>
-        </ThemeProvider>
-      </CertificateProvider>
-    </AuthProvider>
+    <TranslationWrapper>
+      <AuthProvider>
+        <CertificateProvider>
+          <ThemeProvider theme={theme}>
+            <Suspense fallback={<LoadingPage />}>
+              <HamburgerProvider>
+                <Overlay>
+                  <AnimatePresence>
+                    <AppRoutes />
+                  </AnimatePresence>
+                </Overlay>
+              </HamburgerProvider>
+            </Suspense>
+          </ThemeProvider>
+        </CertificateProvider>
+      </AuthProvider>
+    </TranslationWrapper>
   );
 }
 

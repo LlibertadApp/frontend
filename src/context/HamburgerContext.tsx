@@ -4,7 +4,6 @@ import { HamburgerContextType, HamburgerProviderProps } from './types';
 
 const HamburgerContext = createContext<HamburgerContextType | undefined>(undefined);
 
-
 export const HamburgerProvider: React.FC<HamburgerProviderProps> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -12,11 +11,7 @@ export const HamburgerProvider: React.FC<HamburgerProviderProps> = ({ children }
     setMenuOpen(false);
   };
 
-  return (
-    <HamburgerContext.Provider value={{ menuOpen, setMenuOpen, closeMenu }}>
-      {children}
-    </HamburgerContext.Provider>
-  );
+  return <HamburgerContext.Provider value={{ menuOpen, setMenuOpen, closeMenu }}>{children}</HamburgerContext.Provider>;
 };
 
 export const useHamburgerMenu = () => {

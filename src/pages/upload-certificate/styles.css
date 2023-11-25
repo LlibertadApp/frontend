@@ -1,13 +1,13 @@
 .message {
-  font-size: 144% !important;
-  font-weight: 600;
+    font-size: 144% !important;
+    font-weight: 600;
 }
 
 .w-image-25 {
-  margin-right: 25%;
+    margin-right: 25%;
 }
 
-.progressIndicator{
-  display: flex;
-  justify-content: center;
+.progressIndicator {
+    display: flex;
+    justify-content: center;
 }

@@ -19,17 +19,9 @@ const ProgressIndicator = ({ steps }: IProgressIndicatorProps) => {
             }`}
           >
             {step === ProgressStepStatus.Successful ? (
-              <img
-                className="w-4 h-4 lg:w-8 lg:h-8"
-                src="/assets/icon/check-icon.svg"
-                alt=""
-              />
+              <img className="w-4 h-4 lg:w-8 lg:h-8" src="/assets/icon/check-icon.svg" alt="" />
             ) : step === ProgressStepStatus.Error ? (
-              <img
-                className="w-4 h-4 lg:w-8 lg:h-8"
-                src="/assets/icon/error-icon.svg"
-                alt=""
-              />
+              <img className="w-4 h-4 lg:w-8 lg:h-8" src="/assets/icon/error-icon.svg" alt="" />
             ) : (
               <span>{(index + 1).toString()}</span>
             )}

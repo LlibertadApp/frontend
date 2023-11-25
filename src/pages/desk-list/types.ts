@@ -5,7 +5,7 @@ export interface IDeskItemLabel {
   className?: string;
   deskValue: number;
   label: string;
-  statusStyle?: {};
+  statusStyle?: object;
 }
 
 export interface IDeskNormalStatus {

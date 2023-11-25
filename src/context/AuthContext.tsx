@@ -1,27 +1,11 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
 
-import {
-  AuthContextType,
-  AuthProviderProps,
-  CheckUserFunction,
-  LogoutFunction,
-} from './types';
+import { AuthContextType, AuthProviderProps, CheckUserFunction, LogoutFunction } from './types';
 
-import {
-  User,
-  onAuthStateChanged,
-  signInWithCustomToken,
-  signOut,
-} from 'firebase/auth';
+import { User, onAuthStateChanged, signInWithCustomToken, signOut } from 'firebase/auth';
 import firebaseAuth from '#/service/firebase/firebase';
 
 import { LoadingPage } from '#/pages/loading-page';
@@ -58,25 +42,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   // Chequea validez del token de usuario
-  const checkUser: CheckUserFunction = useCallback(
-    async (user: User | null) => {
-      if (user) {
-        try {
-          const userToken = await user.getIdToken();
-          const decodedToken: any = jwt_decode(userToken);
-          if (decodedToken.exp * 1000 < Date.now()) {
-            throw new Error('Token expirado');
-          }
-          return userToken as string;
-        } catch (error) {
-          throw new Error('Token inválido');
+  const checkUser: CheckUserFunction = useCallback(async (user: User | null) => {
+    if (user) {
+      try {
+        const userToken = await user.getIdToken();
+        const decodedToken: any = jwt_decode(userToken);
+        if (decodedToken.exp * 1000 < Date.now()) {
+          throw new Error('Token expirado');
         }
+        return userToken as string;
+      } catch (error) {
+        throw new Error('Token inválido');
       }
+    }
 
-      throw new Error('No existe usuario');
-    },
-    [],
-  );
+    throw new Error('No existe usuario');
+  }, []);
 
   const logout: LogoutFunction = useCallback(async () => {
     await signOut(firebaseAuth);
@@ -94,7 +75,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Seteamos en el session storage el token del usuario y su uid
       uid && sessionStorage.setItem('uid', uid);
       userToken && sessionStorage.setItem('token', userToken);
-      
+
       setUser(user);
       return user;
     } catch (error) {
@@ -130,13 +111,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return <LoadingPage />;
   }
 
-  return (
-    <AuthContext.Provider
-      value={{ user, mesas, checkUser, logout, error, setError }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, mesas, checkUser, logout, error, setError }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

@@ -11,24 +11,18 @@ export const saveActas = (acta: FormData) => {
 
 export const getUserActas = async () => {
   const token = sessionStorage.getItem('token');
-  const storagedActas = JSON.parse(
-    sessionStorage.getItem('actas') || '[]',
-  ) as Acta[];
+  const storagedActas = JSON.parse(sessionStorage.getItem('actas') || '[]') as Acta[];
 
   const { data } = await axios.get<{ data: Acta[] }>('v1/actas', {
     headers: { Authorization: token },
   });
 
   const actas: Acta[] = [];
-  actas.push(
-    ...storagedActas.map((acta) => ({ ...acta, estado: 'PROCESANDO' }) as Acta),
-  );
+  actas.push(...storagedActas.map((acta) => ({ ...acta, estado: 'PROCESANDO' }) as Acta));
 
   if (data.data) {
     // Si existen datos en la API, removemos aquellas mesas que ya vienen desde el backend
-    const filteredActas = actas.filter(
-      (acta) => !data.data.find((acta) => acta.mesaId === acta.mesaId),
-    );
+    const filteredActas = actas.filter(() => !data.data.find((acta) => acta.mesaId === acta.mesaId)); //TODO: FIJARSE ESTA FUNCION SI ANDA
     // Ingresamos en actas las mesas que vienen desde el backend
     filteredActas.push(...data.data);
 

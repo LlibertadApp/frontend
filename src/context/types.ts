@@ -10,7 +10,7 @@ export interface AuthContextType {
   user: User | null;
   error: boolean | null;
   mesas: string[];
-  setError: (error: boolean) => void
+  setError: (error: boolean) => void;
   checkUser: CheckUserFunction;
   logout: LogoutFunction;
 }
@@ -24,7 +24,7 @@ export interface AuthProviderProps {
 export interface HamburgerContextType {
   menuOpen: boolean;
   setMenuOpen: (menuOpen: boolean) => void;
-  closeMenu: () => void
+  closeMenu: () => void;
 }
 export interface HamburgerProviderProps {
   children: ReactNode;

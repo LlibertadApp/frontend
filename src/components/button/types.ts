@@ -1,11 +1,4 @@
-export type ButtonAppearance =
-  | 'filled'
-  | 'outlined'
-  | 'ghost'
-  | 'unstyled'
-  | 'disabled'
-  | 'error'
-  | 'none';
+export type ButtonAppearance = 'filled' | 'outlined' | 'ghost' | 'unstyled' | 'disabled' | 'error' | 'none';
 
 export type ButtonSize = 'sm' | 'md';
 

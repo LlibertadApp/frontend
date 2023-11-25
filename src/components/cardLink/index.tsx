@@ -1,13 +1,7 @@
 import { Link } from 'react-router-dom';
 import { PropsCardLink, colors, typeConfigColors } from './types';
 
-export const CardLink = ({
-  icon,
-  text,
-  link,
-  color,
-  onClick,
-}: PropsCardLink) => {
+export const CardLink = ({ icon, text, link, color, onClick }: PropsCardLink) => {
   let config: typeConfigColors = {
     hover: '',
     text: '',
@@ -42,11 +36,7 @@ export const CardLink = ({
       onClick={() => onClick && onClick()}
     >
       <div className="flex items-center gap-2 lg:gap-4">
-        <div
-          className={`${config?.bg} w-[3.1875rem] h-[3.1875rem] rounded-full flex items-center justify-center`}
-        >
-          {icon}
-        </div>
+        <div className={`${config?.bg} w-[3.1875rem] h-[3.1875rem] rounded-full flex items-center justify-center`}>{icon}</div>
         <span className="text-xs lg:text-lg">{text}</span>
       </div>
       <img src="assets/icon/arrow-continue.svg" alt="Ir" className="w-4 h-4" />

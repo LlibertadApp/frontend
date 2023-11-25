@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.prettierrc.js
+.eslintrc.js
+env.d.ts
+yarn.lock
+*.svg
+*.css
+*.html
+*.md
+yarn-error.log
+public/
+*.py
