@@ -8,6 +8,7 @@ import sendWarning from './sendWarning.json';
 import uploadCertificate from './uploadCertificate.json';
 import uploadFailed from './uploadFailed.json';
 import verifyCertificate from './verifyCertificate.json';
+import logoutModal from './logoutModal.json'
 
 const spanishTranslations = {
     deskList,
@@ -20,6 +21,7 @@ const spanishTranslations = {
     uploadCertificate,
     uploadFailed,
     verifyCertificate,
+    logoutModal
 };
 
 export default spanishTranslations;

@@ -6,8 +6,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { LogoutModalProps } from './types';
+import { useTranslation } from 'react-i18next';
 
 const LogoutModal: React.FC<LogoutModalProps> = ({ open, setOpen }) => {
+    const { t } = useTranslation('logoutModal')
     const { logout } = useAuth();
 
     const handleClose = () => {
@@ -21,14 +23,14 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ open, setOpen }) => {
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-            <DialogTitle id="alert-dialog-title">Confirmación</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{t('confirmation')}</DialogTitle>
             <DialogContent>
-                <DialogContentText id="alert-dialog-description">Queres salir de tu cuenta como Fiscal?</DialogContentText>
+                <DialogContentText id="alert-dialog-description">{t('you_want_to_leave?')}</DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Cancelar</Button>
+                <Button onClick={handleClose}>{t('cancel')}</Button>
                 <Button onClick={handleLogout} autoFocus variant="contained" color="error">
-                    Si, salir.
+                    {t('yes')}
                 </Button>
             </DialogActions>
         </Dialog>
