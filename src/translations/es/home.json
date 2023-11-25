@@ -1,7 +1,7 @@
 {
-   "title": "ELECCIONES 2023",
-   "fiscalActions": "Acciones de fiscales",
-   "loadTableResults": "Cargar resultados de tu mesa",
-   "alreadyUploadedTables" : "Ya has cargado todas tus mesas",
-   "uploadedTablesList": "Listado de mesas cargadas"
+    "title": "ELECCIONES 2023",
+    "fiscalActions": "Acciones de fiscales",
+    "loadTableResults": "Cargar resultados de tu mesa",
+    "alreadyUploadedTables": "Ya has cargado todas tus mesas",
+    "uploadedTablesList": "Listado de mesas cargadas"
 }

@@ -3,70 +3,70 @@
 @tailwind utilities;
 
 @layer base {
-  /* Normal Fonts */
-  @font-face {
-    font-family: 'Poppins' !important;
-    font-style: normal;
-    font-weight: 400;
-    font-display: auto;
+    /* Normal Fonts */
+    @font-face {
+        font-family: 'Poppins' !important;
+        font-style: normal;
+        font-weight: 400;
+        font-display: auto;
 
-    src: url(/assets/fonts/Poppins-Regular.ttf);
-  }
+        src: url(/assets/fonts/Poppins-Regular.ttf);
+    }
 
-  @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 500;
-    font-display: auto;
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-display: auto;
 
-    src: url(/assets/fonts/Poppins-Medium.ttf);
-  }
+        src: url(/assets/fonts/Poppins-Medium.ttf);
+    }
 
-  @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-display: auto;
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-display: auto;
 
-    src: url(/assets/fonts/Poppins-SemiBold.ttf);
-  }
+        src: url(/assets/fonts/Poppins-SemiBold.ttf);
+    }
 
-  /* Italic Fonts */
-  @font-face {
-    font-family: 'Poppins';
-    font-style: italic;
-    font-weight: 400;
-    font-display: auto;
+    /* Italic Fonts */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: italic;
+        font-weight: 400;
+        font-display: auto;
 
-    src: url(/assets/fonts/Poppins-Italic.ttf);
-  }
+        src: url(/assets/fonts/Poppins-Italic.ttf);
+    }
 
-  @font-face {
-    font-family: 'Poppins';
-    font-style: italic;
-    font-weight: 500;
-    font-display: auto;
+    @font-face {
+        font-family: 'Poppins';
+        font-style: italic;
+        font-weight: 500;
+        font-display: auto;
 
-    src: url(/assets/fonts/Poppins-MediumItalic.ttf);
-  }
+        src: url(/assets/fonts/Poppins-MediumItalic.ttf);
+    }
 
-  @font-face {
-    font-family: 'Poppins';
-    font-style: italic;
-    font-weight: 600;
-    font-display: auto;
+    @font-face {
+        font-family: 'Poppins';
+        font-style: italic;
+        font-weight: 600;
+        font-display: auto;
 
-    src: url(/assets/fonts/Poppins-SemiBoldItalic.ttf);
-  }
+        src: url(/assets/fonts/Poppins-SemiBoldItalic.ttf);
+    }
 }
 
 @layer base {
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number'] {
-    -webkit-appearance: none;
-    margin: 0;
-    -moz-appearance: textfield !important;
-    appearance: none;
-  }
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number'] {
+        -webkit-appearance: none;
+        margin: 0;
+        -moz-appearance: textfield !important;
+        appearance: none;
+    }
 }

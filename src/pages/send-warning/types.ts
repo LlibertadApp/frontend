@@ -1,3 +1,3 @@
 export interface ISendWarningProps {
-  message?: string;
+    message?: string;
 }

@@ -17,38 +17,38 @@ const DeskList = lazy(() => import('#/pages/desk-list/deskList'));
 const Home = lazy(() => import('#/pages/home/home'));
 
 const AppRoutes: React.FC = () => {
-  const location = useLocation();
-  return (
-    <Routes location={location} key={location.pathname}>
-      <Route element={<AnimatedRoute />}>
-        {/* Public routes */}
-        <Route element={<PublicRoute path={paths.home} />}>
-          {/* Auth */}
-          <Route path={paths.index} element={<Login />} />
-        </Route>
+    const location = useLocation();
+    return (
+        <Routes location={location} key={location.pathname}>
+            <Route element={<AnimatedRoute />}>
+                {/* Public routes */}
+                <Route element={<PublicRoute path={paths.home} />}>
+                    {/* Auth */}
+                    <Route path={paths.index} element={<Login />} />
+                </Route>
 
-        {/* 404 Not found */}
-        <Route path="*" element={<NotFound />} />
+                {/* 404 Not found */}
+                <Route path="*" element={<NotFound />} />
 
-        {/* Protected routes */}
-        <Route element={<ProtectedRoute />}>
-          {/* Cuenta */}
-          <Route path={paths.home} element={<Home />} />
+                {/* Protected routes */}
+                <Route element={<ProtectedRoute />}>
+                    {/* Cuenta */}
+                    <Route path={paths.home} element={<Home />} />
 
-          {/* Steps Formulario */}
-          <Route path={paths.uploadActa} element={<UploadCertificate />} />
-          <Route path={paths.verifyActa} element={<VerifyCertificate />} />
-          <Route path={paths.loadActaInfo} element={<LoadInformation />} />
-          <Route path={paths.sendSuccess} element={<SendSuccess />} />
-          <Route path={paths.sendWarning} element={<SendWarning />} />
-          <Route path={paths.uploadFailed} element={<UploadFailed />} />
+                    {/* Steps Formulario */}
+                    <Route path={paths.uploadActa} element={<UploadCertificate />} />
+                    <Route path={paths.verifyActa} element={<VerifyCertificate />} />
+                    <Route path={paths.loadActaInfo} element={<LoadInformation />} />
+                    <Route path={paths.sendSuccess} element={<SendSuccess />} />
+                    <Route path={paths.sendWarning} element={<SendWarning />} />
+                    <Route path={paths.uploadFailed} element={<UploadFailed />} />
 
-          {/* Filters, Results & Irregularities */}
-          <Route path={paths.votationTables} element={<DeskList />} />
-        </Route>
-      </Route>
-    </Routes>
-  );
+                    {/* Filters, Results & Irregularities */}
+                    <Route path={paths.votationTables} element={<DeskList />} />
+                </Route>
+            </Route>
+        </Routes>
+    );
 };
 
 export default AppRoutes;

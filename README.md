@@ -8,26 +8,25 @@ La intencion de crear este sistema es mantener y preservar la democracia y la tr
 
 ## Indice
 
-- [:lion: Sistema-Anti-Fraude-Electoral :lion:](#lion-sistema-anti-fraude-electoral-lion)
-  - [Indice](#indice)
-  - [Objetivos](#objetivos)
-  - [Componentes](#componentes)
-  - [Repositorios y organización](#repositorios-y-organización)
-  - [Tipos de Fraudes](#tipos-de-fraudes)
-    - [Mesas Inexistentes](#mesas-inexistentes)
-    - [Datos de Mesa Correctos luego Incorrectos](#datos-de-mesa-correctos-luego-incorrectos)
-    - [Fiscales Falsos](#fiscales-falsos)
-    - [Fiscales Judas](#fiscales-judas)
-    - [Conteo de Voto Corrupto por falta del Fiscal de Mesa](#conteo-de-voto-corrupto-por-falta-del-fiscal-de-mesa)
-  - [Usuarios](#usuarios)
-  - [Funcionalidad](#funcionalidad)
-  - [Arquitectura del Sistema](#arquitectura-del-sistema)
-    - [Componentes Principales](#componentes-principales)
-      - [Base de Datos](#base-de-datos)
-      - [Servicios de Backend](#servicios-de-backend)
-      - [Frontend](#frontend)
-      - [Procesos Batch](#procesos-batch)
-
+-   [:lion: Sistema-Anti-Fraude-Electoral :lion:](#lion-sistema-anti-fraude-electoral-lion)
+    -   [Indice](#indice)
+    -   [Objetivos](#objetivos)
+    -   [Componentes](#componentes)
+    -   [Repositorios y organización](#repositorios-y-organización)
+    -   [Tipos de Fraudes](#tipos-de-fraudes)
+        -   [Mesas Inexistentes](#mesas-inexistentes)
+        -   [Datos de Mesa Correctos luego Incorrectos](#datos-de-mesa-correctos-luego-incorrectos)
+        -   [Fiscales Falsos](#fiscales-falsos)
+        -   [Fiscales Judas](#fiscales-judas)
+        -   [Conteo de Voto Corrupto por falta del Fiscal de Mesa](#conteo-de-voto-corrupto-por-falta-del-fiscal-de-mesa)
+    -   [Usuarios](#usuarios)
+    -   [Funcionalidad](#funcionalidad)
+    -   [Arquitectura del Sistema](#arquitectura-del-sistema)
+        -   [Componentes Principales](#componentes-principales)
+            -   [Base de Datos](#base-de-datos)
+            -   [Servicios de Backend](#servicios-de-backend)
+            -   [Frontend](#frontend)
+            -   [Procesos Batch](#procesos-batch)
 
 ## Objetivos
 
@@ -39,22 +38,22 @@ Los objetivos de este sistema son:
 
 ## Componentes
 
-- Frontend fiscales (carga de datos)
-- Frontend público (para toda persona que quiera acceder a los datos)
-- Backend (API)
+-   Frontend fiscales (carga de datos)
+-   Frontend público (para toda persona que quiera acceder a los datos)
+-   Backend (API)
 
 ## Repositorios y organización
 
 Este repositorio tiene la finalidad de:
 
-- Explicar el proyecto en general
-- Alojar el frontend para fiscales.
-- Servir de sistema de documentacion general.
+-   Explicar el proyecto en general
+-   Alojar el frontend para fiscales.
+-   Servir de sistema de documentacion general.
 
 Estos repositorios son las partes complementarias del proyecto:
 
-- Frontend público (_TO DO: Incluir link cuando se lo cree_)
-- [Backend API](https://github.com/Las-Fuerzas-Del-Cielo/api)
+-   Frontend público (_TO DO: Incluir link cuando se lo cree_)
+-   [Backend API](https://github.com/Las-Fuerzas-Del-Cielo/api)
 
 ## Tipos de Fraudes
 
@@ -124,17 +123,17 @@ Esta APP tendría estos tipos de usuarios:
 
 ## Arquitectura del Sistema
 
-- **Cloudflare:** Se utiliza para la gestión de DNS, CDN y seguridad en la capa 7.
+-   **Cloudflare:** Se utiliza para la gestión de DNS, CDN y seguridad en la capa 7.
 
-- **React SPA:** Alojada en S3.
+-   **React SPA:** Alojada en S3.
 
-- **API Express:** Hospedada como un monolito en una función Lambda. Esto permite flexibilidad para los desarrolladores y evita la complejidad de tener que adaptarse al desarrollo de microservicios.
+-   **API Express:** Hospedada como un monolito en una función Lambda. Esto permite flexibilidad para los desarrolladores y evita la complejidad de tener que adaptarse al desarrollo de microservicios.
 
-- **API Gateway:** Aquí ocurre la magia de hacer un monolito serverless, ya que todos los endpoints se proxean a la Lambda que ejecuta el servidor Express.
+-   **API Gateway:** Aquí ocurre la magia de hacer un monolito serverless, ya que todos los endpoints se proxean a la Lambda que ejecuta el servidor Express.
 
-- **DynamoDB:** Otro servicio serverless que nos evita tener que lidiar con configuraciones de escalado y posibles picos inesperados de tráfico. Esto asegura que la aplicación pueda soportar altos niveles de carga sin fallar.
+-   **DynamoDB:** Otro servicio serverless que nos evita tener que lidiar con configuraciones de escalado y posibles picos inesperados de tráfico. Esto asegura que la aplicación pueda soportar altos niveles de carga sin fallar.
 
-- **S3 Bucket:** Aquí se subirán assets en forma de videos o imágenes como pruebas de fraudes.
+-   **S3 Bucket:** Aquí se subirán assets en forma de videos o imágenes como pruebas de fraudes.
 
 Hay muchas formas de abordar la arquitectura de un sistema como este. Enumeremos primero los criterios más importantes que queremos seguir y, a partir de ellos, derivaremos la arquitectura que emerja.
 
@@ -218,12 +217,12 @@ Para aportar tu contribución, tenés que crear un fork que incluya la rama dev 
 
 En resumen:
 
-- Crear un fork de este repositorio que incluya la rama **dev**.
-- Realizar los cambios en el clon local del fork en la rama **dev**.
-- Subir los cambios a tu fork.
-- Crear un PR hacia la rama **dev** de este repositorio.
-- Agrega una descripción clara de los cambios en el PR.
-- Agrega etiquetas correspondientes a los cambios en el PR.
+-   Crear un fork de este repositorio que incluya la rama **dev**.
+-   Realizar los cambios en el clon local del fork en la rama **dev**.
+-   Subir los cambios a tu fork.
+-   Crear un PR hacia la rama **dev** de este repositorio.
+-   Agrega una descripción clara de los cambios en el PR.
+-   Agrega etiquetas correspondientes a los cambios en el PR.
 
 # Discord para Desarrolladores
 

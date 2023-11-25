@@ -1,17 +1,17 @@
 import { TypographyOwnProps } from '@mui/material';
 
 export interface IDeskItemLabel {
-  typoProps?: TypographyOwnProps;
-  className?: string;
-  deskValue: number;
-  label: string;
-  statusStyle?: {};
+    typoProps?: TypographyOwnProps;
+    className?: string;
+    deskValue: number;
+    label: string;
+    statusStyle?: object;
 }
 
 export interface IDeskNormalStatus {
-  deskNormalStatus?: boolean;
+    deskNormalStatus?: boolean;
 }
 
 export interface IAccordionExpanded {
-  [key: string]: boolean;
+    [key: string]: boolean;
 }

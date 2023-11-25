@@ -1,25 +1,24 @@
 .circle {
-  width: 1.875rem;
-  height: 1.875rem;
+    width: 1.875rem;
+    height: 1.875rem;
 }
 
 .circle .icon-check {
-  width: 40%;
-  height: 40%;
+    width: 40%;
+    height: 40%;
 }
 
 .stick {
-  content: "";
-  flex: 1;
-  height: 2.5px;
+    content: '';
+    flex: 1;
+    height: 2.5px;
 }
 
 .bg-green-check {
-  background-color: #58C299;
+    background-color: #58c299;
 }
-
 
 /* se agrego para manejar el width en general */
 .progressIndicatorW {
-  width: 70%;
+    width: 70%;
 }

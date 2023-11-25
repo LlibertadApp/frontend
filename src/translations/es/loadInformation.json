@@ -33,7 +33,7 @@
         "difference_message_envelopes": "Hay una diferencia de {{difference}} {{oneormany}} con respecto a los electores",
         "integer_voters": "El número de electores debe ser un entero",
         "positive_voters": "El número de electores debe ser mayor a 0",
-        
+
         "required_voters": "El número de electores es obligatorio",
         "required_circuit": "Debe ingresar un circuito",
         "required_table": "Debe ingresar una mesa",
@@ -41,5 +41,4 @@
         "sum_does_not_match": "La suma no coincide con el total de votos",
         "accept_table_agreement": "Debe aceptar el acuerdo de la mesa"
     }
-
 }

@@ -1,13 +1,13 @@
-import deskList from './deskList.json'
-import home from './home.json'
-import loadInformation from './loadInformation.json'
-import login from './login.json'
-import notFound from './notFound.json'
-import sendSuccess from './sendSuccess.json'
-import sendWarning from './sendWarning.json'
-import uploadCertificate from './uploadCertificate.json'
-import uploadFailed from './uploadFailed.json'
-import verifyCertificate from './verifyCertificate.json'
+import deskList from './deskList.json';
+import home from './home.json';
+import loadInformation from './loadInformation.json';
+import login from './login.json';
+import notFound from './notFound.json';
+import sendSuccess from './sendSuccess.json';
+import sendWarning from './sendWarning.json';
+import uploadCertificate from './uploadCertificate.json';
+import uploadFailed from './uploadFailed.json';
+import verifyCertificate from './verifyCertificate.json';
 
 const spanishTranslations = {
     deskList,
@@ -19,7 +19,7 @@ const spanishTranslations = {
     sendWarning,
     uploadCertificate,
     uploadFailed,
-    verifyCertificate
-}
+    verifyCertificate,
+};
 
 export default spanishTranslations;
